@@ -1,0 +1,63 @@
+﻿@{
+    ViewBag.Title = "StationImport";
+}
+ <div class="col-md-3">
+<input id="FileUpload" type="file" name="upload" style="width: 250px; background: White" class="easyui-validatebox" validtype="length[1,100]" />
+</div>
+ <div class="col-md-9"><button id="btnOK">导入</button>
+     </div>
+<br /><br />
+<a href="~/assets/file/模板.xls">模板下载</a>
+<br /><br />
+导入格式说明：<br />
+1、工作表名称为默认的"Sheet1",不必修改。<br />
+2、各列及顺序如下图所示：<br />
+<img src="~/assets/images/导入说明.png" />
+@section jssection{
+    <script type="text/javascript">
+        ; (function (window, undefined, $) {
+            $(document).ready(function () {
+                $("#btnOK").click(function (e) {
+                    OK();
+                });
+                function OK() { //点击确定按钮的时候
+                    var file = ($("#FileUpload").val());
+                    if (file == "") {
+                        alert('系统提示:请选择将要上传的文件!');
+
+                    }
+                    else {
+                        var stuff = file.match(/^(.*)(\.)(.{1,8})$/)[3];
+                        if (stuff != 'xls') {
+                            alert('文件类型不正确，请选择.xls文件!');
+                        }
+                        else {
+                            $.ajaxFileUpload
+         (
+             {
+                 url: 'UpLoad.do', //用于文件上传的服务器端请求地址
+                 type: 'post',
+                 data: { Id: '123', name: 'lunis' }, //此参数非常严谨，写错一个引号都不行
+                 secureuri: false, //一般设置为false
+                 fileElementId: 'FileUpload', //文件上传空间的id属性  <input type="file" id="file" name="file" />
+                 dataType: 'text', //返回值类型 一般设置为json
+                 success: function (data, status, Message)  //服务器成功响应处理函数
+                 {
+                     //alert(data.data.FILE_URL);
+                     data = JSON.parse(data);
+                     alert(data.message);
+                 },
+                 error: function (data, status, e)//服务器响应失败处理函数
+                 {
+                     alert(e);
+                 }
+             }
+         )
+                        }
+                    }
+                }
+            });
+        })(window, undefined, jQuery);
+    </script>
+    @Html.Js("plugins/xjgrid/xjgrid", "plugins/xjdailog/xjdailog", "plugins/validator/validator", "js/jquery.wookmark", "js/ajaxfileupload")
+}

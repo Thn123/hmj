@@ -1,0 +1,151 @@
+﻿@{
+    ViewBag.Title = "CustMsgHis";
+}
+@section htmlhead{
+    @Html.Css("plugin/xjgrid", "plugin/xjdailog")
+    @Html.Css("plugin/validator")
+    <style type="text/css">
+        .panel-chat {
+            height: auto;
+        }
+
+        em {
+            margin-left: 10px;
+            width: 18px;
+            height: 18px;
+            display: inline-block;
+        }
+
+            em.shoucang {
+                width: 18px;
+                height: 18px;
+                background: url(../assets/images/huifu.png) no-repeat 0 -54px;
+            }
+
+            em.yishoucang {
+                width: 18px;
+                height: 18px;
+                background: url(../assets/images/huifu.png) no-repeat 0 -104px;
+            }
+
+        a:hover .shoucang {
+            width: 18px;
+            height: 18px;
+            background: url(../assets/images/huifu.png) no-repeat 0 -82px;
+        }
+    </style>
+}
+@model Hmj.Entity.Entities.CUST_MSG_RECORD_EX
+<div class="s_container">
+    <div id="page-heading">
+        <h2>
+            <i class="fa fa-sitemap"></i>微信实时信息</h2>
+    </div>
+    <div id="mainbody" class="panel panel-primary">
+        <div class="panel-heading">
+            <h4>微信实时信息</h4>
+        </div>
+        <div class="panel-body" style="min-height: 350px">
+            <div class="row">
+                <div class="tab-container tab-gray">
+                    <ul class="nav nav-tabs" id="ultab">
+                        <li class="active"><a data-toggle="tab">全部</a></li>
+                        <li><a data-toggle="tab">未回复</a></li>
+                        <li><a data-toggle="tab">已回复</a></li>
+                        <li><a data-toggle="tab">已加星</a></li>
+                    </ul>
+                    <div class="text-right col-md-12" style="padding: 10px">
+                        <form id="formQuery" class="form-inline" method="post" role="form">
+                            @Html.Hidden("SEARCHTYPE", "0")
+                            <div class="form-group">
+                                @Html.TextBox("SEARCHTEXT", "", new { @class = "form-control", placeholder = "微信名、昵称" })
+                            </div>
+                            <div class="form-group">
+                                <div class="btn-group">
+                                    <button class="btn-primary btn"><i class="fa fa-search"></i>查 询</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div id="tab-content" class="tab-content">
+                        <div class="table-responsive" id="gridlist">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="replyModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 id="replyH4" class="modal-title">回复</h4>
+            </div>
+            <div>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel-chat well" id="replyDiv">
+                            @*<div id="divFanMessage" class="chat-message chat-primary">
+                                <div class="chat-contact">
+                                    <img src="http://wx.qlogo.cn/mmopen/MMt81yibw8N0baicXJ9sLbJUmlBmwDxXxmaicGyPAE4r8aPYBCbfe4z2G1GOSzWeMkYFKicMnrQwzDQYg7e1Mpf554yibNtkjzLMb/0" alt="">
+                                </div>
+                                <div class="chat-text">
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea, esse, nobis aut odit dignissimos alias.</p>
+                                </div>
+                            </div>
+                            <div id="divRely" class="chat-message me">
+                                <div class="chat-contact">
+                                </div>
+                                <div class="chat-text">
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea, esse, nobis aut odit dignissimos alias.</p>
+                                </div>
+                            </div>
+                            <div id="divRely2" class="chat-message me">
+                                <div class="chat-contact">
+                                </div>
+                                <div class="chat-text">
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea, esse, nobis aut odit dignissimos alias.[2014-12-13]</p>
+                                </div>
+                            </div>*@
+                        </div>
+                        <form id="formReply" class="form-inline" method="post" action="@Url.Action("ReplyMessage")" role="form">
+                            <div class="input-group">
+                                @Html.Hidden("ReturnID", "")
+                                @*@Html.Hidden("FROMUSERNAME", "")*@
+                                @Html.TextBox("CONTENT", Model.CONTENT, new { @class = "form-control", placeholder = "Enter your message here" })
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-primary" id="btnReply"><i class="fa fa-comments-o"></i></button>
+                                </span>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+@section jssection{
+    <script type="text/javascript">
+        var util = {};
+        var options = {
+            listUrl: "@Url.Action("QueryFansMessages")",
+            setIsStarUrl: "@Url.Action("UpdateFanMessages")",
+            queryReplyMessagesUrl: "@Url.Action("QueryReplyMessages")",
+        };
+    </script>
+ <script src="~/assets/js/linq.js"></script>
+    <script src="~/assets/plugins/xjdailog/xjdailog.js"></script>
+    <script src="~/assets/plugins/xjgrid/xjgrid.js"></script>
+    <script src="~/assets/app/wechat/custmsghis.js"></script>
+    <script src="~/assets/plugins/validator/validator.js"></script>
+   
+}

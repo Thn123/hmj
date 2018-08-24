@@ -1,0 +1,377 @@
+﻿@{
+    ViewBag.Title = "佣金方案维护";
+    var orgId = ViewData["ORG_ID"] == null ? "0" : ViewData["ORG_ID"].ToString();
+}
+@model Hmj.Entity.Entities.COMMISSION_EX
+@section htmlhead{
+    @Html.Css("plugin/xjgrid", "plugin/xjdailog", "common", "plugin/validator", "plugin/tip")
+
+    <style type="text/css">
+        .h_title {
+            padding: 5px 15px;
+            border-bottom: solid 1px #e6e5e5;
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        .searchpanel {
+            background-color: #f7f8fa; /*border: 1px solid #ccc;*/
+            padding: 5px 15px;
+            margin-left: 10px;
+            border-radius: 4px;
+        }
+
+            .searchpanel .form-group label {
+                margin-bottom: 4px;
+            }
+    </style>
+}
+<div class="s_container">
+    <div id="page-heading">
+        <h2>
+            <i class="fa fa-user"></i>&nbsp;佣金方案维护</h2>
+    </div>
+    <div id="mainbody" class="panel panel-primary">
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h4>
+                    <ul class="nav nav-tabs">
+                        <li id="LiFaxx" class="active">
+                            <a href="#Faxx" data-toggle="tab">方案详细</a>
+                             @Html.Hidden("CUTYPE", 1)
+                        </li>
+
+                        <li id="LiFwxm">
+                            @if (Model.ID == 0)
+                            {
+
+                                <a style="cursor: pointer" onclick="_showInfoMessage('请先保存方案详细', 'error');">服务项目</a>                              
+                            }
+                            else
+                            {
+
+                                <a id="aFwxm" href="#Fwxm" data-toggle="tab">服务项目</a>
+                            }
+                        </li>
+                        <li id="LiCp">
+                            @if (Model.ID == 0)
+                            {
+
+                                <a style="cursor: pointer" onclick="_showInfoMessage('请先保存方案详细', 'error');">产品</a>                              
+                            }
+                            else
+                            {
+
+                                <a id="aCp" href="#Cp" data-toggle="tab">产品</a>
+                            }
+
+                        </li>
+                        <li id="LiHyk">
+                            @if (Model.ID == 0)
+                            {
+
+                                <a style="cursor: pointer" onclick="_showInfoMessage('请先保存方案详细', 'error');">会员卡</a>                              
+                            }
+                            else
+                            {
+
+                                <a id="aHyk" href="#Hyk" data-toggle="tab">会员卡</a>
+                            }
+
+                        </li>
+                        <li id="LiLck">
+                            @if (Model.ID == 0)
+                            {
+
+                                <a style="cursor: pointer" onclick="_showInfoMessage('请先保存方案详细', 'error');">疗程卡</a>                              
+                            }
+                            else
+                            {
+
+                                <a id="aLck" href="#Lck" data-toggle="tab">疗程卡</a>
+                            }
+                        </li>
+                    </ul>
+                </h4>
+            </div>
+            <div class="panel-body">
+                <div class="tab-content">
+                    <div class="tab-pane active" id="Faxx">
+                        <form class="form-horizontal" id="frmFaxx" action="@Url.Action("SaveCommissionFaxx")" method="post" role="form">
+                            <div class="form-group">
+                                @Html.Hidden("VIWEPAGE", 1)
+                                @Html.Hidden("ID", Model.ID)
+                                <label for="NAME" class="col-sm-1 control-label"><span style="color: red">*</span>名称</label>
+                                <div class="col-sm-6">
+                                    @Html.TextBox("NAME", Model.NAME, new { @class = "form-control", placeholder = "请输入名称" })
+                                </div>
+                                <div class="col-sm-5">
+                                    <p class="help-block" style="color: red;"></p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="STATUS" class="col-sm-1 control-label">状态</label>
+                                <div class="col-sm-6">
+                                    @Html.ResourceRadioList("STATUS", "OPEN_CLOSE", Model.STATUS, null)
+                                </div>
+                                <div class="col-sm-5">
+                                    <p class="help-block" style="color: red;"></p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="BEGIN_DATE_Str" class="col-sm-1 control-label"><span style="color: red">*</span>开始日期</label>
+                                <div class="col-sm-6">
+                                    <div class="input-group date" id="BEGIN_DATE_picker">
+                                        @Html.TextBox("BEGIN_DATE_Str", Model.BEGIN_DATE_Str, new { @class = "form-control" })
+                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-5">
+                                    <p class="help-block" style="color: red;"></p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="END_DATE_Str" class="col-sm-1 control-label">结束日期</label>
+                                <div class="col-sm-6">
+                                    <div class="input-group date" id="END_DATE_picker">
+                                        @Html.TextBox("END_DATE_Str", Model.END_DATE_Str, new { @class = "form-control" })
+                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-5">
+                                    <p class="help-block" style="color: red;"></p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="REMARK" class="col-sm-1 control-label">说明</label>
+                                <div class="col-sm-6">
+                                    @Html.TextArea("REMARK", Model.REMARK, new { @class = "form-control", @cols = "50", @rows = "2" })
+                                </div>
+                                <div class="col-sm-5">
+                                    <p class="help-block" style="color: red;"></p>
+                                </div>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" id="btnCloseFaxx" class="btn btn-default" data-dismiss="modal">取 消</button>
+                                <button type="button" id="btnSaveFaxx" class="btn btn-primary">保 存</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="tab-pane" id="Fwxm">                       
+                        <div class="col-md-2 form-group text-left">
+                            <div class="btn-group">
+                                <button class="btn-primary btn" id="btnSetFwxm"><i class="fa fa-plus"></i>批量设置</button>
+                            </div>
+                        </div>
+                        <div class="col-md-10 form-group text-right form-inline">
+                            <div class="form-group">
+                                @Html.TextBox("Service_Name", "", new { @class = "form-control", placeholder = "服务项目名称" })
+                            </div>
+                            <div class="form-group">
+                                @Html.ResourceDropDownList("SER_TYPE", "SER_TYPE", "服务类别", new { @class = "form-control" }, orgId, false) @*服务类别*@
+                                <div class="btn-group">
+                                    <button class="btn-primary btn" id="Fwxm_Filter"><i class="fa fa-search"></i>筛 选</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <form class="form-horizontal" id="frmFwxm" method="post" role="form">
+                                @Html.Hidden("ID1", Model.ID)
+                                <div class="col-md-12">
+                                    <div id="gridlistFwxm">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="text-right col-md-12 form-group">
+                            <button type="button" id="btnCloseFwxm" class="btn btn-default" data-dismiss="modal">取 消</button>
+                            <button type="button" id="btnSaveFwxm" class="btn btn-primary">保 存</button>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="Cp">
+                        <div class="col-md-2 form-group text-left">
+                            <div class="btn-group">
+                                <button class="btn-primary btn" id="btnSetCp"><i class="fa fa-plus"></i>批量设置</button>
+                            </div>
+                        </div>
+                        <div class="col-md-10 form-group text-right form-inline">
+                            <div class="form-group">
+                                @Html.TextBox("Pro_Name", "", new { @class = "form-control", placeholder = "产品名称" })
+                            </div>
+                            <div class="form-group">
+                                @Html.ResourceDropDownList("SER_TYPE1", "PROD_CATEGORY", "产品类别", new { @class = "form-control" }, orgId, false) @*服务类别*@
+                                <div class="btn-group">
+                                    <button class="btn-primary btn" id="Fwxm_Filter1"><i class="fa fa-search"></i>筛 选</button>
+                                </div>
+                            </div>
+                        </div>
+                          
+                        <div class="row">
+                            <form class="form-horizontal" id="frmCp" method="post" role="form">
+                                @Html.Hidden("ID2", Model.ID)
+                                <div class="col-md-12">
+                                    <div id="gridlistCp">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="text-right col-md-12 form-group">
+                            <button type="button" id="btnCloseCp" class="btn btn-default" data-dismiss="modal">取 消</button>
+                            <button type="button" id="btnSaveCp" class="btn btn-primary">保 存</button>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="Hyk">
+                        <div class="col-md-2 form-group text-left">
+                            <div class="btn-group">
+                                <button class="btn-primary btn" id="btnSetHyk"><i class="fa fa-plus"></i>批量设置</button>
+                            </div>
+                        </div>
+                        <div class="col-md-10 form-group text-right form-inline">
+                            <div class="form-group">
+                                @Html.TextBox("Hyk_Name", "", new { @class = "form-control", placeholder = "会员卡名称" })
+                            </div>
+                            <div class="form-group">
+                                <div class="btn-group">
+                                    <button class="btn-primary btn" id="Fwxm_Filter2"><i class="fa fa-search"></i>筛 选</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <form class="form-horizontal" id="frmHyk" method="post" role="form">
+                                @Html.Hidden("ID3", Model.ID)
+                                <div class="col-md-12">
+                                    <div id="gridlistHyk">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="text-right col-md-12 form-group">
+                            <button type="button" id="btnCloseHyk" class="btn btn-default" data-dismiss="modal">取 消</button>
+                            <button type="button" id="btnSaveHyk" class="btn btn-primary">保 存</button>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="Lck">
+                        <div class="col-md-2 form-group text-left">
+                            <div class="btn-group">
+                                <button class="btn-primary btn" id="btnSetLck"><i class="fa fa-plus"></i>批量设置</button>
+                            </div>
+                        </div>
+                        <div class="col-md-10 form-group text-right form-inline">
+                            <div class="form-group">
+                                @Html.TextBox("Lck_Name", "", new { @class = "form-control", placeholder = "疗程卡名称" })
+                            </div>
+
+                            <div class="form-group">
+                                @*@Html.ResourceDropDownList("SER_TYPE3", "LCCARD_TYPE", "疗程卡类别", new { @class = "form-control" })*@ @*服务类别*@
+                                <div class="btn-group">
+                                    <button class="btn-primary btn" id="Fwxm_Filter3"><i class="fa fa-search"></i>筛 选</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <form class="form-horizontal" id="frmLck" method="post" role="form">
+                                @Html.Hidden("ID4", Model.ID)
+                                <div class="col-md-12">
+                                    <div id="gridlistLck">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="text-right col-md-12 form-group">
+                            <button type="button" id="btnCloseLck" class="btn btn-default" data-dismiss="modal">取 消</button>
+                            <button type="button" id="btnSaveLck" class="btn btn-primary">保 存</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="EditModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">批量设置</h4>
+            </div>
+
+            <div class="modal-body">
+                <form class="form-horizontal" id="frmSave" method="post" role="form">                   
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">提成方式:</label>
+                        <div class="col-sm-6">
+                            <select id="setSelect">
+                                <option value="0">选择提成方式..</option>
+                                <option value="1">无提成</option>
+                                <option value="2">按比例提成</option>
+                                <option value="3">按固定金额提成</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">项目提成金额/比例:</label>
+                        <div class="col-sm-6">
+                            @Html.TextBox("COMMISSION", "0", new { @class = "form-control", maxlength = "10" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">点客提成金额/比例:</label>
+                        <div class="col-sm-6">
+                             @Html.TextBox("COMM_DK", "0", new { @class = "form-control", maxlength = "10" })                            
+                        </div>
+                    </div>
+                </form>
+                <div class="modal-footer">
+                    <button type="button" id="btnSave" class="btn btn-primary">确 定</button>
+                    <button type="button" id="btnClose" class="btn btn-default" data-dismiss="modal">取 消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="confirmModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">确认！</h4>
+            </div>            
+            <div class="modal-body">
+                <p id="tsMsg"></p>
+                <input id="hdCurrentId" type="hidden" value="" />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取 消</button>
+                <button type="button" id="btnConfirm" class="btn btn-primary">确 定</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<!-- /.modal -->
+@section jssection{
+    <script type="text/javascript">
+        var util = {};
+        var options = {
+            indexUrl: "@Url.Action("Commission")",
+            detailLisUrl: "@Url.Action("QueryCommissionDETAILList")",
+            saveUrl: "@Url.Action("SaveCommissionDETAIL")",
+            allSetUrl:"@Url.Action("PostAllSet")"
+            
+        };
+    </script>   
+    @Html.Js("plugins/validator/validator", "plugins/xjgrid/xjgrid", "plugins/xjdailog/xjdailog",
+    "plugins/form-datepicker/js/bootstrap-datepicker",
+    "plugins/form-datepicker/js/locales/bootstrap-datepicker.zh-CN", "plugins/form-inputmask/jquery.inputmask.bundle.min",
+    "js/common", "js/jquery-ui-1.10.4.custom.min", "app/employee/editcommission")
+    @*, "plugins/form-parsley/parsley.min", "demo/demo-formvalidation"*@
+}
+
+

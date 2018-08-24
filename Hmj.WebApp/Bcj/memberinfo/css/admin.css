@@ -1,0 +1,175 @@
+@charset "utf-8";
+*{margin:0; padding:0;}
+html{font-family:"Microsoft YaHei","Helvetica Neue","Helvetica","Roboto","STHeiTi","Arial","sans-serif";-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;font-size:62.5%;}
+body{ margin:0 auto; padding:0;width:100%;height:100%; background:#fff; overflow-x:hidden;-webkit-user-select:none;-webkit-text-size-adjust:none; max-width:72rem;}
+ul,li,h1,h2,h3,h4,h5,p,input,dl,dt,dd,table,th,td,ol,form,bdo,em,i{margin:0;padding:0;list-style:none;}
+a:link,a:visited{ text-decoration:none; color:#333;webkit-touch-callout: none;} a:hover{ text-decoration:none;webkit-touch-callout: none;}
+.motify{position:fixed;top:35%;left:50%;width:220px;padding:0.5em;margin:0 0 0 -110px;z-index:999999;background:rgba(0,0,0,.8);color:#fff;line-height:2em; font-size:1.4rem;border-radius:6px;-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);box-shadow: 0 1px 2px rgba(0,0,0,.2); text-align:center; display:none;}
+.motify p{ line-height:2em; text-align:center; font-size:1.4rem; color:#fff;}
+
+
+.admin-index-banner{ margin:20px 20px 0; position:relative; overflow:hidden; min-height:150px; display:block;}
+.admin-banner img{ width:100%; display:block;}
+.admin-info-person{ position:absolute; left:0; top:0; width:100%; display:block;}
+.admin-info-person p{ padding:20px 10px; font-size:14px; font-family:Arial, Helvetica, sans-serif;}
+.admin-info-person p span{ float:right;}
+.admin-info-person p span img{ width:30px; height:30px; display:block; cursor:pointer; border-radius:0;}
+.admin-info-person p bdo.imgbox{ float:left; width:44px; height:44px; border-radius:44px; margin-right:10px; background:#fff;}
+.admin-info-person p bdo.imgbox img{width:44px; height:44px; border-radius:44px; }
+.admin-info-person p strong{color:#1D5632; display:block; font-size:16px; padding-bottom:5px;}
+em.nvicon{ background:url(../images/nv.png) no-repeat 0 center; width:20px; height:14px; display:inline-block; background-size:14px;}
+em.nanicon{ background:url(../images/nan.png) no-repeat 0 center; width:20px; height:14px; display:inline-block; background-size:14px;}
+.admin-info-person p bdo{color:#30954C;}
+
+em.zhuceBtn{ background:url(../images/huiyuan.png) no-repeat 0 center #C7D69C; background-size:20px; padding-left:25px; border-radius:20px; height:22px; line-height:22px; display:inline-block; font-style:normal; color:#7D9544; padding-right:10px; font-size:12px}
+
+.admin-tag{ width:100%; display:block; border-bottom:10px solid #f5f5f7; overflow:hidden;}
+.admin-tag ol{ float:left; width:50%; text-align:center; padding:15px 0;}
+.admin-tag ol strong{ font-size:24px; color:#5b9b6d; line-height:25px; font-weight:normal;}
+.admin-tag ol strong em{ font-size:12px; font-style:normal; padding-left:5px;}
+.admin-tag ol p span{ line-height:20px; color:#555; display:inline-block; padding-right:10px; font-size:12px; background:url(../images/morejiantou.png) no-repeat right center; background-size:6px;}
+
+.admin-nav-items{ padding:10px; display:block; font-family:Arial, Helvetica, sans-serif;} 
+.admin-nav-items ul li{ float:left; width:33.33%; display:block;text-align:center; margin-bottom:15px;}
+.admin-nav-items ul li p{ text-align:center; line-height:22px; font-size:14px; color:#555; font-family:Arial, Helvetica, sans-serif;}
+.admin-nav-items ul li p strong{ color:#555; font-weight:normal;}
+.admin-nav-items ul li span{ width:50px; height:50px; display:block; margin:5px auto;border-radius:60px;}
+.admin-nav-items ul li span.icon01{ background:url(../images/geren.png) no-repeat center center; background-size:45px;}
+.admin-nav-items ul li span.icon02{ background:url(../images/qiandao.png) no-repeat center center; background-size:45px;}
+.admin-nav-items ul li span.icon03{ background:url(../images/jifen.png) no-repeat center center; background-size:45px;}
+.admin-nav-items ul li span.icon04{ background:url(../images/wenjuan.png) no-repeat center center; background-size:45px;}
+.admin-nav-items ul li span.icon05{ background:url(../images/zhidu.png) no-repeat center center; background-size:45px;}
+
+
+.maskbg{position:fixed;top:0;left:0; z-index:9990;background:rgba(0,0,0,.8); width:100%; height:100%; display:none; min-height:568px;}
+.admin-qrmabox{ position:absolute; left:5%; top:10%; width:90%; background:#fff; height:70%; border-radius:5px; display:block; z-index:9999;}
+.admin-qrmabox-title{ height:22px; background:#1D5632; color:#fff; padding-top:25px; padding-bottom:5px; position:relative;border-radius:4px 4px 0 0;}
+.admin-qrmabox-title p{ text-align:center; font-family:Arial, Helvetica, sans-serif; font-size:14px;}
+.admin-qrmabox-tou{ position:absolute; top:-30px; left:50%; width:44px; height:44px; margin-left:-27px; background:#fff; border:5px solid #1D5632; border-radius:44px;}
+.admin-qrmabox-tou img{width:44px; height:44px; border-radius:44px; }
+.delIcon{ position:absolute; bottom:5%; left:50%; width:30px; height:30px; cursor:pointer; margin-left:-15px; background:url(../images/del.png) no-repeat 0 0; background-size:30px;}
+.admin-layer-ma,.admin-layer-tiaoma{ padding:20px 0 10px; display:block; border-top:1px solid #e1e9d0;}
+.admin-layer-ma img{ width:50%; margin:0 auto; display:block;}
+.admin-layer-tiaoma img{ width:80%; margin:0 auto; display:block;}
+.admin-layer-ma p{ text-align:center; line-height:30px; font-size:14px; color:#555;}
+.admin-layer-tiaoma p{ text-align:center; line-height:30px; font-size:16px; color:#333; font-family:Arial, Helvetica, sans-serif; z-index:99999;}
+
+.otherBox{border-bottom:10px solid #f5f5f7;}
+.otherBox p{ padding-right:15px;}
+
+.baicaojiMenber{ background:#fff; margin:10px auto; display:block; overflow:hidden;}
+.baicaojiMenber ul li{ line-height:44px; height:44px; border-bottom:1px solid #f3f3f3;overflow:hidden; padding:0 10px; position:relative;}
+.baicaojiMenber ul li span{ float:right; width:80%; text-align:right;font-size:16px;}
+.baicaojiMenber ul li strong{ float:left; width:20%; text-align:right; font-weight:normal; color:#999; font-size:14px; text-align:left;}
+.baicaojiMenber ul li .txt{ text-align:right; border:none;-webkit-appearance:none; background: transparent; height:44px;line-height:44px; width:100%; display:block; font-size:16px; color:#333;}
+.baicaojiMenber ul li p{ background:url(../images/morejiantou.png) no-repeat right center; background-size:6px 10px; display:block; height:44px;}
+.baicaojiMenber ul li span.dateinput{position:absolute; right:10px; top:0; width:80%;height:44px; z-index:99;}
+.baicaojiMenber ul li bdo{ color:#555; text-align:right; font-size:14px; display:block; float:right; padding-right:15px;}
+.baicaojiMenber ul li bdo.riqiCss{ font-size:16px; color:#333; padding-right:10px;}
+.paybtnbg{ position:absolute; bottom:0; height:44px; padding:10px; left:0; right:0; z-index:999; display:block; max-width:75rem; margin:0 auto;}
+.paybtn{ width:100%; height:44px; background:#30954C; color:#fff; line-height:44px; display:block;font-size: 16px; text-align:center;border-radius:2px; cursor:pointer;}
+.menberInfo ul li strong{color:#1b1b1b;}
+.menberInfo ul li span{ font-size:14px; color:#999;}
+.baicaojiMenber ul li span.imgbox {
+    width: 60px;
+    height: 44px;
+    overflow: hidden;
+}
+.baicaojiMenber ul li span.imgbox em{ position:absolute;right:10px; top:0; width:44px; height:44px; display:block; z-index:1;}
+.baicaojiMenber ul li span.imgbox em img{ width:40px; height:40px; border-radius:40px; display:block; overflow:hidden; z-index:1;}
+.baicaojiMenber ul li span.imgbox bdo{ position:absolute; top:-10px; right:0; width:60px; height:60px; display:block; z-index:99999;}
+.baicaojiMenber ul li span.imgbox bdo input{z-index:9999;overflow:hidden; display:block; width:60px;-webkit-appearance:none;height:60px;border:none; background:none; opacity:0;}
+#changePhone,#changePass,#changeAddress{ font-size:16px; color:1b1b1b; font-family:Arial, Helvetica, sans-serif;}
+
+/*弹出层*/
+.layoutMaskbg{ width:100%; height:100%; background:rgba(0,0,0,0.8); position:fixed; left:0; top:0; right:0; bottom:0; z-index:999999; display:block; animation:none 0.2s ease; -webkit-animation:none 0.2s ease;}
+.sku-layout{ width:100%;overflow:hidden;position: absolute;left:0px; right:0px; bottom:0px; opacity:1; transform:translate3d(0px, 0px, 0px); -webkit-transform: translate3d(0px, 0px, 0px); z-index:10000; background:#fff;-webkit-backface-visibility:hidden;
+-webkit-perspective:1000;}
+.login-lrlz-box{position:absolute;left:5%;top:20%;width:90%; background:#fff; z-index:999990; display:block; border-radius:5px;}
+.login-lrlz-box h2{line-height:44px; height:44px; display:block; font-size:18px; font-weight:normal; text-align:center; background:#fff;border-radius:5px 5px 0 0; color:#1D5632;}
+.login-lrlz-input{ padding:10px;overflow-y:scroll; overflow-x:hidden; height:auto; max-height:300px;display:block;}
+.login-lrlz-btn{display:block; overflow:hidden;border-top:1px solid #eee; padding:10px;}
+.login-lrlz-btn ol{ float:left; width:50%;display:block;}
+.login-lrlz-btn ol span{ display:block; height:44px; margin:10px;}
+.subbtn{height:44px; background:#30954C; font-size:16px; display:block; border:1px solid #30954C;   color:#fff; line-height:44px; text-align:center;border-radius:2px;}
+.quxiaobtn{ height:44px; background:#fff; font-size:16px; display:block; border:1px solid #30954C;  color:#30954C; line-height:44px; text-align:center;border-radius:2px;}
+
+.acc-login-input{ width:100%; display:block;}
+.acc-login-input ul.inputCss{margin-bottom:10px; display:block; background:#fff;}
+.acc-login-input ul li{ padding:5px 10px;}
+.acc-login-input ul li p{ border:1px solid #f3f3f3; padding:5px; line-height:30px; display:block; overflow:hidden;}
+.acc-login-input h2{background:#efefef; line-height:30px; height:30px; padding:0 10px; font-size:12px; color:#999; font-weight:normal; font-family:Arial, Helvetica, sans-serif;}
+.errorBox{ height:30px; line-height:30px; text-align:center; color:#E4393C; font-size:12px;}
+.errorBox span{ background:url(../images/jingshi.png) no-repeat 0 center; background-size:14px; padding-left:20px; display:inline-block;}
+.acc-login-input ul li p span{float:right; width:100%; height:30px;font-family:Arial, Helvetica, sans-serif;}
+.yanzhengma{width:35%; height:30px; background:#30954C; color:#fff;opacity: 1; border-radius: 2px;display:inline-block; float:right; line-height:30px; text-align:center; font-size:12px;}
+.yanzhenghui{width:35%; height:30px; background: #999;color:#fff; opacity:1; border-radius: 2px; display:inline-block; float:right; line-height:30px; text-align:center; font-size:12px;}
+.opacityBtn{opacity:0.4;}
+.acc-login-input .txt{ border:none;-webkit-appearance:none; height:30px; width:100%; display:block; font-size:14px; color:#333; text-indent:5px;}
+::-webkit-input-placeholder { /* WebKit browsers */
+　　color:#999;font-size:14px;
+}
+
+.dropdown-select {
+    width: 100%;
+    min-width: 100px !important;
+    margin: 0;
+    padding: 0;
+	text-indent:10px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 16px;
+    color: #333;
+    border: 0;
+    text-align:right;
+	direction:rtl;
+    background: none;
+    border-radius: 2px;
+	padding-right:5px;
+    background: transparent;
+    -webkit-appearance: none;
+    background:url(../images/morejiantou.png) no-repeat right center;
+	 background-size:6px 10px;
+}
+
+
+.dropdown-select3 {
+    width: 100%;
+    min-width: 100px !important;
+    margin: 0;
+    padding: 0;
+	text-indent:10px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 16px;
+    color: #333;
+    border: 0;
+    text-align:right;
+	direction:rtl;
+    background: none;
+    background: transparent;
+    -webkit-appearance: none;
+
+}
+.acc-login-input ul li.addressSpan p span{ float:left; width:50%;border-right:1px solid #eee;}
+.acc-login-input ul li.addressSpan p span:last-child{ border-right:none;width:48%;}
+
+.dropdown-select2 {
+    width: 99%;
+    min-width: 100px !important;
+    margin: 0;
+    padding: 0;
+	text-indent:10px;
+    height: 30px;
+    line-height: 30px;
+    font-size: 14px;
+    color: #555;
+    border: 0;
+    text-align: left;
+    background: none;
+    border-radius: 2px;
+    background: transparent;
+    -webkit-appearance: none;
+	background:url(../images/upicon.png) no-repeat 97.8% center #fff;
+	background-size:8px 14px;
+}

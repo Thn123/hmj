@@ -1,0 +1,160 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{0A3552C4-AA93-4637-945E-0366C7CC8EF1}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Hmj.Business</RootNamespace>
+    <AssemblyName>Hmj.Business</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>false</DebugSymbols>
+    <DebugType>none</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>
+    </DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\REFDLL\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="FluentScheduler, Version=5.3.0.0, Culture=neutral, PublicKeyToken=b76503528a14ebd1, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentScheduler.5.3.0\lib\net40\FluentScheduler.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog">
+      <HintPath>..\REFDLL\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="StructureMap, Version=2.6.1.0, Culture=neutral, PublicKeyToken=e60ad81abae3c223, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\REFDLL\StructureMap.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Vulcan">
+      <HintPath>..\REFDLL\Vulcan.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ApiGeocoderService.cs" />
+    <Compile Include="Job\MemberActivateJob.cs" />
+    <Compile Include="Job\SendTmpMessageJob.cs" />
+    <Compile Include="MiniProgram\MiniProgramService.cs" />
+    <Compile Include="MySendTmpList.cs" />
+    <Compile Include="ServiceImpl\ApiAuthService.cs" />
+    <Compile Include="BaseService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceImpl\BcjBookService.cs" />
+    <Compile Include="ServiceImpl\HmjCommonService.cs" />
+    <Compile Include="ServiceImpl\HmjMemberService.cs" />
+    <Compile Include="ServiceImpl\BcjStoreService.cs" />
+    <Compile Include="ServiceImpl\CustMemberService.cs" />
+    <Compile Include="ServiceImpl\CommonService.cs" />
+    <Compile Include="ServiceImpl\CustMsgHisService.cs" />
+    <Compile Include="ServiceImpl\CustomMenuService.cs" />
+    <Compile Include="ServiceImpl\EmployeeService.cs" />
+    <Compile Include="ServiceImpl\LoginService.cs" />
+    <Compile Include="ServiceImpl\LogService.cs" />
+    <Compile Include="ServiceImpl\MySmallShopService.cs" />
+    <Compile Include="ServiceImpl\OpinionService.cs" />
+    <Compile Include="ServiceImpl\OrgDictService.cs" />
+    <Compile Include="ServiceImpl\ResourceService.cs" />
+    <Compile Include="ServiceImpl\SMSService.cs" />
+    <Compile Include="ServiceImpl\StoreService.cs" />
+    <Compile Include="ServiceImpl\SystemService.cs" />
+    <Compile Include="ThdPlatform\ThdPlatformService.cs" />
+    <Compile Include="ServiceImpl\UserService.cs" />
+    <Compile Include="ServiceImpl\RoleService.cs" />
+    <Compile Include="WebHmjApiHelp.cs" />
+    <Compile Include="WebApiHelp.cs" />
+    <Compile Include="WXService\WXCouponService.cs" />
+    <Compile Include="WXService\WXDictCityService.cs" />
+    <Compile Include="WXService\SendMilkService.cs" />
+    <Compile Include="WXService\WXDXLogService.cs" />
+    <Compile Include="WXService\WXLogService.cs" />
+    <Compile Include="WXService\WXMessageRecordService.cs" />
+    <Compile Include="WXService\WXPersonInfoService.cs" />
+    <Compile Include="WXService\WXResourceService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Hmj.Common\Hmj.Common.csproj">
+      <Project>{3b727fcd-290b-4571-a96c-978763ecdc77}</Project>
+      <Name>Hmj.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Hmj.DataAccess\Hmj.DataAccess.csproj">
+      <Project>{8b49d35a-24d3-47f2-be58-9bb2b0a2c98d}</Project>
+      <Name>Hmj.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Hmj.DTO\Hmj.DTO.csproj">
+      <Project>{27a01859-5ee7-4d5c-a3c0-fff10758713a}</Project>
+      <Name>Hmj.DTO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Hmj.Entity\Hmj.Entity.csproj">
+      <Project>{84c5a1ab-0ff6-41f4-8bed-7939c0860b3b}</Project>
+      <Name>Hmj.Entity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Hmj.ExtendAPI\Hmj.ExtendAPI.csproj">
+      <Project>{ff0d0f83-4642-471f-b912-721adb0d38bf}</Project>
+      <Name>Hmj.ExtendAPI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Hmj.Extension\Hmj.Extension.csproj">
+      <Project>{83a876cb-95b5-415a-ad4a-b8779e8db8c0}</Project>
+      <Name>Hmj.Extension</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Hmj.Interface\Hmj.Interface.csproj">
+      <Project>{957a25a3-ad39-4b99-a8ee-b725fdc0da3a}</Project>
+      <Name>Hmj.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Hmj.WebService\Hmj.WebService.csproj">
+      <Project>{0d56c92a-2f23-4995-8dab-62612827fe69}</Project>
+      <Name>Hmj.WebService</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

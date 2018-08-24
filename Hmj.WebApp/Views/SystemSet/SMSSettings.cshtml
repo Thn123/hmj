@@ -1,0 +1,213 @@
+﻿@{
+    ViewBag.Title = "短信设置";
+} 
+@model Hmj.Entity.Entities.SMS_CONFIG_EX
+@section htmlhead{
+    @Html.Css("plugin/xjgrid", "plugin/xjdailog", "common", "plugin/validator", "plugin/tip") 
+    <link rel='stylesheet' type='text/css' href='../../assets/css/tree.css' />
+<link href="~/assets/css/select2.css" rel="stylesheet" />
+}
+
+<form action="SaveSMS.do" id="form1" method="post"  role="form">
+<div class="s_container">
+    <div id="page-heading">
+        <h2>
+            <i class="fa fa-gear"></i>&nbsp;短信设置</h2>
+    </div>
+
+                        <div class="col-sm-6"> <div class="panel panel-primary">
+                        <div class="panel-heading" >
+                        <h4>@Model.Dx1.NAME</h4>
+                         <div class="options">
+                             
+                        <a class="panel-collapse" href="#">
+                         <i class="fa fa-chevron-down"></i></a>
+                          </div>
+                         </div>
+  <div class="panel-body" >
+        <div class="form-group col-xs-12">
+           <div class="col-sm-1">
+                        @Html.CheckBox("IS_BOOT1",Model.Dx1.IS_BOOT)</div>
+           <label class="col-sm-11 control-label">启动生日提醒功能</label>
+                    </div>
+      <div class="form-group col-xs-12" style="text-align:left;">
+          <div class="col-sm-3" style="text-align:left;"> 顾客生日前</div><div class="col-sm-3">@Html.TextBox("REMIND_TIME1", Model.Dx1.REMIND_TIME, new { style="width:80px;"})</div><div class="col-sm-6">生成</div>
+          </div>
+      <div class="form-group col-xs-12">
+          <div class="col-sm-12" style="text-align:left;"> 信息内容：</div>
+          </div>
+      <div class="form-group col-xs-12">
+         <div class="col-sm-12" style="text-align:left;"> @Html.TextArea("TEMPLET_CONTENT1", Model.Dx1.TEMPLET_CONTENT, new {style = "width:100%; height:100px;"})</div>
+          </div>
+  </div>
+</div></div>
+                        
+
+   <div class="col-sm-6"> <div class="panel panel-primary">
+                        <div class="panel-heading" >
+                        <h4>@Model.Dx2.NAME</h4>
+                         <div class="options">
+                             
+                        <a class="panel-collapse" href="#">
+                         <i class="fa fa-chevron-down"></i></a>
+                          </div>
+                         </div>
+  <div class="panel-body" >
+       <div class="form-group col-xs-12">
+           <div class="col-sm-1">
+                        @Html.CheckBox("IS_BOOT2",Model.Dx2.IS_BOOT)</div>
+           <label class="col-sm-11 control-label">启动消费对帐单提醒功能</label>
+                    </div>
+      <div class="form-group col-xs-12" style="text-align:left;">
+          <div class="col-sm-4" style="text-align:left;"> 消费金额大于等于</div><div class="col-sm-3">@Html.TextBox("VALUE_CONDITION2", Model.Dx2.VALUE_CONDITION, new { style="width:80px;"})</div><div class="col-sm-5">提醒</div>
+          </div>
+      <div class="form-group col-xs-12">
+          <div class="col-sm-12" style="text-align:left;"> 信息内容：</div>
+          </div>
+      <div class="form-group col-xs-12">
+         <div class="col-sm-12" style="text-align:left;"> @Html.TextArea("TEMPLET_CONTENT2", Model.Dx2.TEMPLET_CONTENT, new {style = "width:100%; height:100px;"})</div>
+          </div>
+  </div>
+</div></div>
+
+
+    <div class="col-sm-6"> <div class="panel panel-primary">
+                        <div class="panel-heading" >
+                        <h4>@Model.Dx3.NAME</h4>
+                         <div class="options">
+                             
+                        <a class="panel-collapse" href="#">
+                         <i class="fa fa-chevron-down"></i></a>
+                          </div>
+                         </div>
+  <div class="panel-body" >
+       <div class="form-group col-xs-12">
+           <div class="col-sm-1">
+                        @Html.CheckBox("IS_BOOT3",Model.Dx3.IS_BOOT)</div>
+           <label class="col-sm-11 control-label">启动会员卡到期提醒功能</label>
+                    </div>
+      <div class="form-group col-xs-12" style="text-align:left;">
+          <div class="col-sm-2" style="text-align:left;"> 到期</div><div class="col-sm-2">@Html.TextBox("REMIND_TIME3", Model.Dx3.REMIND_TIME, new { style="width:40px;"})</div><div class="col-sm-2">天提醒</div>
+      <div class="col-sm-2" style="text-align:left;"> 每隔</div><div class="col-sm-2">@Html.TextBox("REMIND_INTERVAL3", Model.Dx3.REMIND_INTERVAL, new { style="width:40px;"})</div><div class="col-sm-2">天提醒</div>    
+      </div>
+      <div class="form-group col-xs-12">
+          <div class="col-sm-12" style="text-align:left;"> 信息内容：</div>
+          </div>
+      <div class="form-group col-xs-12">
+         <div class="col-sm-12" style="text-align:left;"> @Html.TextArea("TEMPLET_CONTENT3", Model.Dx3.TEMPLET_CONTENT, new {style = "width:100%; height:100px;"})</div>
+          </div>
+  </div>
+</div></div>
+
+    <div class="col-sm-6"> <div class="panel panel-primary">
+                        <div class="panel-heading" >
+                        <h4>@Model.Dx4.NAME</h4>
+                         <div class="options">
+                             
+                        <a class="panel-collapse" href="#">
+                         <i class="fa fa-chevron-down"></i></a>
+                          </div>
+                         </div>
+  <div class="panel-body" >
+       <div class="form-group col-xs-12">
+           <div class="col-sm-1">
+                        @Html.CheckBox("IS_BOOT4",Model.Dx4.IS_BOOT)</div>
+           <label class="col-sm-11 control-label">启动积分提醒功能</label>
+                    </div>
+      <div class="form-group col-xs-12" style="text-align:left;">
+          <div class="col-sm-3" style="text-align:left;"> 积分大于等于</div><div class="col-sm-2">@Html.TextBox("VALUE_CONDITION4", Model.Dx4.VALUE_CONDITION, new { style="width:40px;"})</div><div class="col-sm-2">每隔</div>
+         <div class="col-sm-2">@Html.TextBox("REMIND_INTERVAL4", Model.Dx4.REMIND_INTERVAL, new { style="width:40px;"})</div><div class="col-sm-3">天提醒一次</div>
+           </div>
+      <div class="form-group col-xs-12">
+          <div class="col-sm-12" style="text-align:left;"> 信息内容：</div>
+          </div>
+      <div class="form-group col-xs-12">
+         <div class="col-sm-12" style="text-align:left;"> @Html.TextArea("TEMPLET_CONTENT4", Model.Dx4.TEMPLET_CONTENT, new {style = "width:100%; height:100px;"})</div>
+          </div>
+  </div>
+</div></div>
+
+    <div class="col-sm-6"> <div class="panel panel-primary">
+                        <div class="panel-heading" >
+                        <h4>@Model.Dx5.NAME</h4>
+                         <div class="options">
+                             
+                        <a class="panel-collapse" href="#">
+                         <i class="fa fa-chevron-down"></i></a>
+                          </div>
+                         </div>
+  <div class="panel-body" >
+      <div class="form-group col-xs-12">
+           <div class="col-sm-1">
+                        @Html.CheckBox("IS_BOOT5",Model.Dx5.IS_BOOT)</div>
+           <label class="col-sm-11 control-label">启动预约提醒功能</label>
+                    </div>
+      <div class="form-group col-xs-12">
+          <div class="col-sm-12" style="text-align:left;"> 信息内容：</div>
+          </div>
+      <div class="form-group col-xs-12">
+         <div class="col-sm-12" style="text-align:left;"> @Html.TextArea("TEMPLET_CONTENT5", Model.Dx5.TEMPLET_CONTENT, new {style = "width:100%; height:100px;"})</div>
+          </div>
+  </div>
+</div></div>
+
+    <div class="col-sm-6"> <div class="panel panel-primary">
+                        <div class="panel-heading" >
+                        <h4>@Model.Dx6.NAME</h4>
+                         <div class="options">
+                             
+                        <a class="panel-collapse" href="#">
+                         <i class="fa fa-chevron-down"></i></a>
+                          </div>
+                         </div>
+  <div class="panel-body" >
+       <div class="form-group col-xs-12">
+           <div class="col-sm-1">
+                        @Html.CheckBox("IS_BOOT6",Model.Dx6.IS_BOOT)</div>
+           <label class="col-sm-11 control-label">启动存款对帐单提醒功能</label>
+                    </div>
+      <div class="form-group col-xs-12">
+          <div class="col-sm-12" style="text-align:left;"> 信息内容：</div>
+          </div>
+      <div class="form-group col-xs-12">
+         <div class="col-sm-12" style="text-align:left;"> @Html.TextArea("TEMPLET_CONTENT6", Model.Dx6.TEMPLET_CONTENT, new {style = "width:100%; height:100px;"})</div>
+          </div>
+  </div>
+</div></div>
+    <div class="col-sm-12"> 注:/a卡消费或存款额,/b卡内余额,/c积分,/d总存额,/e会员姓名,/t消费或存款时间</div>
+    <div class="modal-footer" >
+       
+                <button type="button" id="btnSave" class="btn btn-primary">保 存</button>
+               @* <button type="button" id="btnClose" class="btn btn-default" data-dismiss="modal">取 消</button>*@
+            </div>
+
+</div>
+    </form>
+
+
+
+
+@section jssection{
+    <script type="text/javascript">
+        var util = {};
+        var options = {
+            queryLeftUrl: "@Url.Action("QueryLeft")",
+            queryRightUrl: "@Url.Action("QueryRight")",
+            editUrl: "@Url.Action("Edit")",
+            deleteUrl: "@Url.Action("Delete")"
+        };
+
+        //$("#btnSave").click(function (e) {
+        //    var params = document.getElementById("form1");
+        //    jQuery.json("SaveSMS.do", params, function call(res) {
+        //        showErrorTip("操作成功：" + res.message, { left: 100, top: 10 }, true, 5000);
+        //    }, "json")
+        //});
+    </script>
+    
+    @Html.Js("plugins/xjgrid/xjgrid", "plugins/xjdailog/xjdailog",
+    "plugins/validator/validator", "plugins/form-datepicker/js/bootstrap-datepicker",
+    "plugins/form-datepicker/js/locales/bootstrap-datepicker.zh-CN",
+   "app/company/jquery.tree", "app/systemset/select2", "app/systemset/SMSSettings")
+           
+}

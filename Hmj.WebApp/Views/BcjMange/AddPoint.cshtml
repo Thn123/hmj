@@ -1,0 +1,86 @@
+﻿@{
+    ViewBag.Title = "AddPoint";
+}
+<script src="~/assets/js/jquery.js"></script>
+
+<div class="modal-body" style="height:400px">
+    <div class="form-group col-sm-12">
+        <label class="col-sm-3 control-label" style="text-align:left">手机号:</label>
+        <div class="col-sm-9">
+            <input type="text" name="name" id="mobile" class="form-control" value="" />
+        </div>
+    </div>
+
+    <div class="form-group col-sm-12">
+        <label class="col-sm-3 control-label" style="text-align:left">积分:</label>
+        <div class="col-sm-9">
+            <input type="text" name="name" id="point" class="form-control" value="300" />
+        </div>
+        <label class="col-sm-3 control-label" style="text-align:left">BP号（记得每次操作完一个会员就要复制bp号哦）:</label>
+        <input type="text" id="bp"  class="form-control" value="点击赠送或者减少后才可显示会员BP号" readonly/>
+    </div>
+
+    <input id="hdCurrentId" type="hidden" value="" />
+</div>
+<div class="modal-footer">
+    <button type="button" id="sendConfirm" class="btn btn-primary">
+        赠 送
+    </button>
+    <button type="button" id="reduceConfirm" class="btn btn-primary">
+        减 少
+    </button>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        var flg = 0;
+        $("#sendConfirm").click(function () {
+            var mobile = $("#mobile").val();
+            var point=$("#point").val();
+            if (flg == 0) {
+                flg = 1;
+                $.ajax({
+                    url: "/BcjMange/SendToPiod.do",
+                    data: { mobile: mobile, type: "add",point:point },
+                    method: "post",
+                    success: function (data) {
+                        flg = 0;
+                        if (data.status == "1") {
+                            $("#bp").val(data.data);
+                            alert("手机号：" + mobile + "，的会员积分增加:" + point + "，积分");
+                        } else {
+                            alert(data.message);
+                        }
+                    }
+                })
+            } else {
+                alert("请等待服务器的响应。。。。");
+            }
+        });
+
+        $("#reduceConfirm").click(function () {
+            var mobile = $("#mobile").val();
+            var point=$("#point").val();
+            if (flg == 0) {
+                flg = 1;
+                $.ajax({
+                    url: "/BcjMange/SendToPiod.do",
+                    data: { mobile: mobile, type: "reduce",point:point },
+                    method: "post",
+                    success: function (data) {
+                        flg = 0;
+
+                        if (data.status == "1") {
+                            $("#bp").val(data.data);
+                            alert("手机号：" + mobile + "，的会员积分减少:" + point + "，积分");
+                        } else {
+                            alert(data.message);
+                        }
+                    }
+                })
+            } else {
+                alert("请等待服务器的响应。。。。");
+            }
+        });
+    })
+</script>

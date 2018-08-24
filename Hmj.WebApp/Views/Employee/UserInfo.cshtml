@@ -1,0 +1,209 @@
+﻿@{
+    ViewBag.Title = "用户管理";
+    var cuUserType = ViewData["USER_TYPE"] != null ? ViewData["USER_TYPE"].ToString() : "";
+}
+@model Hmj.Entity.Entities.USER_INFO_EX
+@section htmlhead{
+       @Html.Css("plugin/xjgrid", "plugin/xjdailog")
+    @Html.Css("plugin/validator")
+
+<link rel='stylesheet' type='text/css' href='../../assets/plugins/form-select2/select2.css' />  
+    <link rel='stylesheet' type='text/css' href='../../assets/css/tree.css' />
+     <style type="text/css">
+         .h_title
+         {
+             padding: 5px 15px;
+             border-bottom: solid 1px #e6e5e5;
+             font-size: 18px;
+             margin-bottom: 5px;
+         }
+
+         .searchpanel
+         {
+             background-color: #f7f8fa; /*border: 1px solid #ccc;*/
+             padding: 5px 15px;
+             margin-left: 10px;
+             border-radius: 4px;
+         }
+
+             .searchpanel .form-group label
+             {
+                 margin-bottom: 4px;
+             }
+
+         #USER_STORES_OBJ
+         {
+             width: 100%;
+         }
+     </style>
+}
+<div class="s_container">
+    <div id="page-heading">
+        <h2>
+            <i class="fa fa-sitemap"></i> 用户管理</h2>
+    </div>
+    <div id="mainbody" class="panel panel-primary col-md-3">
+        <div class="panel-heading">
+            <h4>所属商户</h4>
+        </div>
+        <div class="panel-body">
+             <div id="ptree"></div>          
+        </div>
+    </div>
+
+    <div id="mainbody1" class="panel panel-primary col-md-9">
+        <div class="panel-heading">
+            <h4 id="h4Dict">用户列表
+            </h4>
+        </div>
+        <div class="panel-body" style="min-height: 350px">
+            <div class="row">
+                <div class="col-md-2 form-group">
+                    <button type="button" class="btn default" id="btnAdd">
+                        <i class="fa fa-plus"></i>新 增</button>
+                </div>
+                <div class="text-right col-md-10">
+                    <form id="formQuery" class="form-inline" method="post" role="form">
+                         @Html.Hidden("USER_TYPES", "")
+                         @Html.Hidden("STORE_IDS", "")
+                        <div class="form-group">
+                            @Html.TextBox("USER_NO1", "", new { @class = "form-control", placeholder = "用户名" })
+                        </div>
+                        <div class="form-group">
+                           @* @Html.ResourceDropDownList("USER_TYPE1", "USER_TYPE", "", new { @class = "form-control" }, Model.ORG_ID.ToString(), false)*@
+                            <div class="btn-group">
+                                <button class="btn-primary btn"><i class="fa fa-search"></i>查 询</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-12">
+                   <div id="gridlist">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="confirmModal" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">确认！</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>你确认要删除用户 [ <span id="lbuserName"></span>] 吗？</p>
+                        <input id="hdCurrentId" type="hidden" value="" />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取 消</button>
+                        <button type="button" id="btnConfirm" class="btn btn-primary">确 定</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+
+        <div id="EditModal" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">用户维护</h4>
+                    </div>
+
+                    <div class="modal-body">
+                        <form class="form-horizontal" id="frmDlzh" method="post" action="@Url.Action("SaveDlzh")" role="form">
+                        <div class="form-group">
+                            @Html.Hidden("ID", Model.ID)
+                            @Html.Hidden("USER_TYPE", Model.USER_TYPE)
+                            @Html.Hidden("STORE_ID", Model.STORE_ID)
+                            @Html.Hidden("EMPLOYEE_ID1", Model.EMPLOYEE_ID)
+                            <label for="USER_NO" class="col-sm-3 control-label"><span style="color: red">*</span>登录名</label>
+                            <div class="col-sm-6">
+                                @Html.TextBox("USER_NO", Model.USER_NO, new { @class = "form-control", placeholder = "请输入登录名" })
+                            </div>
+                            <div class="col-sm-3">
+                                <p class="help-block" style="color: red;"></p>
+                            </div>
+                        </div>
+                            <div class="form-group">
+                            <label for="USER_PASS" class="col-sm-3 control-label"><span style="color: red">*</span>姓名</label>
+                            <div class="col-sm-6">
+                                @Html.TextBox("Name", Model.Name, new { @class = "form-control", placeholder = "请输入姓名" })
+                                </div>
+                                </div>
+                        <div class="form-group">
+                            <label for="USER_PASS" class="col-sm-3 control-label"><span style="color: red">*</span>密码</label>
+                            <div class="col-sm-6">
+                                @Html.Password("USER_PASS", Model.USER_PASS, new { @class = "form-control", placeholder = "请输入密码" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="USER_PASS1" class="col-sm-3 control-label"><span style="color: red">*</span>确认密码</label>
+                            <div class="col-sm-6">
+                                @Html.Password("USER_PASS1", Model.USER_PASS, new { @class = "form-control", placeholder = "请输入确认密码" })
+                            </div>
+                        </div>
+                        <div class="form-group" style="display:none;">
+                            <label for="USER_TYPE" class="col-sm-3 control-label"><span style="color: red">*</span>用户类别</label>
+                            <div class="col-sm-6 control-label" id="USER_TYPE_STR" style="text-align:left;">
+                              
+                              @*  @Html.ResourceDropDownList("USER_TYPE", "USER_TYPE", Model.USER_TYPE, new { @class = "form-control" }, cuUserType, false)*@
+                            </div>
+                        </div>
+                        <div class="form-group" style="display:none;">
+                            <label for="STORE_ID" class="col-sm-3 control-label"><span style="color: red">*</span>所属分店</label>
+                            <div class="col-sm-6 control-label" id="STORE_ID_NAME" style="text-align:left;">
+                               @* <select class="form-control"
+                                    id="STORE_ID" name="STORE_ID">
+                                </select> *@                               
+                            </div>
+                        </div>
+                            <div class="form-group" style="display:none;">
+                                <label for="EMPLOYEE_ID" class="col-sm-3 control-label"><span style="color: red">*</span>所属员工</label>
+                                <div class="col-sm-6">
+                                    <select class="form-control" id="EMPLOYEE_ID" name="EMPLOYEE_ID">
+                                    </select>            
+                                </div>
+                            </div>
+                        <div class="form-group">
+                            <label for="ROLE_ID" class="col-sm-3 control-label"><span style="color: red">*</span>商户</label>
+                            <div class="col-sm-6">
+                                @Html.ResourceDropDownList("Merchants_ID", "Merchants_ID", Model.Merchants_ID, new { @class = "form-control" }, Model.ORG_ID.ToString(), false)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="ROLE_ID" class="col-sm-3 control-label"><span style="color: red">*</span>角色</label>
+                            <div class="col-sm-6">
+                                @Html.ResourceDropDownList("ROLE_ID", "ROLE_ID", Model.ROLE_ID, new { @class = "form-control" }, Model.ORG_ID.ToString(), false)
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" id="btnCloseDlzh" class="btn btn-default" data-dismiss="modal">取 消</button>
+                            <button type="button" id="btnSaveDlzh" class="btn btn-primary">保 存</button>
+                        </div>
+                    </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.modal -->
+    </div>
+</div>
+@section jssection{
+    <script type="text/javascript">
+        var util = {};
+        var options = {
+            listUrl: "@Url.Action("ListDlzh")",
+            editUrl: "@Url.Action("EditUserInfo")",
+            deleteUrl: "@Url.Action("DeleteUserInfo")",
+            getUserREGION: "@Url.Action("GetUserREGION")",
+            getEmployeeByType: "@Url.Action("GetEmployeeByType")",
+            getStoreData: "@Url.Action("GetStoreData")",
+            queryLeftUrl: "@Url.Action("QueryLeft")",
+        };
+    </script>
+    @Html.Js("plugins/xjgrid/xjgrid", "plugins/xjdailog/xjdailog", "plugins/validator/validator",
+    "plugins/form-select2/select2", "app/company/jquery.tree", "app/employee/userinfo")
+}

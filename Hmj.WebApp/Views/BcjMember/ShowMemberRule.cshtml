@@ -1,0 +1,172 @@
+﻿@{
+    ViewBag.Title = "ShowMemberRule";
+    Layout = "~/Views/Shared/_LayoutE.cshtml";
+}
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width" name="viewport" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+    <meta content="telephone=no" name="format-detection" />
+    <link type="text/css" href="/Bcj/points/css/jifen.css" rel="stylesheet" />
+    <title>会员制度</title>
+</head>
+
+<body class="bgclass">
+    <div class="jifen-zhidu">
+        <h2>会员制度</h2>
+        <p style="padding-bottom:0;"><strong style="margin:0;">一、会员等级及效期</strong></p>
+        <h4>1、倾心卡会员</h4>
+        <em>
+            在佰草集品牌线下专卖店或专柜购买任意产品，并使用本人有效信息在门店或微信完成注册，即可成为倾心卡会员。<br />
+            倾心卡会员的等级有效期为6个月，效期内未升级到知心卡即降级为普通会员。<br />
+            普通会员再次购买任意产品，即可再次成为倾心卡会员。
+        </em>
+        <h4>2、知心卡会员</h4>
+        <em>
+              倾心卡会员自首笔购买后，在其等级效期内累计购买任意产品满800元，即可成为知心卡会员。（包含成为倾心卡会员的首笔购买）<br />
+            知心卡会员的等级效期为12个月，从升级至知心卡之日开始计算，至12个月后的月底。<br />
+            知心卡会员在其等级效期内，再次累计购买金额满800元，则自动续会12个月。<br />
+            知心卡会员在其等级效期内，累计购买金额不满800元，在效期结束时直接降级为普通册会员。
+        </em>
+
+        <h4>3、臻心卡会员</h4>
+        <em>
+            知心卡会员在其等级效期内，累计购买任意产品满3000元，且购物2次以上，即可成为臻心卡会员。<br />
+            臻心卡会员的等级效期为12个月，从升级成为臻心卡之日开始计算，至12个月后的月底。<br />
+            臻心卡会员在其等级效期内累计购买金额满3000元，且购物2次以上，可自动保持其臻心卡会员资格12个月。<br />
+            臻心卡会员在其等级效期内，累计购买金额不满3000元，或累计购买金额满3000元，但购物次数小于2次，在效期结束时直接降级为知心卡会员。
+        </em>
+        <h4>4、普通会员</h4>
+        <em>
+            倾心卡会员、知心卡会员降级后，都会直接成为普通会员。<br />
+            普通会员无限定的等级效期，当普通会员再次购买，即可重新激活倾心卡会员等级。
+        </em>
+        <p style="padding-bottom:0;"><strong>二、会员权益</strong></p>
+        <div class="tableCss">
+            <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                <tr>
+                    <td>&nbsp;</td>
+                    <td><strong>倾心卡</strong></td>
+                    <td><strong>知心卡</strong></td>
+                    <td><strong>臻心卡</strong></td>
+                </tr>
+                <tr>
+                    <td>日常购买积分</td>
+                    <td align="center">&#8730;</td>
+                    <td align="center">&#8730;</td>
+                    <td align="center">&#8730;</td>
+                </tr>
+                <tr>
+                    <td>新品上市及促销信息</td>
+                    <td align="center">&#8730;</td>
+                    <td align="center">&#8730;</td>
+                    <td align="center">&#8730;</td>
+                </tr>
+                <tr>
+                    <td>会员专属沙龙活动</td>
+                    <td align="center">&#8730;</td>
+                    <td align="center">&#8730;</td>
+                    <td align="center">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td>常规积分兑礼活动</td>
+                    <td align="center">&nbsp;</td>
+                    <td align="center">&#8730;</td>
+                    <td align="center">&#8730;</td>
+                </tr>
+                <tr>
+                    <td>会员专属促销优惠</td>
+                    <td align="center">&nbsp;</td>
+                    <td align="center">&#8730;</td>
+                    <td align="center">&#8730;</td>
+                </tr>
+                <tr>
+                    <td>生日当月双倍积分</td>
+                    <td align="center">&nbsp;</td>
+                    <td align="center">&#8730;</td>
+                    <td align="center">&#8730;</td>
+                </tr>
+                <tr>
+                    <td>生日专属礼遇</td>
+                    <td align="center">&nbsp;</td>
+                    <td align="center">&#8730;</td>
+                    <td align="center">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td>VIP专属升级礼</td>
+                    <td align="center">&nbsp;</td>
+                    <td align="center">&#8730;</td>
+                    <td align="center">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td>有机会获得新品体验	</td>
+                    <td align="center">&nbsp;</td>
+                    <td align="center">&nbsp;</td>
+                    <td align="center">&#8730;</td>
+                </tr>
+
+            </table>
+        </div>
+
+        <p>
+            <strong>三、会员积分</strong>
+            1、会员积分获得及积分效期
+            <em>
+                会员等级的变化，不影响会员积分的效期。
+                倾心卡、知心卡、臻心卡会员，在佰草集任意专卖店或专柜凭本人注册手机号购买产品，消费1元积1分。
+            </em>
+            <br />2、所有会员必须通过激活，方可获取积分兑礼密码。
+            <em>
+                激活方式：（仅限使用入会时登记的手机号码）
+                短信：编辑JH发送至106904851013完成激活；
+                微信：关注佰草集会员专属微信“佰草集心约会”,绑定手机后完成激活；
+                官网：访问佰草集官网www.herborist.com.cn,登录“佰草社区-门店心约会”版块完成激活。
+            </em>
+            <br />3、知心卡、臻心卡会员，凭会员手机号及有效证件，生日当月首笔购买可享受购物双倍积分。<em>（如会员在入会时未提供本人生日日期，系统没有进行记录，则不能享受生日双倍积分。奖励积分上限2500分。）</em>
+            <br />4、会员积分在自购次日到达会员个人账户。<br />
+            <br />5、会员在2017年获得的积分，有效期至 2019年6月30日24:00。逾期未使用的积分将被清零。<br />
+            <br />6、会员积分兑换规则
+            <em>
+                未激活的会员仅能累计购买积分,无法进行积分兑换。
+                在会员积分有效期内，会员可根据当年公布的积分兑换活动规则进行兑换。
+                每年12月初，会在店铺、官网、微信公布次年的积分兑换活动的规则和内容。
+                特殊兑换活动将不定期推出，详情以佰草集门店及微信等公告为准。
+            </em>
+            <br />7、会员积分及等级情况查询
+            <em>
+                短信查询：使用入会时登记的手机号码，编辑代码“JFCX”发送至“106904851013”进行查询；
+                网站查询：登录佰草集官网，在“佰草社区-门店心约会”页面进行查询；
+                门店查询：至附近的门店，凭本人手机号进行查询；
+                电话查询：致电佰草集咨询热线进行查询；
+                微信查询：关注并绑定微信公众号“佰草集心约会”进行查询。
+            </em>
+            <br />8、2017年度积分兑换活动
+            <em>
+                2017年1月1日-2017年12月31日期间，兑礼时的可用积分达到1500分及以上的知心卡会员或臻心卡会员，至全国佰草集任意门店，可以10分兑换价值1元的佰草集正价产品。
+                如会员可用积分未能一次性用完，在下次进行兑礼时，卡内可用积分余额也必须达到1500分及以上，且兑换时会员等级为知心卡或臻心卡，方能进行积分兑礼。（建议BA在会员进行兑换时，适当进行提醒）
+                为保证会员积分账户安全，激活后可获得兑礼密码。会员在进行积分兑礼时需输入兑礼密码方可换领。
+            </em>
+
+
+        </p>
+
+        <p>
+            <strong>四、2017年度会员专属礼遇</strong>☆、臻心卡升级/保级礼遇
+            <em>臻心卡会员凭升级或保级短信，在升级或保级后3个月内回开卡门店，即可获得臻心卡升保级专属礼1份。（2017年度礼品：佰草集魔法美肤仪。升级或保级次月发送告知短信。）</em>
+            <br />☆、臻心卡生日礼遇
+            <em>臻心卡会员凭祝福短信和有效证件，生日当月回开卡门店可获得生日尊享礼1份；生日当月首笔购买还可享受双倍积分，奖励积分上限2500分。（2017年度礼品：佰草集精油洁面皂臻享装1份。生日当月月初发送祝福短信。）</em>
+            <br />☆、知心卡保级礼遇
+            <em>知心卡会员凭保级短信，在保级后3个月内回开卡门店，即可获得知心卡保级专属礼1份。（2017年度礼品：佰草集新玉润随心装。保级次月发送告知短信。）</em>
+            <br />因季节变化，可能会对以上礼品做相应调整，不再另行通知。礼品以门店实物为准。
+        </p>
+
+    </div>
+</body>
+</html>
+<script type="text/javascript" src="/Bcj/points/js/jquery.min.js"></script>
+<script>
+</script>

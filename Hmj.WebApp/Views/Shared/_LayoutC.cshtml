@@ -1,0 +1,307 @@
+﻿@{
+    ViewBag.ControllerName = this.ViewContext.RouteData.Values["controller"].ToString().ToLower();
+    var cuUserName = WXMyContext.CurrentLoginUser == null ? "" : WXMyContext.CurrentLoginUser.USER_NO;
+    var cuStoreName = WXMyContext.CurrentLoginUser == null ? "" : WXMyContext.CurrentLoginUser.STORE_NAME;
+    var cuName = WXMyContext.CurrentLoginUser == null ? "" : WXMyContext.CurrentLoginUser.ORG_NAME;
+
+    var storeId = WXMyContext.CurrentLoginUser==null?"0": WXMyContext.CurrentLoginUser.STORE_ID.ToString();
+
+}
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+    <meta charset="utf-8">
+    <title>Puman-@cuStoreName-@cuName</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Puman">
+    <meta name="author" content="Puman tech">
+    <!-- <link href="assets/less/styles.less" rel="stylesheet/less" media="all"> -->
+    <link rel="stylesheet" href="../../assets/css/styles.css?=122" />
+    <link rel="stylesheet" href="../../assets/css/app.css?=122" />
+    <link rel='stylesheet' type='text/css' href='../../assets/demo/variations/header-blue.css' media='all' id='headerswitcher' />
+    <link rel='stylesheet' type='text/css' href='../../assets/demo/variations/default.css' media='all' id='styleswitcher' />
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries. Placeholdr.js enables the placeholder attribute -->
+    <!--[if lt IE 9]>
+    <link rel="stylesheet" href="assets/css/ie8.css" />
+    <script type="text/javascript" src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/respond.js/1.1.0/respond.min.js"></script>
+    <script type="text/javascript" src="assets/plugins/charts-flot/excanvas.min.js"></script>
+    <![endif]–>
+    <!-- The following CSS are included as plugins and can be removed if unused-->
+    <link rel='stylesheet' type='text/css' href='../../assets/plugins/form-daterangepicker/daterangepicker-bs3.css' />
+    <link rel='stylesheet' type='text/css' href='../../assets/plugins/fullcalendar/fullcalendar.css' />
+    <link rel='stylesheet' type='text/css' href='../../assets/plugins/form-markdown/css/bootstrap-markdown.min.css' />
+    <link rel='stylesheet' type='text/css' href='../../assets/plugins/codeprettifier/prettify.css' />
+    <link rel='stylesheet' type='text/css' href='../../assets/plugins/form-toggle/toggles.css' />
+    <link rel='stylesheet' type='text/css' href='../../assets/plugins/progress-skylo/skylo.css' />
+    <link rel='stylesheet' type='text/css' href='../../assets/plugins/pines-notify/jquery.pnotify.default.css' />
+    <link rel='stylesheet' type='text/css' href='../../assets/plugins/form-xeditable/bootstrap3-editable/css/bootstrap-editable.css' />
+    <link rel='stylesheet' type='text/css' href='../../assets/plugins/codeprettifier/prettify.css' />
+    <link rel='stylesheet' type='text/css' href='../../assets/plugins/form-toggle/toggles.css' />
+    
+<link href="http://cdn.bootcss.com/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css" rel="stylesheet">
+    @RenderSection("htmlhead", false)
+    <!-- <script type="text/javascript" src="assets/js/less.js"></script> -->
+</head>
+<body class="">
+    <!-- Preloader -->
+
+    <div id="preloader">
+        <div id="loading_status"><i class="fa fa-spinner fa-spin"></i></div>
+    </div>
+    <!--头部，顶部-->
+    <header class="navbar navbar-inverse navbar-fixed-top" role="banner">
+        <a id="leftmenu-trigger" class="tooltips" data-toggle="tooltip" data-placement="right" title="切换侧边栏菜单"></a>
+        <div class="navbar-header pull-left">
+            <a class="navbar-brand" href="@Url.Action("Index", "Home")">
+                <img src="../../assets/img/logo_w.png" style="width: 42px; height: 50px;" alt="Logo" class="brand" />
+            扑满微信CRM-@cuStoreName</a>
+        </div>
+        <div class="navbar-header pull-left" style="width: 200px">
+            <a href="#" class="navbar-brand" style="width: 200px; color: white">@*(@cuStoreName)*@</a>
+        </div>
+        <ul class="nav navbar-nav pull-right toolbar">
+            <!--登录用户-->
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle username" data-toggle="dropdown">
+                    <span class="hidden-xs">@cuUserName <i class="fa fa-caret-down"></i></span>
+                    @*<img src="../../assets/demo/avatar/dangerfield.png" alt="Dangerfield" />*@
+                </a>
+                <ul class="dropdown-menu userinfo arrow">
+                    <li class="username">
+                        <a href="#">
+                            <div class="pull-left">
+                                @*<img class="userimg" src="../../assets/demo/avatar/dangerfield.png" alt="" />*@
+                                @*<i class="fa fa-user"></i>*@
+                                <img class="userimg" src="http://www.censh.com/skin/frontend/base/default/favicon.ico" alt="" />
+                            </div>
+                            <div class="pull-right">
+                                <h5>欢迎您，@cuUserName</h5>
+                                所属商户 @cuStoreName
+                            </div>
+                        </a>
+                    </li>
+                    <li class="userlinks">
+                        <ul class="dropdown-menu">
+                            @* <li><a href="#">修改信息 <i class="pull-right fa fa-pencil"></i></a></li>
+                            <li><a href="#">帮助 <i class="pull-right fa fa-question-circle"></i></a></li>
+                            <li class="divider"></li>*@
+                            <li><a href="/Home/Login.do" class="text-right">注 销</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </header>
+    <div id="page-container">
+        <!-- BEGIN SIDEBAR -->
+        @{
+            var cssCurrent = Html.Raw("class=\"active\"");
+            var cssNone = Html.Raw("");
+        }
+        <nav id="page-leftbar" role="navigation" class="leftbar-fixed-top">
+            @if (User.Identity.Name == "3")
+            {
+                <!-- BEGIN SIDEBAR MENU -->
+                <ul class="acc-menu" id="sidebar">
+                    <li class="divider"></li>
+                    <li><a href="/Home/Index.do"><i class="fa fa-home"></i><span>仪表盘</span></a></li>
+                    <li><a href="javascript:;"><i class="fa fa-rss"></i><span>微信运营</span></a>
+                        <ul class="acc-menu">
+                            <li><a href="/home/index.do">微信概况</a></li>
+                            @*<li><a href="/wechat/graphiclist.do">图文素材</a></li>*@
+                            <li><a href="/wechat/GraphicShow.do">图文素材</a></li>
+                            <li><a href="/wechat/Informations.do">自动回复设置</a></li>
+                            @*<li><a href="#">-群发信息-</a></li>*@
+                            <li><a href="/custommenu/index.do">微信菜单管理</a></li>
+                            <li><a href="/wechat/custmsghis.do">实时消息</a></li>
+                            <li><a href="/wechat/custmsghisn.do">实时消息(未绑定粉丝)</a></li>
+                            @* <li><a href="/wechat/opinionlist.do">留言查看</a></li>*@
+                        </ul>
+                    </li>
+                    <li><a href="javascript:;"><i class="fa fa-user"></i><span>粉丝管理</span></a>
+                        <ul class="acc-menu">
+                            <li><a href="/wechat/fanslist.do">粉丝概览</a></li>
+                            <li><a href="/BcjMange/Index.do">问卷管理</a></li>
+                            <li><a href="/BcjMange/ShowBcjExcel.do">门店报表</a></li>
+                        </ul>
+                    </li>
+                   
+
+                    @*<li><a href="javascript:;"><i class="fa fa-tasks"></i><span>二维码管理</span></a><ul class="acc-menu">
+                        <li><a href="/EWM/Index.do">二维码管理</a></li>
+                    </ul>
+                    </li>
+                    <li><a href="javascript:;"><i class="fa fa-tasks"></i><span>区域管理</span></a><ul class="acc-menu">
+                        <li><a href="/WeChat/AreaManage.do">区域管理</a></li>
+                    </ul>
+                    </li>
+                    <li><a href="javascript:;"><i class="fa fa-tasks"></i><span>门店管理</span></a><ul class="acc-menu">
+                        <li><a href="/WeChat/StoreManage.do">门店管理</a></li>
+                    </ul>
+                    </li>
+                    <li><a href="javascript:;"><i class="fa fa-tasks"></i><span>商品管理</span></a><ul class="acc-menu">
+                        <li><a href="/WeChat/goodlist.do">商品管理</a></li>
+                    </ul>
+                    </li>
+                    <li><a href="javascript:;"><i class="fa fa-tasks"></i><span>员工管理</span></a><ul class="acc-menu">
+                        <li><a href="/EWM/Employee.do">员工管理</a></li>
+                    </ul>
+                    </li>
+                    <li><a href="javascript:;"><i class="fa fa-tasks"></i><span>报表管理</span></a>
+                        <ul class="acc-menu">
+                            <li><a href="/EmplReport/Index.do">员工二维码统计报表</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:;"><i class="fa fa-users"></i><span>组织架构管理</span></a>
+                        <ul class="acc-menu">
+                            <li><a href="@Url.Action("Index", "Group")">组织架构</a></li>
+                        </ul>
+                    </li>*@
+                       @*<li>
+                        <a href="javascript:;"><i class="fa fa-users"></i><span>模板消息</span></a>
+                        <ul class="acc-menu">
+                            <li><a href="@Url.Action("TempInfo", "Template")">群发</a></li>
+                              <li><a href="@Url.Action("TempList", "Template")">已发</a></li>
+                        </ul>
+                    </li>*@
+                </ul>
+            }
+            else
+            {
+                <ul class="acc-menu" id="sidebar">
+                    <li class="divider"></li>
+                    <li><a href="/Home/Index.do"><i class="fa fa-home"></i><span>仪表盘</span></a></li>
+                    <li>
+                        <a href="javascript:;"><i class="fa fa-rss"></i><span>微信运营</span></a>
+                        <ul class="acc-menu">
+                            <li><a href="/home/index.do">微信概况</a></li>
+                            @*<li><a href="/wechat/graphiclist.do">图文素材</a></li>*@
+                            <li><a href="/wechat/GraphicShow.do">图文素材</a></li>
+                            <li><a href="/wechat/Informations.do">自动回复设置</a></li>
+                            @*<li><a href="#">-群发信息-</a></li>*@
+                            <li><a href="/custommenu/index.do">微信菜单管理</a></li>
+                            <li><a href="/wechat/custmsghis.do">实时消息</a></li>
+                            <li><a href="/wechat/custmsghisn.do">实时消息(未绑定粉丝)</a></li>
+                            @* <li><a href="/wechat/opinionlist.do">留言查看</a></li>*@
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:;"><i class="fa fa-user"></i><span>粉丝管理</span></a>
+                        <ul class="acc-menu">
+                            <li><a href="/wechat/fanslist.do">粉丝概览</a></li>
+                            <li><a href="/BcjMange/Index.do">问卷管理</a></li>
+                            <li><a href="/BcjMange/ShowBcjExcel.do">门店报表</a></li>
+                        </ul>
+                    </li>
+
+                    @*<li><a href="javascript:;"><i class="fa fa-tasks"></i><span>二维码管理</span></a><ul class="acc-menu">
+                            <li><a href="/EWM/Index.do">二维码管理</a></li>
+                        </ul>
+                        </li>
+                        <li><a href="javascript:;"><i class="fa fa-tasks"></i><span>区域管理</span></a><ul class="acc-menu">
+                            <li><a href="/WeChat/AreaManage.do">区域管理</a></li>
+                        </ul>
+                        </li>
+                        <li><a href="javascript:;"><i class="fa fa-tasks"></i><span>门店管理</span></a><ul class="acc-menu">
+                            <li><a href="/WeChat/StoreManage.do">门店管理</a></li>
+                        </ul>
+                        </li>
+                        <li><a href="javascript:;"><i class="fa fa-tasks"></i><span>商品管理</span></a><ul class="acc-menu">
+                            <li><a href="/WeChat/goodlist.do">商品管理</a></li>
+                        </ul>
+                        </li>
+                        <li><a href="javascript:;"><i class="fa fa-tasks"></i><span>员工管理</span></a><ul class="acc-menu">
+                            <li><a href="/EWM/Employee.do">员工管理</a></li>
+                        </ul>
+                        </li>
+                        <li><a href="javascript:;"><i class="fa fa-tasks"></i><span>报表管理</span></a>
+                            <ul class="acc-menu">
+                                <li><a href="/EmplReport/Index.do">员工二维码统计报表</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="javascript:;"><i class="fa fa-users"></i><span>组织架构管理</span></a>
+                            <ul class="acc-menu">
+                                <li><a href="@Url.Action("Index", "Group")">组织架构</a></li>
+                            </ul>
+                        </li>*@
+                    @*<li>
+                            <a href="javascript:;"><i class="fa fa-users"></i><span>模板消息</span></a>
+                            <ul class="acc-menu">
+                                <li><a href="@Url.Action("TempInfo", "Template")">群发</a></li>
+                                  <li><a href="@Url.Action("TempList", "Template")">已发</a></li>
+                            </ul>
+                        </li>*@
+                </ul>
+            }
+        </nav>
+        <div id="page-content">
+            <div id='wrap'>
+                <div class="container">
+                    @RenderBody()
+                </div>
+                <!-- container -->
+            </div>
+            <!--wrap -->
+        </div>
+        <!-- page-content -->
+        <footer role="contentinfo">
+            <div class="clearfix">
+                <ul class="list-unstyled list-inline pull-left">
+                    <li>PUMAN &copy; 2014</li>
+                </ul>
+                <button class="pull-right btn btn-inverse-alt btn-xs hidden-print" id="back-to-top"><i class="fa fa-arrow-up"></i></button>
+            </div>
+        </footer>
+    </div>
+    <input type="hidden" id="hideStoreId" value="@storeId" />
+    <!-- page-container -->
+
+
+    <script type='text/javascript' src='../../assets/js/jquery-1.10.2.min.js'></script>
+    <script type='text/javascript' src='../../assets/js/jqueryui-1.10.3.min.js'></script>
+    <script type='text/javascript' src='../../assets/js/bootstrap.min.js'></script>
+    <script type='text/javascript' src='../../assets/js/enquire.js'></script>
+    <script type='text/javascript' src='../../assets/js/jquery.cookie.js'></script>
+    <script type='text/javascript' src='../../assets/js/jquery.nicescroll.min.js'></script>
+    <script type='text/javascript' src='../../assets/js/highcharts.js'></script>
+    <script type='text/javascript' src='../../assets/js/exporting.js'></script>
+    <script type='text/javascript' src='../../assets/plugins/codeprettifier/prettify.js'></script>
+    <script type='text/javascript' src='../../assets/plugins/easypiechart/jquery.easypiechart.min.js'></script>
+    <script type='text/javascript' src='../../assets/plugins/sparklines/jquery.sparklines.min.js'></script>
+    <script type='text/javascript' src='../../assets/plugins/form-toggle/toggle.min.js'></script>
+    <script type='text/javascript' src='../../assets/plugins/fullcalendar/fullcalendar.min.js'></script>
+    <script type='text/javascript' src='../../assets/plugins/jqueryui-timepicker/jquery.ui.timepicker.min.js'></script>
+    <script type='text/javascript' src='../../assets/plugins/form-daterangepicker/daterangepicker.min.js'></script>
+    <script type='text/javascript' src='../../assets/plugins/form-daterangepicker/moment.min.js'></script>
+    <script type='text/javascript' src='../../assets/plugins/pulsate/jQuery.pulsate.min.js'></script>
+    <script type='text/javascript' src='../../assets/js/placeholdr.js'></script>
+    <script type='text/javascript' src='../../assets/js/application.js'></script>
+    <script type='text/javascript' src='../../assets/js/common.js'></script>
+    <script type='text/javascript' src='../../assets/demo/demo.js'></script>
+    @*    <script type='text/javascript' src='../../assets/app/home/index.js'></script>*@
+
+    <script type='text/javascript' src='../../assets/plugins/knob/jquery.knob.min.js'></script>
+    <script type='text/javascript' src='../../assets/demo/demo-slider.js'></script>
+
+    <script type='text/javascript' src='../../assets/plugins/form-xeditable/bootstrap3-editable/js/bootstrap-editable.js'></script>
+    <script type='text/javascript' src='../../assets/demo/demo-xeditable.js'></script>
+
+
+
+    <script type='text/javascript' src='../../assets/plugins/pines-notify/jquery.pnotify.js'></script>
+
+
+    <script type='text/javascript' src='../../assets/plugins/knob/jquery.knob.min.js'></script>
+    <script type='text/javascript' src='../../assets/demo/demo-slider.js'></script>
+    <script type='text/javascript' src='../../assets/plugins/form-xeditable/bootstrap3-editable/js/bootstrap-editable.js'></script>
+    <script type='text/javascript' src='../../assets/demo/demo-xeditable.js'></script>
+    <script type='text/javascript' src='../../assets/plugins/pines-notify/jquery.pnotify.js'></script>
+    <script src="http://cdn.bootcss.com/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.js"></script>
+    @RenderSection("jssection", false)
+</body>
+</html>

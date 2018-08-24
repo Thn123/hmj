@@ -1,0 +1,368 @@
+﻿@{
+    ViewBag.Title = "自动回复设置";
+}
+@model Hmj.Entity.Entities.Information_EX
+<link href="~/assets/css/weixincss.css" rel="stylesheet" />
+@section htmlhead{
+    @Html.Css("plugin/xjgrid", "plugin/xjdailog", "common", "plugin/validator", "plugin/tip")
+    <link rel='stylesheet' type='text/css' href='../../assets/css/tree.css' />
+    <style type="text/css">
+        .searchpanel {
+            background-color: #f7f8fa; /*border: 1px solid #ccc;*/
+            padding: 5px 15px;
+            margin-left: 10px;
+            border-radius: 4px;
+        }
+
+            .searchpanel .form-group, .searchpanel .btnpanel_right {
+                /*
+            display: block;
+            overflow: hidden;
+            zoom: 1;
+            margin-bottom: 0px;
+            */
+            }
+
+                .searchpanel .form-group label {
+                    margin-bottom: 4px;
+                }
+
+        #SearchBox {
+            width: 200px;
+        }
+    </style>
+}
+<div>
+    <div class="sucailist">
+        <h5><a href="Informations.do"><em class="fanhui2"></em>自动回复设置</a> / 自动回复维护</h5>
+    </div>
+    <div class="modal-header">
+
+        @* <h4 class="modal-title">自动回复维护</h4>*@
+    </div>
+
+    <div class="modal-body">
+        <form class="form-horizontal" id="frmSave" method="post" action="@Url.Action("SaveInformation")" role="form">
+            @Html.Hidden("ID", Model.ID)
+            @Html.Hidden("replyType2", Model.replyType)
+            @Html.Hidden("MsgType2", Model.MsgType)
+            <div class="form-group col-xs-7">
+                <div class="form-group col-xs-12">
+                    <label class="col-sm-2 control-label" style="text-align: left">消息类型:</label>
+                    <div class="col-sm-10">
+                        @Html.ResourceDropDownList("replyType", "replyType", Model.replyType, new { @class = "form-control" }, Model.replyType.ToString(), false)
+                    </div>
+                </div>
+
+                <div class="form-group col-xs-12" id="divkeys">
+                    <label class="col-sm-2 control-label" style="text-align: left">关键字:</label>
+                    <div class="col-sm-10">
+                        @Html.TextBox("KeyWords", Model.KeyWords, new { @class = "form-control", placeholder = "请输入关键字" })
+                    </div>
+
+                </div>
+                <div class="form-group col-xs-12" id="divtype">
+                    <label class="col-sm-2 control-label" style="text-align: left">匹配类型:</label>
+                    <div class="col-sm-10">
+                        @Html.ResourceDropDownList("MatchingType", "MatchingType", Model.MatchingType, new { @class = "form-control" }, Model.MatchingType.ToString(), false)
+                    </div>
+                </div>
+
+                <div class="form-group col-xs-12">
+                    <label class="col-sm-2 control-label" style="text-align: left">回复类型:</label>
+                    <div class="col-sm-10">
+                        @Html.ResourceDropDownList("MsgType", "MsgType", Model.MsgType, new { @class = "form-control" }, Model.MsgType, false)
+                    </div>
+                </div>
+                <div class="form-group col-xs-12" id="divnews">
+                    <label class="col-sm-12 control-label" style="text-align: left">图文资源:<a href="javascript:edit();">选择图文</a></label>
+                    <div class="col-sm-12">
+                        @Html.Hidden("Graphic_ID")
+                    </div>
+                </div>
+                <div class="form-group col-xs-12" id="divtext">
+                    <label class="col-sm-12 control-label" style="text-align: left">文本内容:<a href="javascript:edit2();">添加表情</a></label>
+                    <div class="col-sm-12">
+
+                        <textarea name="Content" cols="" rows="8" onchange="gbcount(0,600);" onkeydown="gbcount(0,600);" onkeyup="gbcount(0,600);" id="Content" style="width: 100%; float: left;">@Model.Content</textarea>
+                        <div style="height: 210px; top: -200px; position: absolute; background-color: white;" id="biaoqing">
+                            @Html.Raw(Model.Biaoqing)
+                        </div>
+                        @*  @Html.TextBox("Content", Model.Content, new { @class = "form-control", placeholder = "请输入文本内容" })*@
+                    </div>
+                </div>
+                <div class="form-group col-xs-12" id="divimage">
+                    <label class="col-sm-12 control-label" style="text-align: left">图片内容:</label>
+                    <div class="col-sm-12">
+                        <div class="imgup">
+                            <input type="file" name="file1" id="file1" style="display: none;" class="form-control" onclick="FileUpload_onclick()" onchange="FileUpload_onselect()" />
+                            @*<input type="text" id="txtFakeText" style="width: 460px;" readonly="true">*@
+                            <div class="col-sm-10">
+                                @Html.TextBox("Media_ID", Model.Media_ID, new { @class = "form-control", placeholder = "请输入关键字" })
+                            </div>
+                            <input type="button" onclick="HandleFileButtonClick();" value="选择文件">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-xs-5" style="height: 400px; overflow: auto;">
+                <span style="color: blue;">&nbsp;&nbsp;预览区域：</span>(实际发送后的表情为静态表情)<div id="divyl" style="margin-top: 15px;">
+                    <label id="tuwenid"></label>
+                </div>
+            </div>
+
+
+        </form>
+    </div>
+    <div style="clear: both"></div>
+    <div class="modal-footer">
+        <button type="button" id="btnSave" class="btn btn-primary">确 定</button>
+        <button type="button" id="btnClose" class="btn btn-default" data-dismiss="modal">取 消</button>
+    </div>
+</div>
+
+<div class="tishibox editAllbox" id="tishi">
+    <div class="tishiTitle">
+        <span><a href="javascript:closed();" class="guanbi"></a></span>
+        <h2>选择图文</h2>
+    </div>
+    @*<div class="editAlltab">
+       <span>1/2 &nbsp; <a href="#">下一页</a> <input name="" type="text" class="pagetxt"> <a href="javascript:closed();" class="quxiaobtn" style="width:40px;">跳转</a></span>
+       <a href="#"><em class="dantuwen2"></em>单图文消息</a> &nbsp;&nbsp; <a href="#"><em class="duotuwen2"></em>多图文消息</a>
+   </div>*@
+    <form class="form-horizontal" id="frmSave2" method="post" action="SendNews.do" role="form" enctype="multipart/form-data">
+        @*    @Html.Hidden("ReturnID",Model[0].ID)
+        @Html.Hidden("FROMUSERNAME", Model[0].FROMUSERNAME)
+        @Html.Hidden("TOUSERNAME",Model[0].TOUSERNAME)
+        @Html.Hidden("FID",Model[0].FID)*@
+
+        <div class="editAllcon">
+            <div id="tanmain">
+                <ul id="tiles">
+                    @Html.Raw(@Model.tuwen)
+                </ul>
+            </div>
+        </div>
+    </form>
+    <div class="tishibtn"><a href="javascript:closed();" class="greenbtn" id="greenbtn2">确定</a> &nbsp; <a href="javascript:closed();" class="quxiaobtn">取消</a></div>
+</div>
+<div class="tishibg" id="tishibg"></div>
+
+<div id="div3" style="display: none; background-color: white; color: black; font-size: x-large; font-weight: 300;" class="img-rounded">
+</div>
+@section jssection{
+    <script type="text/javascript">
+
+        var util = {};
+        var options = {
+            listUrl: "@Url.Action("InformationList")",
+            editUrl: "@Url.Action("InformationEdit")",
+            deleteUrl: "@Url.Action("DeleteInformation")",
+        };
+
+        if ($("#ID").val() == 0) {
+            $("#divkeys").show();
+            $("#divtype").show();
+            $("#divnews").show();
+            $("#divimage").hide();
+            $("#divtext").hide();
+        }
+        else {
+            gbcount(0, 0);
+            if ($("#replyType2").val() == 1) {
+                $("#divkeys").show();
+                $("#divtype").show();
+            }
+            else {
+                $("#divkeys").hide();
+                $("#divtype").hide();
+            }
+
+            if ($("#MsgType2").val() == "text") {
+                $("#divnews").hide();
+                $("#divimage").hide();
+                $("#divtext").show();
+            }
+            else if ($("#MsgType2").val() == "image") {
+                $("#divnews").hide();
+                $("#divtext").hide();
+                $("#divimage").show();
+            }
+            else {
+                $("#divnews").show();
+                $("#divimage").hide();
+                $("#divtext").hide();
+                showtw($("#Graphic_ID").val());
+            }
+        }
+        function HandleFileButtonClick() {
+            document.getElementById("file1").click()
+            //document.getElementById("txtFakeText").value = document.getElementById("file1").value;
+        }
+        function FileUpload_onselect() {
+            ajaxFileUpload();
+        }
+
+        function ajaxFileUpload() {
+            $.ajaxFileUpload
+            (
+                {
+                    url: 'UploadImageByWx.do', //用于文件上传的服务器端请求地址
+                    type: 'post',
+                    data: { Id: '123', name: 'lunis' }, //此参数非常严谨，写错一个引号都不行
+                    secureuri: false, //一般设置为false
+                    fileElementId: 'file1', //文件上传空间的id属性  <input type="file" id="file" name="file" />
+                    dataType: 'text', //返回值类型 一般设置为json
+                    success: function (data, status, Message)  //服务器成功响应处理函数
+                    {
+                        //alert(data.data.FILE_URL);
+                        data = JSON.parse(data);
+                        //$("#img1").attr("src", data.data.FILE_NAME);
+                        //$("#FILE_URL").val(data.data.FILE_URL);
+                        $("#Media_ID").val(data.data.FILE_NAME);
+                        
+                        if (typeof (data.error) != 'undefined') {
+                            if (data.error != '') {
+                                alert(data.error);
+                            } else {
+                                alert(data.msg);
+                            }
+                        }
+                    },
+                    error: function (data, status, e)//服务器响应失败处理函数
+                    {
+                        alert(e);
+                    }
+                }
+            )
+            return false;
+        }
+        function edit() {
+            document.getElementById('tishi').style.display = "block";
+            document.getElementById('tishibg').style.display = "block";
+            pubuliu();
+        }
+
+        function edit2() {
+            $("#biaoqing").show();
+        }
+
+        function addbq(bq, id) {
+            $("#Content").val($("#Content").val() + bq);
+            $("#divyl").append("<img  src='/assets/img/biaoqing/" + id + ".gif'>");
+            //alert(bq);
+            //$("#area0").show();
+            $("#biaoqing").hide();
+            //$("#divyl").show();
+
+        }
+
+        function showphoto(url, text, img) {
+            img.src = "/assets/img/biaoqing/" + url + ".gif";
+            ev = window.event;
+            var mousePos = mouseCoords(ev);
+            var div3 = document.getElementById('div3'); //将要弹出的层    
+            div3.style.display = "block"; //div3初始状态是不可见的，设置可为可见       
+            div3.style.left = (mousePos.x + 30) + "px"; //鼠标目前在X轴上的位置，加10是为了向右边移动10个px方便看到内容 
+            div3.style.top = (mousePos.y) + "px";  //div高度为滚动条的高度
+            div3.style.position = "absolute";
+            $("#div3").html(text);
+        }
+
+
+
+        function hidephoto(url, img) {
+            img.src = "/assets/img/biaoqing/" + url + ".png";
+            var div3 = document.getElementById('div3'); //将要弹出的层    
+            div3.style.display = "none";
+        }
+
+        function mouseCoords(ev) {
+            if (ev.pageX || ev.pageY) {
+                return { x: ev.pageX, y: ev.pageY };
+            }
+            return {
+                x: ev.clientX + document.body.scrollLeft - document.body.clientLeft,
+                y: ev.clientY + document.body.scrollTop - document.body.clientTop
+            };
+        }
+
+
+        function closed() {
+            document.getElementById('tishi').style.display = "none";
+            document.getElementById('tishibg').style.display = "none";
+        }
+
+        function pubuliu() {
+            var handler = $('#tiles li');
+            handler.wookmark({
+                autoResize: true,
+                container: $('#tanmain'),
+                offset: 20,
+                itemWidth: 302
+            });
+        }
+
+        var suli = document.getElementById('tanmain').getElementsByTagName('li');
+        var subdo = document.getElementById('tanmain').getElementsByTagName('bdo');
+        for (var s = 0; s < suli.length; s++) {
+            suli[s].index = s;
+            suli[s].onclick = function () {
+
+                for (var ss = 0; ss < subdo.length; ss++) {
+                    subdo[ss].className = "";
+                }
+                subdo[this.index].className = "xuanzhong";
+                $("#Graphic_ID").val(subdo[this.index].innerHTML);
+                showtw(subdo[this.index].innerHTML);
+
+
+            }
+        }
+
+        function showtw(id) {
+            $.post("GetTW.do", {
+                id: id
+            },
+                function (ret) {
+                    if (ret && ret.status == 0) {
+                        $("#divyl").html(ret.data);
+                    }
+                    else {
+                        _showInfoMessage("加载失败！", 'error');
+                    }
+                },
+                "json"
+          );
+        }
+
+        function gbcount(id, num) {
+
+            //var txtlen = document.getElementById('area' + id).value.length;
+            //var curlen = num - txtlen;
+            //if (curlen >= 0) {
+            //    $(".bianjitext").html("还可以输入" + curlen + "个字")
+            //} else {
+            //    $(".bianjitext").html("已超出<strong>" + (-curlen) + "</strong>字数");
+            //}
+            $("#divyl").html($("#Content").val());
+
+            $.post("AddBQ.do", {
+                text: $("#Content").val()
+            },
+                 function (ret) {
+                     if (ret && ret.status == 0) {
+
+                         $("#divyl").html(ret.data);
+                     }
+                     else {
+                         $("#divyl").html($("#Content").val());
+                     }
+                 },
+                 "json"
+           );
+        }
+        $("#biaoqing").hide();
+    </script>
+    @Html.Js("plugins/xjgrid/xjgrid", "plugins/xjdailog/xjdailog", "plugins/validator/validator", "app/wechat/informations", "app/company/jquery.tree", "js/ajaxfileupload")
+}

@@ -1,0 +1,161 @@
+﻿@{
+    ViewBag.Title = "短信列表";
+}
+
+@section htmlhead{
+    @Html.Css("plugin/xjgrid", "plugin/xjdailog")
+    <link href="~/assets/plugins/jqueryui-timepicker/jquery.ui.timepicker.css" rel="stylesheet" />
+    <style type="text/css">
+        .s_container {
+        }
+
+        .h_title {
+            padding: 5px 15px;
+            border-bottom: solid 1px #e6e5e5;
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        .searchpanel {
+            background-color: #f7f8fa;
+            /*border: 1px solid #ccc;*/
+            padding: 5px 15px;
+            margin-left: 10px;
+            border-radius: 4px;
+        }
+
+            .searchpanel .form-group, .searchpanel .btnpanel_right {
+                display: block;
+                overflow: hidden;
+                zoom: 1;
+                margin-bottom: 0px;
+            }
+
+                .searchpanel .form-group label {
+                    margin-bottom: 4px;
+                }
+
+        #mainbody {
+            margin: 5px 15px;
+            background-color: #fff;
+        }
+    </style>
+}
+<div class="s_container">
+    <div id="page-heading">
+        <h2>
+            <i class="fa fa-cog"></i>&nbsp;短信列表</h2>
+    </div>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h4>短信列表</h4>
+        </div>
+        <div class="panel-body" style="min-height: 350px">
+            <div class="row">
+                <div class="col-md-2 form-group">
+                    <button type="button" class="btn default" id="btnAdd">
+                        <i class="fa fa-plus"></i>&nbsp;新 增</button>
+                </div>
+                <div class="text-right col-md-10">
+                    <form class="form-inline" id="formQuery" method="post" role="form">
+
+                        <div class="form-group">
+                            <div>
+                                <input name="NAME" maxlength="32" class="form-control" type="text" placeholder="短信内容" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div>
+                                <button class="btn-primary btn"><i class="fa fa-search"></i>查询</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-12">
+                    <div class="table-responsive" id="gridlist">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="confirmModal" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">确认！</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>你确认要删除[ <span id="lbuserName"></span>]吗？</p>
+                        <input id="hdCompanyId" type="hidden" value="" />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取 消</button>
+                        <button type="button" id="btnConfirm" class="btn btn-primary">确 定</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+
+        <!-- Modal -->
+
+        <div id="EditModal" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">新建短信</h4>
+                    </div>
+
+                    <div class="modal-body col-xs-12" id="EditModelData">
+                        <form id="frmSave" method="post" action="@Url.Action("Save")" role="form">
+                            <input id="SCHID" type="hidden" name="ID" />
+                            <div class="form-group">
+                                <div class="row">
+                                    <label class="col-xs-2 control-label" for="ORG_NAME">手机号码：</label>
+                                    <div class="col-xs-10">
+                                        @Html.TextBox("PHONE_NUMBER", null, new { @class = "form-control", placeholder = "请输入手机号码",maxlength="32" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <label class="col-xs-2 control-label" for="ORG_NAME">短信内容：</label>
+                                    <div class="col-xs-10">
+                                        @Html.TextArea("CONTENT",null,new{@class="from-control",placeholder="请输入短信内容",style="width:100%;resize:none;height:200px;"})
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </form>
+                    </div>
+                    <div style="clear: both"></div>
+                    <div class="modal-footer">
+                        <button type="reset" id="btnCancel" class="btn btn-default" data-dismiss="modal">取 消  </button>
+                        <button type="button" id="btnSave" class="btn btn-primary">保 存  </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.modal -->
+
+    </div>
+</div>
+
+@section jssection{
+    <script type="text/javascript">
+        var util = {};
+        var options = {
+            listUrl: "@Url.Action("SMSMessageList")",
+            detailUrl: "@Url.Action("ScheduleDetail")",
+            editUrl: "@Url.Action("ScheduleSetEdit")",
+            deleteUrl: "@Url.Action("ScheduleSetDelete")"
+        };
+    </script>
+    @Html.Js("plugins/xjgrid/xjgrid", "plugins/xjdailog/xjdailog", "app/systemset/SMSMessages")
+    <script src="~/assets/plugins/form-colorpicker/js/bootstrap-colorpicker.min.js"></script>
+}

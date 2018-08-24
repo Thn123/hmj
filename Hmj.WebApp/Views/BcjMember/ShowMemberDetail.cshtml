@@ -1,0 +1,65 @@
+﻿@{
+    ViewBag.Title = "ShowUpdateMember";
+    Layout = "~/Views/Shared/_LayoutE.cshtml";
+}
+@model Hmj.Entity.WxModel.MemberInfo
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width" name="viewport" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+    <meta content="telephone=no" name="format-detection" />
+    <link type="text/css" href="/Bcj/memberinfo/css/admin.css" rel="stylesheet" />
+    <title>个人信息</title>
+</head>
+
+<body>
+    <div class="baicaojiMenber otherBox menberInfo">
+        <ul>
+            <li>
+                <span class="imgbox"><em id="touxiangImg"><img src="@Model.Headimgurl"></em></span>
+                <strong>头像</strong>
+            </li>
+
+            <li><span>@Model.Nickname</span><strong>昵称</strong></li>
+            <li><span>@Model.NAME</span><strong>姓名</strong></li>
+            <li>
+                @if (Model.SEX == 1)
+            {<span>男</span> }
+            else
+            { <span>女</span>}<strong>性别</strong>
+            </li>
+            <li><span>@Model.MOBILE</span><strong>手机号</strong></li>
+            <li><span>@Model.ADDRESS</span><strong>地址</strong></li>
+            <li><span>@Model.PWD</span><strong>兑换密码</strong></li>
+        </ul>
+    </div>
+    <div class="baicaojiMenber menberInfo">
+        <ul>
+            <li><span>@(Model.BIRTHDAY.HasValue ? Model.BIRTHDAY.Value.ToString("yyyy-MM-dd") : "")</span><strong>生日</strong></li>
+            <li><span>@Model.MEM_LEVEL</span><strong>会员等级</strong></li>
+            <li><span>@Model.STORE_NAME</span><strong>门店</strong></li>
+        </ul>
+    </div>
+
+    <div class="paybtnbg">
+        <a href="/BcjMember/UpdateMemberDetail.do"><div class="paybtn">我要修改资料</div></a>
+    </div>
+
+</body>
+</html>
+<script type="text/javascript" src="/Bcj/memberinfo/js/jquery.min.js"></script>
+<script src="~/Bcj/Message2.js"></script>
+<script>
+
+    $(function () {
+        if ($('input[name=dateInput]').val()) {
+            $('input[name=dateInput]').parent().parent().find('bdo').hide();
+        }
+        $('input[name=dateInput]').on('click', function () {
+            $(this).parent().parent().find('bdo').hide();
+        })
+    });
+</script>

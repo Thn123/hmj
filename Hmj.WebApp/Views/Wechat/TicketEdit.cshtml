@@ -1,0 +1,248 @@
+﻿@{
+    ViewBag.Title = "优惠券维护";
+}
+@model Hmj.Entity.WXTicket
+<link href="~/assets/css/weixincss.css" rel="stylesheet" />
+@section htmlhead{
+    @Html.Css("plugin/xjgrid", "plugin/xjdailog", "common", "plugin/validator", "plugin/tip")
+
+
+    @*   <script type='text/javascript' src='../../assets/plugins/form-ckeditor/ckeditor.js'></script> *@
+
+    <style type="text/css">
+        .searchpanel
+        {
+            background-color: #f7f8fa; /*border: 1px solid #ccc;*/
+            padding: 5px 15px;
+            margin-left: 10px;
+            border-radius: 4px;
+        }
+
+            .searchpanel .form-group, .searchpanel .btnpanel_right
+            {
+                /*
+            display: block;
+            overflow: hidden;
+            zoom: 1;
+            margin-bottom: 0px;
+            */
+            }
+
+                .searchpanel .form-group label
+                {
+                    margin-bottom: 4px;
+                }
+
+        #SearchBox
+        {
+            width: 200px;
+        }
+    </style>
+}
+<div>
+    <div class="sucailist">
+       <h5><a href="Ticket.do"><em class="fanhui2"></em>优惠券管理</a> / 优惠券维护</h5>
+   </div>
+    <div class="modal-header">
+        @*<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>*@
+       @* <h4 class="modal-title">优惠券维护</h4>*@
+    </div>
+
+    <div class="modal-body">
+        <form class="form-horizontal" id="frmSave" method="post" action="@Url.Action("SaveTicket")" role="form">
+            @Html.Hidden("ID", Model.ID)
+            @Html.Hidden("HavNum", Model.HavNum)
+            @*  @Html.Hidden("Describe",Model.Describe)*@
+            <div class="form-group col-xs-6">
+                <div class="form-group col-xs-12">
+                    <label class="col-sm-2 control-label" style="text-align: left">券名称:</label>
+                    <div class="col-sm-10">
+                        @Html.TextBox("Name", Model.Name, new { @class = "form-control", placeholder = "请输入关键字" })
+                    </div>
+                </div>
+                <div class="form-group col-xs-12">
+                    <label class="col-sm-2 control-label" style="text-align: left">券类型:</label>
+                    <div class="col-sm-10">
+                        @Html.ResourceDropDownList("Type", "TicketType", Model.Type, new { @class = "form-control" }, Model.Type, false)
+                    </div>
+                </div>
+                <div class="form-group col-xs-12" id="divoldprice">
+                    <label class="col-sm-2 control-label" style="text-align: left">原价格:</label>
+                    <div class="col-sm-10">
+                        @Html.TextBox("OldPrice", Model.OldPrice, new { @class = "form-control", placeholder = "请输入关键字" })
+                    </div>
+
+                </div>
+                <div class="form-group col-xs-12" id="divnewprice">
+                    <label class="col-sm-2 control-label" style="text-align: left">现价格:</label>
+                    <div class="col-sm-10">
+                        @Html.TextBox("NewPrice", Model.NewPrice, new { @class = "form-control", placeholder = "请输入关键字" })
+                    </div>
+                </div>
+                <div class="form-group col-xs-12" id="divDiscount">
+                    <label class="col-sm-2 control-label" style="text-align: left">折扣:</label>
+                    <div class="col-sm-10">
+                        @Html.TextBox("Discount", Model.Discount, new { @class = "form-control", placeholder = "请输入文本内容" })
+                    </div>
+                </div>
+                
+                <div class="form-group col-xs-12" id="divtext">
+                    <label class="col-sm-2 control-label" style="text-align: left">总数量:</label>
+                    <div class="col-sm-10">
+                        @Html.TextBox("TotalNum", Model.TotalNum, new { @class = "form-control", placeholder = "请输入文本内容" })
+                    </div>
+                </div>
+                <div class="form-group col-xs-12" id="divtext">
+                    <label class="col-sm-2 control-label" style="text-align: left">开始时间:</label>
+                    <div class="col-sm-10">
+                        @Html.TextBox("BegDate", Model.BegDate, new { @class = "form-control", id = "starttime", placeholder = "请输入文本内容" })
+                    </div>
+
+                </div>
+                <div class="form-group col-xs-12" id="divtext">
+                    <label class="col-sm-2 control-label" style="text-align: left">结束时间:</label>
+                    <div class="col-sm-10">
+                        @Html.TextBox("EndDate", Model.EndDate, new { @class = "form-control", id = "datepicker", placeholder = "请输入文本内容" })
+                    </div>
+                </div>
+
+                
+                <div class="form-group col-xs-12" id="divtext">
+                    <label class="col-sm-2 control-label" style="text-align: left">是否显示:</label>
+                    <div class="col-sm-10">
+                        <label class="checkbox-inline">@Html.CheckBox("IsShow", Model.IsShow)</label>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="form-group col-xs-6">
+                <div class="form-group col-xs-12">
+                    <label class="col-sm-3 control-label" style="text-align: left">图片上传：</label>
+                    <div class="col-sm-9">
+                        <input type="file" name="file1" style="width: 100%;" id="file1"  class="input-group-addon btn btn-default btn-file" onclick="FileUpload_onclick()" onchange="FileUpload_onselect()" /></div>
+                </div>
+                <div class="form-group col-xs-12">
+                    <label class="col-sm-3 control-label" style="text-align: left">图片预览：</label>
+                    <div class="col-sm-9">
+                        <img id="img1" class="img-thumbnail" style="height:210px" src="@( System.Configuration.ConfigurationSettings.AppSettings["WebUrl"] + Model.Pic)" />
+                        @Html.Hidden("Pic", @Model.Pic)
+                    </div>
+                </div>
+                <div class="form-group col-xs-12">
+                    <label class="col-sm-3 control-label" style="text-align: left">描述:</label>
+                    <div class="col-sm-9">
+                        <textarea name="Describe" id="Describe" style="width: 100%;" rows="5">@Model.Describe</textarea>
+                        @*  <textarea name="ckeditor" id="ckeditor" cols="80" rows="20" class="ckeditor">@Model.Describe</textarea>*@
+                    </div>
+                </div>
+            </div>
+
+
+
+        </form>
+    </div>
+    <div style="clear: both"></div>
+    <div class="modal-footer">
+        <button type="button" id="btnSave" class="btn btn-primary">确 定</button>
+        @*<button type="button" id="btnClose" class="btn btn-default" data-dismiss="modal">取 消</button>*@
+    </div>
+</div>
+
+
+@section jssection{
+    <script type="text/javascript">
+
+        //var util = {};
+        //var options = {
+        //    myeditor: CKEDITOR.replace('ckeditor', { toolbar: 'Basic' })
+        //};
+
+        var util = {};
+        var options = {
+            listUrl: "@Url.Action("TickdtList")",
+            editUrl: "@Url.Action("TicketEdit")",
+            deleteUrl: "@Url.Action("DeleteInformation")",
+        };
+
+
+        $('#datepicker').datepicker({
+            numberOfMonths: 1,//显示几个月  
+            showButtonPanel: true,//是否显示按钮面板  
+            dateFormat: 'yy-mm-dd',//日期格式  
+            clearText: "清除",//清除日期的按钮名称  
+            closeText: "关闭",//关闭选择框的按钮名称  
+            yearSuffix: '年', //年的后缀  
+            showMonthAfterYear: true,//是否把月放在年的后面  
+            //defaultDate: '2011-03-10',//默认日期  
+            minDate: 'today',//最小日期  
+            //maxDate: '2011-03-20',//最大日期  
+            monthNames: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
+            dayNames: ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],
+            dayNamesShort: ['周日', '周一', '周二', '周三', '周四', '周五', '周六'],
+            dayNamesMin: ['日', '一', '二', '三', '四', '五', '六'],
+        });
+
+        $('#starttime').datepicker({
+            numberOfMonths: 1,//显示几个月  
+            showButtonPanel: true,//是否显示按钮面板  
+            dateFormat: 'yy-mm-dd',//日期格式  
+            clearText: "清除",//清除日期的按钮名称  
+            closeText: "关闭",//关闭选择框的按钮名称  
+            yearSuffix: '年', //年的后缀  
+            showMonthAfterYear: true,//是否把月放在年的后面  
+            //defaultDate: '2011-03-10',//默认日期  
+            minDate: 'today',//最小日期  
+            //maxDate: '2011-03-20',//最大日期  
+            monthNames: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
+            dayNames: ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],
+            dayNamesShort: ['周日', '周一', '周二', '周三', '周四', '周五', '周六'],
+            dayNamesMin: ['日', '一', '二', '三', '四', '五', '六'],
+        }).on('changeDate', function (ev) {
+            alert(ev);
+        });
+
+
+        function FileUpload_onselect() {
+            ajaxFileUpload();
+        }
+
+        function ajaxFileUpload() {
+            $.ajaxFileUpload
+            (
+                {
+                    url: 'UploadImage.do', //用于文件上传的服务器端请求地址
+                    type: 'post',
+                    data: { Id: '123', name: 'lunis' }, //此参数非常严谨，写错一个引号都不行
+                    secureuri: false, //一般设置为false
+                    fileElementId: 'file1', //文件上传空间的id属性  <input type="file" id="file" name="file" />
+                    dataType: 'text', //返回值类型 一般设置为json
+                    success: function (data, status, Message)  //服务器成功响应处理函数
+                    {
+                        data = JSON.parse(data);
+                        //alert(data.data.FILE_URL);
+                        $("#img1").attr("src", data.data.FILE_NAME);
+                        $("#Pic").val(data.data.FILE_URL);
+                        if (typeof (data.error) != 'undefined') {
+                            if (data.error != '') {
+                                alert(data.error);
+                            } else {
+                                alert(data.msg);
+                            }
+                        }
+                    },
+                    error: function (data, status, e)//服务器响应失败处理函数
+                    {
+                        alert(e);
+                    }
+                }
+            )
+            return false;
+        }
+
+
+
+    </script>
+
+    @Html.Js("plugins/xjgrid/xjgrid", "plugins/form-datepicker/js/bootstrap-datepicker", "plugins/xjdailog/xjdailog", "plugins/validator/validator", "app/wechat/ticket", "app/company/jquery.tree", "js/ajaxfileupload")
+}

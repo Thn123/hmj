@@ -1,0 +1,132 @@
+﻿@{
+    ViewBag.Title = "员工管理"; 
+}
+@model Hmj.Entity.SearchEntity.EmployeeSearch
+@section htmlhead{
+    @Html.Css("plugin/xjgrid", "plugin/xjdailog")
+    @Html.Css("plugin/validator")
+<link rel='stylesheet' type='text/css' href='../../assets/css/tree.css' />
+    <style type="text/css">
+        .h_title {
+            padding: 5px 15px;
+            border-bottom: solid 1px #e6e5e5;
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        .searchpanel {
+            background-color: #f7f8fa; /*border: 1px solid #ccc;*/
+            padding: 5px 15px;
+            margin-left: 10px;
+            border-radius: 4px;
+        }
+
+            .searchpanel .form-group label {
+                margin-bottom: 4px;
+            }
+
+        #USER_TYPE {
+            min-width: 100px;
+        }
+    </style>
+}
+<div class="s_container">
+    <div id="page-heading">
+        <h2>
+            <i class="fa fa-user"></i>&nbsp;员工管理</h2>
+    </div>
+    
+    <div id="mainbody" class="panel panel-primary col-md-3">
+        <div class="panel-heading">
+            <h4>组织机构</h4>
+        </div>
+        <div class="panel-body">
+             <div id="ptree"></div>          
+        </div>
+    </div>
+
+    <div id="mainbody1" class="panel panel-primary col-md-9">
+        <div class="panel-heading">
+            <h4 id="h4Dict">员工列表
+            </h4>
+        </div>
+        <div class="panel-body" style="min-height: 350px">
+            <div class="row">
+                <div class="col-md-2 form-group">
+                    <button type="button" class="btn default" id="btnAdd">
+                        <i class="fa fa-plus"></i>新 增</button>
+                </div>
+
+                <div class="text-right col-md-10">  
+
+                    <form id="formQuery" class="form-inline" method="post" role="form">                       
+                        @Html.Hidden("USER_TYPE", Model.UserType)
+                        @Html.Hidden("STORE_ID", Model.STORE_ID)
+                        @* <div class="form-group">
+                            @Html.ResourceDropDownList("USER_TYPE", "USER_TYPE", Model.UserType, new { @class = "form-control" }, Model.CuUserType, false)
+                             </div>*@
+                             <div class="form-group">
+                         @*   <select class="form-control" id="STORE_ID" name="STORE_ID" style="min-width:200px">
+                            </select> *@
+                                 </div>
+                          @Html.TextBox("EMPLOYEE_NO", Model.EMPLOYEE_NO, new { @class = "form-control", placeholder = "工号" })
+                            @Html.TextBox("EMP_NAME", Model.EMP_NAME, new { @class = "form-control", placeholder = "员工姓名" })
+                        @*  <div class="form-group">
+                            @Html.ResourceDropDownList("STATUS", "EMP_STATUS", Model.STATUS, new { @class = "form-control" })
+                              </div>
+                        <div class="form-group">
+                            @Html.ResourceDropDownList("EMP_TYPE", "EMP_TYPE", Model.EMP_TYPE, new { @class = "form-control" })                        
+                            </div>*@
+                        <div class="form-group">
+                            @Html.ResourceDropDownList("POST_ID", "EMP_POST", Model.POST_ID, new { @class = "form-control" }, Model.ORG_ID.ToString(), false)
+                            <div class="btn-group">
+                                <button class="btn-primary btn"><i class="fa fa-search"></i>查 询</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-12">
+                    <div id="gridlist">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="confirmModal" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">确认！</h4>
+                    </div>                    
+                    <div class="modal-body">
+                        <p>你确认要删除员工 [ <span id="lbuserName"></span>] 吗？</p>
+                        <input id="hdCurrentId" type="hidden" value="" />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取 消</button>
+                        <button type="button" id="btnConfirm" class="btn btn-primary">确 定</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+    </div>
+</div>
+<!-- /.modal -->
+@section jssection{
+    <script type="text/javascript">
+        var util = {};
+        var options = {
+            listUrl: "@Url.Action("List")",
+            editUrl: "@Url.Action("EditInfo")",
+            deleteUrl: "@Url.Action("Delete")",
+            getUserREGION: "@Url.Action("GetUserREGION")",
+            queryLeftUrl: "@Url.Action("QueryLeft")",
+        };
+    </script>
+    @Html.Js("plugins/validator/validator", "plugins/xjgrid/xjgrid", "plugins/xjdailog/xjdailog",
+    "app/company/jquery.tree", "app/employee/index")
+    @*, "plugins/form-parsley/parsley.min", "demo/demo-formvalidation"*@
+}

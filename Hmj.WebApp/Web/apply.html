@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>我的要报名---闲时兔</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="Cache-Control" content="public" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="apple-mobile-web-app-status-bar-style"  content="black" />
+  <meta name="renderer" content="webkit">
+  <meta name="description" content="闲时兔">
+  <meta name="keywords" content="闲时兔">
+  <link rel="stylesheet" href="css/common.css" type="text/css">
+</head>
+<body>
+<header>
+  <h1 class="fl"><a href="index.html" class="logo"></a><code>闲时兔</code></h1>
+  <a href="javascript:;" class="follow"><i></i>点击关注</a>
+</header>
+<!--header end of-->
+<section class="adpic pt5"><img src="img/flash/flash_2.png" alt="闲时兔"/></section>
+<section class="apply bottom70">
+  <ul>
+   <h1 class="nowrap">二十八年夫妻情 北京堂客结婚只为更快离</h1>
+   <h2>名额：<code>30</code>   <span>免费</span>
+   </h2>
+   <h3>2368人报名</h3>
+ </ul>
+ <dl>
+   <dt>活动详情</dt>
+   <dd>熟悉浏览器渲染原理，精通各种前端调试工具，对页面性能和浏览器兼容有丰富的实践经验精通HTML/HTML5、CSS/CSS3等前端开发技术，熟悉页面架构和布局，有jquerymobile,zepto等移动js框架开发经验具有面向对象分析、设计、开发的能力7、有移动互联网产品开发、游戏开发培训经验优先。熟悉浏览器渲染原理，精通各种前端调试工具，对页面性能和浏览器兼容有丰富的实践经验精通HTML/HTML5、CSS/CSS3等前端开发技术，熟悉页面架构和布局，有jquerymobile,zepto等移动js框架开发经验具有面向对象分析、设计、开发的能力7、有移动互联网产品开发、游戏开发培训经验优先。</dd>
+ </dl>
+  <dl>
+   <dt>活动详情</dt>
+   <dd>熟悉浏览器渲染原理，精通各种前端调试工具，对页面性能和浏览器兼容有丰富的实践经验精通HTML/HTML5、CSS/CSS3等前端开发技术，熟悉页面架构和布局，有jquerymobile,zepto等移动js框架开发经验具有面向对象分析、设计、开发的能力7、有移动互联网产品开发、游戏开发培训经验优先。熟悉浏览器渲染原理，精通各种前端调试工具，对页面性能和浏览器兼容有丰富的实践经验精通HTML/HTML5、CSS/CSS3等前端开发技术，熟悉页面架构和布局，有jquerymobile,zepto等移动js框架开发经验具有面向对象分析、设计、开发的能力7、有移动互联网产品开发、游戏开发培训经验优先。</dd>
+ </dl>
+</section>
+<!--shop-list end of-->
+<section class="apply-btn"><a href="javascript:;">我要报名</a></section>
+<!--apply-btn end of-->
+ <div class="kBubble">
+      <h2>免费报名</h2>
+      <dl>
+         <dt><input type="tel" class="input tel" maxlength="11" placeholder="请输入您的手机号码"></dt>
+         <dd>PS:对页面性能和浏览器兼容有丰富的实践经验精通HTML/HTML5、CSS/CSS3等前端开发技术</dd>
+         <a href="javascript:;" class="tjBtn">提交</a>
+      </dl>
+  </div>
+<section class="mask"></section>
+<!--mask end of-->
+<div class="tips"></div>
+<script src="js/jquery.js"></script>
+<script>
+$(function(){
+  $(".apply-btn").click( function () {
+	  $('.mask').show();
+	  $('.kBubble').show();
+  });
+});
+$(".tjBtn").click(function () {
+	var tel =$.trim($('.tel').val());
+	var myreg =/^(0|86|17951)?(13[0-9]|15[012356789]|18[0-9]|14[57])[0-9]{8}$/;
+	if(tel == ""){
+		$('.tips').text('输入手机不能为空').show();
+		closeTips();
+		return;
+	}
+	if(!myreg.test($(".tel").val())) {
+		$('.tips').text('手机号码格式有误').show();
+		closeTips();    
+		return;
+	}else{
+	  $('.mask').hide();	
+	}
+})
+function closeTips(){setTimeout("$('.tips').hide()",3000);} 
+function stopPropagation(e){if(e.stopPropagation){e.stopPropagation();}else{e.cancelBubble = true}}
+$('.mask').bind('click',function(){$('.mask,.kBubble').hide();});
+$('.tjBtn').bind('click',function(e){stopPropagation(e);});
+</script>
+</body>
+</html>

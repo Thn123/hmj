@@ -1,0 +1,227 @@
+﻿@{
+    ViewBag.Title = "编辑服务项目信息";
+    Layout = "~/Views/Shared/_LayoutC.cshtml";
+    var orgId = ViewData["ORG_ID"] == null ? "0" : ViewData["ORG_ID"].ToString();
+}
+
+@model Hmj.Entity.Entities.PROD_SERVICE_EX
+@section htmlhead{
+    @Html.Css("plugin/validator")
+  @Html.Css("plugin/validator", "plugin/xjgrid")
+    <style type="text/css">
+        .h_title
+        {
+            padding: 5px 15px;
+            border-bottom: solid 1px #e6e5e5;
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+          .btnpanel {
+            text-align: center;
+        }
+    </style>
+}
+<div class="s_container">
+    <div id="page-heading">
+        <h2>
+            <i class="fa fa-user"></i>&nbsp;服务项目维护</h2>
+    </div>
+    <div >
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h4>
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#BASE_INFO" data-toggle="tab">项目基础信息</a></li>
+                        <li><a href="#STORE" id="tab_store" data-toggle="tab">适用的门店</a></li>
+                    </ul>
+                </h4>
+            </div>
+            <div class="panel-body">
+                <div class="tab-content">
+                    <div class="tab-pane active" id="BASE_INFO" style="overflow: hidden; zoom: 1">
+                        <form id="frmEdit" class="form-horizontal" action="@Url.Action("Save")" method="post" role="form">
+                         @Html.Hidden("ID", Model.ID)
+                             @if (string.IsNullOrEmpty(Model.SCATE) && !string.IsNullOrEmpty(Model.BCATE))
+                            {
+                                @Html.Hidden("BCATE", Model.CATEGORY_ID + "_" + Model.BCATE);
+                            }
+                            else if (!string.IsNullOrEmpty(Model.SCATE) && !string.IsNullOrEmpty(Model.BCATE))
+                            {
+                                @Html.Hidden("BCATE", Model.PARENT_ID + "_" + Model.BCATE + Model.CATEGORY_ID + "_" + Model.SCATE);
+                            }
+                          
+                              <input type="hidden" id="ID" name="ID" value="@Model.ID" />
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="NAME">
+                                服务名称:</label>
+                            <div class="col-sm-6">
+                                @Html.TextBox("NAME", Model.NAME, new { @class = "form-control", placeholder = "请输入服务名称" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="SKU">
+                                SKU（服务项目编号）:</label>
+                            <div class="col-sm-6">
+                                @Html.TextBox("SKU", Model.SKU, new { @class = "form-control", placeholder = "请输入SKU(服务项目编号)" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="CATEGORY_ID">
+                                服务项目大类:</label>
+                            <div class="col-sm-6">
+                               @Html.ResourceDropDownList("TYPE", "SER_TYPE", "", new { @class = "form-control" },orgId,false) @*服务类别*@                   
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="CATEGORY_ID">
+                                服务项目小类:</label>   
+                             <div class="col-sm-6">             
+                        <select class="form-control" id="PRO_TYPE" name="SONTYPE">
+                            <option value="">请选择项目所属小类</option>
+                        </select>     
+                                 </div>                                   
+                       
+                    </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="PRICE">
+                                单价:</label>
+                            <div class="col-sm-6">
+                                @Html.TextBox("PRICE", Model.PRICE, new { @class = "form-control", placeholder = "请输入项目单价" })
+                            </div>
+                        </div>
+                        <div style="clear: both;">
+                        </div>
+                        @*<div class="form-group">
+                            <label class="col-sm-3 control-label" for="BARCODE">
+                                条形码编号:</label>
+                            <div class="col-sm-6">
+                                @Html.TextBox("BARCODE", Model.BARCODE, new { @class = "form-control", placeholder = "请输入条形码编号" })
+                            </div>
+                        </div>*@
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="TIME_LEN">
+                                服务时长（分钟）:</label>
+                            <div class="col-sm-6">
+                                @Html.TextBox("TIME_LEN", Model.TIME_LEN, new { @class = "form-control", placeholder = "请输入服务时长（分钟）" })
+                            </div>
+                        </div>
+                        @*<div class="form-group">
+                            <label class="col-sm-3 control-label" for="BEGIN_DATE">
+                                上架时间:</label>
+                            <div class="col-sm-6 input-group date" id="begin_picker">
+                                @Html.TextBox("BEGIN_DATE", Model.BEGIN_DATE, new { @class = "form-control", placeholder = "请输入上架时间" })
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="END_DATE">
+                                下架时间:</label>
+                            <div class="col-sm-6 input-group date" id="end_picker">
+                                @Html.TextBox("END_DATE", Model.END_DATE, new { @class = "form-control", placeholder = "请输入下架时间" })
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                            </div>
+                        </div>*@
+                        @*<div class="form-group">
+                            <label class="col-sm-3 control-label" for="IS_NORMAL">
+                                是否常用项目:</label>
+                            <div class="col-sm-6">
+                                @Html.ResourceRadioList("IS_NORMAL", "YES_NO", string.IsNullOrEmpty(Model.IS_NORMAL.ToString()) ? "" : Model.IS_NORMAL.ToString(), null)
+                            </div>
+                        </div>*@
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="STATUS">
+                                使用状态:</label>
+                            <div class="col-sm-6">
+                                @if (Model.ID == 0)
+                                {
+                                      @Html.ResourceRadioList("STATUS", "OPEN_CLOSE", "1", null)
+                                }
+                                else
+                                {
+                                @Html.ResourceRadioList("STATUS", "OPEN_CLOSE", Model.STATUS.ToString(), null)
+                                }
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="IS_CARDPAY">
+                                是否允许卡付:</label>
+                            <div class="col-sm-6">
+                                @if (Model.ID == 0)
+                                {
+                                    @Html.ResourceRadioList("IS_CARDPAY", "YES_NO","1", null)
+                                }
+                                else
+                                {
+                                @Html.ResourceRadioList("IS_CARDPAY", "YES_NO",Model.IS_CARDPAY? 1 : 0,null)
+                                }
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="IS_DISCOUNT">
+                                是否享受折扣:</label>
+                            <div class="col-sm-6">
+                                @if (Model.ID == 0)
+                                {
+                                     @Html.ResourceRadioList("IS_DISCOUNT", "YES_NO", "1", null)
+                                }
+                                else
+                                {
+                                @Html.ResourceRadioList("IS_DISCOUNT", "YES_NO", Model.IS_DISCOUNT?1:0, null)
+                                }
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="IS_CARDPAY">
+                                备注:</label>
+                            <div class="col-sm-6">
+                                @Html.TextArea("REMARK", Model.REMARK, new { @class = "form-control", rows = "3" })
+                            </div>
+                        </div>
+                        <div class="btnpanel_right">
+                            <button type="reset" id="btnCancel" class="btn btn-default">
+                                取 消
+                            </button>
+                            <button type="button" id="btnSave" class="btn btn-primary">
+                                保 存
+                            </button>
+                        </div>
+                        </form>
+                    </div>
+
+                    <div class="tab-pane" id="STORE">
+                        <div class="row">
+                            <form class="form-horizontal" id="frmStore" method="post" role="form">
+                                @Html.Hidden("SID", Model.ID)
+                                <div class="col-md-12">
+                                    <div id="gridlist">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    <div id="STORE_INFO" style="margin:5px 0;">
+                      
+                    </div>
+                        <div class="btnpanel">
+                          @*  <button type="button" id="btnStoreCancel" class="btn btn-default" data-dismiss="modal">取 消</button>*@
+                            <button type="button" id="btnStoreSave" style="width:100px;" class="btn btn-primary">保 存</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section jssection{
+    <script type="text/javascript">
+        var util = {};
+        var options = {
+            indexUrl: "@Url.Action("Index")",
+            Sto_SaveUrl: "@Url.Action("SaveStore")",
+            proTypeUrl: "@Url.Action("GetProdTypesById")",
+          Sto_QueryUrl: "@Url.Action("ListStore")"
+        };
+    </script>
+    @Html.Js("plugins/validator/validator","plugins/xjgrid/xjgrid", "plugins/form-datepicker/js/bootstrap-datepicker", "plugins/form-datepicker/js/locales/bootstrap-datepicker.zh-CN", "app/service/edit")
+}

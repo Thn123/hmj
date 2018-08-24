@@ -1,0 +1,118 @@
+﻿@{
+    ViewBag.Title = "ShowRegister";
+    Layout = "~/Views/Shared/_LayoutE.cshtml";
+}
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width" name="viewport" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+    <meta content="telephone=no" name="format-detection" />
+    <link type="text/css" href="../Bcj/member/css/reg.css" rel="stylesheet" />
+    <title>新会员注册</title>
+</head>
+<body>
+    <input type="hidden" id="mobile" value="@ViewBag.Mobile" />
+    <input type="hidden" id="openid" value="@ViewBag.Openid" />
+    <input type="hidden" id="nickname" value="@ViewBag.NickName" />
+    <input type="hidden" id="gender" value="@ViewBag.Gender" />
+    <div class="baicaojiMenber">
+        <ul>
+            <li><span><input name="Fname" id="nameO" type="text" maxlength="5" class="txt" placeholder="请输入您的姓氏"></span><strong>姓氏</strong></li>
+            <li><span><input name="Sname" id="nameK" type="text" maxlength="5" class="txt" placeholder="请输入您的名字"></span><strong>名字</strong></li>
+            <li>
+                <p>
+                    <bdo>请选择您的生日</bdo><span class="dateinput">
+                        <input name="dateInput" id="brithday" type="date" class="txt" placeholder="请选择您的生日">
+                    </span>
+                    <strong>生日</strong>
+                </p>
+            </li>
+        </ul>
+    </div>
+    <div class="paybtnbg">
+        <div class="paybtn opacityBtn" id="isOk">确认</div>
+    </div>
+</body>
+</html>
+<script type="text/javascript" src="../Bcj/member/js/jquery.min.js"></script>
+<script type="text/javascript">
+    var patrn = /^0?(13[0-9]|15[0-9]|17[0-9]|18[0-9]|14[0-9])[0-9]{8}$/;
+    var tipsflag = true, flaglogin = true;
+    function tips(text) {
+        if (tipsflag == true) {
+            var tishiDiv = document.createElement('div');
+            tishiDiv.className = "motify";
+            document.body.appendChild(tishiDiv);
+            tipsflag = false;
+        }
+        $('.motify').html(text).show();
+        setTimeout(function () { $('.motify').fadeOut(); }, 2000);
+    }
+
+    $('input[name=dateInput]').on('click', function () {
+        $(this).parent().parent().find('bdo').hide();
+    })
+
+    $("input[name=Fname]").bind('input propertychange', function () {
+        queren();
+    });
+
+    function queren(shuzhi) {
+        $('.paybtn').removeClass('opacityBtn');
+        $(".paybtn").click(function () {
+
+            var mobile = $("#mobile").val();
+            var openid = $("#openid").val();
+            var nameo = $("#nameO").val();
+            var namek = $("#nameK").val();
+
+            var brithday = $("#brithday").val();
+            var nickname = $("#nickname").val();
+            var gender = $("#gender").val();
+
+            var re = /^[a-zA-Z\u4e00-\u9fa5]+$/;
+
+            if (!re.test(nameo) || !re.test(namek)) {
+                tips("请不要输入特殊字符！！");
+                return false;
+            }
+            
+            if (nameo == "") {
+                tips("姓氏不能是空");
+                return false;
+            }
+            if (namek == "") {
+                tips("名称不能是空");
+                return false;
+            }
+            if (brithday == "") {
+                tips("生日不能是空");
+                return false;
+            }
+            if (flaglogin == true) {
+                flaglogin = false;
+                //开始注册
+                $.ajax({
+                    type: "post",
+                    url: "/BcjMember/Register.do",
+                    data: {
+                        mobile: mobile, openid: openid,
+                        nameo: nameo, namek: namek, brithday: brithday,
+                        nickname: nickname, gender: gender
+                    },
+                    success: function (data) {
+                        //注册成功
+                        if (data.Status == "1") {
+                            location.href = "/BcjMember/Index.do";
+                        } else {
+                            tips(data.Message);
+                        }
+                    }
+                })
+            }
+        })
+    }
+</script>

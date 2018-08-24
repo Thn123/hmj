@@ -1,0 +1,114 @@
+﻿@{
+    ViewBag.Title = "自定义菜单管理";
+}
+@section htmlhead{
+    <link href="~/assets/plugins/zTree_v3/css/zTreeStyle/zTreeStyle.css" rel="stylesheet" />
+    <link href="~/assets/css/plugin/validator.css" rel="stylesheet" />
+    <style type="text/css">
+        .ztree li span.button.add {
+            margin-left: 2px;
+            margin-right: -1px;
+            background-position: -144px 0;
+            vertical-align: top;
+            *vertical-align: middle;
+        }
+    </style>
+}
+@model Hmj.Entity.WXCustomMenu
+<div class="s_container">
+    <div id="page-heading">
+        <h2>
+            <i class="fa fa-user"></i>&nbsp;自定义菜单管理</h2>
+    </div>
+
+    <div id="mainbody" class="panel panel-primary col-md-3">
+        <div class="panel-heading">
+            <h4>自定义菜单</h4>
+        </div>
+        <div class="panel-body">
+            <ul id="treeDemo" class="ztree"></ul>
+            <div class="modal-footer">
+                <button type="button" id="btnRefresh" class="btn btn-primary">刷 新</button>
+                <button type="button" id="btnPublish" class="btn btn-primary">发 布</button>
+            </div>
+        </div>
+    </div>
+    <div id="mainbody1" class="panel panel-primary col-md-9">
+        <div class="panel-heading">
+            <h4 id="h4Dict">编辑菜单
+            </h4>
+        </div>
+        <div class="panel-body" style="min-height: 350px">
+            <div class="tab-pane active">
+                <form class="form-horizontal" id="frmSaveMenu" method="post" action="@Url.Action("SaveMenu")" role="form">
+                    @Html.Hidden("ID", Model.ID)
+                    @Html.Hidden("ParentID", Model.ParentID)
+                    @Html.Hidden("Depth", Model.Depth)
+                    <div class="form-group">
+                        <label for="Name" class="col-sm-3 control-label"><span style="color: red">*</span>菜单名称</label>
+                        <div class="col-sm-3">
+                            @Html.TextBox("Name", Model.Name, new { @class = "form-control", placeholder = "", style = "width:150px" })
+                        </div>
+                        <div class="col-sm-6">
+                            <p id="nameHolder" class="help-block" style="color: red;">*二级菜单最多4个汉字，三级菜单最多7个汉字，多出来的部分将会以“...”代替。</p>
+                        </div>
+                    </div>
+                    <div id="divType" class="form-group">
+                        <label for="CustomMenu_Type" class="col-sm-3 control-label"><span style="color: red">*</span>类型</label>
+                        <div class="col-sm-6">
+                            @Html.ResourceDropDownList("Type", "CustomMenu_Type", Model.Type, new { @class = "form-control" }, Model.Type.ToString(), false)
+                        </div>
+                    </div>
+                    <div id="divContent" class="form-group">
+                        <label id="lblContent" for="Content" class="col-sm-3 control-label"><span style="color: red">*</span>文本内容</label>
+                        <div class="col-sm-6">
+                            @Html.TextArea("Content", Model.Content, new { @class = "form-control", placeholder = "", rows = 5 })
+                        </div>
+                    </div>
+                    <div id="divGraphicID" class="form-group">
+                        <label for="Graphic_ID" class="col-sm-3 control-label"><span style="color: red">*</span>选择图文资源</label>
+                        <div class="col-sm-6">
+                            @* @Html.TextBox("Graphic_ID", Model.Graphic_ID, new { @class = "form-control", placeholder = "" })*@
+                            @Html.ResourceDropDownList("Graphic_ID", "Graphic_ID", Model.Graphic_ID, new { @class = "form-control" }, Model.Graphic_ID.ToString(), false, Model.Merchants_ID.ToString())
+                        </div>
+                    </div>
+                    <div id="divUrl" class="form-group">
+                        <label id="lblUrl" for="Url" class="col-sm-3 control-label"><span style="color: red">*</span>链接地址</label>
+                        <div class="col-sm-6">
+                            @Html.TextArea("Url", Model.Url, new { @class = "form-control", placeholder = "", rows = 5 })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="OrderNum" class="col-sm-3 control-label">排序数</label>
+                        <div class="col-sm-6">
+                            @Html.TextBox("OrderNum", Model.OrderNum, new { @class = "form-control", placeholder = "" })
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        @* <button type="button" id="btnCancel" class="btn btn-default" data-dismiss="modal">取 消</button>*@
+                        <button type="button" id="btnSaveMenu" class="btn btn-primary">保 存</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section jssection{
+    <script type="text/javascript">
+        var util = {};
+        var options = {
+            treeNodesUrl: "@Url.Action("QueryCustomMenuList")",
+            addChildUrl: "@Url.Action("AddChild")",
+            showMenuInfoUrl: "@Url.Action("ShowMenuInfo")",
+            deleteMenuUrl: "@Url.Action("DeleteMenu")",
+            publishToWechatUrl: "@Url.Action("PublishToWechat")",
+        };
+    </script>
+    <script src="~/assets/plugins/zTree_v3/js/jquery.ztree.core-3.5.js"></script>
+    <script src="~/assets/plugins/zTree_v3/js/jquery.ztree.core-3.5.js"></script>
+    <script src="~/assets/plugins/zTree_v3/js/jquery.ztree.excheck-3.5.js"></script>
+    <script src="~/assets/plugins/zTree_v3/js/jquery.ztree.exedit-3.5.js"></script>
+    <script src="~/assets/plugins/validator/validator.js"></script>
+    <script src="~/assets/app/custommenu/index.js"></script>
+}

@@ -1,0 +1,44 @@
+﻿@{
+    ViewBag.Title = "ShowQrHx";
+    Layout = "~/Views/Shared/_LayoutE.cshtml";
+}
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width" name="viewport" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+    <meta content="telephone=no" name="format-detection" />
+    <link type="text/css" href="/Bcj/coupon/css/youhuiquan.css" rel="stylesheet" />
+    <title>我的优惠券</title>
+
+</head>
+
+<body class="bgcolor">
+
+    <div class="quan-content-box quan-content">
+        <div class="quanma">
+            <img src="/BcjMember/ShowQrCode.do?code=@ViewBag.ZCP_YHQ">
+            <h2>券码：@ViewBag.ZCP_YHQ</h2>
+            <div class="quanmaInfo">
+                <div class="quan01"></div>
+                <div class="quan02"></div>
+                <p>券号：@ViewBag.ZCP_NUM</p>
+                <p>@ViewBag.ZCP_YHQDES</p>
+                <p>有效期 @ViewBag.ZCP_BDATE 至 @ViewBag.ZCP_EDATE</p>
+                @*<p>仅限会员 @ViewBag.BPEXT 使用</p>*@
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
+<script type="text/javascript" src="/Bcj/coupon/js/jquery.min.js"></script>
+<script>
+
+
+</script>
+

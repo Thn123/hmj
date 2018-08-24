@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width,minimum-scale=1.0" name="viewport" /> 
+<meta content="yes" name="apple-mobile-web-app-capable" /> 
+<meta content="black" name="apple-mobile-web-app-status-bar-style" /> 
+<meta content="telephone=no" name="format-detection" />
+<link type="text/css" href="css/index.css" rel="stylesheet" />
+<title>会员信息</title>
+</head>
+
+<body>
+<div class="daohang">
+       <p>要搜索离您最近的专柜，在下面输入您所在的省份、城市及商圈。</p>
+        <h5>店铺类型</h5>
+       <div class="daohangli selecticon"><select name="" class="dropdown-select">
+               <option value="">零售点</option>
+               <option value="">维修点</option>
+       </select></div>
+      
+       <h5>省份</h5>
+       <div class="daohangli selecticon"><select name="" class="dropdown-select">
+               <option value="">上海</option>
+               <option value="">南京</option>
+               <option value="">上海</option>
+               <option value="">天津</option>
+               <option value="">北京</option>
+               <option value="">杭州</option>
+       </select></div>
+       <h5>城市</h5>
+       <div class="daohangli selecticon"><select name="" class="dropdown-select">
+               <option value="">请选择城市</option>
+               <option value="">佰草集（中山公园店）</option>
+               <option value="">VenusSpring（中山公园店）</option>
+               <option value="">VenusSpring（中山公园店）</option>
+               <option value="">VenusSpring（中山公园店）</option>
+               <option value="">VenusSpring（中山公园店）</option>
+       </select></div>
+       <br>
+       <div class="btn">专柜导航</div>
+    </div>
+
+
+
+<div class="zhuangulist" id="listid">
+   <ul>
+     <li><bdo>根据您搜索的关键词共找到1您附近的专柜地址</bdo></li>
+      <li>
+       <h2><span>1.2km</span>上海东方商厦</h2>
+       <p>上海市长宁区梦购物中心888号</p>
+       <p>上海，200000</p>
+       <p><span><a href="#">查看地图</a></span><strong><a href="Tel:021-88888888">021-88888888</a></strong></p>
+       <div class="nordiv">品牌经营：品牌运营是指企业利用品牌这一最重要的无形资本,在营造强势品牌的基础上,更好的发挥强势品牌的扩张功能,促进产品的生产经营.</div>
+      </li>
+       <li>
+       <h2><span>1.2km</span>上海东方商厦</h2>
+       <p>上海市长宁区购物中心888号</p>
+       <p>上海，200000</p>
+       <p><span><a href="#">查看地图</a></span><strong><a href="Tel:021-88888888">021-88888888</a></strong></p>
+       <div  class="nordiv">品牌经营：品牌运营是指企业利用品牌这一最重要的无形资本,在营造强势品牌的基础上,更好的发挥强势品牌的扩张功能,促进产品的生产经营.</div>
+      </li>
+       <li>
+        <h2><span>1.2km</span>上海东方商厦</h2>
+       <p>上海市长宁区长宁路1018号龙之梦购物中心888号</p>
+       <p>上海，200000</p>
+       <p><span><a href="#">查看地图</a></span><strong><a href="Tel:021-88888888">021-88888888</a></strong></p>
+       <div class="nordiv">品牌经营：品牌运营是指企业利用品牌这一最重要的无形资本,在营造强势品牌的基础上,更好的发挥强势品牌的扩张功能,促进产品的生产经营.</div>
+      </li>
+   </ul>
+    <br />
+   <p align="center"class="zhuangup">（1-6的4搜索结果）</p>
+   <br />
+</div>
+
+
+</body>
+</html>
+<script type="text/javascript">
+
+var odiv=document.getElementById('listid').getElementsByTagName('div');
+for(var i=0;i<odiv.length;i++){
+	odiv[i].index=i;
+	odiv[i].onclick=function(){
+        for(var j=0;j<odiv.length;j++){
+			odiv[j].className="nordiv";
+		}
+		   
+		   odiv[this.index].className="curdiv";
+		}
+	}
+</script>

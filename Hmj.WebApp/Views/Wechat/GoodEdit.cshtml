@@ -1,0 +1,292 @@
+﻿@{
+    ViewBag.Title = "商品维护";
+}
+@model Hmj.Entity.TT_Detail
+<link href="~/assets/css/weixincss.css" rel="stylesheet" />
+@section htmlhead{
+    @Html.Css("plugin/xjgrid", "plugin/xjdailog", "common", "plugin/validator", "plugin/tip")
+
+
+    @*   <script type='text/javascript' src='../../assets/plugins/form-ckeditor/ckeditor.js'></script> *@
+
+    <style type="text/css">
+        .searchpanel
+        {
+            background-color: #f7f8fa; /*border: 1px solid #ccc;*/
+            padding: 5px 15px;
+            margin-left: 10px;
+            border-radius: 4px;
+        }
+
+            .searchpanel .form-group, .searchpanel .btnpanel_right
+            {
+                /*
+            display: block;
+            overflow: hidden;
+            zoom: 1;
+            margin-bottom: 0px;
+            */
+            }
+
+                .searchpanel .form-group label
+                {
+                    margin-bottom: 4px;
+                }
+
+        #SearchBox
+        {
+            width: 200px;
+        }
+    </style>
+        <script src="~/Assets/ueditor/ueditor.config.js"></script>
+<script src="~/Assets/ueditor/ueditor.all.js"></script>
+<script src="~/Assets/ueditor/lang/zh-cn/zh-cn.js"></script>
+}
+<div>
+    <div class="sucailist">
+       <h5><a href="GoodList.do"><em class="fanhui2"></em>商品管理</a> / 商品维护</h5>
+   </div>
+    <div class="modal-header">
+        @*<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>*@
+       @* <h4 class="modal-title">优惠券维护</h4>*@
+    </div>
+
+    <div class="modal-body">
+        <form class="form-horizontal" id="frmSave" method="post" action="@Url.Action("SaveGood")" role="form">
+            @Html.Hidden("ID", Model.ID)
+            @*  @Html.Hidden("Describe",Model.Describe)*@
+            <div class="form-group col-xs-6">
+                <div class="form-group col-xs-12">
+                    <label class="col-sm-2 control-label" style="text-align: left">商品名称:</label>
+                    <div class="col-sm-10">
+                        @Html.TextBox("Name", Model.Name, new { @class = "form-control", placeholder = "请输入商品名称" })
+                    </div>
+                </div>
+                <div class="form-group col-xs-12">
+                    <label class="col-sm-2 control-label" style="text-align: left">适用月龄:</label>
+                    <div class="col-sm-10">
+                        @Html.ResourceDropDownList("Age", "AgeType", Model.Age, new { @class = "form-control" }, Model.Age, false)
+                    </div>
+                </div>
+                <div class="form-group col-xs-12" id="divoldprice">
+                    <label class="col-sm-2 control-label" style="text-align: left">商品类型:</label>
+                    <div class="col-sm-10">
+                       @Html.ResourceDropDownList("PType", "PType", Model.PType, new { @class = "form-control" }, Model.PType, false)
+                    </div>
+
+                </div>
+                 <div class="form-group col-xs-12">
+                    <label class="col-sm-2 control-label" style="text-align: left">商品状态:</label>
+                    <div class="col-sm-10">
+                       @Html.ResourceDropDownList("State", "PROD_STATUS", Model.State.ToString(), new { @class = "form-control" }, Model.State.ToString(), false)
+                    </div>
+
+                </div>
+                <div class="form-group col-xs-12" id="divnewprice">
+                    <label class="col-sm-2 control-label" style="text-align: left">价格:</label>
+                    <div class="col-sm-10">
+                        @Html.TextBox("Price", Model.Price, new { @class = "form-control",type="number", placeholder = "请输入价格" })
+                    </div>
+                </div>
+                <div class="form-group col-xs-12">
+                    <label class="col-sm-2 control-label" style="text-align: left">简述:</label>
+                    <div class="col-sm-10">
+                        <textarea name="Desc" id="Desc" style="width: 100%;" rows="5">@Model.Desc</textarea>
+                        @*  <textarea name="ckeditor" id="ckeditor" cols="80" rows="20" class="ckeditor">@Model.Describe</textarea>*@
+                    </div>
+                </div>
+                 <div class="form-group col-xs-12" style="min-height:1200px;">
+                                <label class="col-sm-2 control-label" style="text-align: left">详情:</label>
+                                <div class="col-sm-10">
+                                    @Html.TextArea("Detail", Model.Detail, new { @class = "ckeditor",@style="height:150px;" })
+                                </div>
+                            </div>
+
+            </div>
+            <div class="form-group col-xs-6">
+                <div class="form-group col-xs-12">
+                    <label class="col-sm-3 control-label" style="text-align: left">封面图片上传：</label>
+                    <div class="col-sm-9">
+                        <input type="file" name="file1" style="width: 100%;" id="file1"  class="input-group-addon btn btn-default btn-file" onclick="FileUpload_onclick1()" onchange="FileUpload_onselect1()" /></div>
+                </div>
+                <div class="form-group col-xs-12">
+                    <label class="col-sm-3 control-label" style="text-align: left">图片预览：</label>
+                    <div class="col-sm-9">
+                        <img id="img1" class="img-thumbnail" style="height:210px" src="@( System.Configuration.ConfigurationSettings.AppSettings["WebUrl"] + Model.CoverImg)" />
+                        @Html.Hidden("CoverImg", @Model.CoverImg)
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group col-xs-6">
+                <div class="form-group col-xs-12">
+                    <label class="col-sm-3 control-label" style="text-align: left">轮播图片1上传：</label>
+                    <div class="col-sm-9">
+                        <input type="file" name="lfile1" style="width: 100%;" id="lfile1"  class="input-group-addon btn btn-default btn-file" onclick="FileUpload_onclick(1)" onchange="FileUpload_onselect(1)" /></div>
+                </div>
+                <div class="form-group col-xs-12">
+                    <label class="col-sm-3 control-label" style="text-align: left">图片预览：</label>
+                    <div class="col-sm-9">
+                        <img id="limg1" class="img-thumbnail" style="height:210px" src="@( System.Configuration.ConfigurationSettings.AppSettings["WebUrl"] + Model.TopImg1)" />
+                        @Html.Hidden("TopImg1", @Model.TopImg1)
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group col-xs-6">
+                <div class="form-group col-xs-12">
+                    <label class="col-sm-3 control-label" style="text-align: left">轮播图片2上传：</label>
+                    <div class="col-sm-9">
+                        <input type="file" name="lfile2" style="width: 100%;" id="lfile2"  class="input-group-addon btn btn-default btn-file" onclick="FileUpload_onclick(2)" onchange="FileUpload_onselect(2)" /></div>
+                </div>
+                <div class="form-group col-xs-12">
+                    <label class="col-sm-3 control-label" style="text-align: left">图片预览：</label>
+                    <div class="col-sm-9">
+                        <img id="limg2" class="img-thumbnail" style="height:210px" src="@( System.Configuration.ConfigurationSettings.AppSettings["WebUrl"] + Model.TopImg2)" />
+                        @Html.Hidden("TopImg2", @Model.TopImg2)
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group col-xs-6">
+                <div class="form-group col-xs-12">
+                    <label class="col-sm-3 control-label" style="text-align: left">轮播图片3上传：</label>
+                    <div class="col-sm-9">
+                        <input type="file" name="lfile3" style="width: 100%;" id="lfile3"  class="input-group-addon btn btn-default btn-file" onclick="FileUpload_onclick(3)" onchange="FileUpload_onselect(3)" /></div>
+                </div>
+                <div class="form-group col-xs-12">
+                    <label class="col-sm-3 control-label" style="text-align: left">图片预览：</label>
+                    <div class="col-sm-9">
+                        <img id="limg3" class="img-thumbnail" style="height:210px" src="@( System.Configuration.ConfigurationSettings.AppSettings["WebUrl"] + Model.TopImg3)" />
+                        @Html.Hidden("TopImg3", @Model.TopImg3)
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group col-xs-6">
+                <div class="form-group col-xs-12">
+                    <label class="col-sm-3 control-label" style="text-align: left">轮播图片4上传：</label>
+                    <div class="col-sm-9">
+                        <input type="file" name="lfile4" style="width: 100%;" id="lfile4"  class="input-group-addon btn btn-default btn-file" onclick="FileUpload_onclick(4)" onchange="FileUpload_onselect(4)" /></div>
+                </div>
+                <div class="form-group col-xs-12">
+                    <label class="col-sm-3 control-label" style="text-align: left">图片预览：</label>
+                    <div class="col-sm-9">
+                        <img id="limg4" class="img-thumbnail" style="height:210px" src="@( System.Configuration.ConfigurationSettings.AppSettings["WebUrl"] + Model.TopImg4)" />
+                        @Html.Hidden("TopImg4", @Model.TopImg4)
+                    </div>
+                </div>
+            </div>
+
+
+
+        </form>
+    </div>
+    <div style="clear: both"></div>
+    <div class="modal-footer">
+        <button type="button" id="btnSave" class="btn btn-primary">确 定</button>
+        @*<button type="button" id="btnClose" class="btn btn-default" data-dismiss="modal">取 消</button>*@
+    </div>
+</div>
+
+
+@section jssection{
+    <script type="text/javascript">
+
+        //var util = {};
+        //var options = {
+        //    myeditor: CKEDITOR.replace('ckeditor', { toolbar: 'Basic' })
+        //};
+
+        var util = {};
+        var options = {
+            listUrl: "@Url.Action("TickdtList")",
+            editUrl: "@Url.Action("TicketEdit")",
+            deleteUrl: "@Url.Action("DeleteInformation")",
+        };
+
+
+
+
+        function FileUpload_onselect1() {
+            ajaxFileUpload1();
+        }
+
+        function ajaxFileUpload1() {
+            $.ajaxFileUpload
+            (
+                {
+                    url: 'UploadImage.do', //用于文件上传的服务器端请求地址
+                    type: 'post',
+                    data: { Id: '123', name: 'lunis' }, //此参数非常严谨，写错一个引号都不行
+                    secureuri: false, //一般设置为false
+                    fileElementId: 'file1', //文件上传空间的id属性  <input type="file" id="file" name="file" />
+                    dataType: 'text', //返回值类型 一般设置为json
+                    success: function (data, status, Message)  //服务器成功响应处理函数
+                    {
+                        data = JSON.parse(data);
+                        //alert(data.data.FILE_URL);
+                        $("#img1").attr("src", data.data.FILE_NAME);
+                        $("#CoverImg").val(data.data.FILE_URL);
+                        if (typeof (data.error) != 'undefined') {
+                            if (data.error != '') {
+                                alert(data.error);
+                            } else {
+                                alert(data.msg);
+                            }
+                        }
+                    },
+                    error: function (data, status, e)//服务器响应失败处理函数
+                    {
+                        alert(e);
+                    }
+                }
+            )
+            return false;
+        }
+
+
+
+        function FileUpload_onselect(id) {
+            ajaxFileUpload(id);
+        }
+
+        function ajaxFileUpload(id) {
+            $.ajaxFileUpload
+            (
+                {
+                    url: 'UploadImage.do', //用于文件上传的服务器端请求地址
+                    type: 'post',
+                    data: { Id: '123', name: 'lunis' }, //此参数非常严谨，写错一个引号都不行
+                    secureuri: false, //一般设置为false
+                    fileElementId: 'lfile'+id, //文件上传空间的id属性  <input type="file" id="file" name="file" />
+                    dataType: 'text', //返回值类型 一般设置为json
+                    success: function (data, status, Message)  //服务器成功响应处理函数
+                    {
+                        data = JSON.parse(data);
+                        //alert(data.data.FILE_URL);
+                        $("#limg"+id).attr("src", data.data.FILE_NAME);
+                        $("#TopImg"+id).val(data.data.FILE_URL);
+                        if (typeof (data.error) != 'undefined') {
+                            if (data.error != '') {
+                                alert(data.error);
+                            } else {
+                                alert(data.msg);
+                            }
+                        }
+                    },
+                    error: function (data, status, e)//服务器响应失败处理函数
+                    {
+                        alert(e);
+                    }
+                }
+            )
+            return false;
+        }
+
+
+
+    </script>
+
+    @Html.Js("plugins/xjgrid/xjgrid", "plugins/form-datepicker/js/bootstrap-datepicker", "plugins/xjdailog/xjdailog", "plugins/validator/validator", "app/wechat/goodedit", "app/company/jquery.tree", "js/ajaxfileupload")
+}

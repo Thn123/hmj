@@ -1,0 +1,438 @@
+﻿@{
+    ViewBag.Title = "UpdateMemberDetail";
+    Layout = "~/Views/Shared/_LayoutE.cshtml";
+}
+@model Hmj.Entity.WxModel.MemberInfo
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width" name="viewport" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+    <meta content="telephone=no" name="format-detection" />
+    <link type="text/css" href="/Bcj/memberinfo/css/admin.css" rel="stylesheet" />
+    <title>编辑个人信息</title>
+</head>
+
+<body>
+    <input type="hidden" name="" id="openid" value="@Model.OpenID" />
+    <input type="hidden" name="" value="" id="msgcode" />
+    <div class="baicaojiMenber otherBox">
+        <input type="hidden" name="name" id="NAME_FIRST" value="@Model.NAME_FIRST" />
+        <input type="hidden" name="name" id="NAME_LAST" value="@Model.NAME_LAST" />
+        <input type="hidden" name="name" id="ADDRESS" value="@Model.ADDRESS" />
+        <ul>
+            <li>
+                <span class="imgbox">
+                    <em id="touxiangImg"><img src="@Model.Headimgurl"></em>
+                    <bdo></bdo>
+                </span>
+                <strong>头像</strong>
+            </li>
+            <li><span><input name="Sname" type="text" class="txt" style="color:#808080" readonly value="@Model.Nickname"></span><strong>昵称</strong></li>
+
+            <li><p><span id="changeName">@Model.NAME</span><strong>姓名</strong></p></li>
+
+            <li>
+                <span>
+                    <select id="gender" class="dropdown-select">
+                        @if (Model.SEX == 1)
+                        {
+                        <option value="0">女</option>
+                        <option selected value="1">男</option>
+                        }
+                        else
+                        {
+                        <option selected value="0">女</option>
+                        <option value="1">男</option>
+                        }
+                    </select>
+                </span><strong>性别</strong>
+            </li>
+            <li><p><span id="changePhone">@Model.MOBILE</span><strong>手机号</strong></p></li>
+            <li>
+                <p>
+                    <span>
+                        <span name="Sname" id="address" class="txt">@Model.ADDRESS</span>
+                    </span><strong>地址</strong>
+                </p>
+            </li>
+            <li><p><span id="changePass">@Model.PWD</span><strong>兑换密码</strong></p></li>
+        </ul>
+    </div>
+    <div class="baicaojiMenber">
+        <ul>
+            <li><span style="color:#808080">@(Model.BIRTHDAY.HasValue ? Model.BIRTHDAY.Value.ToString("yyyy-MM-dd"):"")</span><strong>生日</strong></li>
+            <li>
+                <span style="color:#808080">
+                    @Model.MEM_LEVEL
+                </span><strong>会员等级</strong>
+            </li>
+            <li>
+                <span style="color:#808080">
+                    @Model.STORE_NAME
+                </span><strong>门店</strong>
+            </li>
+        </ul>
+    </div>
+
+    <div class="paybtnbg">
+        <div class="paybtn">确认</div>
+    </div>
+
+</body>
+</html>
+<script type="text/javascript" src="/Bcj/memberinfo/js/jquery.min.js"></script>
+<script>
+    var patrn = /^0?(13[0-9]|15[0-9]|17[0-9]|18[0-9]|14[0-9])[0-9]{8}$/;
+    var tipsflag = true;
+    function tips(text) {
+        if (tipsflag == true) {
+            var tishiDiv = document.createElement('div');
+            tishiDiv.className = "motify";
+            document.body.appendChild(tishiDiv);
+            tipsflag = false;
+        }
+        $('.motify').html(text).show();
+        setTimeout(function () { $('.motify').fadeOut(); }, 3000);
+    }
+
+    var num = 60;
+    var timerrr;
+    var flag = true, flaglogin = true;
+    var loginflag = true, docHeight;
+    var isok = true;
+    window.onscroll = function () { docHeight = $(window).scrollTop(); }
+    function loginGo(layout, id) {
+        //setCookie('screenid',docHeight);
+        document.documentElement.style.position = document.body.style.position = 'relative';
+        document.documentElement.style.overflow = document.body.style.overflow = 'hidden';
+        document.documentElement.style.height = document.body.style.height = $(window).height() + 'px';
+        if (loginflag == true) {
+            var loginDiv = document.createElement('div');
+            loginDiv.id = "loginBox";
+            document.body.appendChild(loginDiv);
+            loginflag = false;
+        }
+        document.getElementById('loginBox').innerHTML = layout;
+        $('.maskbg').addClass('bgdong');
+        $('.login-lrlz-box').show();;
+    }
+
+    function closedLogin() {
+        $('.login-lrlz-box').hide();
+        setTimeout(function () {
+            $('#tanceng').remove();
+            clearInterval(timerrr);
+            flag = true;
+            flaglogin = true;
+        }, 1)
+        document.documentElement.style.position = document.body.style.position = 'static';
+        document.documentElement.style.overflow = document.body.style.overflow = '';
+        document.documentElement.style.height = document.body.style.height = '';
+    }
+    function boda() {
+        var phone = '<div id="tanceng"><div class="layoutMaskbg" onClick="javascript:closedLogin();" style="z-index:999980;"></div>\
+		<div class="login-lrlz-box">\
+			<h2>修改手机号码</h2>\
+			<div class="login-lrlz-input">\
+			  <div class="acc-login-input">\
+    <ul class="inputCss">\
+        <li><p><span><input name="phone" type="tel" placeholder="输入你的手机号" maxlength="11" class="txt"></span></p></li>\
+        <li><p><span><input name="code" type="tel" placeholder="填写短信验证码" maxlength="6" class="txt" style="width:60%; float:left;"><bdo class="yanzhengma opacityBtn" id="timeid">获取验证码</bdo></span></p></li>\
+    </ul>\
+			</div></div>\
+		<div class="login-lrlz-btn"><ol><span class="quxiaobtn" onClick="javascript:closedLogin();">取消</span></ol><ol><span class="subbtn opacityBtn">确认</span></ol></div>\
+	</div></div>';
+        return phone;
+    }
+
+
+    function passWord() {
+        var phone = '<div id="tanceng"><div class="layoutMaskbg" onClick="javascript:closedLogin();" style="z-index:999980;"></div>\
+		<div class="login-lrlz-box">\
+			<h2>修改兑礼码</h2>\
+			<div class="login-lrlz-input">\
+			  <div class="acc-login-input">\
+    <ul class="inputCss">\
+        <li style="display:none"><p><span><input name="password" type="tel" placeholder="原兑礼密码" maxlength="6" class="txt"></span></p></li>\
+        <li><p><span><input name="codepassword" type="tel" placeholder="新兑礼密码" maxlength="6" class="txt"></span></p></li>\
+		 <li><p><span><input name="quepassword" type="tel" placeholder="确认新兑礼密码" maxlength="6" class="txt"></span></p></li>\
+    </ul>\
+			</div></div>\
+		<div class="login-lrlz-btn"><ol><span class="quxiaobtn" onClick="javascript:closedLogin();">取消</span></ol><ol><span class="subbtn opacityBtn">确认</span></ol></div>\
+	</div></div>';
+        return phone;
+    }
+
+    function LoadName() {
+        var phone = '<div id="tanceng"><div class="layoutMaskbg" onClick="javascript:closedLogin();" style="z-index:999980;"></div>\
+		<div class="login-lrlz-box">\
+			<h2>修改姓名</h2>\
+			<div class="login-lrlz-input">\
+			  <div class="acc-login-input">\
+    <ul class="inputCss">\
+        <li><p><span><input name="NAME_LAST" type="text" placeholder="姓氏" maxlength="6" class="txt"></span></p></li>\
+		 <li><p><span><input name="NAME_FIRST" type="text" placeholder="名称" maxlength="6" class="txt"></span></p></li>\
+    </ul>\
+			</div></div>\
+		<div class="login-lrlz-btn"><ol><span class="quxiaobtn" onClick="javascript:closedLogin();">取消</span></ol><ol><span class="subbtn">确认</span></ol></div>\
+	</div></div>';
+        return phone;
+    }
+
+    function LoadAddress() {
+        var phone = '<div id="tanceng"><div class="layoutMaskbg" onClick="javascript:closedLogin();" style="z-index:999980;"></div>\
+		<div class="login-lrlz-box">\
+			<h2>修改地址</h2>\
+			<div class="login-lrlz-input">\
+			  <div class="acc-login-input">\
+    <ul class="inputCss">\
+        <li><p><span><input name="ADDRESS" type="text" placeholder="详细地址" maxlength="50" class="txt"></span></p></li>\
+    </ul>\
+		<div class="login-lrlz-btn"><ol><span class="quxiaobtn" onClick="javascript:closedLogin();">取消</span></ol><ol><span class="subbtn">确认</span></ol></div>\
+	</div></div>';
+        return phone;
+    }
+
+    function dao() {
+        if (num > 0) {
+            num -= 1;
+            document.getElementById('timeid').innerHTML = num;
+            if (num < 10) {
+                document.getElementById('timeid').innerHTML = "0" + num;
+            }
+        }
+        if (num == 0) {
+            document.getElementById('timeid').innerHTML = "获取验证码";
+            num = 60;
+            document.getElementById('timeid').className = 'yanzhengma';
+            flag = true;
+            clearInterval(timerrr);
+        }
+
+    }
+    function isPhone(phone) {
+        var myreg = /^0?(13[0-9]|15[0-9]|17[0-9]|18[0-9]|14[0-9])[0-9]{8}$/;;
+        if (!myreg.test(phone)) return false;
+        return true;
+    }
+
+    $(function () {
+
+        if ($('input[name=dateInput]').val()) {
+            $('input[name=dateInput]').parent().parent().find('bdo').hide();
+        }
+        $('input[name=dateInput]').on('click', function () {
+            $(this).parent().parent().find('bdo').hide();
+        })
+
+        var flg = true;
+
+        $(".paybtn").click(function () {
+            if (isok) {
+                var NAME_FIRST = $("#NAME_FIRST").val();
+                var NAME_LAST = $("#NAME_LAST").val();
+                $.ajax({
+                    url: '/BcjMember/UpdateMember.do',
+                    method: 'post',
+                    data: {
+                        OpendID: $("#openid").val(),
+                        Gender: $("#gender").val(),
+                        Address: $("#address").html(),
+                        NAME_FIRST: NAME_FIRST,
+                        NAME_LAST: NAME_LAST
+                    },
+                    success: function (data) {
+                        if (data.Status == '1') {
+                            location.href = "/BcjMember/ShowMemberInfo.do";
+                            //跳转
+                        } else {
+                            tips(data.Message);
+                        }
+                    }
+                })
+                isok = false;
+            } else {
+                tips("切莫重复点击，请等待上次点击响应！！！！！");
+            }
+        })
+
+        $('#address').on('click', function () {
+            loginGo(LoadAddress());
+
+            var ADDRESS = $("#ADDRESS").val();
+            $('input[name=ADDRESS]').val(ADDRESS);
+
+            $(".subbtn").click(function () {
+                $("#ADDRESS").val($('input[name=ADDRESS]').val());
+                $("#address").html($('input[name=ADDRESS]').val());
+                closedLogin();
+            })
+        })
+
+        $('#changeName').on('click', function () {
+            loginGo(LoadName());
+
+            var NAME_FIRST = $("#NAME_FIRST").val();
+            $('input[name=NAME_FIRST]').val(NAME_FIRST);
+
+            var NAME_LAST = $("#NAME_LAST").val();
+            $('input[name=NAME_LAST]').val(NAME_LAST);
+
+            $(".subbtn").click(function () {
+                $("#NAME_FIRST").val($('input[name=NAME_FIRST]').val());
+                $("#NAME_LAST").val($('input[name=NAME_LAST]').val());
+
+                var re = /^[a-zA-Z\u4e00-\u9fa5]+$/;
+
+                if (!re.test($('input[name=NAME_FIRST]').val()) || !re.test($('input[name=NAME_LAST]').val())) {
+                    tips("请不要输入特殊字符！！");
+                    return false;
+                }
+
+                $("#changeName").html($('input[name=NAME_LAST]').val() + $('input[name=NAME_FIRST]').val());
+                closedLogin();
+            })
+        })
+
+        $('#changePhone').on('click', function () {
+            loginGo(boda());
+
+            $("input[name=phone]").bind('input propertychange', function () {
+                $('#timeid').removeClass('opacityBtn');
+                $("#timeid").click(function () {
+                    var phone = $('input[name=phone]').val()
+                    if (phone != '') {
+                        if (isPhone(phone)) {
+                            if (flag == true) {
+                                document.getElementById('timeid').className = 'yanzhenghui';
+                                dao();
+                                timerrr = setInterval('dao()', 1000);
+
+                                $.ajax({
+                                    type: "post",
+                                    data: { mobile: phone },
+                                    url: "/BcjMember/SendMsg.do",
+                                    success: function (data) {
+                                        if (data.Status == '1') {
+                                            tips("验证码已发送");
+                                            $("#msgcode").val(data.Data);
+                                        } else {
+                                            tips(data.Message);
+
+                                        }
+                                    }
+                                })
+
+                                flag = false;
+                            }
+                        } else {
+                            tips("请输入正确的手机号码");
+                        }
+                    } else {
+                        tips("请输入手机号码");
+                    }
+                })
+            });
+
+            $("input[name=code]").bind('input propertychange', function () {
+                $('.subbtn').removeClass('opacityBtn');
+                $(".subbtn").click(function () {
+                    var phone = $('input[name=phone]').val();
+                    var code = $('input[name=code]').val();
+                    var code1 = $("#msgcode").val();
+
+                    if (code1 != code) {
+                        tips("对不起验证码不正确，请重新输入");
+                        return false;
+                    }
+
+                    if (isPhone(phone)) {
+                        if (flaglogin == true) {
+                            flaglogin = false;
+                            $.ajax({
+                                url: '/BcjMember/UpdateMobileOrPwd.do',
+                                method: 'post',
+                                data: {
+                                    mobile: phone,
+                                    oldmobile: $("#changePhone").html(),
+                                    OpendID: $("#openid").val()
+                                },
+                                success: function (data) {
+                                    if (data.Status == '1') {
+                                        tips("修改成功");
+                                        $("#changePhone").html(phone);
+                                        closedLogin();
+                                    } else {
+                                        tips(data.Message);
+                                    }
+                                }
+                            })
+                        }
+                    } else {
+                        tips("请输入正确的手机号码");
+                    }
+                })
+            });
+        })
+
+        $('#changePass').on('click', function () {
+            loginGo(passWord());
+
+            var passwords = $("#changePass").html();
+            $('input[name=password]').val(passwords);
+            $("input[name=quepassword]").bind('input propertychange', function () {
+                $('.subbtn').removeClass('opacityBtn');
+
+                $(".subbtn").click(function () {
+                    var password = $("#changePass").html();
+
+                    var codepassword = $('input[name=codepassword]').val();
+                    var quepassword = $('input[name=quepassword]').val();
+
+                    var reg = /^\d{6}$/;
+                    if (!reg.test(codepassword)) {
+                        tips("请输入六位数的数字密码！！");
+                        return false;
+                    }
+
+                    if (!reg.test(quepassword)) {
+                        tips("请输入六位数的数字密码！！");
+                        return false;
+                    }
+
+                    if (codepassword == quepassword) {
+                        if (flaglogin == true) {
+                            flaglogin = false;
+                            $.ajax({
+                                url: '/BcjMember/UpdateMobileOrPwd.do',
+                                method: 'post',
+                                data: {
+                                    oldpwd: password,
+                                    pwd: codepassword,
+                                    OpendID: $("#openid").val()
+                                },
+                                success: function (data) {
+                                    if (data.Status == '1') {
+                                        $("#changePass").html(quepassword)
+                                        tips("修改成功");
+                                        closedLogin();
+                                    } else {
+                                        tips(data.Message);
+                                    }
+                                }
+                            })
+
+                        }
+                    } else {
+                        tips("亲，您两次输入的兑换密码不一致");
+                    }
+                })
+            })
+        })
+
+    })
+
+</script>

@@ -1,0 +1,221 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../css/new_style.css">
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <title>积分转换</title>
+    <style>
+        #bind_fail button { width: 100%; }
+    </style>
+</head>
+<body style="background:#f6f6f6;">
+    <div class="j_content">
+        <div class="j_integral_tip">系统查询到您有以下家化旗下品牌积分可转换</div>
+        <div class="j_integral_list">
+            <div class="j_integral_box">
+            </div>
+        </div>
+        <div class="j_integral_btn clearfix">
+            <div class="j_integral_btn_back">返回</div>
+            <div class="j_integral_btn_bind ibb_red">绑定并转换</div>
+        </div>
+    </div>
+    <div class="layer " id="dh_binding">
+        <div class="layer-box">
+            <div class="layer-cont">
+                <div class="layer-border">
+                    <div class="layer-text">
+                        <p style="text-align:left">绑定后，您所有积分都将被转换，共获得华美家<i></i>积分，并成为华美家会员</p>
+                    </div>
+                </div>
+                <div class="layer-btn dh_layer_btn">
+                    <button class="layer-button register_sub leftbutton">取消</button>
+                    <button class="layer-button register_sub rightbutton">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="layer" id="bind_suc">
+        <div class="layer-box">
+            <div class="layer-cont">
+                <div class="layer-border">
+                    <div class="layer-text">
+                        <p style="text-align:center;">恭喜您，完成积分转换，</p>
+                        <p class="jf" style="text-align:left;">您本次转化得到的华美家会员积分为：<b class="alljf"></b>，积分将于24小时内到账。</p>
+                    </div>
+                </div>
+                <div class="layer-btn layer-one-btn">
+                    <button class="layer-button register_sub">知道了</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="layer" id="bind_fail">
+        <div class="layer-box">
+            <div class="layer-cont">
+                <div class="layer-border">
+                    <div class="layer-text">
+                        <p style="text-align:left">品牌会员已绑定华美家会员，不可绑定！</p>
+                    </div>
+                </div>
+                <div class="layer-btn layer-one-btn">
+                    <button class="layer-button register_sub">知道了</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="layer " id="modaltips" style="display: none"></div>
+</body>
+</html>
+<script src="../js/jquery.min.js"></script>
+<script src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<script src="../js/validate.js"></script>
+<script>
+    $(function () {
+        var userinfo = $.parseJSON(localStorage.getItem('fansJson'));
+        var openid = userinfo.openid;
+        //code1-good1-memberid,code1-good1-memberid
+
+        $('.j_integral_btn_back').click(function () {
+            window.location.href = 'user.html?t=' + new Date().getTime();
+        });
+        $('.j_integral_btn_bind').click(function () {
+            if ($(this).hasClass("disabled")) {
+                //tips("数据加载中，请稍后重试");
+                return;
+            }
+            var jsons = localStorage.getItem('jsons');
+            //点击绑定与转换按钮;;
+            $("#dh_binding").show();
+            $("#dh_binding .layer-text i").html(localStorage.getItem('allPoint'));
+            //华美家等级
+            $("#dh_binding .layer-text b").html(localStorage.getItem('pplevel'));
+            $('.dh_layer_btn .rightbutton').click(function () {
+                $("#dh_binding").hide();
+                $.ajax({
+                    type: 'get',
+                    url: $.domainUrl + 'Member/BindingRelShip?OPENID=' +
+                    openid + '&POIT=' + localStorage.getItem('allPoint') +
+                    '&BRAND_CODE=' + jsons,
+                    beforeSend: function () {
+                        tips("<p>努力绑定中，请稍候</p>", false, 200, true);
+                    },
+                    success: function (data) {
+                        console.log(data);
+                        $("#modaltips").fadeOut();
+                        //1为成功
+                        if (data.status == 1) {
+                            $("#modaltips").fadeOut();
+                            $("#bind_suc").show();
+                            $("#dh_binding").hide();
+                            $('.alljf').html(localStorage.getItem('allPoint'));
+                            $('.register_sub').click(function () {
+                                $('#bind_suc').hide();
+                                $("#dh_binding").hide();
+                                location.href = "user.html?t=" + new Date().getTime();
+                                //LQCoupon(openid);
+                            });
+                        } else {
+                            //判断绑定失败原因；   20180313根据家化反馈临时处理，以。为换行
+                            //tips(data.message);
+                            var newMessage = data.message.replace(/。/g, "。<br/>");
+                            $("#bind_fail").find("p").html(newMessage);
+                            $("#bind_fail").show();
+                            $("#dh_binding").hide();
+                            $('.register_sub').click(function () {
+                                $('#bind_suc').hide();
+                                $("#dh_binding").hide();
+                                location.href = "user.html?t=" + new Date().getTime();
+                                //LQCoupon(openid);
+                            });
+                        }
+                    },
+                    error: function () {
+                        tips('<p>网络延时，请您稍后重试</p>', false, 2000, true)
+                    }
+                });
+            });
+        });
+        $('.dh_layer_btn .leftbutton').click(function () {
+            $("#dh_binding").hide();
+        });
+
+        var code = { 'C003': '高夫', 'C004': '佰草集' };
+        //品牌等级
+        var pinpaiLevel = {
+            "ZBCCJ0100": "普通会员"
+            , "ZBCCJ0101": "注册会员", "ZBCCJ0102": "倾心卡会员", "ZBCCJ0103": "知心卡会员", "ZBCCJ0104": "臻心卡会员", "ZGFCJ0100": "男爵卡会员", "ZGFCJ0101": "注册会员", "ZGFCJ0102": "子爵卡会员", "ZGFCJ0103": "伯爵卡会员"
+        };
+
+        //会员品牌积分查询接口
+        $.ajax({
+            type: 'get',
+            url: $.domainUrl + 'Member/QueryMemberShipBinding?OPENID=' + openid,
+            beforeSend: function () {
+                tips("数据加载中，请稍候...", false, 0, true);
+            },
+            success: function (res) {
+                console.log(res);
+                if (typeof (res.status) == "undefined") { res = $.parseJSON(res); }
+                $("#modaltips").fadeOut();
+                if (res.status == 0) {
+                    tips(res.message, true, 2000, true);
+                } else {
+                    localStorage.setItem('allPoint', res.data.POINT_ALL);
+                    localStorage.setItem('pplevel', res.data.LVL_NAME);
+                    if (res.data.IS_BRADN == 1) {
+                        var html = '';
+                        var jsons = "";
+                        var pplevel = '';
+
+                        for (var i = 0; i < res.data.BRAND_LIST.length; i++) {
+                            var item = res.data.BRAND_LIST[i];
+                            //品牌等级"TIER_CODE": "ZBCCJ0101",
+                            //"TIER_DESC": "佰草集线下注册会员"
+                            sessionStorage.setItem('memberid', item.MEMBER_ID2);
+                            var logo;
+
+                            if (item.IF_BINDING == "0") {
+                                jsons += item.VGROUP2 + "-" +
+                                    item.POINT_DETAIL + "-" + item.MEMBER_ID2 + ",";
+
+                                if (item.VGROUP2 == "C004") {
+                                    //佰草集；
+                                    logo = "../images/list_bcj.png";
+                                }
+                                else if (item.VGROUP2 == "C003") {
+                                    //高夫
+                                    logo = "../images/list_gf.png";
+                                }
+
+                                html += '<div class="j_integral_box">\
+                                    <div class="j_integral_img" >\
+                                    <img src="'+ logo + '" width="145" />\
+                                </div>\
+                                    <div class="j_integral_info">\
+                                        <div class="j_integral_info_t">品牌等级：'+ pinpaiLevel[item.TIER_CODE] + '<br />品牌积分：' + item.POINT_AVAILABLE + '</div>\
+                                        <div class="j_integral_info_b">转换为华美家积分：'+ Math.floor(item.POINT_DETAIL) + '</div>\
+                                    </div>\
+                                </div>';
+
+                                $(".btn-right").removeClass("disabled");
+                            }
+                        }
+                        $(".j_integral_list").html(html);
+                        localStorage.setItem('jsons', jsons.trim(","));
+                    }
+                    //获取到品牌积分数据渲染页面
+                    localStorage.setItem('allPoint', res.data.POINT_ALL);
+                }
+            },
+            error: function () {
+            }
+        });
+    })
+
+</script>

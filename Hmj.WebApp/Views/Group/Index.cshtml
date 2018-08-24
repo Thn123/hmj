@@ -1,0 +1,487 @@
+﻿@{
+    ViewBag.Title = "组织架构管理";
+}
+
+@section htmlhead{
+    @Html.Css("plugin/validator", "plugin/xjgrid")
+    @Html.Css2("plugins/jquery-jstree/dist/themes/default/style.min")
+    <style>
+        .emp-pic { width: 60px; height: 60px; -moz-border-radius: 30px; /* Gecko browsers */ -webkit-border-radius: 30px; /* Webkit browsers */ border-radius: 30px; /* W3C syntax */ }
+        .span { word-break: normal; width: auto; display: block; white-space: pre-wrap; word-wrap: break-word; overflow: hidden; }
+    </style>
+}
+<div class="s_container">
+    <div id="page-heading">
+        <h2>
+            <i class="fa fa-users"></i>&nbsp;通讯录</h2>
+    </div>
+
+    <div id="mainbody" class="panel panel-primary col-md-3">
+        <div class="panel-heading">
+            <h4>组织架构</h4>
+        </div>
+        <div class="panel-body" style="padding: 10px 2px;">
+            <div id="ptree" style="height: 520px; overflow: auto;"></div>
+        </div>
+    </div>
+
+    <div id="mainbody1" class="panel panel-primary col-md-9">
+        <div class="panel-heading">
+            <h4 id="h4Dict">盛时</h4>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-6 form-group">
+                    <button type="button" class="btn default" id="btnAddEmp">
+                        <i class="fa fa-user"></i>&nbsp;新增员工</button>
+                    <button type="button" class="btn default" id="btnExportEmp">
+                        <i class="fa fa-download"></i>&nbsp;批量导出</button>
+                    全部成员（<span id="empQty">0</span>）
+                </div>
+                <div class="text-right col-md-6">
+                    <form id="formQuery" class="form-inline" method="post" role="form">
+                        @Html.Hidden("SelectGroupId", "")
+                        <div class="form-group">
+                            @Html.TextBox("EMP_NAME", "", new { @class = "form-control", placeholder = "员工姓名/手机号" })
+                        </div>
+                        <div class="form-group">
+                            <div class="btn-group">
+                                <button class="btn-primary btn"><i class="fa fa-search"></i>查 询</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-12">
+                    <div class="table-responsive" id="gridlist" style="min-height: 100px">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="editGroupModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">组织架构维护</h4>
+            </div>
+
+            <div class="modal-body">
+                <form class="form-horizontal" action="@Url.Action("SaveGroup")" id="formGroup" method="post" role="form">
+                    <div class="form-group">
+                        <label for="DeptName" class="col-sm-3 control-label"><span style="color: red">*</span>名 称</label>
+                        <div class="col-sm-6">
+                            @Html.TextBox("DeptName", null, new { @class = "form-control", placeholder = "请输入名称" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="DeptCode" class="col-sm-3 control-label"><span style="color: red">*</span>代 码</label>
+                        <div class="col-sm-6">
+                            @Html.TextBox("DeptCode", null, new { @class = "form-control", placeholder = "唯一编码" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="MagentoGroupID" class="col-sm-3 control-label">
+                            Magento组ID
+                        </label>
+                        <div class="col-sm-6">
+                            @Html.TextBox("MagentoGroupID", null, new { @class = "form-control", placeholder = "请输入Magento组ID" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">
+                            <span style="color: red">*</span>排 序
+                        </label>
+                        <div class="col-sm-6">
+                            @Html.TextBox("Order", null, new { @class = "form-control", placeholder = "在父部门中的次序值，值小的排序靠前" })
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="btnSaveGroup" class="btn btn-primary">保 存</button>
+                        <button type="button" id="btnClose" class="btn btn-default" data-dismiss="modal">取 消</button>
+                        @Html.Hidden("ID")
+                        @Html.Hidden("ParentID")
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*门店信息*@
+<div id="editStoreModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">门店信息维护</h4>
+            </div>
+
+            <div class="modal-body">
+                <form class="form-horizontal" action="@Url.Action("SaveGroup")" id="formStore" method="post" role="form">
+                    <div class="form-group">
+                        <label for="DeptName" class="col-sm-3 control-label"><span style="color: red">*</span>名 称</label>
+                        <div class="col-sm-6">
+                            @Html.TextBox("DeptName", null, new { @class = "form-control", placeholder = "请输入名称" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="DeptCode" class="col-sm-3 control-label"><span style="color: red">*</span>代 码</label>
+                        <div class="col-sm-6">
+                            @Html.TextBox("DeptCode", null, new { @class = "form-control", placeholder = "门店唯一编码" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="TYPE" class="col-sm-3 control-label"><span style="color: red">*</span>门店类别</label>
+                        <div class="col-sm-6">
+                            @Html.ResourceDropDownList("StoreType", "StoreType", null, new { @class = "form-control" }, false)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">货品是否自提</label>
+                        <div class="col-sm-6">
+                            @Html.ResourceRadioList("IsPickUp", "YES_NO", 0, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">省份</label>
+                        <div class="col-sm-6">
+                            @Html.TextBox("Province", null, new { @class = "form-control", placeholder = "请输入省份" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">城市</label>
+                        <div class="col-sm-6">
+                            @Html.TextBox("City", null, new { @class = "form-control", placeholder = "请输入城市" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">地区</label>
+                        <div class="col-sm-6">
+                            @Html.TextBox("Area", null, new { @class = "form-control", placeholder = "请输入地区" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="Address" class="col-sm-3 control-label">门店地址</label>
+                        <div class="col-sm-6">
+                            @Html.TextBox("Address", null, new { @class = "form-control", placeholder = "门店地址" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="Telephone" class="col-sm-3 control-label">门店电话</label>
+                        <div class="col-sm-6">
+                            @Html.TextBox("Telephone", null, new { @class = "form-control", placeholder = "门店电话" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="Latitude" class="col-sm-3 control-label">所在纬度</label>
+                        <div class="col-sm-6">
+                            @Html.TextBox("Latitude", null, new { @class = "form-control", placeholder = "纬度" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="Longitude" class="col-sm-3 control-label">所在经度</label>
+                        <div class="col-sm-6">
+                            @Html.TextBox("Longitude", null, new { @class = "form-control", placeholder = "经度" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">品牌</label>
+                        <div class="col-sm-6">
+                            @Html.TextArea("Brand", null, new { @class = "form-control", placeholder = "请输入品牌" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">
+                            <span style="color: red">*</span>排 序
+                        </label>
+                        <div class="col-sm-6">
+                            @Html.TextBox("Order", null, new { @class = "form-control", placeholder = "在父部门中的次序值，值小的排序靠前" })
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="btnSaveStore" class="btn btn-primary">保 存</button>
+                        <button type="button" id="btnClose2" class="btn btn-default" data-dismiss="modal">取 消</button>
+                        @Html.Hidden("ID")
+                        @Html.Hidden("ParentID")
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*员工信息*@
+<div id="editEmpModal" class="modal fade">
+    <div class="modal-dialog" style="width: 700px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">员工维护</h4>
+
+            </div>
+
+            <form class="form-horizontal" id="formEmployee" method="post" action="@Url.Action("SaveEmployee")" role="form">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <span style="color: red;" id="EmpStatus"></span>
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label class="col-sm-3 control-label"><span style="color: red">*</span>姓 名</label>
+                        <div class="col-sm-9">
+                            @Html.TextBox("NAME", "", new { @class = "form-control", placeholder = "请输入姓名" })
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label class="col-sm-3 control-label"><span style="color: red">*</span>账 号</label>
+                        <div class="col-sm-9">
+                            @Html.TextBox("USERID", "", new { @class = "form-control", placeholder = "请输入账号" })
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label class="col-sm-3 control-label"><span style="color: red">*</span>手机号</label>
+                        <div class="col-sm-9">
+                            @Html.TextBox("MOBILE", "", new { @class = "form-control", placeholder = "请输入手机号" })
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label class="col-sm-3 control-label"><span style="color: red">*</span>微信号</label>
+                        <div class="col-sm-9">
+                            @Html.TextBox("WECHAT_ID", "", new { @class = "form-control", placeholder = "请输入微信号" })
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label class="col-sm-3 control-label">邮 箱</label>
+                        <div class="col-sm-9">
+                            @Html.TextBox("EMAIL", "", new { @class = "form-control", placeholder = "请输入邮箱" })
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label class="col-sm-3 control-label">工 号</label>
+                        <div class="col-sm-9">
+                            @Html.TextBox("EMP_NO", "", new { @class = "form-control", placeholder = "请输入工号" })
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label class="col-sm-3 control-label">性 别</label>
+                        <div class="col-sm-9">
+                            @Html.ResourceDropDownList("GENDER", "EMP_GENDER", "", new { @class = "form-control" }, "", true)
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label class="col-sm-3 control-label">职 位</label>
+                        <div class="col-sm-9">
+                            @Html.TextBox("POSITION", "", new { @class = "form-control", placeholder = "请输入职位" })
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-9">
+                        <label class="col-sm-2 control-label">品牌</label>
+                        <div class="col-sm-10">
+                            @Html.TextArea("BRAND", null, new { @class = "form-control", placeholder = "请输入品牌" })
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-9">
+                        <label class="col-sm-2 control-label">个人简介</label>
+                        <div class="col-sm-10">
+                            @Html.TextArea("INTRO", null, new { @class = "form-control", placeholder = "个人简介" })
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-9">
+                        <label class="col-sm-2 control-label">所在部门</label>
+                        <div class="col-sm-10">
+                            <span id="spnFullDeptName" class="form-control" style="height:50px;"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+                <div class="modal-footer">
+                    <button type="button" id="btnSaveEmp" class="btn btn-primary">保 存</button>
+                    <button type="button" id="btnCloseEmp" class="btn btn-default" data-dismiss="modal">取 消</button>
+                    @Html.Hidden("ID", "")
+                    @Html.Hidden("EmpGroupId", "")
+                    @Html.Hidden("EmpGroupType", "")
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div id="showEwmModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">员工二维码 （<span id="showEmpName"></span>）</h4>
+            </div>
+
+            <div class="modal-body">
+                <div class="col-sm-12">
+                    <img id="EWMUrl" />
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-1 control-label">URL:</label>
+                    <div class="col-sm-11">
+                        <span id="showEwmUrl" class="span"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="clear"></div>
+            <div class="modal-footer">
+                <button type="button" id="btnCloseEWM" class="btn btn-default" data-dismiss="modal">取 消</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="showBindModal" class="modal fade">
+    <div class="modal-dialog" style="width: 800px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">查看员工绑定关系</h4>
+            </div>
+
+            <div class="modal-body">
+                <div class="">
+                    <div class="table-responsive" id="gridListCust" style="height: 500px">
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" id="btnCloseBind" class="btn btn-default" data-dismiss="modal">取 消</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="confirmUnBindModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;</button>
+                <h4 class="modal-title">确认！</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    你确认要执行该操作吗？
+                </p>
+                <input id="hdId" type="hidden" value="" />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                    取 消</button>
+                <button type="button" id="btnConfirmUnBind" class="btn btn-primary">
+                    确 定</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<div id="confirmTransferModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;</button>
+                <h4 class="modal-title">确认！</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    请输入新的员工账号：
+                </p>
+                <input id="txtPhone" type="text" name="name" value="" style="width: 300px;" />
+                <input id="hdIdByUpdate" type="hidden" value="" />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                    取 消</button>
+                <button type="button" id="btnConfirmTransfer" class="btn btn-primary">
+                    确 定</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<div id="showModifyStoreModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">修改组织架构</h4>
+            </div>
+
+            <div class="modal-body">
+                <div class="col-sm-12">
+                    <div id="deptTree" style="height: 380px; overflow: auto;">
+                    </div>
+                </div>
+            </div>
+
+            <div class="clear"></div>
+            <div class="modal-footer">
+                <button type="button" id="btnModifyStore" class="btn btn-primary">确 定</button>
+                <button type="button" id="btnCloseMStore" class="btn btn-default" data-dismiss="modal">取 消</button>
+                @Html.Hidden("EmpID", "")
+                @Html.Hidden("EmpStoreID", "")
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="showModifyStoreOrgModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">修改组织架构</h4>
+            </div>
+
+            <div class="modal-body">
+                <div class="col-sm-12">
+                    <div id="deptTreeOrg" style="height: 380px; overflow: auto;">
+                    </div>
+                </div>
+            </div>
+
+            <div class="clear"></div>
+            <div class="modal-footer">
+                <button type="button" id="btnModifyStoreOrg" class="btn btn-primary">确 定</button>
+                <button type="button" id="btnCloseMStoreOrg" class="btn btn-default" data-dismiss="modal">取 消</button>
+                @Html.Hidden("StoreID", "")
+                @Html.Hidden("ParentStoreID", "")
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section jssection{
+    <script type="text/javascript">
+        var util = {};
+        var options = {
+            queryGroupTree: "@Url.Action("QueryGroupTree")",
+            listUrl: "@Url.Action("QueryEmpList")",
+            saveGroupUrl: "@Url.Action("SaveGroup")",
+            getDeptUrl: "@Url.Action("GetDept")",
+            deleteDeptUrl: "@Url.Action("DeleteDept")",
+            getEmpUrl: "@Url.Action("GetEmp")",
+            deleteEmpUrl: "@Url.Action("DeleteEmp")",
+            queryBindListUrl: "@Url.Action("QueryBindList")",
+            unBindUrl: "@Url.Action("DeleteBD", "EWM")",
+            transferBindUrl: "@Url.Action("UpdateBD", "EWM")",
+            modifyEmpStoreUrl: "@Url.Action("ModifyEmpStore")",
+            exportEmpUrl: "@Url.Action("ExportEmp")",
+            updateDeptOrgUrl: "@Url.Action("UpdateDeptOrg")"
+        };
+    </script>
+    @Html.Js("plugins/validator/validator", "plugins/xjgrid/xjgrid", "plugins/jquery-jstree/dist/jstree.min", "app/group/index")
+}

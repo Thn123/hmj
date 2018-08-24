@@ -1,0 +1,126 @@
+﻿@{
+    ViewBag.Title = "ShowBookHis";
+    Layout = "~/Views/Shared/_LayoutE.cshtml";
+    List<BCJ_BOOK_EX> books = (List<BCJ_BOOK_EX>)ViewBag.NewBook;
+    List<BCJ_BOOK_EX> news = books.Where(a => a.STATUS == 0).ToList();
+    List<BCJ_BOOK_EX> his = books.Where(a => a.STATUS == 1 || a.STATUS == 2).ToList();
+}
+
+@using Hmj.Entity.Entities
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width" name="viewport" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+    <meta content="telephone=no" name="format-detection" />
+    <link type="text/css" href="/Bcj/coupon/css/youhuiquan.css" rel="stylesheet" />
+    <title>预约查询</title>
+
+</head>
+
+<body>
+    <div class="yuyueBanner">
+        <img src="/Bcj/coupon/images/yuyuebanner.jpg">
+    </div>
+
+    <div class="order-tag-item quanyuyueTab">
+        <a href="#"><ol class="curbtn" id="news"><span>我的预约(@(news.Count()))</span></ol></a>
+        <a href="#"><ol id="his"><span>历史预约(@(his.Count()))</span></ol></a>
+    </div>
+
+    <div class="quanyuyueList" id="news1">
+        <ul>
+            @foreach (BCJ_BOOK_EX item in news)
+            {
+                <li>
+                    <strong>@item.STORE_NAME</strong>
+                    <div class="lingquBox">
+                        <a href="#" class="quxiaobook" exVal="@item.ID"><div class="lingqubtn">取消预约</div></a> 预约时间：
+                        @item.BOOK_DATE_EX @(item.BOOK_TIME == 0 ? "上午 11:00" :
+                    item.BOOK_TIME == 1 ? "上午 12:30" : item.BOOK_TIME == 2 ? "下午 15:00" : item.BOOK_TIME == 3 ? "下午 17:00" : "晚上 19:00")
+                    </div>
+                </li>
+            }
+        </ul>
+    </div>
+
+    <div class="quanyuyueList" id="his1" style="display:none">
+        <ul>
+            @foreach (BCJ_BOOK_EX item in his)
+            {
+                if (item.STATUS == 2)
+                {
+                    <li>
+                        <div class="quan-huise">
+                            <strong>@item.STORE_NAME</strong>
+                            <div class="lingquBox">
+                                预约时间：
+                                @item.BOOK_DATE_EX @(item.BOOK_TIME == 0 ? "上午 11:00" :
+                    item.BOOK_TIME == 1 ? "上午 12:30" : item.BOOK_TIME == 2 ? "下午 15:00" : item.BOOK_TIME == 3 ? "下午 17:00" : "晚上 19:00")
+                            </div>
+                        </div>
+                        <div class="yiquxiao-icon"></div>
+                    </li>
+                }
+                if (item.STATUS == 1)
+                {
+                    <li>
+                        <div class="quan-huise">
+                            <strong>@item.STORE_NAME</strong>
+                            <div class="lingquBox">
+                                预约时间：
+                                @item.BOOK_DATE_EX @(item.BOOK_TIME == 0 ? "上午" : item.BOOK_TIME == 1 ? "下午" : "晚上")
+                            </div>
+                        </div>
+                        <div class="yiwancheng-icon"></div>
+                    </li>
+                }
+            }
+        </ul>
+    </div>
+</body>
+</html>
+<script type="text/javascript" src="/Bcj/coupon/js/jquery.min.js"></script>
+<script src="~/Bcj/Message2.js"></script>
+<script>
+    $(function () {
+        $("#news").click(function () {
+            $(this).addClass("curbtn");
+            $("#his").removeClass("curbtn");
+            $("#news1").show();
+            $("#his1").hide();
+        })
+
+        $("#his").click(function () {
+            $(this).addClass("curbtn");
+            $("#news").removeClass("curbtn");
+            $("#news1").hide();
+            $("#his1").show();
+        })
+
+        $(".quxiaobook").click(function () {
+
+            var bookid = $(this).attr("exVal");
+
+            if (confirm("您确定取消预约？")) {
+                $.ajax({
+                    url: "/BcjBook/CancelBook.do",
+                    method: "post",
+                    data: { BookID: bookid },
+                    success: function (data) {
+                        if (data.Status == "1") {
+                            $.MsgBox.Alert("提示", "取消成功");
+                            location.href = "/BcjBook/ShowBookHis.do";
+                        } else {
+                            $.MsgBox.Alert("提示", "取消失败，请联系客服！！！");
+                        }
+                    }
+                })
+            }
+        })
+    })
+
+</script>
+

@@ -1,0 +1,491 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../css/mobileSelect.css" />
+    <link rel="stylesheet" href="../css/common.css" />
+    <link rel="stylesheet" href="../css/iosSelect.css" />
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/new_style.css">
+    <link rel="stylesheet" href="../css/flop.css">
+    <link rel="stylesheet" href="../css/mutiSelect.css">
+    <title>完善信息</title>
+</head>
+<body>
+    <div class="wrap">
+        <div class="person_box wanshan">
+            <div id="completeSub">
+                <dl class="clearfix wszl">
+                    <div class="left">
+                        <span>省市 <em>*</em></span>
+                    </div>
+                    <div class="right">
+                        <span id="c_city" class=""></span>
+                    </div>
+                </dl>
+                <dl class="clearfix">
+                    <div class="left">
+                        <span>婚姻状况 <em>*</em></span>
+                    </div>
+                    <div class="right">
+                        <span id="c_marry" class=""></span>
+                    </div>
+                </dl>
+                <dl class="clearfix">
+                    <div class="left ">
+                        <span>大宝生日</span>
+                    </div>
+                    <div class="right selectDaBir">
+                        <span id="showDaBir" class="showDaBir"></span>
+                    </div>
+                </dl>
+                <dl class="clearfix">
+                    <div class="left">
+                        <span>二宝生日</span>
+                    </div>
+                    <div class="right selectErBir">
+                        <span id="showErBir" class="showErBir"></span>
+                    </div>
+                </dl>
+                <dl class="clearfix">
+                    <div class="left">
+                        <span>从事行业 <em>*</em></span>
+                    </div>
+                    <div class="right">
+                        <span id="c_vocation" class="zi"></span>
+                    </div>
+                </dl>
+                <dl class="clearfix">
+                    <div class="left">
+                        <span>家庭收入 <em>*</em></span>
+                    </div>
+                    <div class="right">
+                        <span id="c_income" class="zi"></span>
+                    </div>
+                </dl>
+                <div class="grayregion"></div>
+                <dl class="clearfix">
+                    <div class="left">
+                        <span>从何处了解到华美家 <em>*</em></span>
+                    </div>
+                    <div class="right whalf">
+                        <p id="info_wanted" class="mutimodal"><span></span><bdo class="qingxuanze pls_select"></bdo></p>
+                    </div>
+                </dl>
+                <dl class="clearfix">
+                    <div class="left">
+                        <span>对家化以下品牌感兴趣 <em>*</em></span>
+                    </div>
+                    <div class="right whalf">
+                        <p id="c_xingxu" class="mutimodal"><span></span><bdo class="qingxuanze pls_select"></bdo></p>
+                    </div>
+                </dl>
+                <dl class="clearfix">
+                    <div class="left">
+                        <span>对以下产品类型感兴趣 <em>*</em></span>
+                    </div>
+                    <div class="right whalf">
+                        <p id="c_Type" class="mutimodal"><span></span><bdo class="qingxuanze pls_select"></bdo></p>
+                    </div>
+                </dl>
+                <dl class="clearfix">
+                    <div class="left">
+                        <span>皮肤特征 <em>*</em></span>
+                    </div>
+                    <div class="right">
+                        <span id="c_skinFeat" class="zi"></span>
+                    </div>
+                </dl>
+                <dl class="clearfix">
+                    <div class="left">
+                        <span>皮肤问题 <em>*</em></span>
+                    </div>
+                    <div class="right">
+                        <p id="c_skinQues" class="mutimodal"><span></span><bdo class="qingxuanze pls_select"></bdo></p>
+                    </div>
+                </dl>
+                <div class="make" style="font-size:12px">*号为必填项；<br />当婚姻状况为已婚已育时，大宝生日为必填</div>
+                <div class="wsbtn">
+                    我要修改
+                </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<script src="../js/jquery.min.js"></script>
+<script src="../js/validate.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/iosSelect.js"></script>
+<script src="../js/zepto.js"></script>
+<script src="../js/loadmoreinfo.js"></script>
+<script src="../js/common.js"></script>
+<script type="text/javascript">
+    var userinfo = $.parseJSON(localStorage.getItem('fansJson'));
+    var openid = userinfo.openid;
+    var isUpdateInfoWanted = 0;
+    var isUpdateXingxu = 0;
+    var isUpdateType = 0;
+    var isUpdateSkinQues = 0;
+
+    //修改文字;
+    $(".wanshan .right span").each(function (index, val) {
+        var value = $(this).text();
+        $(this).css("color", '#666');
+    });
+
+    /********************** 下拉选择框数据加载 ***************************/
+
+    var marryState = [{ 'id': "01", 'value': '未婚' }, { 'id': "02", 'value': '已婚已育' }, { 'id': "03", 'value': '已婚未育' }, { 'id': "04", 'value': '其他' }];
+
+    var vocation = [{ 'id': "1", 'value': '保险业' }, { 'id': "2", 'value': '餐饮、宾馆' }, { 'id': "3", 'value': '电讯业' }, { 'id': "4", 'value': '房地产' }, { 'id': "5", 'value': '服装业' }, { 'id': "6", 'value': '公益组织' }, { 'id': "7", 'value': '广告业' }, { 'id': "8", 'value': '航空航天' }, { 'id': "9", 'value': '化学、化工' }, { 'id': "10", 'value': '建筑业' }, { 'id': "11", 'value': '教育、培训' }, { 'id': "12", 'value': '计算机' }, { 'id': "13", 'value': '健康保健' }, { 'id': "14", 'value': '警察、军人' }, { 'id': "15", 'value': '会计' }, { 'id': "16", 'value': '美容、形体' }, { 'id': "17", 'value': '媒体、出版' }, { 'id': "18", 'value': '零售、批发' }, { 'id': "19", 'value': '旅游业' }, { 'id': "20", 'value': '司法、律师' }, { 'id': "21", 'value': '司机' }, { 'id': "22", 'value': '演艺娱乐' }, { 'id': "23", 'value': '医疗服务' }, { 'id': "24", 'value': '艺术、设计' }, { 'id': "25", 'value': '银行、金融' }, { 'id': "26", 'value': '运输业' }, { 'id': "27", 'value': '政府机关' }, { 'id': "28", 'value': '机械制造' }, { 'id': "29", 'value': '咨询服务' }, { 'id': "30", 'value': '电子商务' }, { 'id': "31", 'value': '娱乐行业' }, { 'id': "99", 'value': '其他' }];
+    var shouru = [{ 'id': "01", 'value': '0-3000' }, { 'id': "02", 'value': '3001-5000' }, { 'id': "03", 'value': '5001-7000' }, { 'id': "04", 'value': '7001-10000' }, { 'id': "05", 'value': '10001-15000' }, { 'id': "06", 'value': '15001-20000' }, { 'id': "07", 'value': '20001-25000' }, { 'id': "08", 'value': '25001-30000' }, { 'id': "09", 'value': '30001-40000' }, { 'id': "10", 'value': '40001-50000' }, { 'id': "11", 'value': '500001以上' }];
+
+    var _identityarr = [{ 'id': "01", 'value': '微信' }, { 'id': "02", 'value': '网络（官网/微博）' }, { 'id': "03", 'value': '杂志媒体广告' }, { 'id': "04", 'value': '户外广告（商场灯箱/吊旗/地铁等）' }, { 'id': "05", 'value': '会员或朋友介绍' }, { 'id': "06", 'value': '品牌宣传活动' }, { 'id': "07", 'value': '品牌异业合作' }, { 'id': "08", 'value': '市场异业合作' }, { 'id': "09", 'value': '银行合作（信用卡/理财等）' }, { 'id': "10", 'value': '服务业合作（酒店/健身/餐饮/娱乐等）' }, { 'id': "11", 'value': '公关卡使用' }, { 'id': "12", 'value': '路过' }]
+    var pinpaixingqu = [{ 'id': "01", 'value': '佰草集' }, { 'id': "02", 'value': '高夫' }, { 'id': "03", 'value': '双妹' }, { 'id': "04", 'value': '佰草集典萃' }, { 'id': "05", 'value': '一花一木' }, { 'id': "06", 'value': '茶颜' }, { 'id': "07", 'value': '家安' }, { 'id': "08", 'value': '启初' }, { 'id': "09", 'value': '片仔癀' }, { 'id': "10", 'value': '六神' }, { 'id': "11", 'value': '美加净' }, { 'id': "12", 'value': 'Tommee Tippee汤美星' }, { 'id': "13", 'value': '玉泽' }]
+    var chanpinleixing = [{ 'id': "01", 'value': '美容护肤' }, { 'id': "02", 'value': '个人护理' }, { 'id': "03", 'value': '母婴护理' }, { 'id': "04", 'value': '家居护理' }, { 'id': "05", 'value': '其他偏好' }];
+    var pifutezheng = [{ 'id': "01", 'value': '中性' }, { 'id': "02", 'value': '干性' }, { 'id': "03", 'value': '油性' }, { 'id': "04", 'value': '混合性' }, { 'id': "05", 'value': '敏感性' }];
+    var pifuwenti = [{ 'id': "01", 'value': '粉刺' }, { 'id': "02", 'value': '色斑' }, { 'id': "03", 'value': '雀斑' }, { 'id': "04", 'value': '皱纹' }, { 'id': "05", 'value': '粗糙' }, { 'id': "06", 'value': '松弛' }, { 'id': "07", 'value': '晦暗' }, { 'id': "08", 'value': '脱皮' }, { 'id': "09", 'value': '油性' }, { 'id': "10", 'value': '黑头' }, { 'id': "11", 'value': '毛孔粗大' }, { 'id': "12", 'value': '细纹' }, { 'id': "13", 'value': '眼袋' }, { 'id': "14", 'value': '黑眼圈' }, { 'id': "15", 'value': '敏感' }, { 'id': "16", 'value': '暗沉' }, { 'id': "17", 'value': '痘痘' }, { 'id': "18", 'value': '干燥起皮' }, { 'id': "19", 'value': '痘印' }, { 'id': "20", 'value': '眼部浮肿' }, { 'id': "21", 'value': '暗哑无光泽' }, { 'id': "22", 'value': '其他' }];
+    var skinArr = [{ 'id': "01", 'value': '中性' }, { 'id': "02", 'value': '干性皮肤' }, { 'id': "03", 'value': '油性皮肤' }, { 'id': "04", 'value': '混合性皮肤' }, { 'id': "05", 'value': '敏感性皮肤' }];
+    //缓存Dom
+    var Dom = {
+        $channel: $(".c_channel li"),
+        $xingqu: $(".c_xingxu li"),
+        $type: $(".c_type li"),
+        $ques: $(".c_skinQues li")
+    },
+        $province_i, $province_name,
+        $city_i, $city_name, $cityArry;
+    //cityArr = cityHtml.split(" ");
+
+    // console.log(cityArr);
+
+    //判断是否已被选中
+    function chooseEle(ele, arr) {
+        var len = arr.length;
+        for (var i = 0; i < len; i++) {
+            ele.each(function () {
+                if ($(this).data("id") == arr[i]) {
+                    $(this).addClass('active')
+                }
+            });
+        }
+    }
+    function getValue(array, myId) {
+        var json = { "index": -1, "value": '' };
+        if (myId != null) {
+            for (var i = 0; i < array.length; i++) {
+                var id = array[i].id;
+                if (id == myId) {
+                    json = { "index": i, "value": array[i].value };
+                    break;
+                }
+            }
+        }
+        if (json.index == -1) {
+            json.index = 0;
+            //json.value = '请选择 >';
+            json.value = '';
+        }
+        return json;
+    }
+
+    function marrySelect(marryCode) {
+        sessionStorage.setItem('marryState', marryCode);
+        var selectedMarry = getValue(marryState, marryCode);
+        $("#c_marry").html(selectedMarry.value);
+
+        var marry = new MobileSelect({
+            trigger: '#c_marry',
+            title: '婚姻状况',
+            wheels: [{ data: marryState }],
+            position: [selectedMarry.index], //初始化定位 打开时默认选中的哪个如果不填默认为0
+            transitionEnd: function (indexArr, data) {
+            },
+            callback: function (indexArr, data) {
+                if (data[0].id === '02' || data[0].id === '04') {
+                    console.log($('.showDaBir').text());
+                    //$('.showDaBir,.showErBir').text('请选择 >');
+                    $('.showDaBir,.showErBir').text('');
+                    $('.showDaBir,.showErBir').fadeIn()
+                }
+                else {
+                    $('.showDaBir,.showErBir').text('');
+                    $('.showDaBir,.showErBir').fadeOut()
+                }
+                var c_marry = data[0].id;
+                sessionStorage.setItem('marryState', c_marry);
+                $("#c_marry").addClass("gray");
+            }
+        });
+    }
+
+    function vocationSelect(vocationCode) {
+        sessionStorage.setItem('vocation', vocationCode);
+        var vocation_ = getValue(vocation, vocationCode);
+        $("#c_vocation").html(vocation_.value);
+
+        var marry = new MobileSelect({
+            trigger: '#c_vocation',
+            title: '从事行业',
+            wheels: [{ data: vocation }],
+            position: [vocation_.index], //初始化定位 打开时默认选中的哪个 如果不填默认为0
+            transitionEnd: function (indexArr, data) {
+                //console.log(data);
+            },
+            callback: function (indexArr, data) {
+                console.log(data[0].id);
+                sessionStorage.setItem('vocation', data[0].id);
+                $("#c_vocation").addClass("gray");
+            }
+        });
+    }
+
+    function shouruSelect(shouruCode) {
+        sessionStorage.setItem('shouru', shouruCode);
+        var shouru_ = getValue(shouru, shouruCode);
+        $("#c_income").html(shouru_.value);
+
+        var marry = new MobileSelect({
+            trigger: '#c_income',
+            title: '家庭收入',
+            wheels: [{ data: shouru }],
+            position: [1], //初始化定位 打开时默认选中的哪个 如果不填默认为0
+            transitionEnd: function (indexArr, data) {
+                //console.log(data);
+            },
+            callback: function (indexArr, data) {
+                console.log(data[0].id);
+                sessionStorage.setItem('shouru', data[0].id);
+                $("#c_income").addClass("gray");
+            }
+        });
+    }
+
+    //从何处了解到华美家
+    function infoWantedSelect(infoWantedCodeList) {
+        if (infoWantedCodeList != null && infoWantedCodeList != "") {
+            var infoWanted = "";
+            var infoWantedCode = infoWantedCodeList.toString().split(',');
+            chooseEle(Dom.$channel, infoWantedCode);
+            for (var i = 0; i < infoWantedCode.length; i++) {
+                var infoWanted_ = getValue(_identityarr, infoWantedCode[i]);
+                if (infoWanted.length < 1) {
+                    infoWanted = infoWanted_.value;
+                } else {
+                    infoWanted = infoWanted + "," + infoWanted_.value;
+                }
+            }
+            infoWanted = infoWanted.substr(0, 8) + "...";
+            sessionStorage.setItem('infoWanted', infoWantedCodeList);
+            $("#info_wanted span").addClass("gray").html(infoWanted).siblings('bdo').remove();
+        }
+    }
+
+    //对家化以下品牌感兴趣
+    function xingxuSelect(xingxuCodeList) {
+        if (xingxuCodeList != null && xingxuCodeList != "") {
+            var xingxu = "";
+            var xingxuCode = xingxuCodeList.toString().split(',');
+            chooseEle(Dom.$xingqu, xingxuCode);
+            for (var i = 0; i < xingxuCode.length; i++) {
+                var xingxu_ = getValue(pinpaixingqu, xingxuCode[i]);
+                if (xingxu.length < 1) {
+                    xingxu = xingxu_.value;
+                } else {
+                    xingxu = xingxu + "," + xingxu_.value;
+                }
+            }
+            xingxu = xingxu.substr(0, 8) + "...";
+            sessionStorage.setItem('xingxu', xingxuCodeList);
+            $("#c_xingxu span").addClass("gray").html(xingxu).siblings('bdo').remove();
+        }
+    }
+
+    //对以下产品类型感兴趣
+    function typeSelect(typeCodeList) {
+        if (typeCodeList != null && typeCodeList != "") {
+            var type = "";
+            var typeCode = typeCodeList.toString().split(',');
+            chooseEle(Dom.$type, typeCode);
+            for (var i = 0; i < typeCode.length; i++) {
+                var type_ = getValue(chanpinleixing, typeCode[i]);
+                if (type.length < 1) {
+                    type = type_.value;
+                } else {
+                    type = type + "," + type_.value;
+                }
+            }
+            type = type.substr(0, 8) + "...";
+            sessionStorage.setItem('type', typeCodeList);
+            $("#c_Type span").addClass("gray").html(type).siblings('bdo').remove();
+        }
+    }
+
+    function skinFeatSelect(skinFeatcode) {
+        sessionStorage.setItem('skinFeat', skinFeatcode);
+        var skinFeat_ = getValue(skinArr, skinFeatcode);
+        $("#c_skinFeat").html(skinFeat_.value);
+
+        var marry = new MobileSelect({
+            trigger: '#c_skinFeat',
+            title: '皮肤特征',
+            wheels: [{ data: skinArr }],
+            position: [1], //初始化定位 打开时默认选中的哪个 如果不填默认为0
+            transitionEnd: function (indexArr, data) {
+                //console.log(data);
+            },
+            callback: function (indexArr, data) {
+                console.log(data[0].id);
+                sessionStorage.setItem('skinFeat', data[0].id);
+                $("#c_skinFeat").addClass("gray");
+            }
+        });
+    }
+
+    //皮肤问题
+    function skinQuesSelect(skinQuesCodeList) {
+        if (skinQuesCodeList != null && skinQuesCodeList != "") {
+            var skinQues = "";
+            var skinQuesCode = skinQuesCodeList.toString().split(',');
+            chooseEle(Dom.$ques, skinQuesCode);
+            for (var i = 0; i < skinQuesCode.length; i++) {
+                var skinQues_ = getValue(pifuwenti, skinQuesCode[i]);
+                if (skinQues.length < 1) {
+                    skinQues = skinQues_.value;
+                } else {
+                    skinQues = skinQues + "," + skinQues_.value;
+                }
+            }
+            skinQues = skinQues.substr(0, 8) + "...";
+            sessionStorage.setItem('skinQues', skinQuesCodeList);
+            $("#c_skinQues span").addClass("gray").html(skinQues).siblings('bdo').remove();
+        }
+    }
+
+    //判断是否是该会员接口;
+    $.ajax({
+        type: 'get',
+        url: $.domainUrl + 'Member/GetMemberExtendMsg?OPENID=' + openid,
+        beforeSend: function () {
+        },
+        success: function (res) {
+            console.log(res);
+            if (res.status == 1) {
+                console.log("返回数据成功！");
+                var data = res.data;
+                //婚姻状况
+                marrySelect(data.ZC016);
+                console.log(data.ZC016);
+                localStorage.setItem("bp", data.PARTNER);
+
+
+                //如果婚姻状况为空，或 未婚  已婚未育，大宝二宝无法填写
+                if (data.ZC016.trim().length == 0 || data.ZC016.trim() == "01" || data.ZC016.trim() == "03") {
+                    $('.showDaBir,.showErBir').text('');
+                    $('.showDaBir,.showErBir').hide();
+                }
+                //大宝生日
+                $('.showDaBir').html(data.KID_BIRTHDAY);
+                //二宝生日s
+                $('.showErBir').html(data.KID_BIRTHDAY2);
+
+                //从事职业
+                vocationSelect(data.ZC019);
+                //家庭收入
+                shouruSelect(data.ZC004);
+                //从何处了解到华美家
+                infoWantedSelect(data.INFO_WANTED);
+                //对家化以下品牌感兴趣
+                xingxuSelect(data.BRAND_PREF);
+                //对以下产品类型感兴趣
+                typeSelect(data.CLASS_PREF);
+                //皮肤特征
+                skinFeatSelect(data.ZA003);
+                //皮肤问题
+                skinQuesSelect(data.ZA004);
+
+                //省市数据 var REGION = '330000', TRANSPZONE = '330700';
+                var REGION = data.REGION, TRANSPZONE = data.TRANSPZONE;
+                $.ajax({
+                    type: "get",
+                    url: $.domainUrl + "user/GetCity",
+                    dataType: "json",
+                    data: {},
+                    async: false,
+                    success: function (res) {
+                        var data = res.data;
+                        $cityArry = data;
+                        if (REGION !== '') {
+                            for (var i = 0; i < data.length; i++) {
+                                if (REGION == data[i].CODE) {
+                                    $province_i = i;
+                                    console.log($province_i);
+                                    $province_name = data[i].NAME;
+                                    for (var j = 0; j < data[i].CHILD.length; j++) {
+                                        if (TRANSPZONE == data[i].CHILD[j].CODE) {
+                                            $city_i = j;
+                                            $city_name = data[i].CHILD[j].NAME;
+
+                                        }
+                                    }
+                                }
+                            }
+                            $("#c_city").addClass("gray").html($province_name + " " + $city_name);
+
+                        } else {
+                            $province_i = 0;
+                            $city_i = 0;
+                        }
+                    }
+                });
+                //实例省市对象
+                var CitySelect = new MobileSelect({
+                    trigger: '#c_city',
+                    title: '选择城市',
+                    wheels: [
+                        {
+                            data: [
+                                {
+                                    CODE: '',
+                                    NAME: '',
+                                    CHILD: [
+                                        { CODE: '', NAME: '' }
+                                    ]
+                                }
+                            ]
+                        }
+                    ],
+                    keyMap: { id: "CODE", value: 'NAME', childs: 'CHILD' },
+                    position: [$province_i, $city_i], //初始化定位 打开时默认选中的哪个 如果不填默认为0
+                    transitionEnd: function (indexArr, data) {
+                    },
+                    callback: function (indexArr, data) {
+                        var region = data[0].CODE;//得到省编号
+                        console.log(region);
+                        var trnspzone = data[1].CODE;//得到市编号；
+                        console.log(trnspzone);
+                        sessionStorage.setItem('region', region);
+                        sessionStorage.setItem('trnspzone', trnspzone);
+                        $("#c_city").addClass("gray");
+                    }
+                });
+                CitySelect.updateWheels($cityArry);
+            } else {
+                tips(res.message, true, 2000, true);
+            }
+        }
+    });
+</script>
+<!--多选 与上传数据-->
+<script>
+    $(function () {
+
+        //点击提交;发生ajax请求；
+        $('.person_box').find('.wsbtn').click(function () {
+            location.href = "completeinformation.html?t=" + new Date();
+        });
+    });
+</script>

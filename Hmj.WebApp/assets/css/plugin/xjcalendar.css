@@ -1,0 +1,304 @@
+﻿.xjcalendar{  
+    display: block;
+    position:relative;
+    -ms-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    overflow:hidden;
+    width:auto;
+    margin-left:15px;    
+    border-bottom:solid 1px #ccc;
+}
+.xjcal-fixed{
+    position:absolute;
+    z-index:9;
+}
+.xjcal-hours-left
+{
+    position:absolute;
+	overflow: hidden;
+    z-index:8;
+    margin-top:35px;
+    border-bottom:solid 1px #ccc;
+}
+.xjcal-col-top{
+    margin-left:60px;
+    position:absolute;
+	overflow: hidden;
+    z-index:8;
+    border-right:solid 1px #ccc;
+  
+}
+.xjcal-data-main{
+    position:relative;
+    left:60px;
+    top:34px;
+    overflow:auto;
+    border-bottom:solid 1px #ccc;
+    border-right:solid 1px #ccc;
+    z-index:7;
+}
+.xjcal-hours-left table,
+.xjcal-col-top table,
+.xjcal-fixed table,
+.xjcal-data-main table
+{
+	border-collapse: collapse;
+	border:solid 1px #ddd;
+	border-spacing: 0;
+	table-layout: fixed; 
+}
+
+.xjcal-hours-left table td,.xjcal-col-top table td,.xjcal-data-main table td
+{
+	padding: 0;
+	border-right: solid 1px #ddd;
+    border-bottom: solid 1px #ddd;
+	background-color: #fff;
+}
+.xjcal-fixed table td{
+    padding:0;
+    width:60px;
+}
+.xjcal-hours-left table td em{
+	font-size:9px;
+	position: relative;
+    right:-5px;
+    top:18px;
+}
+
+.xjcal-hours-left table td div.left-tb-top,
+.xjcal-fixed table td div,
+.xjcal-col-top table td div.data-main-top{
+	padding: 0px 2px;
+	height: 34px;
+	font-size: 13px;	
+	background-color: #f7f6ec;   
+
+}
+.xjcal-hours-left table td{
+    width:60px;
+}
+.xjcal-hours-left table td div.left-tb-top{
+	width: 40px;
+}
+.xjcal-data-main table td div.data-main-top
+{
+    height:0;
+    font-size:0px;
+	text-align: center;
+	width:80px;
+}
+.xjcal-col-top table td div.data-main-top
+{
+	text-align: center;
+	width:80px;
+}
+
+.xjcal-data-main table td.tg-col
+{
+    background-color:#F0F0F0; /*#FBFBFF*/
+}
+.tg-times {
+	padding:0;
+	background-color:#fff;
+	color:#333;
+    vertical-align:middle;
+	text-align:center;
+	overflow:hidden;
+}
+.tg-time {
+	border-bottom:1px solid #ddd;
+    font-family:Arial;
+}
+.tg-time span{
+    font-size:25px;
+    position: relative;
+    top:20px;
+}
+.tg-nowptr {
+	position:absolute;
+	background-position:-60px -68px;
+	width:5px;
+	height:9px;
+	background-image:url("../../img/plugin/calendar/combined_v40_vr.png");
+}
+.tg-hourmarkers {
+	position:absolute;
+	width:100%;
+}
+.tg-dualmarker {
+	border-top:1px solid #ddd;
+	height:1em;
+	line-height:1em;
+	border-bottom:1px dotted #ddd;
+	margin-bottom:1em
+}
+.tgItemBGWrapper
+{
+    position:absolute;
+	width:100%;
+    background-color:#ff6a00;
+}
+.tgItemBG
+{
+    position: absolute;
+    overflow: hidden;
+    cursor: default;
+    background-color:#fff; 
+    width:80px;
+    margin-left:1px;
+}
+.tg-nowmarker {
+	position:absolute;
+	left:0;
+	width:100%;
+	top:0;
+	height:0;
+	border-top:2px solid red;
+	overflow:hidden;
+	opacity:0.4;
+	filter:alpha(opacity=40);
+}
+.itemWrapper
+{
+    position:relative;
+    cursor:default;
+    margin-right:5px;
+}
+.itemOverLayerWrapper
+{
+  	position:relative;
+	height:0;  
+}
+
+
+
+.tg-col {
+	border-left:1px solid #ddd;
+	overflow:hidden;
+	vertical-align:top
+}
+.tg-spanningwrapper {
+	position:relative;
+	margin-left:0px;
+	height:1px;
+	top:-1px;
+}
+
+
+.chip {
+    position: absolute;
+    overflow: hidden;
+    cursor: default;
+    color:#fff;   
+    -ms-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+.chip dl {
+	margin:0;
+	padding-bottom:1px;
+	border-left:1px solid;
+	border-right:1px solid;
+	overflow:hidden
+}
+.chip dt {
+	margin-top:-1px;
+	white-space:nowrap;
+	overflow:hidden;
+	padding:2px 0 2px 1px;
+	text-align:left;
+    font-size:12px;
+}
+.chip a:link, .chip a:visited, .chip a:active {
+	text-decoration:none;
+	color:#fff
+}
+.ie6 .chip dl {
+	zoom:1
+}
+.ie6 .chip dt {
+	width:100%;
+	margin-right:-1px
+}
+.chip dd {
+    margin: 0;
+    overflow: hidden;
+    padding: 2px;
+   
+    text-align: left;
+    -ms-word-wrap: break-word ;
+    word-wrap:break-word;
+}
+.chip dd div{
+    margin:2px 1px 0px 2px;
+    font-size:12px;
+}
+div.chip-tool{
+    position:absolute;
+    bottom:4px;
+}
+.chip div.chip-tool a{
+    margin-right:5px;
+    color:#333;
+}
+.cb1, .cb2 {
+	border-style:solid;
+	overflow:hidden;
+}
+.cb1 {
+	height:1px;
+	margin:0 0px;
+	border-width:0 1px
+}
+.cb2 {
+	height:0;
+	margin:0 0px;
+	border-width:0 0 1px
+}
+.ct {
+	height:0;
+	overflow:hidden;
+	border-style:solid;
+	border-width:0;/*0 2px 2px;*/
+	border-color:transparent
+}
+
+.ie6 .ct {
+	border-style:solid dotted
+}
+
+.resizer {
+	position:absolute;
+	height:7px;
+	line-height:7px;
+	width:100%;
+	bottom:0;
+	cursor:s-resize;
+	
+}
+.rszr_icon 
+{
+    /*display:none;*/
+	border-top:3px double white;
+	font-size:0;
+	line-height:0;
+	height:0;
+	width:10px;
+	margin-left:auto;
+	margin-right:auto
+}
+
+.drag-chip-wrapper {
+	Z-INDEX: 1; 
+	POSITION: absolute;
+	WIDTH: 100%; 
+	LEFT: 0px
+}
+.drag-chip {   
+    filter: alpha(opacity=80);
+    cursor: pointer;
+    opacity: .8;
+    -khtml-opacity: .8;
+}

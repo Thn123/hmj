@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="SendSignVoucherByCustID">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="custID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="cardID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendSignVoucherByCustIDResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SendSignVoucherByCustIDResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendSignVoucherByFromUserName">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="fromUserName" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="cardID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendSignVoucherByFromUserNameResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SendSignVoucherByFromUserNameResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="SendSignVoucherByCustIDSoapIn">
+    <wsdl:part name="parameters" element="tns:SendSignVoucherByCustID" />
+  </wsdl:message>
+  <wsdl:message name="SendSignVoucherByCustIDSoapOut">
+    <wsdl:part name="parameters" element="tns:SendSignVoucherByCustIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendSignVoucherByFromUserNameSoapIn">
+    <wsdl:part name="parameters" element="tns:SendSignVoucherByFromUserName" />
+  </wsdl:message>
+  <wsdl:message name="SendSignVoucherByFromUserNameSoapOut">
+    <wsdl:part name="parameters" element="tns:SendSignVoucherByFromUserNameResponse" />
+  </wsdl:message>
+  <wsdl:portType name="VoucherWebServiceSoap">
+    <wsdl:operation name="SendSignVoucherByCustID">
+      <wsdl:input message="tns:SendSignVoucherByCustIDSoapIn" />
+      <wsdl:output message="tns:SendSignVoucherByCustIDSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendSignVoucherByFromUserName">
+      <wsdl:input message="tns:SendSignVoucherByFromUserNameSoapIn" />
+      <wsdl:output message="tns:SendSignVoucherByFromUserNameSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="VoucherWebServiceSoap" type="tns:VoucherWebServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="SendSignVoucherByCustID">
+      <soap:operation soapAction="http://tempuri.org/SendSignVoucherByCustID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendSignVoucherByFromUserName">
+      <soap:operation soapAction="http://tempuri.org/SendSignVoucherByFromUserName" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="VoucherWebServiceSoap12" type="tns:VoucherWebServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="SendSignVoucherByCustID">
+      <soap12:operation soapAction="http://tempuri.org/SendSignVoucherByCustID" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendSignVoucherByFromUserName">
+      <soap12:operation soapAction="http://tempuri.org/SendSignVoucherByFromUserName" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="VoucherWebService">
+    <wsdl:port name="VoucherWebServiceSoap" binding="tns:VoucherWebServiceSoap">
+      <soap:address location="http://182.254.139.183:8990/VoucherWebService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="VoucherWebServiceSoap12" binding="tns:VoucherWebServiceSoap12">
+      <soap12:address location="http://182.254.139.183:8990/VoucherWebService.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

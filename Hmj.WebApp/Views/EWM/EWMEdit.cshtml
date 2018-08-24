@@ -1,0 +1,65 @@
+﻿@{
+    ViewBag.Title = "二维码创建";
+}
+@model Hmj.Entity.QMActivity
+<link href="~/assets/css/weixincss.css" rel="stylesheet" />
+@section htmlhead{
+    @Html.Css("plugin/xjgrid", "plugin/xjdailog", "common", "plugin/validator", "plugin/tip")
+    <link rel='stylesheet' type='text/css' href='../../assets/css/tree.css' />
+    <style type="text/css">
+        .searchpanel {
+            background-color: #f7f8fa; /*border: 1px solid #ccc;*/
+            padding: 5px 15px;
+            margin-left: 10px;
+            border-radius: 4px;
+        }
+
+            .searchpanel .form-group, .searchpanel .btnpanel_right {
+                /*
+            display: block;
+            overflow: hidden;
+            zoom: 1;
+            margin-bottom: 0px;
+            */
+            }
+
+                .searchpanel .form-group label {
+                    margin-bottom: 4px;
+                }
+
+        #SearchBox {
+            width: 200px;
+        }
+    </style>
+}
+<div>
+    <div class="sucailist">
+        <h5><a href="Index.do"><em class="fanhui2"></em>二维码管理</a> / 二维码维护</h5>
+    </div>
+    <div class="modal-header">
+
+        @* <h4 class="modal-title">自动回复维护</h4>*@
+    </div>
+
+    <div class="modal-body">
+        <form class="form-horizontal" id="frmSave" method="post" action="@Url.Action("SaveEWM")" role="form">
+            <div class="form-group col-xs-7">
+                <div class="form-group col-xs-12">
+                    <label class="col-sm-3 control-label" style="text-align: left">二维码名称名称:</label>
+                    <div class="col-sm-9">
+                        @Html.TextBox("MdName", "", new { @class = "form-control", placeholder = "请输入二维码名称" })
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div style="clear: both"></div>
+    <div class="modal-footer">
+        <button type="button" id="btnSave" class="btn btn-primary">确 定</button>
+        @*<button type="button" id="btnClose" class="btn btn-default" data-dismiss="modal">取 消</button>*@
+    </div>
+</div>
+
+@section jssection{
+    @Html.Js("plugins/xjgrid/xjgrid", "plugins/xjdailog/xjdailog", "plugins/validator/validator", "app/ewm/ewmedit", "app/company/jquery.tree", "js/ajaxfileupload")
+}

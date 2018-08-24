@@ -1,0 +1,222 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{84C5A1AB-0FF6-41F4-8BED-7939C0860B3B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Hmj.Entity</RootNamespace>
+    <AssemblyName>Hmj.Entity</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\REFDLL\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Vulcan">
+      <HintPath>..\REFDLL\Vulcan.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="apiEntity\GeocoderResponse.cs" />
+    <Compile Include="BaseEntity.cs" />
+    <Compile Include="Entities\AreaManage_EX.cs" />
+    <Compile Include="Entities\BCJ_TMP_DETAIL.cs" />
+    <Compile Include="Entities\BCJ_TMP_DETAIL_EX.cs" />
+    <Compile Include="Entities\CardSDK.cs" />
+    <Compile Include="Entities\HmjMemberDetail.cs" />
+    <Compile Include="Entities\HMJ_BOOK_EX.cs" />
+    <Compile Include="Entities\BCJ_STORES_EX.cs" />
+    <Compile Include="Entities\BdDistance.cs" />
+    <Compile Include="Entities\book_ex.cs" />
+    <Compile Include="Entities\BOOK_TIMES.cs" />
+    <Compile Include="Entities\COUPONS.cs" />
+    <Compile Include="Entities\CustomMenu_EX.cs" />
+    <Compile Include="Entities\CUST_BOOKING_EX.cs" />
+    <Compile Include="Entities\CUST_FANS_EX.cs" />
+    <Compile Include="Entities\MEMBER_COUPON.cs" />
+    <Compile Include="Entities\CUST_INFO_EX.cs" />
+    <Compile Include="Entities\FILE_EX.cs" />
+    <Compile Include="Entities\Poin.cs" />
+    <Compile Include="Entities\PointHisList.cs" />
+    <Compile Include="Entities\STORES_EXCEL.cs" />
+    <Compile Include="Entities\SURREY_GROUP_EX.cs" />
+    <Compile Include="Entities\ThdPlatformCustInfo.cs" />
+    <Compile Include="Entities\WXCustomMenu_EX.cs" />
+    <Compile Include="Entities\CUST_MSG_HIS_EX.cs" />
+    <Compile Include="Entities\CUST_MSG_RECORD_EX.cs" />
+    <Compile Include="Entities\DailyCheck_EX.cs" />
+    <Compile Include="Entities\DeptInfo.cs" />
+    <Compile Include="Entities\DeptNode.cs" />
+    <Compile Include="Entities\DeptTree.cs" />
+    <Compile Include="Entities\EMPLOYEE_EX.cs" />
+    <Compile Include="Entities\FansList_Ex.cs" />
+    <Compile Include="Entities\Graphic_Detail_EX.cs" />
+    <Compile Include="Entities\GROUP_EMPLOYER_EX.cs" />
+    <Compile Include="Entities\GROUP_INFO_EX.cs" />
+    <Compile Include="Entities\Index_Report_EX.cs" />
+    <Compile Include="Entities\Information_EX.cs" />
+    <Compile Include="Entities\LISTRIGHT_EX.cs" />
+    <Compile Include="Entities\MembershipCard_EX.cs" />
+    <Compile Include="Entities\MerchantsSeting_EX.cs" />
+    <Compile Include="Entities\OpenInfo.cs" />
+    <Compile Include="Entities\ORG_DICT_EX.cs" />
+    <Compile Include="Entities\ORG_INFO_EX.cs" />
+    <Compile Include="Entities\ORG_REGION_EX.cs" />
+    <Compile Include="Entities\PASSENGER_EX.cs" />
+    <Compile Include="Entities\QMActivity_EX.cs" />
+    <Compile Include="Entities\Store_EX.cs" />
+    <Compile Include="Entities\SYS_RIGHT_EX.cs" />
+    <Compile Include="Entities\ROLE_RIGHT_EX.cs" />
+    <Compile Include="Entities\CUST_INFO.cs" />
+    <Compile Include="Entities\ORG_STORE_EX.cs" />
+    <Compile Include="Entities\SYS_ROLE_EX.cs" />
+    <Compile Include="Entities\URSE_INFO_EX.cs" />
+    <Compile Include="Entities\WD_Evaluation_EX.cs" />
+    <Compile Include="Entities\WD_STORE_EX.cs" />
+    <Compile Include="Entities\WD_STORE_SET_EX.cs" />
+    <Compile Include="Entities\WD_WORKS_EX.cs" />
+    <Compile Include="Entities\WXCustScanRecordEx.cs" />
+    <Compile Include="Entities\WXOpinion_EX.cs" />
+    <Compile Include="Entities\WXTicket_EX.cs" />
+    <Compile Include="Enums.cs" />
+    <Compile Include="Jsons\CodeValue.cs" />
+    <Compile Include="Jsons\JsonQTable.cs" />
+    <Compile Include="Jsons\JsonSMsg.cs" />
+    <Compile Include="Jsons\JsonTreeNode.cs" />
+    <Compile Include="Jsons\JSTreeNode.cs" />
+    <Compile Include="ORMapping\ColumnAttribute.cs" />
+    <Compile Include="ORMapping\EntityReflect.cs" />
+    <Compile Include="ORMapping\EntitySQLBuilder.cs" />
+    <Compile Include="ORMapping\TableNameAttribute.cs" />
+    <Compile Include="PageSearch\MemberSearch.cs" />
+    <Compile Include="SearchEntity\ExcelSearch.cs" />
+    <Compile Include="SearchEntity\GroupSearch.cs" />
+    <Compile Include="SearchEntity\EmpInfoSearch.cs" />
+    <Compile Include="PageSearch\PageList.cs" />
+    <Compile Include="PageSearch\PageView.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SearchEntity\BookingSearch.cs" />
+    <Compile Include="SearchEntity\CardSearch.cs" />
+    <Compile Include="SearchEntity\CommissionDetailSearch.cs" />
+    <Compile Include="SearchEntity\CompanySearch.cs" />
+    <Compile Include="SearchEntity\CustMsgHisSearch.cs" />
+    <Compile Include="SearchEntity\CustomerSearch.cs" />
+    <Compile Include="SearchEntity\EmployeeSearch.cs" />
+    <Compile Include="SearchEntity\FansSearch.cs" />
+    <Compile Include="SearchEntity\GoodsSearch.cs" />
+    <Compile Include="SearchEntity\GraphicSearch.cs" />
+    <Compile Include="SearchEntity\MembershipCardSearch.cs" />
+    <Compile Include="SearchEntity\MEMBER_EX.cs" />
+    <Compile Include="SearchEntity\OrderSearch.cs" />
+    <Compile Include="SearchEntity\ORG_REGIONSearch.cs" />
+    <Compile Include="SearchEntity\PaymentModeSearch.cs" />
+    <Compile Include="Entities\PointHistory.cs" />
+    <Compile Include="SearchEntity\PointsSearch.cs" />
+    <Compile Include="SearchEntity\PostSearch.cs" />
+    <Compile Include="SearchEntity\PromotionVSearch.cs" />
+    <Compile Include="SearchEntity\PROMOTION_INFOSearch.cs" />
+    <Compile Include="SearchEntity\ReportSearch.cs" />
+    <Compile Include="SearchEntity\RoleSearch.cs" />
+    <Compile Include="SearchEntity\RoomSearch.cs" />
+    <Compile Include="SearchEntity\ScheduleInfoSearch.cs" />
+    <Compile Include="SearchEntity\ServiceSearch.cs" />
+    <Compile Include="SearchEntity\SMSMessageSearch.cs" />
+    <Compile Include="SearchEntity\StoreSearch.cs" />
+    <Compile Include="SearchEntity\ScheduleSearch.cs" />
+    <Compile Include="SearchEntity\UserInfoSearch.cs" />
+    <Compile Include="SearchEntity\EmpSearch.cs" />
+    <Compile Include="TenAddress.cs" />
+    <Compile Include="TenAPI.cs" />
+    <Compile Include="TenAPI_EX.cs" />
+    <Compile Include="TenIP.cs" />
+    <Compile Include="TenIPAPI.cs" />
+    <Compile Include="TenIPDetail.cs" />
+    <Compile Include="TenIPXy.cs" />
+    <Compile Include="TenLocal.cs" />
+    <Compile Include="WxModel\TokeRes.cs" />
+    <Compile Include="WxModel\FansInfo.cs" />
+    <Compile Include="WxModel\FileItemContentRes.cs" />
+    <Compile Include="WxModel\FileItemNewsRes.cs" />
+    <Compile Include="WxModel\FileItemRes.cs" />
+    <Compile Include="WxModel\FileRes.cs" />
+    <Compile Include="WxModel\FilesReq.cs" />
+    <Compile Include="WxModel\MemberInfo.cs" />
+    <Compile Include="WxModel\TemplateData.cs" />
+    <Compile Include="WxModel\TemplateSend.cs" />
+    <Compile Include="WxModel\WxResBase.cs" />
+    <Compile Include="_Generated\EntityGenerate1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EntityGenerate.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+    <None Include="_Generated\Base.ttinclude" />
+    <None Include="_Generated\MSSQL.ttinclude" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <CodeAnalysisDictionary Include="_Generated\EntityGenerate.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>EntityGenerate1.cs</LastGenOutput>
+    </CodeAnalysisDictionary>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

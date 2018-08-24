@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>报名成功---闲时兔</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="Cache-Control" content="public" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="apple-mobile-web-app-status-bar-style"  content="black" />
+  <meta name="renderer" content="webkit">
+  <meta name="description" content="闲时兔">
+  <meta name="keywords" content="闲时兔">
+  <link rel="stylesheet" href="css/common.css" type="text/css">
+</head>
+<body>
+<section class="success">
+  <h1><i class="fl"></i>报名成功</h1>
+  <dl>
+    <dt>随手<code>分享</code>，可以<code>提高抽中奖率</code>哦</dt>
+    <dd><a href="javascript:;">立即分享</a></dd>
+  </dl>
+</section>
+<section class="shop-list" id="shop-list">
+  <h2>热门推荐</h2>
+  <ul id="shop">
+     <li>
+        <p class="fl"><img src="img/flash/pic_1.png" alt="闲时兔"/></p>
+        <dl>
+          <dt class="nowrap">重温40年前越战结束前的最后48小时爬上使馆外墙的西贡民众在使馆保安的监视下寻找登上飞机的通道。</dt>
+          <dd>342人抢</dd>
+        </dl>
+        <a href="#" class="grab radius">抢</a>
+     </li>
+     <li>
+        <p class="fl"><img src="img/flash/pic_1.png" alt="闲时兔"/></p>
+        <dl>
+          <dt class="nowrap">重温40年前越战结束前的最后48小时爬上使馆外墙的西贡民众在使馆保安的监视下寻找登上飞机的通道。</dt>
+          <dd>342人抢</dd>
+        </dl>
+        <a href="#" class="grab radius">抢</a>
+     </li>
+     <li>
+        <p class="fl"><img src="img/flash/pic_2.png" alt="闲时兔"/></p>
+        <dl>
+          <dt class="nowrap">重温40年前越战结束前的最后48小时爬上使馆外墙的西贡民众在使馆保安的监视下寻找登上飞机的通道。</dt>
+          <dd>342人抢</dd>
+        </dl>
+        <code></code>
+     </li>
+     <li>
+        <p class="fl"><img src="img/flash/pic_1.png" alt="闲时兔"/></p>
+        <dl>
+          <dt class="nowrap">重温40年前越战结束前的最后48小时爬上使馆外墙的西贡民众在使馆保安的监视下寻找登上飞机的通道。</dt>
+          <dd>342人抢</dd>
+        </dl>
+        <a href="#" class="grab radius">抢</a>
+     </li>
+     <li>
+        <p class="fl"><span>已结束</span><img src="img/flash/pic_1.png" alt="闲时兔"/></p>
+        <dl>
+          <dt class="nowrap">重温40年前越战结束前的最后48小时爬上使馆外墙的西贡民众在使馆保安的监视下寻找登上飞机的通道。</dt>
+          <dd>342人抢</dd>
+          <cite>342</cite>
+        </dl>
+      
+     </li>
+     <li>
+        <p class="fl"><img src="img/flash/pic_2.png" alt="闲时兔"/></p>
+        <dl>
+          <dt class="nowrap">重温40年前越战结束前的最后48小时爬上使馆外墙的西贡民众在使馆保安的监视下寻找登上飞机的通道。</dt>
+          <dd>342人抢</dd>
+        </dl>
+        <code></code>
+     </li>
+  </ul>
+</section>
+<!--shop-list end of-->
+<div class="myLoading color pt50" style="display:none;">数据全部加载完了^_^</div>
+<a href="javascript:;" class="look-doing">查看所有活动</a>
+<section class="mask">
+  <div class="tipsIcon"></div>
+</section>
+<!--mask end of-->
+<section class="loading">拼命加载中</section>
+<script src="js/jquery.js"></script>
+<script>
+$(function(){
+  $(".success dd a").click( function () {
+	  $('.mask').show();
+  });
+  $(".mask").click( function () {
+	  $('.mask').hide();
+  });
+});
+
+//滑动加载数据
+//item.act_title,item.act_img等需你处理一下，这个是从数据库里面读出来的,这个开发一看就懂的
+var pageSize = 5;
+var pageIndex = 1;
+var type = 0;
+var hasMore = true;
+$(function(){
+	loadData(type, pageSize, 1);
+   $(window).scroll(function(){
+        var sHeight = document.body.scrollHeight;
+        var cHeight = document.documentElement.clientHeight;
+        var tHeight = document.documentElement.scrollTop + document.body.scrollTop;
+        var totalHeight = tHeight+cHeight+0;
+        if(totalHeight >= sHeight ){
+			loadData(pageSize, pageIndex);
+		}
+  });	
+});
+
+function loadData(type, pageSize, page) 
+{
+  if (!hasMore) {
+	   return false;
+	};
+  var pape = page || pageIndex;
+  $(".loading").show();
+    var reqUrl ="json.php";//处理数据的页面
+    $.ajax({
+      url: reqUrl,
+      type: 'post',
+      dataType: 'json',
+      cache: false,
+      data: {actionType:type, pageSize: pageSize, pageIndex: pape},
+      success: function (data) {
+        if(data.errorCode == 1002) {
+          if (page == 1) {$('.noData').show();} 
+		  else {
+			  $('.myLoading').show();
+			    closeMore();
+			}
+          hasMore = false;
+        } else {
+          var html = '';          
+          //数据组装后再显示出来
+          $.each(data, function(index, item){
+			html += '<li><p class="fl"><img src="'+item.act_img+'" alt="'+item.act_name+'"/></p><dl><dt class="nowrap">'+item.act_content+'</dt> <dd >'+item.act_title+'</dd></dl><a href="'+item.act_url+'" class="grab radius">抢</a></li>';
+          });
+          $('#shop').append(html);
+        }
+        $(".loading").hide();pageIndex++;
+      }
+    });
+}
+function closeMore(){setTimeout("$('.myLoading').hide()",3000);} 
+</script>
+</body>
+</html>

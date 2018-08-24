@@ -1,0 +1,250 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../css/new_style.css?v=20180619_02">
+    <link rel="stylesheet" href="../css/swiper.min.css?v=20180619_01">
+    <title>个人中心</title>
+    <style>
+        .swiper-slide { padding: 0rem; border-radius: 0px; }
+        .disabled { opacity: 0.5; }
+        .name { display: inline-block; float: left; }
+        .right a { float: left; margin-top: -2px }
+        .right img { margin-top: 10px; margin-left: 4px; width: 50%; height: 50%; }
+        #nameSpan { float: left; }
+    </style>
+</head>
+<body>
+    <div class="wrap userPage">
+        <div class="header">
+            <div class="table">
+                <a href="userinformation.html">
+                    <img alt="" id="headimg" src="../images/person.jpg" style="border-radius: 50%;">
+                </a>
+
+                <div class="right">
+                    <div>
+                        <span class="name" id="nickName"></span>
+                        <a href="userinformation.html">
+                            <img src="../images/edit.png" alt="" style=" margin-top: 10px; margin-left: 4px; width: 50%; height: 50%;" />
+                        </a>
+                    </div>
+                    <span id="nameSpan"><label id="name"></label></span>
+                </div>
+            </div>
+        </div>
+        <div class="center-list clearfix">
+            <div class="box">
+                <a href="hytq.html">
+                    <img src="../images/quanyi.png">
+                    <span>会员权益</span>
+                </a>
+            </div>
+            <div class="box">
+                <a href="jfmx.html">
+                    <img src="../images/jifen.png">
+                    <span>我的积分</span>
+                    <span class="jifen"></span>
+                </a>
+            </div>
+            <div class="box">
+                <a href="product.html">
+                    <img src="../images/pinpai.png">
+                    <span>品牌积分</span>
+                </a>
+            </div>
+            <div class="box coupon-item">
+                <a href="yhq.html">
+                    <img src="../images/youhui.png">
+                    <span>优惠券</span>
+                    <!--<em>1</em>-->
+                </a>
+                <div class="coupon-quanIcon"></div>
+            </div>
+            <div class="box">
+                <a href="syjf.html">
+                    <img src="../images/duihuan.png">
+                    <span>积分兑换</span>
+                </a>
+            </div>
+            <div class="box">
+                <a onclick="Redirect();">
+                    <!--href="expired.html"-->
+                    <img src="../images/tuijian.png">
+                    <span>完善信息</span>
+                </a>
+            </div>
+        </div>
+        <div class="gray"></div>
+        <!--<div class="pic-box" onclick="Redirecthyqy()">
+
+        </div>-->
+        <header>
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide"><img src="../images/jh120.jpg" alt="" /></div>
+                    <div class="swiper-slide"><img src="../images/bcj.jpg" alt="" /></div>
+                    <div class="swiper-slide"><img src="../images/gf.jpg" alt="" /></div>
+                    <div class="swiper-slide"><img src="../images/sm.jpg" alt="" /></div>
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </header>
+        <div class="layer " id="modaltips" style="display: none"></div>
+    </div>
+</body>
+</html>
+
+<script src="../js/jquery.min.js"></script>
+<script src="../js/jquery.json.min.js"></script>
+<script src="../js/validate.js"></script>
+<script src="../js/swiper.min.js"></script>
+
+<script>
+    //轮播效果
+    var swiper = new Swiper('.swiper-container', {
+        pagination: '.swiper-pagination',
+        nextButton: '.swiper-button-next',
+        prevButton: '.swiper-button-prev',
+        slidesPerView: 1,
+        paginationClickable: true,
+        spaceBetween: 30,
+        loop: true,
+        autoplay: 3000,
+        speed: 500,
+        observer: true,
+        observeParents: true,
+        autoplayDisableOnInteraction: false
+    });
+
+    function Redirect() {
+        var x = 1000000;
+        var y = 0;
+        var rand = parseInt(Math.random() * (x - y + 1) + y);
+        location.href = "completeinformation.html?t=" + rand;
+    }
+
+    function Redirecthyqy() {
+        var x = 1000000;
+        var y = 0;
+        var rand = parseInt(Math.random() * (x - y + 1) + y);
+        location.href = "hytq.html?t=" + rand;
+    }
+
+    function GetQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]); return null;
+    }
+
+    $(function () {
+        //表示是分享的
+        if (GetQueryString("from")) {
+            location.href = "/HmjMember/ToZhuce.do";
+        }
+
+        var json = GetQueryString("obj");
+
+        if (json) {
+            localStorage.setItem("fansJson", decodeURI(json));
+        }
+
+        $(".subnav .fr").click(function () {
+            window.location.href = 'jfmx.html?t=' + new Date().getTime();
+        });
+        $(".jfdh,.hytj").click(function () {
+            tips('敬请期待', true, 2000, true);
+        });
+
+        var userinfo = $.parseJSON(localStorage.getItem('fansJson'));
+        var openid = userinfo.openid;//'oNTWExHAuxoxMxhFW7sbl6xOsOYQ';
+        //      var openid='oNTWExElLq2yKdOYm4Bxw22b0PNk';
+        //获取个人基本信息接口
+        var data = {
+            "OPENID": openid,
+            "IS_UPDATE": '1'
+        };
+
+        $.ajax({
+            type: "post",
+            async: false,
+            url: $.domainUrl + "Member/GetMemberDetail",
+            processData: false,
+            data: JSON.stringify(data),
+            success: function (data) {
+                console.log(data);
+                //   {status: 0, message: "对不起，无法查询到该会员信息", data: null}
+                if (data.status == 0) {
+                } else if (data.status == 1) {
+                    data = data.data;
+                    var mobile = data.MOBILE;
+                    var mobile2 = mobile.replace(mobile.substr(3, 4), '****');
+                    //返回的数据渲染页面
+
+                    //会员等级卡片
+                    var level = "";
+                    if (data.MEM_LEVEL == "普通会员") {
+                        $(".header").addClass("vip1");
+                        $("#nameSpan").addClass("vip1_icon");
+                        level = "Lv1 ";
+                    }
+                    else if (data.MEM_LEVEL == "白银会员") {
+                        $(".header").addClass("vip2");
+                        $("#nameSpan").addClass("vip2_icon");
+                        level = "Lv2 ";
+                    }
+                    else if (data.MEM_LEVEL == "黄金会员") {
+                        $(".header").addClass("vip3");
+                        $("#nameSpan").addClass("vip3_icon");
+                        level = "Lv3 ";
+                    }
+                    else if (data.MEM_LEVEL == "铂金会员") {
+                        $(".header").addClass("vip4");
+                        $("#nameSpan").addClass("vip4_icon");
+                        level = "Lv4 ";
+                    }
+                    else if (data.MEM_LEVEL == "钻石会员") {
+                        $(".header").addClass("vip5");
+                        $("#nameSpan").addClass("vip5_icon");
+                        level = "Lv5 ";
+                    }
+                    //background
+                    $("#headimg").attr("src", data.IMAGE);
+                    $("#nickName").html(data.NICK_NAME);
+                    $("#name").html(level + data.MEM_LEVEL);
+                    //$(".user-info").html(data.MEM_LEVEL);
+                    $(".jifen").html(data.AVA_POINTS);
+                    var m = localStorage.getItem("tel");
+                    //用于userinformation.html与modifyinformation.html 这两个页面读取的用户信息来自于本地数据库
+                    localStorage.setItem("MemberLevel", data.MEM_LEVEL);
+                    localStorage.setItem("MemberNO", data.MEMBERNO);
+
+
+                    //增加 “未使用优惠券”的角标
+                    $.ajax({
+                        type: "get",
+                        async: false,
+                        url: $.domainUrl + 'MemberCoupon/GetMemberCoupon?account_id=' + data.MEMBERNO,
+                        success: function (res) {
+                            var notUseLen = res.data.NOT_USE.length;
+                            console.log(notUseLen);
+                            if (notUseLen > 0) {
+                                $('.coupon-quanIcon').html(notUseLen).show();
+                            };
+                        }
+                    });
+                }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                //if (openid == "oNTWExElLq2yKdOYm4Bxw22b0PNk") {
+                //    var vConsole = new VConsole();
+                //    console.log(XMLHttpRequest.status);
+                //    console.log(XMLHttpRequest.readyState);
+                //    console.log(textStatus);
+                //}
+            }
+        });
+    });
+</script>

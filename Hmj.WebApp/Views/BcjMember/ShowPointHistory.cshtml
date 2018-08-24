@@ -1,0 +1,63 @@
+﻿@{
+    ViewBag.Title = "ShowPointHistory";
+    Layout = "~/Views/Shared/_LayoutE.cshtml";
+}
+@using Hmj.Entity.Entities
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width" name="viewport" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+    <meta content="telephone=no" name="format-detection" />
+    <link type="text/css" href="/Bcj/points/css/jifen.css" rel="stylesheet" />
+    <title>积分查询</title>
+</head>
+
+<body>
+    <div class="jifen-index-banner">
+        <strong>@((ViewBag.History as PointHistory).Point)</strong>
+        <p>当前可用积分</p>
+        @*<div class="youjiaojifen">总积分:@((ViewBag.History as PointHistory).Point)</div>*@
+    </div>
+
+    <!--begin content-->
+    <div class="meiWapper jifen-index-Top">
+        <h2>积分获取记录</h2>
+
+        <div class="jifen-index-table">
+            <ul>
+                <li class="jifentableTr"><span>积分时间</span><span>来源</span><span>积分</span><span>有效期</span></li>
+                @foreach (PointHisList item in (ViewBag.History as PointHistory).Hise)
+                {
+                    <li>
+                        <span>@item.CREATED_TIME</span><span>@item.ORDER_TYPE</span>
+                        <span>
+                            @if (item.CATEGORY == "0")
+                            {
+                                <em>+@item.POINTS</em>
+                            }
+                            else if (item.CATEGORY == "1")
+                            {
+                                <em>@item.POINTS</em>
+                            }
+                        </span><span>@item.EXPIRE_DATE</span>
+                    </li>
+                }
+            </ul>
+            <p class="jifenmore">- 以上为全部积分记录 - </p>
+        </div>
+    </div>
+    <!--end content-->
+
+</body>
+</html>
+<script type="text/javascript" src="/Bcj/points/js/jquery.min.js"></script>
+<script src="~/Bcj/Message2.js"></script>
+<script>
+
+    $(function () {
+        $("li:even").addClass("tr_even");
+    });
+</script>

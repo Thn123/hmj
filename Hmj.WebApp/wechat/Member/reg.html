@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width" name="viewport" />
+    <meta content="telephone=no" name="format-detection" />
+    <link type="text/css" rel="stylesheet" href="css/mian.css">
+    <title>盛时</title>
+</head>
+
+<body>
+    <div class="topbox">
+        <ul>
+            <li><a href="reg.html"><span class="curbtn">新用户注册</span></a></li>
+            <li><a href="bang.html"><span>老会员绑定</span></a></li>
+        </ul>
+    </div>
+
+    <div class="regbox">
+        <p><bdo class="name_icon"></bdo><span>
+            <input name="" type="text" placeholder="您的姓名" class="txtinput"></span></p>
+        <p style="padding: 0 10px;"><bdo class="xing_icon"></bdo><span>
+            <input name="" type="radio" value="" class="radiocss" id="xiansheng">
+            先生 &nbsp;&nbsp;&nbsp;&nbsp;
+            <input name="" type="radio" value="" class="radiocss" id="nvshi">
+            女士 </span></p>
+        <p><bdo class="phone_icon"></bdo><span>
+            <input name="" type="tel" placeholder="请输入11位手机号" class="txtinput" style="width: 76%; float: left;"><em class="yanzheng">验证</em></span></p>
+        <p><bdo class="ma_icon"></bdo><span>
+            <input name="" type="text" placeholder="手机收到的验证码" class="txtinput"></span></p>
+        <p><bdo class="map_icon"></bdo><span><strong>
+            <select name="" class="dropdown-select">
+                <option>省份</option>
+                <option>上海</option>
+                <option>浙江</option>
+            </select></strong>  <strong>
+                <select name="" class="dropdown-select">
+                    <option>城市</option>
+                    <option>徐汇区</option>
+                    <option>上海</option>
+                </select></strong></span></p>
+        <h3>盛时会员俱乐部需知</h3>
+        <div class="regbtn">注册绑定</div>
+    </div>
+
+</body>
+</html>
+<script type="text/javascript">
+    document.getElementById('xiansheng').onclick = function () {
+        //alert(22);
+        document.getElementById('xiansheng').className = 'radiocss checked';
+        document.getElementById('nvshi').className = 'radiocss';
+
+    }
+    document.getElementById('nvshi').onclick = function () {
+        //alert(22);
+        document.getElementById('xiansheng').className = 'radiocss';
+        document.getElementById('nvshi').className = 'radiocss checked';
+    }
+</script>

@@ -1,0 +1,146 @@
+﻿@{
+    ViewBag.Title = "index";
+}
+@section htmlhead{
+    @Html.Css("plugin/xjgrid", "plugin/xjdailog")
+    @Html.Css("plugin/validator")
+
+    <style type="text/css">
+        .panel-chat {
+            height: auto;
+        }
+    </style>
+}
+@model Hmj.Entity.Entities.CUST_MSG_RECORD_EX
+<div class="s_container">
+    <div id="page-heading">
+        <h2>
+            <i class="fa fa-sitemap"></i>微信实时信息</h2>
+    </div>
+    <div id="mainbody" class="panel panel-primary">
+        <div class="panel-heading">
+            <h4>微信实时信息</h4>
+        </div>
+        <div class="panel-body" style="min-height: 350px">
+            <div class="row">
+                <div class="tab-container tab-gray">
+                    <ul class="nav nav-tabs" id="ultab">
+                        <li class="active"><a data-toggle="tab">全部</a></li>
+                        <li><a data-toggle="tab">未回复</a></li>
+                        <li><a data-toggle="tab">已回复</a></li>
+                        <li><a data-toggle="tab">已加星</a></li>
+                    </ul>
+                    <div class="text-right col-md-12" style="padding: 10px">
+                        <form id="formQuery" class="form-inline" method="post" role="form">
+                            @Html.Hidden("SEARCHTYPE", "0")
+                            <div class="form-group">
+                                @Html.TextBox("SEARCHTEXT", "", new { @class = "form-control", placeholder = "微信名" })
+                            </div>
+                            <div class="form-group">
+                                <div class="btn-group">
+                                    <button class="btn-primary btn"><i class="fa fa-search"></i>查 询</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div id="tab-content" class="tab-content">
+                        <div class="table-responsive" id="gridlist">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="replyModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">回复</h4>
+            </div>
+            <div>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel-chat well" id="chat">
+                            <div id="divChatMessage" class="chat-message chat-primary">
+                                <div class="chat-contact">
+                                    <img src="http://wx.qlogo.cn/mmopen/MMt81yibw8N0baicXJ9sLbJUmlBmwDxXxmaicGyPAE4r8aPYBCbfe4z2G1GOSzWeMkYFKicMnrQwzDQYg7e1Mpf554yibNtkjzLMb/0" alt="">
+                                </div>
+                                <div class="chat-text">
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea, esse, nobis aut odit dignissimos alias.</p>
+                                </div>
+                            </div>
+                            <div id="divChatRely" class="chat-message me">
+                                <div class="chat-contact">
+                                </div>
+                                <div class="chat-text">
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea, esse, nobis aut odit dignissimos alias.</p>
+                                </div>
+                            </div>
+
+                        </div>
+                        <form id="formReply" class="form-inline" method="post" action="@Url.Action("ReplyMessage")" role="form">
+                            <div class="input-group">
+                                @Html.Hidden("ID", "")
+                                 @Html.Hidden("FROMUSERNAME", "")
+                                @*<input type="text" placeholder="Enter your message here" class="form-control">*@
+                                @Html.TextBox("Return_Con", Model.CONTENT, new { @class = "form-control", placeholder = "Enter your message here" })
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-primary" id="btnReply"><i class="fa fa-comments-o"></i></button>
+                                </span>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<div id="confirmModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">确认！</h4>
+            </div>
+            <div>
+            </div>
+            <div class="modal-body">
+                <p><span id="lbuserName"></span></p>
+                <input id="hdCurrentId" type="hidden" value="" />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取 消</button>
+                <button type="button" id="btnStarConfirm" class="btn btn-primary">确 定</button>
+                <button type="button" id="btnCancelStarConfirm" class="btn btn-primary">确 定</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+@section jssection{
+    <script type="text/javascript">
+        var util = {};
+        var options = {
+            listUrl: "@Url.Action("QueryFansMessages")",
+            setIsStarUrl: "@Url.Action("UpdateFanMessages")",
+            getMessageUrl: "@Url.Action("GetFansMessage")",
+        };
+    </script>
+
+    <script src="~/assets/plugins/xjdailog/xjdailog.js"></script>
+    <script src="~/assets/plugins/xjgrid/xjgrid.js"></script>
+    <script src="~/assets/app/messagerecord/index.js"></script>
+    <script src="~/assets/plugins/validator/validator.js"></script>
+}

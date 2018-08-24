@@ -1,0 +1,295 @@
+﻿@{
+    ViewBag.Title = "ShowStoreMap";
+    Layout = "~/Views/Shared/_LayoutE.cshtml";
+}
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width" name="viewport" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="">
+    <!-- uc强制竖屏 -->
+    <meta name="screen-orientation" content="portrait">
+    <!-- UC强制全屏 -->
+    <meta name="full-screen" content="yes">
+    <!-- UC应用模式 -->
+    <meta name="browsermode" content="application">
+    <!-- QQ强制竖屏 -->
+    <meta name="x5-orientation" content="portrait">
+    <!-- QQ强制全屏 -->
+    <meta name="x5-fullscreen" content="true">
+    <!-- QQ应用模式 -->
+    <meta name="x5-page-mode" content="app">
+    <meta content="telephone=no" name="format-detection" />
+    <link type="text/css" href="/Bcj/member/css/mobileSelect.css" rel="stylesheet" />
+    <link type="text/css" href="/Bcj/member/css/reg.css" rel="stylesheet" />
+    <title>上海家化百货门店</title>
+</head>
+<body>
+    <input type="hidden" id="startLn" value="" />
+    <input type="hidden" id="startLo" value="" />
+    <div class="mendianAddress maptwo">
+        <ol style="width:25%;float:right"><bdo class="dianlieIcon">更多门店<em class="trangle_up"></em></bdo></ol>
+        <ol>
+            <span class="">
+                <img src="/Bcj/member/images/map.png" class="map_icon" />
+                <div class="dropdown-select2" id="s_city" name="s_city">
+                    上海
+                </div>
+                <img src="/Bcj/member/images/down.png" class="up_icon">
+            </span>
+        </ol>
+    </div>
+
+    <div class="mendianMap">
+        <div style="width:100%;height:100%; position:absolute; left:0; top:0; right:0; bottom:0; z-index:1;" id="allmap"></div>
+    </div>
+
+    <div class="mendianShop" id="stomodel" style="display:none">
+        <div class="mendianShop-left">
+            <p id="storedetials">
+
+            </p>
+        </div>
+        <a href="#" id="daohang" exLo="" exLn="" exName="" exAddress="" exCity="">
+            <div class="mendianShop-right">
+                <span>导航</span>
+            </div>
+        </a>
+    </div>
+
+    <div class="mendianFix">
+        <div class="mendianList">
+            <ul id="stores"></ul>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=MpW2GCV1IVTax54FvODYh8XjO405KFxL"></script>
+<script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+<script type="text/javascript" src="../Js_BCJ/jquery.min.js"></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script src="../Js_BCJ/GetLocation.js?v=2.0"></script>
+<script src="../../Js_BCJ/mobileSelect.js"></script>
+@*<script src="/Bcj/member/js/city.js" class="resources library" type="text/javascript"></script>*@
+<script>
+    //_init_area();
+    var flag = true;
+    $('.dianlieIcon').on('click', function () {
+        if (flag == true) {
+            $(this).find("em").addClass("trangle_down").removeClass("trangle_up");
+            $('.mendianFix').show();
+            flag = false;
+        } else {
+            $(this).find("em").addClass("trangle_up").removeClass("trangle_down");
+            $('.mendianFix').hide();
+            flag = true;
+        }
+    })
+</script>
+
+<script type="text/javascript">
+
+    $('#s_city').click(function () {
+        $('.up_icon').attr("src", '/Bcj/member/images/up.png');
+        $(".dianlieIcon").find("em").addClass("trangle_up").removeClass("trangle_down");
+        $('.mendianFix').hide();
+        flag = true;
+    });
+
+    var opts = {
+        width: 250,
+        height: 80,
+        title: "",
+        enableMessage: true
+    };
+
+    //当GetLocation执行ready的时候执行该方法
+    function ExMethod() {
+        wx.getLocation({
+            type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
+            success: function (res) {
+                var latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
+                var longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
+                var speed = res.speed; // 速度，以米/每秒计
+                var accuracy = res.accuracy; // 位置精度
+                //alert("123===" + latitude + "====" + longitude);
+                Loadcity(latitude, longitude, "");
+            }
+        });
+    }
+
+    //加载地图
+    function Loadcity(latitude, longitude, city_code) {
+        $(".mendianShop").hide();
+        $.ajax({
+            url: "/BcjStore/GetLocal.do",
+            method: "post",
+            data: { LO: latitude, LN: longitude, CODE: city_code },
+            success: function (data) {
+                var stores = data.Data.STORES; //门店列表
+                var citys = data.Data.CIRYS; //城市列表
+                var citycode = data.Data.CIRY_CODE; //城市默认code
+
+
+                $("#startLn").val(longitude);
+                $("#startLo").val(latitude);
+
+                var cityhtml = "";
+                var cityName = "";
+                for (var i = 0; i < citys.length; i++) {
+                    if (citys[i].CITY_CODE == citycode) {
+                        p_code = i;
+                        cityName = citys[i].CITY_NAME;
+                        $('#s_city').html(cityName);
+                    } else {
+                        p_code = 0;
+                    }
+                }
+                //城市触发按钮;;
+                if (city_code == "") {
+                    var CitySelect = new MobileSelect({
+                        trigger: '#s_city',
+                        title: '选择城市',
+                        ensureBtnColor: "#B92816",
+                        wheels: [
+                            {
+                                data: [
+                                    {
+                                        CITY_CODE: '',
+                                        CITY_NAME: ''
+                                    }
+                                ]
+                            }
+                        ],
+                        keyMap: { id: "CITY_CODE", value: 'CITY_NAME' },
+                        position: [p_code], //初始化定位 打开时默认选中的哪个 如果不填默认为0
+                        transitionEnd: function (indexArr, data) {
+                        },
+                        callback: function (indexArr, data) {
+                            $('.up_icon').attr("src", '/Bcj/member/images/down.png');
+                            var la = data[0].LATITUDE;//维度；
+                            var lo = data[0].LONGITUDE;//经度；
+                            var citycode = data[0].CITY_CODE;//当前城市的code;
+                            Loadcity(la, lo, citycode);
+                        }
+                    });
+                    CitySelect.updateWheel(0, citys);
+                    if (city_code == "") {
+                        CitySelect.updateWheels(citys);
+                    }
+                }
+
+                //[parseFloat(longitude), parseFloat(latitude), "城市中心 OR 我的位置", '城市中心 OR 我的位置', '城市中心 OR 我的位置', '0000-000-0000', '0']
+                var data_info = [];
+
+                var storehtml = "";
+                for (var i = 0; i < stores.length; i++) {
+                    storehtml += '<li><div class="mendianInfoList"><p><strong>' + stores[i].NAME + '</strong></p><p>' +
+                        stores[i].ADDRESS + '</p><p>' + stores[i].TEL + '</p><p><a href="#" class="myMap" exLo="' + stores[i].LONGITUDE + '" exLn="' + stores[i].LATITUDE
+                        + '" exName="' + stores[i].NAME + '" exAddress="' + stores[i].ADDRESS + '""><span>查看地图</span></a><bdo id="dis_' + i + '"></bdo></p></div></li>';
+
+                    data_info.push([stores[i].LONGITUDE, stores[i].LATITUDE, "<label style='font-size:14px;'>" + stores[i].ADDRESS + "<br/>" + stores[i].TEL + "</label>",
+                    stores[i].NAME, stores[i].ADDRESS, stores[i].TEL, stores[i].Distance, stores[i].source]);
+                }
+
+
+                $("#stores").html(storehtml);
+                $(".myMap").click(function () {
+                    Goloc($(this).attr("exLo"), $(this).attr("exLn"), $(this).attr("exName"), $(this).attr("exAddress"));
+                })
+
+                map = new BMap.Map("allmap");
+                map.centerAndZoom(new BMap.Point(parseFloat(longitude), parseFloat(latitude)), 13);
+                //单独设定图标的样式
+                var icon = new BMap.Icon('/Bcj/member/images/location.png', new BMap.Size(25, 24), { anchor: new BMap.Size(10, 25) });
+
+                for (var i = 0; i < data_info.length; i++) {
+                    var marker = new BMap.Marker(new BMap.Point(data_info[i][0], data_info[i][1]), {
+                        icon: icon
+                    });
+                    var content = data_info[i][2];
+
+                    var name = data_info[i][3];
+
+                    var address = data_info[i][4];
+                    var tel = data_info[i][5];
+                    var distance = data_info[i][6];
+                    var source = data_info[i][7];
+
+                    //var icon = new BMap.Icon("../images/dingwei.png", new BMap.Size(18, 35));
+                    //marker.setMarkersSetCallback(function (result) {
+                    //    result.marker.setIcon(icon);
+                    //});
+
+                    map.addOverlay(marker);
+                    addClickHandler(content, marker, name, address, tel, distance, data_info[i][0], data_info[i][1], cityName, source);
+
+                    $("#stores").find("#dis_" + i).html("距离您" + (distance / 1000).toFixed(2) + "公里");
+
+                }
+            }
+        })
+    }
+
+    function addClickHandler(content, marker, name, address, tel, distance, lo, ln, cityName, source) {
+        marker.addEventListener("click", function (e) {
+            $("#stomodel").show();
+            $("#daohang").attr("exLo", lo);
+            $("#daohang").attr("exLn", ln);
+            $("#daohang").attr("exName", name);
+            $("#daohang").attr("exAddress", address);
+            $("#daohang").attr("exCity", cityName);
+            $(".mendianShop").show();
+            console.log(source);
+            //source==01佰草集，02高夫
+            var _html = '<bdo><img src="/Bcj/member/images/logo22.png"></bdo><strong>' + name
+                + '</strong><a href="tel:' + tel + '"><span><em>距离' + (distance / 1000).toFixed(2) + ' Km</em>' + tel + '</span></a>';
+
+            if (source == "02") {
+                _html = _html.replace("logo22.png", "logo_gf.png");
+            }
+
+            if (tel == "")
+                _html = _html.replace("tel:", "#");
+            $("#storedetials").html(_html);
+            openInfo(content, name, e)
+        }
+        );
+    }
+
+    $("#daohang").click(function () {
+        Goloc($(this).attr("exLo"), $(this).attr("exLn"), $(this).attr("exName"), $(this).attr("exAddress"), $(this).attr("exCity"));
+    })
+
+
+
+    function Goloc(lo, ln, name, address, cityName) {
+        console.log(lo + "==" + name + "==" + address);
+        if (cityName == "") {
+            cityName = "上海";
+        }
+        location.href = " http://api.map.baidu.com/direction?origin=latlng:" + $("#startLo").val() + "," + $("#startLn").val()
+            + "|name:我的位置&destination=latlng:" + ln + "," + lo + "|name:" + name + "&mode=driving&region=" + cityName + "&output=html&src=yourCompanyName|yourAppName";
+        //wx.openLocation({
+        //    latitude: ln, // 纬度，浮点数，范围为90 ~ -90
+        //    longitude: lo, // 经度，浮点数，范围为180 ~ -180。
+        //    name: name, // 位置名
+        //    address: address, // 地址详情说明
+        //    scale: 13, // 地图缩放级别,整形值,范围从1~28。默认为最大
+        //    infoUrl: '' // 在查看位置界面底部显示的超链接,可点击跳转
+        //});
+    }
+
+    function openInfo(content, name, e) {
+        var p = e.target;
+        var point = new BMap.Point(p.getPosition().lng, p.getPosition().lat);
+        opts.title = "<label style='font-size:16px;font-weight:bold;'>" + name + "</label>";
+        var infoWindow = new BMap.InfoWindow(content, opts);  //
+        map.openInfoWindow(infoWindow, point); //
+    }
+
+</script>
+</html>

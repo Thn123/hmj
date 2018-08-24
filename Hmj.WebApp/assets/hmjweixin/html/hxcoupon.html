@@ -1,0 +1,121 @@
+﻿<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="Keywords" content="" />
+    <meta name="Description" content="" />
+    <link rel="stylesheet" href="../css/public.css" />
+    <title></title>
+</head>
+<body>
+    <div class="wrap">
+        <div class="pd10">
+            <div class="cont">
+                <div class="top">
+                    <p id="brand_name"></p>
+                    <p id="span_title"></p>
+                    <p id="span_code"></p>
+                </div>
+                <div class="bottom">
+                    <div class="button" id="btnConfirmUse">
+                        确认使用
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <input type="hidden" id="card_id" />
+    <input type="hidden" id="code" />
+</body>
+</html>
+
+<script src="../js/jquery.min.js"></script>
+<script src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<script src="../js/validate.js" type="text/javascript" charset="utf-8"></script>
+
+<script src="../js/iosSelect.js"></script>
+<script src="../js/zepto.js"></script>
+
+<script>
+    function Redirect() {
+        var x = 1000000;
+        var y = 0;
+        var rand = parseInt(Math.random() * (x - y + 1) + y);
+        location.href = "completeinformation.html?t=" + rand;
+    }
+
+    function GetQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]); return null;
+    }
+
+    $(function () {
+
+        var card_id = GetQueryString("card_id");
+        var encrypt_code = GetQueryString("encrypt_code");
+       
+        $.ajax({
+            type: "get",
+            async: false,
+            url: $.domainUrl + "User/GetCardDetail?code=" + encodeURIComponent(encrypt_code) + "&card_id=" + card_id,
+            processData: false,
+            success: function (data) {
+                if (data.status == 1) {
+                    var cardInfo = $.parseJSON(data.data)
+                    var card_id = cardInfo.card_id;
+                    if (cardInfo.code == null) {
+                        alert("请刷新页面");
+
+                    }
+                    var code = cardInfo.code;
+                    var brand_name = cardInfo.brand_name;
+                    var title = cardInfo.title;
+                    var color = cardInfo.color;
+                    $("#mainbody").css("background-color", color);
+                    $("#brand_name").html(brand_name);
+                    $("#span_code").html(code);
+                    $("#span_title").html(title);
+                    $("#card_id").val(card_id);
+                    $("#code").val(code);
+
+                }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+            }
+        });
+
+
+        $("#btnConfirmUse").click(function () {
+            hxCoupon();
+        });
+    });
+
+    function hxCoupon() {
+        var card_id = $("#card_id").val();
+        var code = $("#code").val();
+        $.ajax({
+            type: "get",
+            async: false,
+            url: $.domainUrl + "User/HXCoupon?code=" + code + "&card_id=" + card_id,
+            processData: false,
+            success: function (data) {
+                if (data.status == 1) {
+                    localStorage.setItem('card_title', $("#span_title").html());
+                    localStorage.setItem('card_code', code);
+                    //核销成功
+                    window.location.href = "hxcouponok.html?t=" + new Date().getTime();
+                } else {
+                    //核销失败
+                    alert("核销失败!");
+                }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+            }
+        });
+    }
+
+
+</script>

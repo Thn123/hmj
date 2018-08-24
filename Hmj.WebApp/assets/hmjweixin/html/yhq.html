@@ -1,0 +1,284 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width" name="viewport" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+    <meta content="telephone=no" name="format-detection" />
+    <link href="../css/youhuiquan.css" rel="stylesheet" />
+<style type="text/css">
+    .quan-waper-yhq{
+        height: 92px;
+    }
+    .quan-waper-yhq .quan-waper-yhq_img{
+        position: absolute;
+        width: 45px;
+    }
+    .quan-waper-yhq .yhq_l{
+        float: left;
+        display: inline-block;
+        color: #fff;
+        /* padding: 8px 0 0 15px; */
+        width: 24%;
+        text-align: center;
+        height: 92px;
+        line-height: 92px;
+        font-weight:bold;
+    }
+    .quan-waper-yhq .yhq_l .span_f{
+        font-size: 21px;
+    }
+    .quan-waper-yhq .yhq_l .div_f{
+        font-size: 15px;
+        float: left;
+        display: inline-block;
+        width: 8px;
+        padding: 7px 0 0 10px;
+        text-align: right;
+        margin-top: -14px;
+    }
+    .quan-waper-yhq .yhq_l .span_m{
+        font-size: 40px;
+    }
+    .quan-waper-yhq .yhq_r{
+        /*padding-top: 15px; *!/*/
+        /* height: 51px; */
+        /* float: left; */
+        width: 58%;
+        height: 92px;
+        /* line-height: 94px; */
+        display: flex;
+        /* align-items: center; */
+        flex-direction: column;
+        justify-content: center;
+    }
+    .quan-waper-yhq .yhq_r .h2_div{
+        font-size: 16px;
+        color: #81510b;
+        line-height: 18px;
+        overflow:hidden;
+        text-overflow:ellipsis;
+        display:-webkit-box;
+        -webkit-box-orient:vertical;
+        -webkit-line-clamp:2;
+        font-weight: 600;
+        height: 36px;
+    }
+    .quan-waper-yhq .yhq_r h3{
+        color: #fff;
+        margin-top: 4px;
+        font-size: 13px;
+        line-height: 18px;
+    }
+    .quan-index-items ul li{
+        height:125px;
+    }
+    .quan-index-items ul li .div_time{
+        font-size: 12px;
+        color: #999999;
+        padding: 0 30px;
+        overflow: hidden;
+        line-height: 33px;
+    }
+    .quan-index-items ul li .f_l_time{
+        float: left;
+        display: inline-block;
+        color: #999;
+    }
+    .quan-index-items ul li .f_r_details{
+        float: right;
+        display: inline-block;
+        color: #cfa972;
+        border: 1px solid #cfa972;
+        padding: 0px 10px;
+        border-radius: 13px;
+        height: 24px;
+        line-height: 24px;
+        margin-top:3px;
+        font-size: 11px;
+    }
+    .quan-index-items ul li .div_time a{
+        display: inline-block;
+        height:20px;
+    }
+    .yhq_div{
+        width:68% !important;
+        margin-left: 30px;
+    }
+    #quanList a{
+        width: 100%;
+        display:inline-block;
+    }
+</style>
+    <title>优惠券</title>
+</head>
+<body class="bgcolor">
+    <div class="order-tag-item">
+        <ol class="curbtn"><span>未使用</span></ol>
+        <ol><span>已使用</span></ol>
+        <ol><span>已失效</span></ol>
+    </div>
+    <!--end header-->
+    <div class="quan-content-box">
+        <div class="quan-index-items">
+            <ul id="quanList"></ul>
+        </div>
+
+
+    </div>
+</body>
+</html>
+<script src="../js/jquery.min.js"></script>
+<!--<script src="../js/base.js"></script>-->
+<script>
+    //信息提示
+    var tipsflag = true;
+    function tips(text) {
+        if (tipsflag == true) {
+            var tishiDiv = document.createElement('div');
+            tishiDiv.className = "motify";
+            document.body.appendChild(tishiDiv);
+            tipsflag = false;
+        }
+        $('.motify').html(text).show();
+        setTimeout(function () { $('.motify').fadeOut(); }, 500);
+    }
+    var quanType = function (type, name) {
+        var quanType = ''
+        if (type == 'DJQ') { quanType = '代金券' };
+        if (type == 'DWQ') { quanType = '领用券' };
+        if (type == 'QB') { quanType = '券包' };
+        if (type == 'JFDY') { quanType = '积分抵用券 ' };
+        if (type == 'ZGQ') {
+            var zhongtxt = new RegExp('预约');
+            //console.log(zhongtxt.test(name));
+            if (zhongtxt.test(name)) {
+                quanType = '体验券';
+            } else {
+                quanType = '资格券';
+            }
+        };
+        return quanType;
+    }
+
+    var showList = function (dataSource, className, url) {
+        var quanList = '';
+        $('#quanList').html('');
+        if (dataSource.length != 0) {
+            var width = $(window).width();
+            var len = 18;
+            if (width <= 360)
+                len = 18;
+            else if (width <= 375 && width > 360)
+                len = 24;
+            else if (width <= 414 && width > 375)
+                len = 26;
+            else
+                len = 40;
+            for (var i = 0; i < dataSource.length; i++){
+                var ZCP_YHQDES = dataSource[i].ZCP_YHQDES;
+                var ZCP_USE_FLAG=dataSource[i].ZCP_USE_FLAG;
+                if(ZCP_USE_FLAG=='N'){//待激活
+                    var html_img='<img class="quan-waper-yhq_img" src="../images/djh.png"/>';
+                }else{
+                    html_img='';
+                }
+                var ZCP_TYPE=dataSource[i].ZCP_TYPE;
+                var html_div_ZCP_TPE='<div class="yhq_r yhq_div">';
+                var RULE=dataSource[i].RULE;
+                if(RULE){
+                    if(ZCP_TYPE==='DJQ'){//代金券
+                        html_div_ZCP_TPE='<div class="yhq_l"><div class="div_f">￥</div><span class="span_m">'+RULE+'</span></div><div class="yhq_r">';
+                    }else if(ZCP_TYPE==='ZKQ'){//折扣券
+                        html_div_ZCP_TPE='<div class="yhq_l"><span class="span_m">'+RULE+'</span><span class="span_f">折</span></div><div class="yhq_r">';
+                    }else{
+                        html_div_ZCP_TPE='<div class="yhq_r yhq_div">';
+                    }
+                }
+                quanList += '<li class="' + className + '"><a href="' + url + dataSource[i].ZCP_NUM + '"><div class="quan-waper-yhq">\
+					'+html_img+html_div_ZCP_TPE+'<div class="h2_div">'+ZCP_YHQDES +'</div><h3>券号：' + dataSource[i].ZCP_NUM + '</h3></div></div>\
+					<div class="div_time"><div class="f_l_time">有效期:'+' '+ dataSource[i].ZCP_BDATE.replace(/-/g, ".").substr(0,10)+ '-' + dataSource[i].ZCP_EDATE.replace(/-/g, ".").substr(0,10)+ '</div></a></li>';
+            }
+            $('#quanList').append(quanList);
+
+        }else{
+            $('#quanList').append('<div class="morentu"></div>');
+        }
+    };
+    function getQuan(accountId) {
+        //if (accountId == null)
+        //{
+        //    location.href = "/HmjMember/ToZhuce.do";
+        //}
+        $.ajax({
+            type: "Get",
+            url: $.domainUrl + "MemberCoupon/GetMemberCoupon?account_id=" + accountId,
+            dataType: 'json',
+            async: false,
+            success: function (res) {
+                if (res.status == 1) {
+                    $('.order-tag-item ol').on('click', function () {
+                        $(this).addClass('curbtn').siblings().removeClass('curbtn');
+                    })
+                    var notUse = res.data.NOT_USE || [];
+                    var alreadyUse = res.data.ALREADY_USE || [];
+                    var obsoleted = res.data.OBSOLETE || [];
+                    $('.order-tag-item ol').eq(0).html('<span>未使用(' + notUse.length + ')</span>');
+                    $('.order-tag-item ol').eq(1).html('<span>已使用(' + alreadyUse.length + ')</span>');
+                    $('.order-tag-item ol').eq(2).html('<span>已失效(' + obsoleted.length + ')</span>');
+                    showList(notUse, '', 'yhqdetail.html?accountId=' + accountId + '&id=');
+
+                    $('.order-tag-item ol').on('click', function () {
+                        $(this).addClass('curbtn').siblings().removeClass('curbtn');
+                        if ($(this).index() == 0) {
+                            showList(notUse, '', 'yhqdetail.html?accountId=' + accountId + '&id=');
+                        }
+                        if ($(this).index() == 1) {
+                            //showList(alreadyUse, 'quan-huise', '#');
+                            showList(alreadyUse, 'quan-huise', 'yhqdetail.html?accountId=' + accountId + '&id=');
+                        }
+                        if ($(this).index() == 2) {
+                            //showList(obsoleted, 'quan-huise', '#');
+                            showList(obsoleted, 'quan-huise', 'yhqdetail.html?accountId=' + accountId + '&id=');
+                        }
+                    })
+
+
+                } else {
+                    tips('网络异常，请刷新重试');
+                }
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+
+    //正式环境使用这个
+    //getQuan(localStorage.getItem("MemberNO"));
+    getQuan(18501614880);
+    //getQuan(19555682802);
+    // getQuan(18621837162);
+
+    
+
+    function subString1(str, len) {
+        var regexp = /[^\x00-\xff]/g;// 正在表达式匹配中文
+        // 当字符串字节长度小于指定的字节长度时
+        if (str.replace(regexp, "aa").length <= len) {
+            return str;
+        }
+        // 假设指定长度内都是中文
+        var m = Math.floor(len / 2);
+        for (var i = m, j = str.length; i < j; i++) {
+            // 当截取字符串字节长度满足指定的字节长度
+            if (str.substring(0, i).replace(regexp, "aa").length >= len) {
+                return str.substring(0, i) + "...";
+            }
+        }
+        return str;
+    }
+
+
+</script>

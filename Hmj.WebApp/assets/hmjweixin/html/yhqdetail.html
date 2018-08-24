@@ -1,0 +1,169 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width" name="viewport" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+    <meta content="telephone=no" name="format-detection" />
+    <link href="../css/youhuiquan.css" rel="stylesheet" />
+    <title>优惠券名称</title>
+    <style type="text/css">
+        .quan-content-box{
+            margin: 15px 10px 0;
+            background: url(../images/bgdetail2.png) no-repeat;
+            background-size: 100% 100%;
+            padding:0;
+        }
+        .quan-content_shang{
+            /*background: url("../images/bgdetail.png") no-repeat;*/
+            background-size: 100%;
+            box-shadow:none;
+            margin: 0px;
+            padding: 20px;
+            position: relative;
+        }
+        .quan-content_xia{
+            /*background: url("../images/yhq_d_bg_xia.png") no-repeat;*/
+            background-size: 100%;
+            box-shadow:none;
+            margin: 0px;
+        }
+        .quanma img{
+            width: 34%;
+            margin: 20px auto;
+            display: block;
+        }
+        .quanmaInfo{
+            text-align: center;
+            color:#999;
+            padding: 20px;
+            height: 61px;
+            font-size: 14px;
+        }
+        .quanmaInfo h2{
+            color:#8f560d;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            line-height: 18px;
+            margin-bottom: 20px;
+        }
+        .use_div{
+            margin: 0px 13px;
+            background: #fff;
+            padding: 20px;
+            min-height:108px;
+            overflow: hidden;
+            word-break: break-all;
+            box-shadow: 0 4px 4px #ddd;
+        }
+        .use_div .use_l{
+            float:left;
+            display: inline-block;
+            color:#333;
+            margin-right: 10px;
+            font-size: 13px;
+            padding-left: 10px;
+        }
+        .use_div .use_r{
+            float:left;
+            display: inline-block;
+            color:#999;
+            width: 70%;
+            font-size: 13px;
+        }
+        .quan-waper-yhq_img{
+            position: absolute;
+            width: 80px !important;
+            margin-top: 0px !important;
+            margin-left: 4px !important;
+            top: 0;
+            left: 0;
+        }
+    </style>
+</head>
+<body class="bgcolor">
+    <div class="quan-content-box">
+        <div class="quan-content_shang">
+            <div class="quanma">
+            </div>
+        </div>
+            <div class="quanmaInfo quan-content_xia">
+            </div>
+    </div>
+    <div class="use_div"></div>
+</body>
+</html>
+<script src="../js/jquery.min.js"></script>
+<script>
+    function getQueryString(name) { var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i"); var r = window.location.search.substr(1).match(reg); if (r != null) { return unescape(r[2]) } return "" };
+    var accountId = getQueryString('accountId');
+    var quanID = getQueryString('id');
+
+    window.onload = function () {
+        getDetail(accountId);
+
+    };
+
+    //信息提示
+    var tipsflag = true;
+    function tips(text) {
+        if (tipsflag == true) {
+            var tishiDiv = document.createElement('div');
+            tishiDiv.className = "motify";
+            document.body.appendChild(tishiDiv);
+            tipsflag = false;
+        }
+        $('.motify').html(text).show();
+        setTimeout(function () { $('.motify').fadeOut(); }, 500);
+    }
+    var patrn = /^0?(13[0-9]|15[0-9]|17[0-9]|18[0-9]|14[0-9])[0-9]{8}$/;
+
+    function getDetail(accountId) {
+        $.ajax({
+            type: "Get",
+            url: $.domainUrl + "MemberCoupon/GetMemberCoupon?account_id=" + accountId,
+            dataType: 'json',
+            async: false,
+            success: function (res) {
+                if (res.status == 1) {
+                    var notUse = res.data.NOT_USE || [];
+                    var alreadyUse = res.data.ALREADY_USE || [];
+                    var obsoleted = res.data.OBSOLETE || [];
+                    notUse = notUse.concat(alreadyUse);
+                    notUse = notUse.concat(obsoleted);
+                    for (var i = 0; i < notUse.length; i++) {
+                        if (notUse[i].ZCP_NUM == quanID) {
+                            var index = i;
+                            var ZCP_USE_FLAG=notUse[i].ZCP_USE_FLAG;
+                            if(ZCP_USE_FLAG=="N"){//待激活
+                                var html_img='<img class="quan-waper-yhq_img" src="../images/djh.png"/>';
+                            }else{
+                                html_img='';
+                            }
+                            $('.quanma').html(html_img+'<img src="' + notUse[index].QrCode + '"/><p>券码：' + notUse[index].ZCP_PASSW + '</p>');
+                            $('.quanmaInfo').html('<h2>' + notUse[index].ZCP_YHQDES + '</h2>有效期：' + notUse[index].ZCP_BDATE.replace(/-/g, ".").substr(0,10)+ ' - ' + notUse[index].ZCP_EDATE.replace(/-/g, ".").substr(0,10) + '</p>');
+                            var CONTENT=notUse[index].CONTENT
+                            if(CONTENT){
+                                CONTENT=CONTENT;
+                            }else{
+                                CONTENT="";
+                            }
+                            $('.use_div').html('<div class="use_l">使用说明</div><div class="use_r">' + CONTENT + '</div>' );
+                            return false;
+                        }
+                    }
+                } else {
+                    tips('网络异常，请刷新重试');
+                }
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+
+</script>

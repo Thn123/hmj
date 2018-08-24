@@ -1,0 +1,963 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://mms.wemediacn.com/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://mms.wemediacn.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://mms.wemediacn.com/">
+      <s:element name="SendSMS">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="mobile" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="FormatID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Content" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="ScheduleDate" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="TokenID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendSMSResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SendSMSResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendBatchSMS">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="mobileList" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="FormatID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Content" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="deadLineTime" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="TokenID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendBatchSMSResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SendBatchSMSResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendSMSCovey">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="XMLStr" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="TokenID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendSMSCoveyResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SendSMSCoveyResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QuerySMSState">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="MessageID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QuerySMSStateResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="QuerySMSStateResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QuerySmsSendRecord">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="time" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="MinID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="TokenID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QuerySmsSendRecordResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="QuerySmsSendRecordResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CanelSMS">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="MessageID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CanelSMSResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CanelSMSResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QuerySMSUP">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="MinID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Count" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="TokenID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="externCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QuerySMSUPResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="QuerySMSUPResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QuerySmsSeqReport">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="MinID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="TokenID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QuerySmsSeqReportResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="QuerySmsSeqReportResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="TestTemplate">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="templateId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="paramType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="paramData" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="TokenID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="TestTemplateResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="TestTemplateResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendTemplateSMS">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="mobile" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="FormatID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="templateId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="paramType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="paramData" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="TokenID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendTemplateSMSResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SendTemplateSMSResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="string" nillable="true" type="s:string" />
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="SendSMSSoapIn">
+    <wsdl:part name="parameters" element="tns:SendSMS" />
+  </wsdl:message>
+  <wsdl:message name="SendSMSSoapOut">
+    <wsdl:part name="parameters" element="tns:SendSMSResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendBatchSMSSoapIn">
+    <wsdl:part name="parameters" element="tns:SendBatchSMS" />
+  </wsdl:message>
+  <wsdl:message name="SendBatchSMSSoapOut">
+    <wsdl:part name="parameters" element="tns:SendBatchSMSResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendSMSCoveySoapIn">
+    <wsdl:part name="parameters" element="tns:SendSMSCovey" />
+  </wsdl:message>
+  <wsdl:message name="SendSMSCoveySoapOut">
+    <wsdl:part name="parameters" element="tns:SendSMSCoveyResponse" />
+  </wsdl:message>
+  <wsdl:message name="QuerySMSStateSoapIn">
+    <wsdl:part name="parameters" element="tns:QuerySMSState" />
+  </wsdl:message>
+  <wsdl:message name="QuerySMSStateSoapOut">
+    <wsdl:part name="parameters" element="tns:QuerySMSStateResponse" />
+  </wsdl:message>
+  <wsdl:message name="QuerySmsSendRecordSoapIn">
+    <wsdl:part name="parameters" element="tns:QuerySmsSendRecord" />
+  </wsdl:message>
+  <wsdl:message name="QuerySmsSendRecordSoapOut">
+    <wsdl:part name="parameters" element="tns:QuerySmsSendRecordResponse" />
+  </wsdl:message>
+  <wsdl:message name="CanelSMSSoapIn">
+    <wsdl:part name="parameters" element="tns:CanelSMS" />
+  </wsdl:message>
+  <wsdl:message name="CanelSMSSoapOut">
+    <wsdl:part name="parameters" element="tns:CanelSMSResponse" />
+  </wsdl:message>
+  <wsdl:message name="QuerySMSUPSoapIn">
+    <wsdl:part name="parameters" element="tns:QuerySMSUP" />
+  </wsdl:message>
+  <wsdl:message name="QuerySMSUPSoapOut">
+    <wsdl:part name="parameters" element="tns:QuerySMSUPResponse" />
+  </wsdl:message>
+  <wsdl:message name="QuerySmsSeqReportSoapIn">
+    <wsdl:part name="parameters" element="tns:QuerySmsSeqReport" />
+  </wsdl:message>
+  <wsdl:message name="QuerySmsSeqReportSoapOut">
+    <wsdl:part name="parameters" element="tns:QuerySmsSeqReportResponse" />
+  </wsdl:message>
+  <wsdl:message name="TestTemplateSoapIn">
+    <wsdl:part name="parameters" element="tns:TestTemplate" />
+  </wsdl:message>
+  <wsdl:message name="TestTemplateSoapOut">
+    <wsdl:part name="parameters" element="tns:TestTemplateResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendTemplateSMSSoapIn">
+    <wsdl:part name="parameters" element="tns:SendTemplateSMS" />
+  </wsdl:message>
+  <wsdl:message name="SendTemplateSMSSoapOut">
+    <wsdl:part name="parameters" element="tns:SendTemplateSMSResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendSMSHttpGetIn">
+    <wsdl:part name="mobile" type="s:string" />
+    <wsdl:part name="FormatID" type="s:string" />
+    <wsdl:part name="Content" type="s:string" />
+    <wsdl:part name="ScheduleDate" type="s:string" />
+    <wsdl:part name="TokenID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendSMSHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="SendBatchSMSHttpGetIn">
+    <wsdl:part name="mobileList" type="s:string" />
+    <wsdl:part name="FormatID" type="s:string" />
+    <wsdl:part name="Content" type="s:string" />
+    <wsdl:part name="deadLineTime" type="s:string" />
+    <wsdl:part name="TokenID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendBatchSMSHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="SendSMSCoveyHttpGetIn">
+    <wsdl:part name="XMLStr" type="s:string" />
+    <wsdl:part name="TokenID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendSMSCoveyHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="QuerySMSStateHttpGetIn">
+    <wsdl:part name="MessageID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="QuerySMSStateHttpGetOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="QuerySmsSendRecordHttpGetIn">
+    <wsdl:part name="time" type="s:string" />
+    <wsdl:part name="MinID" type="s:string" />
+    <wsdl:part name="TokenID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="QuerySmsSendRecordHttpGetOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="CanelSMSHttpGetIn">
+    <wsdl:part name="MessageID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CanelSMSHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="QuerySMSUPHttpGetIn">
+    <wsdl:part name="MinID" type="s:string" />
+    <wsdl:part name="Count" type="s:string" />
+    <wsdl:part name="TokenID" type="s:string" />
+    <wsdl:part name="externCode" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="QuerySMSUPHttpGetOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="QuerySmsSeqReportHttpGetIn">
+    <wsdl:part name="MinID" type="s:string" />
+    <wsdl:part name="TokenID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="QuerySmsSeqReportHttpGetOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="TestTemplateHttpGetIn">
+    <wsdl:part name="templateId" type="s:string" />
+    <wsdl:part name="paramType" type="s:string" />
+    <wsdl:part name="paramData" type="s:string" />
+    <wsdl:part name="TokenID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="TestTemplateHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="SendTemplateSMSHttpGetIn">
+    <wsdl:part name="mobile" type="s:string" />
+    <wsdl:part name="FormatID" type="s:string" />
+    <wsdl:part name="templateId" type="s:string" />
+    <wsdl:part name="paramType" type="s:string" />
+    <wsdl:part name="paramData" type="s:string" />
+    <wsdl:part name="TokenID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendTemplateSMSHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="SendSMSHttpPostIn">
+    <wsdl:part name="mobile" type="s:string" />
+    <wsdl:part name="FormatID" type="s:string" />
+    <wsdl:part name="Content" type="s:string" />
+    <wsdl:part name="ScheduleDate" type="s:string" />
+    <wsdl:part name="TokenID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendSMSHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="SendBatchSMSHttpPostIn">
+    <wsdl:part name="mobileList" type="s:string" />
+    <wsdl:part name="FormatID" type="s:string" />
+    <wsdl:part name="Content" type="s:string" />
+    <wsdl:part name="deadLineTime" type="s:string" />
+    <wsdl:part name="TokenID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendBatchSMSHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="SendSMSCoveyHttpPostIn">
+    <wsdl:part name="XMLStr" type="s:string" />
+    <wsdl:part name="TokenID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendSMSCoveyHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="QuerySMSStateHttpPostIn">
+    <wsdl:part name="MessageID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="QuerySMSStateHttpPostOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="QuerySmsSendRecordHttpPostIn">
+    <wsdl:part name="time" type="s:string" />
+    <wsdl:part name="MinID" type="s:string" />
+    <wsdl:part name="TokenID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="QuerySmsSendRecordHttpPostOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="CanelSMSHttpPostIn">
+    <wsdl:part name="MessageID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CanelSMSHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="QuerySMSUPHttpPostIn">
+    <wsdl:part name="MinID" type="s:string" />
+    <wsdl:part name="Count" type="s:string" />
+    <wsdl:part name="TokenID" type="s:string" />
+    <wsdl:part name="externCode" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="QuerySMSUPHttpPostOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="QuerySmsSeqReportHttpPostIn">
+    <wsdl:part name="MinID" type="s:string" />
+    <wsdl:part name="TokenID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="QuerySmsSeqReportHttpPostOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="TestTemplateHttpPostIn">
+    <wsdl:part name="templateId" type="s:string" />
+    <wsdl:part name="paramType" type="s:string" />
+    <wsdl:part name="paramData" type="s:string" />
+    <wsdl:part name="TokenID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="TestTemplateHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="SendTemplateSMSHttpPostIn">
+    <wsdl:part name="mobile" type="s:string" />
+    <wsdl:part name="FormatID" type="s:string" />
+    <wsdl:part name="templateId" type="s:string" />
+    <wsdl:part name="paramType" type="s:string" />
+    <wsdl:part name="paramData" type="s:string" />
+    <wsdl:part name="TokenID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendTemplateSMSHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:portType name="SMSServiceSoap">
+    <wsdl:operation name="SendSMS">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">功能:发送短信;&lt;br/&gt;参数说明:&lt;br/&gt;mobile:手机号；&lt;br/&gt;FormatID:短信格式(0:英文;8:中文;10:中文白名单确认短信;40:长短信)；&lt;br/&gt;Content:短信内容；&lt;br/&gt;ScheduleDate:计划发送时间（可以传以前日期如2010-1-1,立即发送)；&lt;br/&gt;TokenID：企业验证码&lt;br/&gt;返回值:&lt;br/&gt;OK:[MessageID]&lt;br/&gt;ERROR:XXX:[错误描述](XXX是错误代码)&lt;br/&gt;100:不正确的Token;&lt;br/&gt;101:没有短信权限;&lt;br/&gt;102:余额不足;&lt;br/&gt;103:短信内容不能为空;&lt;br/&gt;200:非手机号;&lt;br/&gt;999:系统错误;&lt;br/&gt;</wsdl:documentation>
+      <wsdl:input message="tns:SendSMSSoapIn" />
+      <wsdl:output message="tns:SendSMSSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendBatchSMS">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">功能:发送批次短信;&lt;br/&gt;参数说明:&lt;br/&gt;mobileList:手机号,用半角逗号分隔；&lt;br/&gt;FormatID:短信格式(0:英文;8:中文)；&lt;br/&gt;Content:短信内容；&lt;br/&gt;deadLineTime:发送截至时间；&lt;br/&gt;TokenID：企业验证码&lt;br/&gt;返回值:&lt;br/&gt;OK:[MessageID]&lt;br/&gt;ERROR:XXX:[错误描述](XXX是错误代码)&lt;br/&gt;100:不正确的Token;&lt;br/&gt;101:没有短信权限;&lt;br/&gt;102:余额不足;&lt;br/&gt;103:短信内容不能为空;&lt;br/&gt;200:非手机号;&lt;br/&gt;999:系统错误;&lt;br/&gt;</wsdl:documentation>
+      <wsdl:input message="tns:SendBatchSMSSoapIn" />
+      <wsdl:output message="tns:SendBatchSMSSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendSMSCovey">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">功能:群发送短信;&lt;br/&gt;参数说明:&lt;br/&gt;ContentXml:XML数据集：mobile:手机号，FormatID:短信格式(0:英文;8:中文)，Content:短信内容，ScheduleDate:计划发送时间（可以传空值null,立即发送)；&lt;br/&gt;TokenID：企业验证码&lt;br/&gt;返回值:&lt;br/&gt;返回成功发送数量</wsdl:documentation>
+      <wsdl:input message="tns:SendSMSCoveySoapIn" />
+      <wsdl:output message="tns:SendSMSCoveySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="QuerySMSState">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">功能：根据MessageID查询短信发送状态&lt;br/&gt;&lt;font color='#ff0000'&gt;注意：目前此方法不建议使用， 未来可能删除&lt;/font&gt;&lt;br/&gt;参数：&lt;br/&gt;MessageID:成功调用SendSMS发送短信时返回的值&lt;br/&gt;返回值：XML</wsdl:documentation>
+      <wsdl:input message="tns:QuerySMSStateSoapIn" />
+      <wsdl:output message="tns:QuerySMSStateSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="QuerySmsSendRecord">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">功能：批量查询某一天短信发送结果&lt;br/&gt;&lt;font color='#ff0000'&gt;注意：目前此方法不建议使用， 未来可能删除&lt;/font&gt;&lt;br/&gt;参数：&lt;br/&gt;time:发送时间;&lt;br/&gt;MinID:开始的ID号（第一次查询输入0， 以后输入上次查询有结果返回的最大值， 增量查询模式）;&lt;br/&gt;TokenID:企业验证码</wsdl:documentation>
+      <wsdl:input message="tns:QuerySmsSendRecordSoapIn" />
+      <wsdl:output message="tns:QuerySmsSendRecordSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CanelSMS">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">功能：根据MessageID撤消短信发送&lt;br/&gt;&lt;font color='#ff0000'&gt;注意：目前此方法不可用&lt;/font&gt;&lt;br/&gt;参数：&lt;br/&gt;MessageID:成功调用SendSMS发送短信时返回的值&lt;br/&gt;返回值：OK：［Count］;&lt;br/&gt;ERROR:XXX:[错误描述]&lt;br/&gt;999:系统错误</wsdl:documentation>
+      <wsdl:input message="tns:CanelSMSSoapIn" />
+      <wsdl:output message="tns:CanelSMSSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="QuerySMSUP">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">功能：查询上行短信&lt;br/&gt;参数说明：&lt;br/&gt;MinID:开始的ID号（第一次查询输入0， 以后输入上次查询有结果返回的最大值， 增量查询模式）；&lt;br/&gt;Count:返回行数（目前此参数没用， 最多返回100行记录）；&lt;br/&gt;TokenID:企业验证码；&lt;br/&gt;ExternCode:端号号标识（目前此参数没用）；&lt;br/&gt;返回值：xml</wsdl:documentation>
+      <wsdl:input message="tns:QuerySMSUPSoapIn" />
+      <wsdl:output message="tns:QuerySMSUPSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="QuerySmsSeqReport">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">功能：批量查询最新短信发送结果&lt;br/&gt;参数：&lt;br/&gt;MinID:开始的ID号（第一次查询输入0， 以后输入上次查询有结果返回的最大值， 增量查询模式）;&lt;br/&gt;TokenID:企业验证码</wsdl:documentation>
+      <wsdl:input message="tns:QuerySmsSeqReportSoapIn" />
+      <wsdl:output message="tns:QuerySmsSeqReportSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="TestTemplate">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">功能:测试模板和参数匹配合并后的结果;&lt;br/&gt;参数说明:&lt;br/&gt;templateId:短信模板ID；&lt;br/&gt;paramType:模板参数数据类型（JSON or XML)&lt;br/&gt;paramData:模板参数数据&lt;br/&gt;TokenID：企业验证码&lt;br/&gt;返回值:&lt;br/&gt;参数匹配后的短信&lt;br/&gt;ERROR:XXX:[错误描述](XXX是错误代码)&lt;br/&gt;100:不正确的Token;&lt;br/&gt;110:[没有找到短信模板];&lt;br/&gt;111:[paramType 必须是JSON 或 XML];&lt;br/&gt;112:[paramData 解析失败];&lt;br/&gt;999:系统错误;&lt;br/&gt;</wsdl:documentation>
+      <wsdl:input message="tns:TestTemplateSoapIn" />
+      <wsdl:output message="tns:TestTemplateSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendTemplateSMS">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">功能:发送短信;&lt;br/&gt;参数说明:&lt;br/&gt;mobile:手机号；&lt;br/&gt;FormatID:短信格式(0:英文;8:中文;)；&lt;br/&gt;templateId:短信模板ID；&lt;br/&gt;paramType:模板参数数据类型（JSON or XML)&lt;br/&gt;paramData:模板参数数据&lt;br/&gt;TokenID：企业验证码&lt;br/&gt;返回值:&lt;br/&gt;OK:[MessageID]&lt;br/&gt;ERROR:XXX:[错误描述](XXX是错误代码)&lt;br/&gt;100:不正确的Token;&lt;br/&gt;101:没有短信权限;&lt;br/&gt;102:余额不足;&lt;br/&gt;110:[没有找到短信模板];&lt;br/&gt;111:[paramType 必须是JSON 或 XML];&lt;br/&gt;112:[paramData 解析失败];&lt;br/&gt;200:非手机号;&lt;br/&gt;999:系统错误;&lt;br/&gt;</wsdl:documentation>
+      <wsdl:input message="tns:SendTemplateSMSSoapIn" />
+      <wsdl:output message="tns:SendTemplateSMSSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="SMSServiceHttpGet">
+    <wsdl:operation name="SendSMS">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">功能:发送短信;&lt;br/&gt;参数说明:&lt;br/&gt;mobile:手机号；&lt;br/&gt;FormatID:短信格式(0:英文;8:中文;10:中文白名单确认短信;40:长短信)；&lt;br/&gt;Content:短信内容；&lt;br/&gt;ScheduleDate:计划发送时间（可以传以前日期如2010-1-1,立即发送)；&lt;br/&gt;TokenID：企业验证码&lt;br/&gt;返回值:&lt;br/&gt;OK:[MessageID]&lt;br/&gt;ERROR:XXX:[错误描述](XXX是错误代码)&lt;br/&gt;100:不正确的Token;&lt;br/&gt;101:没有短信权限;&lt;br/&gt;102:余额不足;&lt;br/&gt;103:短信内容不能为空;&lt;br/&gt;200:非手机号;&lt;br/&gt;999:系统错误;&lt;br/&gt;</wsdl:documentation>
+      <wsdl:input message="tns:SendSMSHttpGetIn" />
+      <wsdl:output message="tns:SendSMSHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendBatchSMS">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">功能:发送批次短信;&lt;br/&gt;参数说明:&lt;br/&gt;mobileList:手机号,用半角逗号分隔；&lt;br/&gt;FormatID:短信格式(0:英文;8:中文)；&lt;br/&gt;Content:短信内容；&lt;br/&gt;deadLineTime:发送截至时间；&lt;br/&gt;TokenID：企业验证码&lt;br/&gt;返回值:&lt;br/&gt;OK:[MessageID]&lt;br/&gt;ERROR:XXX:[错误描述](XXX是错误代码)&lt;br/&gt;100:不正确的Token;&lt;br/&gt;101:没有短信权限;&lt;br/&gt;102:余额不足;&lt;br/&gt;103:短信内容不能为空;&lt;br/&gt;200:非手机号;&lt;br/&gt;999:系统错误;&lt;br/&gt;</wsdl:documentation>
+      <wsdl:input message="tns:SendBatchSMSHttpGetIn" />
+      <wsdl:output message="tns:SendBatchSMSHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendSMSCovey">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">功能:群发送短信;&lt;br/&gt;参数说明:&lt;br/&gt;ContentXml:XML数据集：mobile:手机号，FormatID:短信格式(0:英文;8:中文)，Content:短信内容，ScheduleDate:计划发送时间（可以传空值null,立即发送)；&lt;br/&gt;TokenID：企业验证码&lt;br/&gt;返回值:&lt;br/&gt;返回成功发送数量</wsdl:documentation>
+      <wsdl:input message="tns:SendSMSCoveyHttpGetIn" />
+      <wsdl:output message="tns:SendSMSCoveyHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="QuerySMSState">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">功能：根据MessageID查询短信发送状态&lt;br/&gt;&lt;font color='#ff0000'&gt;注意：目前此方法不建议使用， 未来可能删除&lt;/font&gt;&lt;br/&gt;参数：&lt;br/&gt;MessageID:成功调用SendSMS发送短信时返回的值&lt;br/&gt;返回值：XML</wsdl:documentation>
+      <wsdl:input message="tns:QuerySMSStateHttpGetIn" />
+      <wsdl:output message="tns:QuerySMSStateHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="QuerySmsSendRecord">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">功能：批量查询某一天短信发送结果&lt;br/&gt;&lt;font color='#ff0000'&gt;注意：目前此方法不建议使用， 未来可能删除&lt;/font&gt;&lt;br/&gt;参数：&lt;br/&gt;time:发送时间;&lt;br/&gt;MinID:开始的ID号（第一次查询输入0， 以后输入上次查询有结果返回的最大值， 增量查询模式）;&lt;br/&gt;TokenID:企业验证码</wsdl:documentation>
+      <wsdl:input message="tns:QuerySmsSendRecordHttpGetIn" />
+      <wsdl:output message="tns:QuerySmsSendRecordHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CanelSMS">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">功能：根据MessageID撤消短信发送&lt;br/&gt;&lt;font color='#ff0000'&gt;注意：目前此方法不可用&lt;/font&gt;&lt;br/&gt;参数：&lt;br/&gt;MessageID:成功调用SendSMS发送短信时返回的值&lt;br/&gt;返回值：OK：［Count］;&lt;br/&gt;ERROR:XXX:[错误描述]&lt;br/&gt;999:系统错误</wsdl:documentation>
+      <wsdl:input message="tns:CanelSMSHttpGetIn" />
+      <wsdl:output message="tns:CanelSMSHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="QuerySMSUP">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">功能：查询上行短信&lt;br/&gt;参数说明：&lt;br/&gt;MinID:开始的ID号（第一次查询输入0， 以后输入上次查询有结果返回的最大值， 增量查询模式）；&lt;br/&gt;Count:返回行数（目前此参数没用， 最多返回100行记录）；&lt;br/&gt;TokenID:企业验证码；&lt;br/&gt;ExternCode:端号号标识（目前此参数没用）；&lt;br/&gt;返回值：xml</wsdl:documentation>
+      <wsdl:input message="tns:QuerySMSUPHttpGetIn" />
+      <wsdl:output message="tns:QuerySMSUPHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="QuerySmsSeqReport">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">功能：批量查询最新短信发送结果&lt;br/&gt;参数：&lt;br/&gt;MinID:开始的ID号（第一次查询输入0， 以后输入上次查询有结果返回的最大值， 增量查询模式）;&lt;br/&gt;TokenID:企业验证码</wsdl:documentation>
+      <wsdl:input message="tns:QuerySmsSeqReportHttpGetIn" />
+      <wsdl:output message="tns:QuerySmsSeqReportHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="TestTemplate">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">功能:测试模板和参数匹配合并后的结果;&lt;br/&gt;参数说明:&lt;br/&gt;templateId:短信模板ID；&lt;br/&gt;paramType:模板参数数据类型（JSON or XML)&lt;br/&gt;paramData:模板参数数据&lt;br/&gt;TokenID：企业验证码&lt;br/&gt;返回值:&lt;br/&gt;参数匹配后的短信&lt;br/&gt;ERROR:XXX:[错误描述](XXX是错误代码)&lt;br/&gt;100:不正确的Token;&lt;br/&gt;110:[没有找到短信模板];&lt;br/&gt;111:[paramType 必须是JSON 或 XML];&lt;br/&gt;112:[paramData 解析失败];&lt;br/&gt;999:系统错误;&lt;br/&gt;</wsdl:documentation>
+      <wsdl:input message="tns:TestTemplateHttpGetIn" />
+      <wsdl:output message="tns:TestTemplateHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendTemplateSMS">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">功能:发送短信;&lt;br/&gt;参数说明:&lt;br/&gt;mobile:手机号；&lt;br/&gt;FormatID:短信格式(0:英文;8:中文;)；&lt;br/&gt;templateId:短信模板ID；&lt;br/&gt;paramType:模板参数数据类型（JSON or XML)&lt;br/&gt;paramData:模板参数数据&lt;br/&gt;TokenID：企业验证码&lt;br/&gt;返回值:&lt;br/&gt;OK:[MessageID]&lt;br/&gt;ERROR:XXX:[错误描述](XXX是错误代码)&lt;br/&gt;100:不正确的Token;&lt;br/&gt;101:没有短信权限;&lt;br/&gt;102:余额不足;&lt;br/&gt;110:[没有找到短信模板];&lt;br/&gt;111:[paramType 必须是JSON 或 XML];&lt;br/&gt;112:[paramData 解析失败];&lt;br/&gt;200:非手机号;&lt;br/&gt;999:系统错误;&lt;br/&gt;</wsdl:documentation>
+      <wsdl:input message="tns:SendTemplateSMSHttpGetIn" />
+      <wsdl:output message="tns:SendTemplateSMSHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="SMSServiceHttpPost">
+    <wsdl:operation name="SendSMS">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">功能:发送短信;&lt;br/&gt;参数说明:&lt;br/&gt;mobile:手机号；&lt;br/&gt;FormatID:短信格式(0:英文;8:中文;10:中文白名单确认短信;40:长短信)；&lt;br/&gt;Content:短信内容；&lt;br/&gt;ScheduleDate:计划发送时间（可以传以前日期如2010-1-1,立即发送)；&lt;br/&gt;TokenID：企业验证码&lt;br/&gt;返回值:&lt;br/&gt;OK:[MessageID]&lt;br/&gt;ERROR:XXX:[错误描述](XXX是错误代码)&lt;br/&gt;100:不正确的Token;&lt;br/&gt;101:没有短信权限;&lt;br/&gt;102:余额不足;&lt;br/&gt;103:短信内容不能为空;&lt;br/&gt;200:非手机号;&lt;br/&gt;999:系统错误;&lt;br/&gt;</wsdl:documentation>
+      <wsdl:input message="tns:SendSMSHttpPostIn" />
+      <wsdl:output message="tns:SendSMSHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendBatchSMS">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">功能:发送批次短信;&lt;br/&gt;参数说明:&lt;br/&gt;mobileList:手机号,用半角逗号分隔；&lt;br/&gt;FormatID:短信格式(0:英文;8:中文)；&lt;br/&gt;Content:短信内容；&lt;br/&gt;deadLineTime:发送截至时间；&lt;br/&gt;TokenID：企业验证码&lt;br/&gt;返回值:&lt;br/&gt;OK:[MessageID]&lt;br/&gt;ERROR:XXX:[错误描述](XXX是错误代码)&lt;br/&gt;100:不正确的Token;&lt;br/&gt;101:没有短信权限;&lt;br/&gt;102:余额不足;&lt;br/&gt;103:短信内容不能为空;&lt;br/&gt;200:非手机号;&lt;br/&gt;999:系统错误;&lt;br/&gt;</wsdl:documentation>
+      <wsdl:input message="tns:SendBatchSMSHttpPostIn" />
+      <wsdl:output message="tns:SendBatchSMSHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendSMSCovey">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">功能:群发送短信;&lt;br/&gt;参数说明:&lt;br/&gt;ContentXml:XML数据集：mobile:手机号，FormatID:短信格式(0:英文;8:中文)，Content:短信内容，ScheduleDate:计划发送时间（可以传空值null,立即发送)；&lt;br/&gt;TokenID：企业验证码&lt;br/&gt;返回值:&lt;br/&gt;返回成功发送数量</wsdl:documentation>
+      <wsdl:input message="tns:SendSMSCoveyHttpPostIn" />
+      <wsdl:output message="tns:SendSMSCoveyHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="QuerySMSState">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">功能：根据MessageID查询短信发送状态&lt;br/&gt;&lt;font color='#ff0000'&gt;注意：目前此方法不建议使用， 未来可能删除&lt;/font&gt;&lt;br/&gt;参数：&lt;br/&gt;MessageID:成功调用SendSMS发送短信时返回的值&lt;br/&gt;返回值：XML</wsdl:documentation>
+      <wsdl:input message="tns:QuerySMSStateHttpPostIn" />
+      <wsdl:output message="tns:QuerySMSStateHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="QuerySmsSendRecord">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">功能：批量查询某一天短信发送结果&lt;br/&gt;&lt;font color='#ff0000'&gt;注意：目前此方法不建议使用， 未来可能删除&lt;/font&gt;&lt;br/&gt;参数：&lt;br/&gt;time:发送时间;&lt;br/&gt;MinID:开始的ID号（第一次查询输入0， 以后输入上次查询有结果返回的最大值， 增量查询模式）;&lt;br/&gt;TokenID:企业验证码</wsdl:documentation>
+      <wsdl:input message="tns:QuerySmsSendRecordHttpPostIn" />
+      <wsdl:output message="tns:QuerySmsSendRecordHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CanelSMS">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">功能：根据MessageID撤消短信发送&lt;br/&gt;&lt;font color='#ff0000'&gt;注意：目前此方法不可用&lt;/font&gt;&lt;br/&gt;参数：&lt;br/&gt;MessageID:成功调用SendSMS发送短信时返回的值&lt;br/&gt;返回值：OK：［Count］;&lt;br/&gt;ERROR:XXX:[错误描述]&lt;br/&gt;999:系统错误</wsdl:documentation>
+      <wsdl:input message="tns:CanelSMSHttpPostIn" />
+      <wsdl:output message="tns:CanelSMSHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="QuerySMSUP">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">功能：查询上行短信&lt;br/&gt;参数说明：&lt;br/&gt;MinID:开始的ID号（第一次查询输入0， 以后输入上次查询有结果返回的最大值， 增量查询模式）；&lt;br/&gt;Count:返回行数（目前此参数没用， 最多返回100行记录）；&lt;br/&gt;TokenID:企业验证码；&lt;br/&gt;ExternCode:端号号标识（目前此参数没用）；&lt;br/&gt;返回值：xml</wsdl:documentation>
+      <wsdl:input message="tns:QuerySMSUPHttpPostIn" />
+      <wsdl:output message="tns:QuerySMSUPHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="QuerySmsSeqReport">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">功能：批量查询最新短信发送结果&lt;br/&gt;参数：&lt;br/&gt;MinID:开始的ID号（第一次查询输入0， 以后输入上次查询有结果返回的最大值， 增量查询模式）;&lt;br/&gt;TokenID:企业验证码</wsdl:documentation>
+      <wsdl:input message="tns:QuerySmsSeqReportHttpPostIn" />
+      <wsdl:output message="tns:QuerySmsSeqReportHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="TestTemplate">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">功能:测试模板和参数匹配合并后的结果;&lt;br/&gt;参数说明:&lt;br/&gt;templateId:短信模板ID；&lt;br/&gt;paramType:模板参数数据类型（JSON or XML)&lt;br/&gt;paramData:模板参数数据&lt;br/&gt;TokenID：企业验证码&lt;br/&gt;返回值:&lt;br/&gt;参数匹配后的短信&lt;br/&gt;ERROR:XXX:[错误描述](XXX是错误代码)&lt;br/&gt;100:不正确的Token;&lt;br/&gt;110:[没有找到短信模板];&lt;br/&gt;111:[paramType 必须是JSON 或 XML];&lt;br/&gt;112:[paramData 解析失败];&lt;br/&gt;999:系统错误;&lt;br/&gt;</wsdl:documentation>
+      <wsdl:input message="tns:TestTemplateHttpPostIn" />
+      <wsdl:output message="tns:TestTemplateHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendTemplateSMS">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">功能:发送短信;&lt;br/&gt;参数说明:&lt;br/&gt;mobile:手机号；&lt;br/&gt;FormatID:短信格式(0:英文;8:中文;)；&lt;br/&gt;templateId:短信模板ID；&lt;br/&gt;paramType:模板参数数据类型（JSON or XML)&lt;br/&gt;paramData:模板参数数据&lt;br/&gt;TokenID：企业验证码&lt;br/&gt;返回值:&lt;br/&gt;OK:[MessageID]&lt;br/&gt;ERROR:XXX:[错误描述](XXX是错误代码)&lt;br/&gt;100:不正确的Token;&lt;br/&gt;101:没有短信权限;&lt;br/&gt;102:余额不足;&lt;br/&gt;110:[没有找到短信模板];&lt;br/&gt;111:[paramType 必须是JSON 或 XML];&lt;br/&gt;112:[paramData 解析失败];&lt;br/&gt;200:非手机号;&lt;br/&gt;999:系统错误;&lt;br/&gt;</wsdl:documentation>
+      <wsdl:input message="tns:SendTemplateSMSHttpPostIn" />
+      <wsdl:output message="tns:SendTemplateSMSHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="SMSServiceSoap" type="tns:SMSServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="SendSMS">
+      <soap:operation soapAction="http://mms.wemediacn.com/SendSMS" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendBatchSMS">
+      <soap:operation soapAction="http://mms.wemediacn.com/SendBatchSMS" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendSMSCovey">
+      <soap:operation soapAction="http://mms.wemediacn.com/SendSMSCovey" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QuerySMSState">
+      <soap:operation soapAction="http://mms.wemediacn.com/QuerySMSState" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QuerySmsSendRecord">
+      <soap:operation soapAction="http://mms.wemediacn.com/QuerySmsSendRecord" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CanelSMS">
+      <soap:operation soapAction="http://mms.wemediacn.com/CanelSMS" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QuerySMSUP">
+      <soap:operation soapAction="http://mms.wemediacn.com/QuerySMSUP" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QuerySmsSeqReport">
+      <soap:operation soapAction="http://mms.wemediacn.com/QuerySmsSeqReport" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TestTemplate">
+      <soap:operation soapAction="http://mms.wemediacn.com/TestTemplate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendTemplateSMS">
+      <soap:operation soapAction="http://mms.wemediacn.com/SendTemplateSMS" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="SMSServiceSoap12" type="tns:SMSServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="SendSMS">
+      <soap12:operation soapAction="http://mms.wemediacn.com/SendSMS" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendBatchSMS">
+      <soap12:operation soapAction="http://mms.wemediacn.com/SendBatchSMS" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendSMSCovey">
+      <soap12:operation soapAction="http://mms.wemediacn.com/SendSMSCovey" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QuerySMSState">
+      <soap12:operation soapAction="http://mms.wemediacn.com/QuerySMSState" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QuerySmsSendRecord">
+      <soap12:operation soapAction="http://mms.wemediacn.com/QuerySmsSendRecord" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CanelSMS">
+      <soap12:operation soapAction="http://mms.wemediacn.com/CanelSMS" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QuerySMSUP">
+      <soap12:operation soapAction="http://mms.wemediacn.com/QuerySMSUP" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QuerySmsSeqReport">
+      <soap12:operation soapAction="http://mms.wemediacn.com/QuerySmsSeqReport" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TestTemplate">
+      <soap12:operation soapAction="http://mms.wemediacn.com/TestTemplate" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendTemplateSMS">
+      <soap12:operation soapAction="http://mms.wemediacn.com/SendTemplateSMS" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="SMSServiceHttpGet" type="tns:SMSServiceHttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="SendSMS">
+      <http:operation location="/SendSMS" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendBatchSMS">
+      <http:operation location="/SendBatchSMS" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendSMSCovey">
+      <http:operation location="/SendSMSCovey" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QuerySMSState">
+      <http:operation location="/QuerySMSState" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QuerySmsSendRecord">
+      <http:operation location="/QuerySmsSendRecord" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CanelSMS">
+      <http:operation location="/CanelSMS" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QuerySMSUP">
+      <http:operation location="/QuerySMSUP" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QuerySmsSeqReport">
+      <http:operation location="/QuerySmsSeqReport" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TestTemplate">
+      <http:operation location="/TestTemplate" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendTemplateSMS">
+      <http:operation location="/SendTemplateSMS" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="SMSServiceHttpPost" type="tns:SMSServiceHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="SendSMS">
+      <http:operation location="/SendSMS" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendBatchSMS">
+      <http:operation location="/SendBatchSMS" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendSMSCovey">
+      <http:operation location="/SendSMSCovey" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QuerySMSState">
+      <http:operation location="/QuerySMSState" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QuerySmsSendRecord">
+      <http:operation location="/QuerySmsSendRecord" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CanelSMS">
+      <http:operation location="/CanelSMS" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QuerySMSUP">
+      <http:operation location="/QuerySMSUP" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QuerySmsSeqReport">
+      <http:operation location="/QuerySmsSeqReport" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TestTemplate">
+      <http:operation location="/TestTemplate" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendTemplateSMS">
+      <http:operation location="/SendTemplateSMS" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="SMSService">
+    <wsdl:port name="SMSServiceSoap" binding="tns:SMSServiceSoap">
+      <soap:address location="http://www.wemediacn.net/webservice/smsservice.asmx" />
+    </wsdl:port>
+    <wsdl:port name="SMSServiceSoap12" binding="tns:SMSServiceSoap12">
+      <soap12:address location="http://www.wemediacn.net/webservice/smsservice.asmx" />
+    </wsdl:port>
+    <wsdl:port name="SMSServiceHttpGet" binding="tns:SMSServiceHttpGet">
+      <http:address location="http://www.wemediacn.net/webservice/smsservice.asmx" />
+    </wsdl:port>
+    <wsdl:port name="SMSServiceHttpPost" binding="tns:SMSServiceHttpPost">
+      <http:address location="http://www.wemediacn.net/webservice/smsservice.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

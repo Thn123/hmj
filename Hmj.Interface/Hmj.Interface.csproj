@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{957A25A3-AD39-4B99-A8EE-B725FDC0DA3A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Hmj.Interface</RootNamespace>
+    <AssemblyName>Hmj.Interface</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>
+    </DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+    <Prefer32Bit>false</Prefer32Bit>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\REFDLL\</OutputPath>
+    <DefineConstants>
+    </DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Vulcan">
+      <HintPath>..\REFDLL\Vulcan.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="IApiAuthService.cs" />
+    <Compile Include="MiniProgram\IMiniProgramService.cs" />
+    <Compile Include="Service\IHmjCommonService.cs" />
+    <Compile Include="Service\IHmjMemberService.cs" />
+    <Compile Include="Service\IHmjBookService.cs" />
+    <Compile Include="Service\IBookingService.cs" />
+    <Compile Include="Service\IHmjStoreService.cs" />
+    <Compile Include="Service\ICustMemberService.cs" />
+    <Compile Include="Service\ICommonService.cs" />
+    <Compile Include="Service\ICustomMenuService.cs" />
+    <Compile Include="IPrivilege.cs" />
+    <Compile Include="Service\ICustMsgHisService.cs" />
+    <Compile Include="IResource.cs" />
+    <Compile Include="ICAMRes.cs" />
+    <Compile Include="IUser.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\IEmployeeService.cs" />
+    <Compile Include="Service\ILoginService.cs" />
+    <Compile Include="Service\ILogService.cs" />
+    <Compile Include="Service\IMySmallShopService.cs" />
+    <Compile Include="Service\IOrgDictService.cs" />
+    <Compile Include="Service\IRegionService.cs" />
+    <Compile Include="Service\IResourceService.cs" />
+    <Compile Include="Service\ISMSService.cs" />
+    <Compile Include="Service\IStoreService.cs" />
+    <Compile Include="Service\ISystemService.cs" />
+    <Compile Include="ThdPlatform\IThdPlatformService.cs" />
+    <Compile Include="Service\IUserService.cs" />
+    <Compile Include="Service\IRoleService.cs" />
+    <Compile Include="WXService\ISendMilkService.cs" />
+    <Compile Include="WXService\IWXCouponService.cs" />
+    <Compile Include="WXService\IWXMessageRecord.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Hmj.DTO\Hmj.DTO.csproj">
+      <Project>{27a01859-5ee7-4d5c-a3c0-fff10758713a}</Project>
+      <Name>Hmj.DTO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Hmj.WebService\Hmj.WebService.csproj">
+      <Project>{0D56C92A-2F23-4995-8DAB-62612827FE69}</Project>
+      <Name>Hmj.WebService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Hmj.Entity\Hmj.Entity.csproj">
+      <Project>{84c5a1ab-0ff6-41f4-8bed-7939c0860b3b}</Project>
+      <Name>Hmj.Entity</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

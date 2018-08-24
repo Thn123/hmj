@@ -1,0 +1,153 @@
+﻿@{
+    ViewBag.Title = "门店创建";
+}
+@model Hmj.Entity.Entities.Store_EX
+<link href="~/assets/css/weixincss.css" rel="stylesheet" />
+@section htmlhead{
+    @Html.Css("plugin/xjgrid", "plugin/xjdailog", "common", "plugin/validator", "plugin/tip")
+    <link rel='stylesheet' type='text/css' href='../../assets/css/tree.css' />
+    <style type="text/css">
+        .searchpanel {
+            background-color: #f7f8fa; /*border: 1px solid #ccc;*/
+            padding: 5px 15px;
+            margin-left: 10px;
+            border-radius: 4px;
+        }
+
+            .searchpanel .form-group, .searchpanel .btnpanel_right {
+                /*
+            display: block;
+            overflow: hidden;
+            zoom: 1;
+            margin-bottom: 0px;
+            */
+            }
+
+                .searchpanel .form-group label {
+                    margin-bottom: 4px;
+                }
+
+        #SearchBox {
+            width: 200px;
+        }
+    </style>
+}
+<div>
+    <div class="sucailist">
+        <h5><a href="StoreManage.do"><em class="fanhui2"></em>门店管理</a> / 门店管理</h5>
+    </div>
+    <div class="modal-header">
+
+        @* <h4 class="modal-title">自动回复维护</h4>*@
+    </div>
+
+    <div class="modal-body">
+        <form class="form-horizontal" id="frmSave" method="post" action="@Url.Action("SaveStore")" role="form">
+            @Html.Hidden("ID", Model.ID)
+            <div class="form-group col-xs-7">
+                <div class="form-group col-xs-12">
+                    <label class="col-sm-3 control-label" style="text-align: left">门店编号:</label>
+                    <div class="col-sm-9">
+                        @Html.TextBox("Code", Model.Code, new { @class = "form-control", placeholder = "请输入门店编号" })
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-xs-7">
+                <div class="form-group col-xs-12">
+                    <label class="col-sm-3 control-label" style="text-align: left">门店名称:</label>
+                    <div class="col-sm-9">
+                        @Html.TextBox("Name", Model.Name, new { @class = "form-control", placeholder = "请输入门店名称" })
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-xs-7">
+                <div class="form-group col-xs-12">
+                    <label class="col-sm-3 control-label" style="text-align: left">所属区域:</label>
+                    <div class="col-sm-9">
+                        @Html.ResourceDropDownList("BelongsAreaNo", "BelongsArea", Model.BelongsAreaNo, new { @class = "form-control" }, false)
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-xs-7">
+                <div class="form-group col-xs-12">
+                    <label class="col-sm-3 control-label" style="text-align: left">省份:</label>
+                    <div class="col-sm-9">
+                        @Html.TextBox("Province", Model.Province, new { @class = "form-control", placeholder = "请输入省份" })
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-xs-7">
+                <div class="form-group col-xs-12">
+                    <label class="col-sm-3 control-label" style="text-align: left">城市:</label>
+                    <div class="col-sm-9">
+                        @Html.TextBox("City", Model.City, new { @class = "form-control", placeholder = "请输入城市" })
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-xs-7">
+                <div class="form-group col-xs-12">
+                    <label class="col-sm-3 control-label" style="text-align: left">地区:</label>
+                    <div class="col-sm-9">
+                        @Html.TextBox("Area", Model.Area, new { @class = "form-control", placeholder = "请输入地区" })
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-xs-7">
+                <div class="form-group col-xs-12">
+                    <label class="col-sm-3 control-label" style="text-align: left">联系号码:</label>
+                    <div class="col-sm-9">
+                        @Html.TextBox("Phone", Model.Phone, new { @class = "form-control", placeholder = "请输入联系号码" })
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-xs-7">
+                <div class="form-group col-xs-12">
+                    <label class="col-sm-3 control-label" style="text-align: left">地址:</label>
+                    <div class="col-sm-9">
+                        @Html.TextBox("Address", Model.Address, new { @class = "form-control", placeholder = "请输入地址" })
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-xs-7">
+                <div class="form-group col-xs-12">
+                    <label class="col-sm-3 control-label" style="text-align: left">坐标X:</label>
+                    <div class="col-sm-9">
+                        @Html.TextBox("X", Model.X, new { @class = "form-control", placeholder = "请输入坐标X" })<a href="javascript:;" id="biaozhu" target="_blank">标注位置</a>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-xs-7">
+                <div class="form-group col-xs-12">
+                    <label class="col-sm-3 control-label" style="text-align: left">坐标Y:</label>
+                    <div class="col-sm-9">
+                        @Html.TextBox("Y", Model.Y, new { @class = "form-control", placeholder = "请输入坐标Y" })
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-xs-7">
+                <div class="form-group col-xs-12">
+                    <label class="col-sm-3 control-label" style="text-align: left">门店类别:</label>
+                    <div class="col-sm-9">
+                        @Html.ResourceDropDownList("StoreType", "StoreType", Model.StoreType, new { @class = "form-control" }, false)
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-xs-7">
+                <div class="form-group col-xs-12">
+                    <label class="col-sm-3 control-label" style="text-align: left">品牌:</label>
+                    <div class="col-sm-9">
+                        @Html.TextBox("PP", Model.PP, new { @class = "form-control", placeholder = "请输入品牌" })
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div style="clear: both"></div>
+    <div class="modal-footer">
+        <button type="button" id="btnSave" class="btn btn-primary">确 定</button>
+        @*<button type="button" id="btnClose" class="btn btn-default" data-dismiss="modal">取 消</button>*@
+    </div>
+</div>
+@section jssection{
+    @Html.Js("plugins/xjgrid/xjgrid", "plugins/xjdailog/xjdailog", "plugins/validator/validator", "app/wechat/storeedit", "app/company/jquery.tree", "js/ajaxfileupload")
+}

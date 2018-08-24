@@ -1,0 +1,76 @@
+﻿@{
+    ViewBag.Title = "优惠券管理";
+}
+@section htmlhead{
+    @Html.Css("plugin/xjgrid", "plugin/xjdailog", "common", "plugin/validator", "plugin/tip")
+<link rel='stylesheet' type='text/css' href='../../assets/css/tree.css' />
+    <style type="text/css">
+        .searchpanel {
+            background-color: #f7f8fa; /*border: 1px solid #ccc;*/
+            padding: 5px 15px;
+            margin-left: 10px;
+            border-radius: 4px;
+        }
+
+            .searchpanel .form-group, .searchpanel .btnpanel_right {
+                /*
+            display: block;
+            overflow: hidden;
+            zoom: 1;
+            margin-bottom: 0px;
+            */
+            }
+
+                .searchpanel .form-group label {
+                    margin-bottom: 4px;
+                }
+
+        #SearchBox {
+            width: 200px;
+        }
+    </style>
+}
+<div class="s_container">
+    <div id="page-heading">
+        <h2>
+            <i class="fa fa-group"></i>会员绑定查看</h2>
+    </div>
+    <div id="mainbody" class="panel panel-primary">
+        <div class="panel-heading">
+            <h4>会员列表</h4>
+        </div>
+        <div class="panel-body" style="min-height: 350px">
+            <div class="row">
+                <div class="text-right col-md-10">
+                    <form id="formQuery" class="form-inline" role="form" method="post">
+                        <div class="form-group">
+                            <input id="CName" name="CName" class="form-control" type="text" placeholder="姓名/手机/会员号" />                            
+                            <div class="btn-group">
+                                <button class="btn-primary btn"><i class="fa fa-search"></i>查询</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-12">
+                    <div class="table-responsive" id="gridlist">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- /.modal -->
+    </div>
+</div>
+@section jssection{
+    <script type="text/javascript">
+
+        var util = {};
+        var options = {
+            listUrl: "@Url.Action("GetCustList")",
+            editUrl: "@Url.Action("TicketEdit")",
+            deleteUrl: "@Url.Action("DeleteInformation")",
+        };
+
+    </script>
+    @Html.Js("plugins/xjgrid/xjgrid", "plugins/xjdailog/xjdailog", "plugins/validator/validator", "app/wechat/CustList", "app/company/jquery.tree")
+}

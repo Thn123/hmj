@@ -1,0 +1,288 @@
+﻿@{
+//ViewBag.Title = "自定义菜单管理";
+}
+@section htmlhead{
+    <link href="~/assets/css/plugin/validator.css" rel="stylesheet" />
+    <link href="~/assets/css/weixincss.css" rel="stylesheet" />
+}
+@model Hmj.Entity.WXCustomMenu
+
+<div class="dingyibox">
+
+    <div class="dingyih1">自定义菜单</div>
+
+    <div class="info">可创建最多3个一级菜单，每个一级菜单下可创建最多5个二级菜单。</div>
+
+    <div class="zidingyi">
+        <div class="zidingyiLeft">
+            <div class="zidingyiTItle">
+                <span>
+                    @*<a href="javascript:addup(1);" class="jiahao"></a>*@
+                    <bdo>
+                        <a href="javascript:addup(1);" class="jiahao"></a>
+                        <a href="javascript:tuoye();" class="tuoye"></a>
+                    </bdo>
+                    <i>
+                        <a href="javascript:complete()" class="overbtn">完成</a>
+                        <a href="javascript:notuoye();" class="nobtn">取消</a>
+                    </i>
+                </span>
+                <h2>菜单管理</h2>
+            </div>
+            <div id="menu" class="zidingTT zidingTT2">
+            </div>
+        </div>
+
+        <div class="zidingyiRight">
+            <div class="zidingyiTItle">
+                <h2>设置动作</h2>
+            </div>
+            <div class="zidingyicon">
+                <input name="hfID" type="hidden">
+                <input name="hfType" type="hidden">
+
+                @*默认*@
+                <div id="divDefault" class="zidingyichu">
+                    <p>请选择订阅者点击菜单之后，公众号自动做出响应动作！</p>
+                    <ul>
+                        <li>
+                            <a href="javascript:setNewClick()" target="_blank">
+                                <em>
+                                    <img src="~/assets/images/email.png" />
+                                </em>发送消息
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:setNewView()" target="_blank">
+                                <em>
+                                    <img src="/assets/images/web.png">
+                                </em>跳转到网页
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:editsu();" target="_blank">
+                                <em>
+                                    <img src="/assets/images/tu.png">
+                                </em>选择图文消息
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:setNewMini();" target="_blank">
+                                <em>
+                                    <img src="/assets/images/tu.png">
+                                </em>选择小程序
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                @*Click*@
+                <div id="divClick" class="zidingyiAll">
+                    <p>订阅者点击该子菜单会显示以下文本</p>
+                    <!-- 编辑框-->
+                    <div id="watch">
+                        <div id="text" class="zidingyikuang">
+                            <p>http://www.25xt.com/allcode/6911.html</p>
+                        </div>
+                        <div id="graphic" class="zidingyikuang">
+                            <div class="tuwen">
+                                <div class="onetuwen">
+                                    <div class="tuwenTitle"><a href="#">25学堂设计图文标题文字</a></div>
+                                    <div class="tuwenTime">09月26日</div>
+                                    <div class="tuwencon">
+                                        <img src="https://mmbiz.qlogo.cn/mmbiz/icpapNTlrePLnmvo1tACasApsarxD2t9P28gkq6dl3eHjWBoQibWXt5fiafqtzLs2XbqoJfLIEu9UUUqLJYGAZc5A/0">
+                                        <p>融资条件：1、在民生银行认定的中小企业授信客户准入行业范围以内；2、商贸类企业年销售收入不超过15000万元</p>
+                                    </div>
+                                </div>
+
+                                <div class="duotuwen">
+                                    <p>
+                                        <img src="http://www.25xt.com/wp-content/uploads/2014/09/1411650314943485.png" width="80" height="80"><span><a href="#">腾讯UI设计师是如何进行设计项目流程规划的</a></span>
+                                    </p>
+                                    <p>
+                                        <img src="http://www.25xt.com/wp-content/uploads/2014/09/1411650314943485.png" width="80" height="80"><span><a href="#">腾讯UI设计师是如何进行设计项目流程规划的</a></span>
+                                    </p>
+                                    <p>
+                                        <img src="http://www.25xt.com/wp-content/uploads/2014/09/1411650314943485.png" width="80" height="80"><span><a href="#">腾讯UI设计师是如何进行设计项目流程规划的</a></span>
+                                    </p>
+                                    <p>
+                                        <img src="http://www.25xt.com/wp-content/uploads/2014/09/1411650314943485.png" width="80" height="80"><span><a href="#">腾讯UI设计师是如何进行设计项目流程规划的</a></span>
+                                    </p>
+
+                                </div>
+                            </div>
+                        </div>
+                        @*<a href="javascript:editClick();" class="quxiaobtn">修改</a>*@
+                    </div>
+                    <div id="edit">
+                        <div class="bianjibox" style="width: 600px; margin-top: 10px; margin: 0;">
+                            <div class="bianjinav">
+                                <ul>
+                                    <li><a href="#" class="curimg"><em class="img1"></em><i class="img2"></i><bdo>编辑</bdo></a></li>
+                                    <li><a href="#"><em class="img3"></em><i class="img4"></i><bdo>图片</bdo></a></li>
+                                    <li><a href="#"><em class="img5"></em><i class="img5"></i><bdo>语音</bdo></a></li>
+                                    <li><a href="#"><em class="img7"></em><i class="img8"></i><bdo>视频</bdo></a></li>
+                                    <li><a href="javascript:editsu();"><em class="img9"></em><i class="img10"></i><bdo>图文</bdo></a></li>
+                                </ul>
+                            </div>
+                            <textarea name="txtContent" cols="" rows="" onkeydown="gbcount(500);" onkeyup="gbcount(500);" id="area2"></textarea>
+                            <div class="bianjitext">还可以输入500个字符，中文占2个</div>
+                        </div>
+                        @*<div class="btnbox" style="text-align: left; padding: 0 40px 30px; margin-top: 20px;"><a href="javascript:saveClick()" class="greenbtn">保存</a> &nbsp; <a href="javascript:returnClick();" class="quxiaobtn">取消</a></div>*@
+                    </div>
+                    <p>菜单顺序号</p>
+                    <div id="watch">
+                        <div id="text" class="zidingyikuang">
+                            <span></span>
+                        </div>
+                        <a href="javascript:editClick();" class="quxiaobtn">修改</a>
+                    </div>
+                    <div id="edit">
+                        <div class="zidingyikuang">
+                            <input name="txtOrderNum" type="text" class="txt" value="">
+                        </div>
+                        <div class="btnbox" style="text-align: left; padding: 0 40px 30px; margin-top: 20px;"><a href="javascript:saveClick()" class="greenbtn">保存</a> &nbsp; <a href="javascript:returnClick();" class="quxiaobtn">取消</a></div>
+                    </div>
+
+                    <!-- 编辑框-->
+                </div>
+
+                @*View*@
+                <div id="divView" class="zidingyiAll">
+                    <p>订阅者点击该子菜单会跳到以下链接</p>
+                    <div id="links">
+                        <div class="zidingyikuang">
+                            <p>http://www.25xt.com/allcode/6911.html</p>
+                        </div>
+                        @*<a href="javascript:editView();" class="quxiaobtn">修改</a>*@
+                    </div>
+                    <div id="nolinks">
+                        <div class="zidingyikuang">
+                            <input name="txtUrl" type="text" class="txt" value="http://www.25xt.com/allcode/6911.html">
+                        </div>
+                        @*<a href="javascript:saveView();" class="greenbtn">保存</a> &nbsp; <a href="javascript:returnView();" class="quxiaobtn">返回</a>*@
+                    </div>
+                    <p>菜单顺序号</p>
+                    <div id="links">
+                        <div class="zidingyikuang">
+                            <span></span>
+                        </div>
+                        <a href="javascript:editView();" class="quxiaobtn">修改</a>
+                    </div>
+                    <div id="nolinks">
+                        <div class="zidingyikuang">
+                            <input name="txtOrderNum" type="text" class="txt" value="">
+                        </div>
+                        <a href="javascript:saveView();" class="greenbtn">保存</a> &nbsp; <a href="javascript:returnView();" class="quxiaobtn">返回</a>
+                    </div>
+
+                </div>
+
+
+                @*View*@
+                <div id="divMini" class="zidingyiAll">
+                    <p>订阅者点击该子菜单会跳到小程序</p>
+                    <div id="linksMini">
+                        <div class="zidingyikuang">
+                            <p></p>
+                        </div>
+                        @*<a href="javascript:editMini();" class="quxiaobtn">修改</a>*@
+                    </div>
+                    <div id="nolinksMini">
+                        <br />
+                        <div class="zidingyikuang">
+                            <input name="txtMini" type="text" class="txt" value="">
+                        </div>
+                        PS:小程序APPID+","+小程序页面路径+","+老版本跳转URL路径:
+                        @*<a href="javascript:saveMini();" class="greenbtn">保存</a> &nbsp; <a href="javascript:returnMini();" class="quxiaobtn">返回</a>*@
+                    </div>
+
+                    <p>菜单顺序号</p>
+                    <div id="linksMini">
+                        <div class="zidingyikuang">
+                            <span></span>
+                        </div>
+                        <a href="javascript:editMini();" class="quxiaobtn">修改</a>
+                    </div>
+                    <div id="nolinksMini">
+                        <br />
+                        <div class="zidingyikuang">
+                            <input name="txtOrderNum" type="text" class="txt" value="">
+                        </div>
+                        @*PS:小程序APPID+","+小程序页面路径+","+老版本跳转URL路径:*@
+                        <a href="javascript:saveMini();" class="greenbtn">保存</a> &nbsp; <a href="javascript:returnMini();" class="quxiaobtn">返回</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="dingyibottom"><span>编辑中的菜单需要进行发布才能更新到用户手机上</span>菜单正在使用中</div>
+
+    <div class="btnbox"><a href="javascript:publish();" class="greenbtn">发布</a> &nbsp;@* <a href="javascript:closed();" class="quxiaobtn">预览</a>*@</div>
+
+    <div class="tishibox" id="tishi">
+        <form class="form-horizontal" id="frmChangeName" method="post" action="@Url.Action("ChangeMenuName")" role="form">
+            @Html.Hidden("ID", Model.ID)
+            <div class="tishiTitle">
+                <span><a href="javascript:close();" class="guanbi"></a></span>
+                <h2>提示输入框</h2>
+            </div>
+            <div class="tishicon">
+                <p>菜单名称名字不多于8个汉字或16个字母:</p>
+                <p>
+                    @Html.TextBox("Name", Model.Name, new { @class = "txt", placeholder = "" })
+                </p>
+            </div>
+            <div class="tishibtn"><a href="javascript:changeName();" class="greenbtn">立即提交</a> &nbsp; <a href="javascript:close();" class="quxiaobtn">取消</a></div>
+        </form>
+    </div>
+
+    <div class="tishibox editAllbox" id="tishi2">
+        <div class="tishiTitle">
+            <span><a href="javascript:closedsu();" class="guanbi"></a></span>
+            <h2>选择素材</h2>
+        </div>
+        <div class="editAlltab">
+            <span>
+                1/2 &nbsp; <a href="#">下一页</a>
+                <input name="" type="text" class="pagetxt">
+                <input name="" type="button" value="跳转" class="pagebtn">
+            </span>
+            <a href="#"><em class="dantuwen2"></em>单图文消息</a> &nbsp;&nbsp; <a href="#"><em class="duotuwen2"></em>多图文消息</a>
+        </div>
+        <div class="editAllcon">
+            <div id="tanmain">
+                <ul id="tiles"></ul>
+            </div>
+        </div>
+        <div class="tishibtn"><a href="javascript:saveGraphic();" class="greenbtn">确定</a> &nbsp; <a href="javascript:closedsu();" class="quxiaobtn">取消</a></div>
+    </div>
+
+    <div class="tishibg" id="tishibg"></div>
+    <div style="width: 222px; height: 1000px;"></div>
+    <input id="hRootID" type="hidden" value="@ViewBag.RootID">
+</div>
+
+@section jssection{
+    <script type="text/javascript">
+        var util = {};
+        var options = {
+            treeNodesUrl: "@Url.Action("QueryCustomMenuList")",
+            addChildUrl: "@Url.Action("AddChild")",
+            showMenuInfoUrl: "@Url.Action("ShowMenuInfo")",
+            deleteMenuUrl: "@Url.Action("DeleteMenu")",
+            publishToWechatUrl: "@Url.Action("PublishToWechat")",
+            saveMenuOrderUrl: "@Url.Action("SaveMenuOrder")",
+            saveMenuUrl: "@Url.Action("SaveMenu")",
+            getGraphicUrl: "@Url.Action("GetGraphic")",
+            getGraphicListUrl: "@Url.Action("GetGraphicList")",
+        };
+    </script>
+    <script src="~/assets/plugins/validator/validator.js"></script>
+    <script src="~/assets/app/custommenu/index.js"></script>
+    <script src="~/assets/js/tuwenajax.js"></script>
+    <script src="~/assets/js/jquery.sortable.js"></script>
+    <script src="~/assets/js/jquery.wookmark.js"></script>
+    <script src="~/assets/js/jquery.json.js"></script>
+}

@@ -1,0 +1,136 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../css/new_style.css">
+    <title>积分明细</title>
+</head>
+<body>
+    <div class="wrap jfmx_page">
+        <div class="page_box">
+            <div class="top">
+                <span>当前可用<em class="ava_points"></em></span>
+                <!--<h2 class="ava_points"></h2>-->
+                <span class="jf_dirct">本页面仅显示近一年积分变动明细</span>
+            </div>
+            <div class="list_box">
+                <!--js填充-->
+            </div>
+        </div>
+    </div>
+    <div class="layer modaltips" id="modaltips"></div>
+</body>
+</html>
+<script src="../js/jquery.min.js"></script>
+<script src="../js/validate.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    $(function () {
+        var arr = {
+            'ZFT': '社区发帖'
+            , 'ZFW': '访问社区'
+            , 'ZHT': '社区回帖'
+            , 'ZZR': '积分转移'
+            , 'ZHD': '社区奖励活动'
+            //, 'ZTZ': '手工调整积分 20180309家化uat测试时，林玲同意并更改'
+            , 'ZTZ': '活动积分调整'
+            //, 'ZZJ': '手工增加积分 20180309家化uat测试时，林玲同意并更改'
+            , 'ZZJ': '活动积分调整'
+            //, 'ZJS': '手工减少积分 20180309家化uat测试时，林玲同意并更改'
+            , 'ZJS': '活动积分调整'
+            , 'ZTIER': '手工调增级别'
+            , 'ZRE': '家化会员退货'
+            , 'ZPRODUCT': '家化会员购买'
+            , 'PRODUCT_REDEEM': '家化会员兑换'
+            , 'ZRC': '社区日常活动'
+            , 'ZXY': '促销奖励活动'
+            , 'ZXY+30': '注册奖励' //华美家微信平台按家化的要求。临时自己增加的业务逻辑处理
+            , 'ZXY+100': '完善信息奖励' //华美家微信平台按家化的要求。临时自己增加的业务逻辑处理
+            , 'ZXY+200': '品牌转换奖励' //华美家微信平台按家化的要求。临时自己增加的业务逻辑处理
+            , 'ZRDH': '会员兑换冲销'
+            , 'ZTJ': '会员推荐获得积分'
+            , 'ZBT': '被推荐会员获得积分'
+            , 'ZPGQ': '积分过期'
+            , 'ZTHFC': '家化会员退货反冲'
+            , 'ZPDX': '积分抵现'
+            , 'ZCJ': '会员抽奖扣减积分	'
+            , 'ZDH': '会员手机兑换扣减积分'
+            , 'ZXZ': '奖励活动积分扣减'
+            , 'ZHK': '会员换卡'
+            , 'ZZH': '转化至华美家'
+        };
+        //		用来获取该用户的可用总积分
+        var userinfo = $.parseJSON(localStorage.getItem('fansJson'));
+        var openid = userinfo.openid;
+        var data = '{"OPENID": "' + openid + '", "IS_UPDATE": "1" }';
+        $.ajax({
+            type: "post",
+            contentType: "application/json",
+            dataType: "json",
+            url: $.domainUrl + "Member/GetMemberDetail",
+            processData: false,
+            data: data,
+            success: function (json) {
+                if (json.status == 1) {
+                    $(".ava_points").html(json.data.AVA_POINTS +"积分");
+                }
+            }
+        });
+        //积分明细；
+        $.ajax({
+            type: 'get',
+            url: $.domainUrl + 'Member/GetPointDetail?OPENID=' + openid,
+            beforeSend: function () {
+                tips("数据加载中，请稍候...", false, 0, true);
+            },
+            success: function (res) {
+                var html = '';
+                var point = '';
+
+                for (var i = 0; i < res.data.length; i++) {
+                    var obj = res.data[i];
+                    var time = obj.CREATED_TIME;
+
+                    if (Number(obj.POINTS) > 0) {
+                        point = "+" + obj.POINTS;
+                    } else {
+                        point = obj.POINTS;
+                    }
+                    //华美家微信平台按家化的要求。临时自己增加的业务逻辑处理
+                    var newOrderType = arr[obj.ORDER_TYPE + point];
+                    if (newOrderType == undefined) {
+                        newOrderType = arr[obj.ORDER_TYPE];
+                    }
+                    
+
+
+                    html += '<div class="box">\
+					<div style="overflow: hidden">\
+					<em class=" fl add">'+ newOrderType + '</em>\
+					<span class="fr jf_source">'+ point+ '</span>\
+					</div>\
+					<div>\
+					<span class="time fl">变动时间:'+ obj.CREATED_TIME + '</span>\
+					<span class="time" style="float:right; margin-top:3px;">deadline</span>\
+					</div>\
+					</div>';
+                    if (Number(obj.POINTS) < 0) {
+                        html = html.replace("jf_source", "");
+                    }
+
+                    //如果是正数，也就是获得积分，才会有有效期
+                    if (Number(obj.POINTS) > 0) {
+                        html = html.replace("deadline", '有效期至: ' + obj.EXPIRE_DATE);
+                    }
+                    else
+                        html = html.replace("deadline", '');
+                }
+                $(".list_box").html(html);
+                $("#modaltips").fadeOut();
+            },
+            error: function () {
+            }
+        });
+    })
+</script>

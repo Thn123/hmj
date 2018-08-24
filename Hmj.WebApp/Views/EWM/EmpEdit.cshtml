@@ -1,0 +1,88 @@
+﻿@{
+    ViewBag.Title = "员工二维码创建";
+}
+@model Hmj.Entity.EMPLOYEE
+<link href="~/assets/css/weixincss.css" rel="stylesheet" />
+@section htmlhead{
+    @Html.Css("plugin/xjgrid", "plugin/xjdailog", "common", "plugin/validator", "plugin/tip")
+    <link rel='stylesheet' type='text/css' href='../../assets/css/tree.css' />
+    <style type="text/css">
+        .searchpanel {
+            background-color: #f7f8fa; /*border: 1px solid #ccc;*/
+            padding: 5px 15px;
+            margin-left: 10px;
+            border-radius: 4px;
+        }
+
+            .searchpanel .form-group, .searchpanel .btnpanel_right {
+                /*
+            display: block;
+            overflow: hidden;
+            zoom: 1;
+            margin-bottom: 0px;
+            */
+            }
+
+                .searchpanel .form-group label {
+                    margin-bottom: 4px;
+                }
+
+        #SearchBox {
+            width: 200px;
+        }
+    </style>
+}
+<div>
+    <div class="sucailist">
+        <h5><a href="Index.do"><em class="fanhui2"></em>员工管理</a> / 员工维护</h5>
+    </div>
+    <div class="modal-header">
+
+        @* <h4 class="modal-title">自动回复维护</h4>*@
+    </div>
+
+    <div class="modal-body">
+        <form class="form-horizontal" id="frmSave" method="post" action="@Url.Action("SaveEmp")" role="form">
+            <div class="form-group col-xs-7">
+                <div class="form-group col-xs-12">
+                    <label class="col-sm-3 control-label" style="text-align: left">员工姓名:</label>
+                    <div class="col-sm-9">
+                        @Html.TextBox("Name", "", new { @class = "form-control", placeholder = "请输入员工姓名" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group col-xs-7">
+                <div class="form-group col-xs-12">
+                    <label class="col-sm-3 control-label" style="text-align: left">员工手机:</label>
+                    <div class="col-sm-9">
+                        @Html.TextBox("Mobile", "", new { @class = "form-control", placeholder = "请输入员工手机" })
+                        <input type="hidden" name="DeptName" id="DeptName" class="form-control"/>
+                        <input type="hidden" name="DeptId" id="DeptId" class="form-control"/>
+                        <input type="hidden" name="ParentDeptId" id="ParentDeptId" class="form-control"/>
+                    </div>
+                    <li>&nbsp</li>
+                    <label class="col-sm-3 control-label" style="text-align: left;width:100%">所属组织（点击下面的组织架构树选择）：<span id="store"></span></label>
+                    
+                    <li>&nbsp</li>
+                    <div id="ptree" style="width:400px;padding-left:100px;"></div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div style="clear: both"></div>
+    <div class="modal-footer">
+        <button type="button" id="btnSave" class="btn btn-primary">确 定</button>
+        @*<button type="button" id="btnClose" class="btn btn-default" data-dismiss="modal">取 消</button>*@
+    </div>
+</div>
+
+@section jssection{
+        <script type="text/javascript">
+            var util = {};
+            var options = {
+            queryLeftUrl: "@Url.Action("QueryLeft")",
+        };
+    </script>
+    @Html.Js("plugins/xjgrid/xjgrid", "plugins/xjdailog/xjdailog", "plugins/validator/validator", "app/ewm/empedit", "app/company/jquery.tree", "js/ajaxfileupload")
+}

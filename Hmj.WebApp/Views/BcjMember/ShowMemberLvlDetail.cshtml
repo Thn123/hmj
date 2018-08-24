@@ -1,0 +1,32 @@
+﻿@{
+    ViewBag.Title = "ShowMemberLvlDetail";
+    Layout = "~/Views/Shared/_LayoutE.cshtml";
+}
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width" name="viewport" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+    <meta content="telephone=no" name="format-detection" />
+    <link type="text/css" href="/Bcj/points/css/jifen.css" rel="stylesheet" />
+    <script src="~/Bcj/Message2.js"></script>
+    <title>会员制度</title>
+</head>
+
+<body>
+    <div class="jifen-zhidu">
+        <h2>会员必读</h2>
+        <p>
+            <strong>一、会员制度</strong>
+            @Html.Raw(ViewBag.LVL)
+        </p>
+    </div>
+
+</body>
+</html>
+<script type="text/javascript" src="/Bcj/points/js/jquery.min.js"></script>
+<script>
+</script>

@@ -1,0 +1,75 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width" name="viewport" /> 
+<meta content="telephone=no" name="format-detection" />
+<link type="text/css" rel="stylesheet" href="css/mian.css">
+<title>会员基本信息</title>
+</head>
+
+<body>
+<div class="topnav"><h2>会员基本信息</h2></div>
+<div class="menber otherinfo">
+  <ul>
+      <li><span class="kahaoicon"><em>10001010</em></span></li>
+      <li><span class="nameicon"><em>何欣荣</em></span></li>
+      <li><span class="telicon"><em>188 8693 6548</em></span></li>
+     <!-- <li><span class="nandeicon"><em>先生</em></span></li>-->
+      <li><span class="nvdeicon"><em>女士</em></span></li>
+  </ul>
+  <p>您的生日 <bdo>1990</bdo>年<bdo>8</bdo>月<bdo>30</bdo>日</p>
+   <p>注册时间 <bdo>2014</bdo>年<bdo>3</bdo>月<bdo>13</bdo>日</p>
+    <p>注册柜台 <bdo>上海市钟表商店大楼3018</bdo></p>
+</div>
+
+<div class="regbox" style="padding:0">
+ <p style="padding:0 5px 5px;"><bdo class="mapding"></bdo><span><strong><select name="" class="dropdown-select"><option>省份</option><option>上海</option><option>浙江</option></select></strong>  <strong><select name="" class="dropdown-select"><option>城市</option><option>徐汇区</option><option>上海</option></select></strong></span></p> 
+ <p style="padding:0 5px 5px;"><bdo class="map_icon"></bdo><span><input name="" type="text" placeholder="台湾光复路181号201" class="txtinput"></span></p>
+</div>
+
+<div class="hudong" id="checkid">
+ <h2>互动渠道愿意接受</h2>
+ <ul>
+   <li><bdo><input name="" type="radio" value="手机" class="radiocss"></bdo><bdo class="telicon">手机</bdo></li>
+   <li><bdo><input name="" type="radio" value="短信" class="radiocss"></bdo><bdo class="duanicon">短信</bdo></li>
+   <li><bdo><input name="" type="radio" value="邮件" class="radiocss"></bdo><bdo class="emailicon">邮件</bdo></li>
+   <li><bdo><input name="" type="radio" value="礼品" class="radiocss"></bdo><bdo class="lipinicon">礼品</bdo></li>
+   <li><bdo><input name="" type="radio" value="直邮" class="radiocss"></bdo><bdo class="zhiyouicon">直邮</bdo></li>
+   <li><bdo><input name="" type="radio" value="活动" class="radiocss"></bdo><bdo class="huoicon">活动</bdo></li>
+ </ul>
+</div>
+
+<div class="regbtn" id="submit">保存提交</div>
+   
+</body>
+</html>
+<script type="text/javascript">
+  
+	
+	var danxuan=document.getElementById('checkid').getElementsByTagName('input');
+    for(var i=0;i<danxuan.length;i++){
+		danxuan[i].index=i;
+		danxuan[i].flag=true;
+		danxuan[i].onclick=function(){
+			 if(danxuan[this.index].flag==true){
+		        danxuan[this.index].className='radiocss checked2';		
+			    danxuan[this.index].flag=false;
+			
+			 }else{
+			    danxuan[this.index].className='radiocss';		
+			    danxuan[this.index].flag=true; 
+			  }
+			 
+			}
+		}
+   document.getElementById('submit').onclick=function(){
+	     var curzhi="";
+	     for(var i=0;i<danxuan.length;i++){
+			if(danxuan[i].className=='radiocss checked2'){
+				curzhi+=danxuan[i].value+','; 
+				} 
+		 }
+	   alert(curzhi);
+	   }
+</script>

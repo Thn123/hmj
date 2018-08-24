@@ -1,0 +1,61 @@
+﻿@{
+    ViewBag.Title = "Zhuanjia";
+    Layout = "~/Views/Shared/_LayoutE.cshtml";
+}
+@using Hmj.Entity.WxModel
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="Keywords" content="" />
+    <meta name="Description" content="" />
+    <link rel="stylesheet" type="text/css" href="../assets/hmjweixin/css/new_style.css?v=20180615_03" />
+    <title>专家问答</title>
+</head>
+<body>
+    <div class="wrap massPage">
+        <div class="">
+            <img src="../assets/hmjweixin/images/zhuanjia.png" />
+        </div>
+        <div class="line"></div>
+        <div>
+            <p>玉泽携手瑞金医院皮肤科，提供专业的免费线上问诊咨询！</p>
+        </div>
+        <div class="btn">
+            <a id="directLink" href="../assets/hmjweixin/html/zjwd.html">进入问答>></a>
+        </div>
+        <div class="bottom">
+            更多专家问答，敬请期待
+        </div>
+    </div>
+    <div class="layer modaltips" id="modaltips"></div>
+    <script src="../assets/hmjweixin/js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="~/assets/hmjweixin/js/validate.js"></script>
+    <script>
+        $(function () {
+            //判断是新会员还是老会员
+            @*var isRegister = '@ViewBag.FansInfo';
+            if (isRegister === 'True') {
+                $("#directLink").attr("href", "https://mp.weixin.qq.com/s/TVDKM805hvOTAzpRq9AIWQ");
+            }
+            else
+            {
+                $("#directLink").click(function () {
+                    location.href = "../assets/hmjweixin/html/zjwd.html";
+                    //注册，未注册的跳转 20180620
+                    //tips("<label style='font-size: 16px;font-weight:bold; padding-bottom: 10px;display: inline-block;'>提示</label><p>您还不是华美家会员哦，若要继续进行问答，请先前往注册！</p>", false, 0, false, false);
+                    //$(".rightbutton").html("前往注册");
+                    //$(document).on("click", ".rightbutton", function () {
+                    //    //$("#directLink").attr("href", "http://hmjwechattest.jahwa.com.cn/HmjMember/tozhuce.do");
+                    //    location.href = "http://hmjwechattest.jahwa.com.cn/HmjMember/tozhuce.do";
+                    //});
+                    //$(document).on("click", ".leftbutton", function () {
+                    //    $("#modaltips").fadeOut();
+                    //});
+                });
+            }*@
+        });
+    </script>
+</body>
+</html>

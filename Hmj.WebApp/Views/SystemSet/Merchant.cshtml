@@ -1,0 +1,247 @@
+﻿@{
+    ViewBag.Title = "商户管理";
+}
+@model Hmj.Entity.ORG_INFO
+@section htmlhead{
+    @Html.Css("plugin/xjgrid", "plugin/xjdailog", "common", "plugin/validator", "plugin/tip")
+<link rel='stylesheet' type='text/css' href='../../assets/css/tree.css' />
+    <style type="text/css">
+        .searchpanel {
+            background-color: #f7f8fa; /*border: 1px solid #ccc;*/
+            padding: 5px 15px;
+            margin-left: 10px;
+            border-radius: 4px;
+        }
+
+            .searchpanel .form-group, .searchpanel .btnpanel_right {
+                /*
+            display: block;
+            overflow: hidden;
+            zoom: 1;
+            margin-bottom: 0px;
+            */
+            }
+
+                .searchpanel .form-group label {
+                    margin-bottom: 4px;
+                }
+
+        #SearchBox {
+            width: 200px;
+        }
+    </style>
+}
+<div class="s_container">
+    <div id="page-heading">
+        <h2>
+            <i class="fa fa-group"></i>商户管理</h2>
+    </div>
+    <div id="mainbody" class="panel panel-primary">
+        <div class="panel-heading">
+            <h4>商户信息编辑</h4>
+        </div>
+        <div class="panel-body" style="min-height: 350px;" >
+            <div class="row">
+                <div class="col-md-2 form-group" style="display:none;">
+                    <button type="button" class="btn default" id="btnAdd">
+                        <i class="fa fa-plus"></i>新 增</button>
+                </div>
+                <div class="text-right col-md-10"style="display:none;">
+                    <form id="formQuery" class="form-inline" role="form" method="post">
+                        <div class="form-group">
+                            <input id="ROLE_NAMES" name="ROLE_NAMES" class="form-control" type="text" placeholder="名称" />                            
+                            <div class="btn-group">
+                                <button class="btn-primary btn"><i class="fa fa-search"></i>查询</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-12">
+                    <div class="table-responsive" id="gridlist">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="confirmModal" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            &times;</button>
+                        <h4 class="modal-title">确认！</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            你确认要删除商户[<span id="lbuserName"></span>]吗？
+                        </p>
+                        <input id="hdCurrentId" type="hidden" value="" />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                            取 消</button>
+                        <button type="button" id="btnConfirm" class="btn btn-primary">
+                            确 定</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+
+        <!-- /.modal -->
+          <div id="EditModal" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">商户信息维护(此功能由开发者维护，慎用)</h4>
+                    </div>
+
+                    <div class="modal-body">
+                        <form class="form-horizontal" id="frmSave" method="post" action="@Url.Action("SaveMerchants")" role="form">
+                            @Html.Hidden("ID",Model.ID)
+                            @Html.Hidden("MEM_PIC",Model.MEM_PIC)
+                           @* <div class="form-group col-xs-12">
+                                <label class="col-sm-12 control-label" style="text-align:left"><span style="color: red">*</span>名称:</label>
+                                <div class="col-sm-12">
+                                    @Html.TextBox("Name", Model.Name, new { @class = "form-control", placeholder = "请输入商户名称" })
+                                </div>
+
+                            </div>
+                            <div class="form-group col-xs-12">
+                                <label class="col-sm-12 control-label" style="text-align:left">说明:</label>
+                                <div class="col-sm-12">
+                                    @Html.TextBox("Abstract", Model.Abstract, new { @class = "form-control", placeholder = "请输入商户说明" })
+                                </div>
+                            </div>*@
+                            <div class="form-group col-xs-12">
+                                <label class="col-sm-4 control-label" style="text-align:left"><span style="color: red">*</span>微信号/原始ID:</label>
+                                <div class="col-sm-8">
+                                    @Html.TextBox("ToUserName", Model.ToUserName, new { @class = "form-control", placeholder = "请输入商户微信号" })
+                                </div>
+                            </div>
+                             <div class="form-group col-xs-12">
+                                <label class="col-sm-4 control-label" style="text-align:left"><span style="color: red">*</span>AppID:</label>
+                                <div class="col-sm-8">
+                                    @Html.TextBox("AppID", Model.AppID, new { @class = "form-control", placeholder = "请输入商户微信AppID" })
+                                </div>
+                            </div>
+                             <div class="form-group col-xs-12">
+                                <label class="col-sm-4 control-label" style="text-align:left"><span style="color: red">*</span>Appsecret:</label>
+                                <div class="col-sm-8">
+                                    @Html.TextBox("Appsecret", Model.Appsecret, new { @class = "form-control", placeholder = "请输入商户微信Appsecret" })
+                                </div>
+                            </div>
+                            <div class="form-group col-xs-12" style="display:none;">
+                                <label class="col-sm-4 control-label" style="text-align:left">一位关注者的OpenID:</label>
+                                <div class="col-sm-8">
+                                    @Html.TextBox("OneOpenID", Model.OneOpenID, new { @class = "form-control", placeholder = "请输入一位关注者的OpenID" })
+                                </div>
+                            </div>
+                             <div class="form-group col-xs-12">
+                                <label class="col-sm-4 control-label" style="text-align:left">pos接口url:</label>
+                                <div class="col-sm-8">
+                                    @Html.TextBox("DOMAIN_PREFIX", Model.DOMAIN_PREFIX, new { @class = "form-control", placeholder = "请输入pos接口url" })
+                                </div>
+                            </div>
+                             <div class="form-group col-xs-12">
+                                <label class="col-sm-12 control-label" style="text-align:left">预约消息模板ID:</label>
+                               <div class="col-sm-4">模板编号：OPENTM204512995</div> <div class="col-sm-8">
+                                    @Html.TextBox("TemplateID1", Model.TemplateID1, new { @class = "form-control", placeholder = "请输入模板ID" })
+                                </div>
+                            </div>
+                             <div class="form-group col-xs-12">
+                                <label class="col-sm-12 control-label" style="text-align:left">消费消息模板ID:</label>
+                               <div class="col-sm-4">模板编号：OPENTM203911116</div> <div class="col-sm-8">
+                                    @Html.TextBox("TemplateID2", Model.TemplateID2, new { @class = "form-control", placeholder = "请输入模板消息" })
+                                </div>
+                            </div>
+                             <div class="form-group col-xs-12">
+                                <label class="col-sm-12 control-label" style="text-align:left">会员充值消息模板ID:</label>
+                               <div class="col-sm-4">模板编号：TM00141</div> <div class="col-sm-8">
+                                    @Html.TextBox("TemplateID3", Model.TemplateID3, new { @class = "form-control", placeholder = "请输入模板消息" })
+                                </div>
+                            </div>
+                             <div class="form-group col-xs-12">
+                                <label class="col-sm-12 control-label" style="text-align:left">领券提醒消息模板ID:</label>
+                               <div class="col-sm-4">模板编号：OPENTM202425363</div> <div class="col-sm-8">
+                                    @Html.TextBox("TemplateID4", Model.TemplateID4, new { @class = "form-control", placeholder = "请输入模板消息" })
+                                </div>
+                            </div>
+                            <div class="form-group col-xs-12">
+                                <label class="col-sm-12 control-label" style="text-align:left">会员卡logo上传:</label>
+                                <div class="col-sm-6">
+                                    <img src="@Model.MEM_PIC" id="img1" style="width:200px;height:100px;"/>
+                                </div>
+                                <div class="col-sm-6">
+                                    <input type="file" id="file1" name="file1" style="margin-top:40px;display:none;"  onclick="FileUpload_onclick()" onchange="FileUpload_onselect()"/>
+                                 <input type="text" id="txtFakeText" readonly="true">
+    <input type="button" onclick="HandleFileButtonClick();" value="选择文件" ><br /><br />*建议上传图片尺寸：555*200 大小1M以下
+                                     </div>
+                            </div>
+                        </form>                        
+                    </div>
+                    <div style="clear:both"></div>
+                    <div class="modal-footer">
+                            <button type="button" id="btnSave" class="btn btn-primary">确 定</button>
+                            <button type="button" id="btnClose" class="btn btn-default" data-dismiss="modal">取 消</button>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section jssection{
+    <script type="text/javascript"> 
+
+        var util = {};
+        var options = {
+            listUrl: "@Url.Action("MerchantsList")",
+            editUrl: "@Url.Action("MerchantsEdit")",
+            deleteUrl: "@Url.Action("Delete")",
+        };
+        function FileUpload_onselect() {
+            ajaxFileUpload();
+        }
+
+        function HandleFileButtonClick() {
+            document.getElementById("file1").click()
+            document.getElementById("txtFakeText").value = document.getElementById("file1").value;
+        }
+
+        function ajaxFileUpload() {
+            $.ajaxFileUpload
+            (
+                {
+                    url: '../WeChat/UploadImage.do', //用于文件上传的服务器端请求地址
+                    type: 'post',
+                    data: { Id: '123', name: 'lunis' }, //此参数非常严谨，写错一个引号都不行
+                    secureuri: false, //一般设置为false
+                    fileElementId: 'file1', //文件上传空间的id属性  <input type="file" id="file" name="file" />
+                    dataType: 'text', //返回值类型 一般设置为json
+                    success: function (data, status, Message)  //服务器成功响应处理函数
+                    {
+                        data = JSON.parse(data);
+                        //alert(data.data.FILE_URL);
+                        $("#img1").attr("src", data.data.FILE_NAME);
+                        $("#MEM_PIC").val(data.data.FILE_URL);
+                        $("#txtFakeText").val(data.data.FILE_URL);
+                        if (typeof (data.error) != 'undefined') {
+                            if (data.error != '') {
+                                alert(data.error);
+                            } else {
+                                alert(data.msg);
+                            }
+                        }
+                    },
+                    error: function (data, status, e)//服务器响应失败处理函数
+                    {
+                        alert(e);
+                    }
+                }
+            )
+            return false;
+        }
+    </script>
+    @Html.Js("plugins/xjgrid/xjgrid", "plugins/xjdailog/xjdailog", "plugins/validator/validator", "app/systemset/merchants", "app/company/jquery.tree","js/ajaxfileupload")
+}

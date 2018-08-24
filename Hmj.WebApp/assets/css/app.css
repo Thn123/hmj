@@ -1,0 +1,68 @@
+﻿.btnpanel_right .btn
+{
+    float:right;
+    margin-right:10px;
+}
+
+form abbr{
+    color:red;
+    margin:2px 4px;
+}
+div.errorpanel
+{   
+    z-index:9999;
+    position:absolute;
+	padding: 3px 4px 3px 24px;
+	background: #c44 url("../img/icon/unhappy.png") no-repeat 4px center;
+	display:none;
+	border:1px solid #CCc;
+	color: #fff;
+}
+div.errorpanel dt
+{
+    padding:0px;
+    margin:0px;
+}
+div.errorpanel dt dl
+{
+    padding:0px 3px;
+    margin:1px;
+}
+div.loadingpanel
+{
+    position:absolute;
+	background: #c44;
+	color: #fff;
+	display:none;
+	padding: 3px 4px 3px 4px;
+    max-width:350px;
+}
+#page-content {         
+    min-height: 300px;
+    background-color: #E5E9EC;
+}
+#wrap{
+    /*background-color: #E5E9EC;*/
+    background-color: #FFFFFF;
+}
+#page-heading{
+    /* padding:3px 15px;*/
+    background-color: #E5E9EC;
+}
+
+#page-heading .nav-pills > li {
+  float: left;
+}
+#page-heading .nav-pills > li > a {
+  border-radius: 1px;
+  padding:5px 12px;
+}
+#page-heading .nav-pills > li + li {
+  margin-left: 2px;
+}
+#page-heading .nav-pills > li.active > a,
+#page-heading .nav-pills > li.active > a:hover,
+#page-heading .nav-pills > li.active > a:focus {
+  color: #ffffff;
+  /*background-color: #428bca;*/
+}

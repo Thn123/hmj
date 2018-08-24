@@ -1,0 +1,372 @@
+﻿@{
+    ViewBag.Title = "数据字典";
+} 
+@model Hmj.Entity.Entities.SYS_RIGHT_EX
+@section htmlhead{
+    @Html.Css("plugin/xjgrid", "plugin/xjdailog", "common", "plugin/validator", "plugin/tip") 
+    <link rel='stylesheet' type='text/css' href='../../assets/css/tree.css' />
+<link href="~/assets/css/select2.css" rel="stylesheet" />
+}
+
+<div class="s_container">
+    <div id="page-heading">
+        <h2>
+            <i class="fa fa-group"></i>&nbsp;权限菜单</h2>
+    </div>
+
+    <div id="mainbody" class="panel panel-primary col-md-3">
+        <div class="panel-heading">
+            <h4>权限菜单管理</h4>
+        </div>
+        <div class="panel-body">
+             <div id="ptree"></div>          
+        </div>
+    </div>
+
+    <div id="mainbody1" class="panel panel-primary col-md-9">
+        <div class="panel-heading">
+            <h4 id="h4Dict">权限菜单</h4>
+        </div>
+        <div class="panel-body">
+             <div class="row">
+                <div class="col-md-2 form-group">
+                    <button type="button" class="btn default" id="btnAdd">
+                        <i class="fa fa-plus"></i> 新 增</button>
+                </div>                
+                <div class="col-md-12">
+                     <div class="table-responsive" id="gridlist" style="min-height:50px">
+                     </div>
+                </div>
+            </div>          
+        </div>
+    </div>
+</div>
+<div id="confirmModal" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            &times;</button>
+                        <h4 class="modal-title">确认！</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            你确认要删除权限[<span id="lbuserName"></span>]吗？
+                        </p>
+                        <input id="hdCurrentId" type="hidden" value="" />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                            取 消</button>
+                        <button type="button" id="btnConfirm" class="btn btn-primary">
+                            确 定</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+
+<div id="EditModal" class="modal fade">
+    <div class="modal-dialog" style="width:700px;">
+        <div class="modal-content" style="width:700px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">权限菜单维护</h4>
+            </div>
+
+            <div class="modal-body">
+                <form class="form-horizontal" id="frmSave" method="post" action="@Url.Action("Save")" role="form">
+                    @Html.Hidden("RIGHT_ID", Model.RIGHT_ID)
+                    @Html.Hidden("PARENT_ID", Model.PARENT_ID)
+                    @Html.Hidden("MENU_ICON", Model.MENU_ICON)
+                    <div class="form-group col-xs-12">
+                        <label class="col-sm-2 control-label"><span style="color: red">*</span>菜单名称:</label>
+                        <div class="col-sm-10">
+                            @Html.TextBox("RIGHT_NAME", Model.RIGHT_NAME, new { @class = "form-control", placeholder = "菜单名称" })
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-12">
+                        <label class="col-sm-2 control-label"><span style="color: red">*</span>菜单地址:</label>
+                        <div class="col-sm-10">
+                            @Html.TextBox("URL_LINK_TO", Model.URL_LINK_TO, new { @class = "form-control", placeholder = "菜单地址" })
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-12">
+                        <label class="col-sm-2 control-label"><span style="color: red">*</span>是否菜单:</label>
+                        <div class="col-sm-4">
+                            <label class="checkbox-inline">
+                            @Html.CheckBox("IS_MENU")</label>
+                        </div>
+                         <div class="col-sm-3 control-label">
+                            <span style="color: red">*</span> 是否权限:
+                             </div>
+                         <div class="col-sm-3">
+                             <label class="checkbox-inline">
+                              @Html.CheckBox("IS_RIGHT")
+                                 </label>
+                             </div>
+                       
+                      
+                    </div>
+                    <div class="form-group col-xs-12">
+                        <label class="col-sm-2 control-label"><span style="color: red">*</span>唯一编码:</label>
+                         <div class="col-sm-10">
+                            @Html.TextBox("MENU_CODE", Model.MENU_CODE, new { @class = "form-control", placeholder = "唯一编码" })
+                        </div>
+                        </div>
+                     <div class="form-group col-xs-12">
+                         <label class="col-sm-2 control-label"><span style="color: red">*</span>图标:</label>
+                        <div class="col-sm-10"> <div class="panel panel-primary">
+                        <div class="panel-heading" >
+                        <h4 id="xz">请选择图标</h4>&nbsp;<i class="fa fa-home" id="yx"></i>
+                         <div class="options">
+                             
+                        <a class="panel-collapse" href="#">
+                         <i class="fa fa-chevron-down"></i></a>
+                          </div>
+                         </div>
+  <div class="panel-body" style="padding-top:-50px;">
+      @*<div class="row">*@
+								
+     <div class="col-xs-8 col-md-2 col-sm-4"><label class="checkbox-inline"> @Html.RadioButton("button1", "home", false, new { @class = "radio" })</label>&nbsp;<i class="fa fa-home"></i></div>
+     <div class="col-xs-8 col-md-2 col-sm-4"><label class="checkbox-inline"> @Html.RadioButton("button1", "group", false, new { @class = "radio" })</label>&nbsp;<i class="fa fa-group"></i></div>
+      <div class="col-xs-8 col-md-2 col-sm-4"><label class="checkbox-inline">@Html.RadioButton("button1", "calendar", false, new { @class = "radio" })</label>&nbsp;<i class="fa fa-calendar"></i></div>
+     <div class="col-xs-8 col-md-2 col-sm-4"><label class="checkbox-inline"> @Html.RadioButton("button1", "tasks", false, new { @class = "radio" })</label>&nbsp;<i class="fa fa-tasks"></i></div>
+     <div class="col-xs-8 col-md-2 col-sm-4"><label class="checkbox-inline"> @Html.RadioButton("button1", "tags", false, new { @class = "radio" })</label>&nbsp;<i class="fa fa-tags"></i></div>
+     <div class="col-xs-8 col-md-2 col-sm-4"><label class="checkbox-inline"> @Html.RadioButton("button1", "bar-chart-o", false, new { @class = "radio" })</label>&nbsp;<i class="fa fa-bar-chart-o"></i></div>
+     <div class="col-xs-8 col-md-2 col-sm-4"><label class="checkbox-inline"> @Html.RadioButton("button1", "calendar-o", false, new { @class = "radio" })</label>&nbsp;<i class="fa fa-calendar-o"></i></div>
+     <div class="col-xs-8 col-md-2 col-sm-4"><label class="checkbox-inline"> @Html.RadioButton("button1", "cog", false, new { @class = "radio" })</label>&nbsp;<i class="fa fa-cog"></i></div>
+    <div class="col-xs-8 col-md-2 col-sm-4"><label class="checkbox-inline">  @Html.RadioButton("button1", "sitemap", false, new { @class = "radio" })</label>&nbsp;<i class="fa fa-sitemap"></i></div>
+    <div class="col-xs-8 col-md-2 col-sm-4"><label class="checkbox-inline">  @Html.RadioButton("button1", "bell-o", false, new { @class = "radio" })</label>&nbsp;<i class="fa fa-bell-o"></i></div>
+    <div class="col-xs-8 col-md-2 col-sm-4"><label class="checkbox-inline">  @Html.RadioButton("button1", "bolt", false, new { @class = "radio" })</label>&nbsp;<i class="fa fa-bolt"></i></div>
+     <div class="col-xs-8 col-md-2 col-sm-4"><label class="checkbox-inline"> @Html.RadioButton("button1", "book", false, new { @class = "radio" })</label>&nbsp;<i class="fa fa-book"></i></div>
+    <div class="col-xs-8 col-md-2 col-sm-4"><label class="checkbox-inline">  @Html.RadioButton("button1", "bolt", false, new { @class = "radio" })</label>&nbsp;<i class="fa fa-bolt"></i></div>
+     <div class="col-xs-8 col-md-2 col-sm-4"><label class="checkbox-inline"> @Html.RadioButton("button1", "bookmark", false, new { @class = "radio" })</label>&nbsp;<i class="fa fa-bookmark"></i></div>
+     <div class="col-xs-8 col-md-2 col-sm-4"><label class="checkbox-inline"> @Html.RadioButton("button1", "bookmark-o", false, new { @class = "radio" })</label>&nbsp;<i class="fa fa-bookmark-o"></i></div>
+     <div class="col-xs-8 col-md-2 col-sm-4"><label class="checkbox-inline"> @Html.RadioButton("button1", "briefcase", false, new { @class = "radio" })</label>&nbsp;<i class="fa fa-briefcase"></i></div>
+     <div class="col-xs-8 col-md-2 col-sm-4"><label class="checkbox-inline"> @Html.RadioButton("button1", "bug", false, new { @class = "radio" })</label>&nbsp;<i class="fa fa-bug"></i></div>
+     <div class="col-xs-8 col-md-2 col-sm-4"><label class="checkbox-inline"> @Html.RadioButton("button1", "gear", false, new { @class = "radio" })</label>&nbsp;<i class="fa fa-gear"></i></div>
+     <div class="col-xs-8 col-md-2 col-sm-4"><label class="checkbox-inline"> @Html.RadioButton("button1", "gavel", false, new { @class = "radio" })</label>&nbsp;<i class="fa fa-gavel"></i></div>
+     <div class="col-xs-8 col-md-2 col-sm-4"><label class="checkbox-inline"> @Html.RadioButton("button1", "male", false, new { @class = "radio" })</label>&nbsp;<i class="fa fa-male"></i></div>
+     <div class="col-xs-8 col-md-2 col-sm-4"><label class="checkbox-inline"> @Html.RadioButton("button1", "meh-o", false, new { @class = "radio" })</label>&nbsp;<i class="fa fa-meh-o"></i></div>
+     <div class="col-xs-8 col-md-2 col-sm-4"><label class="checkbox-inline"> @Html.RadioButton("button1", "rss", false, new { @class = "radio" })</label>&nbsp;<i class="fa fa-rss"></i></div>
+     <div class="col-xs-8 col-md-2 col-sm-4"><label class="checkbox-inline"> @Html.RadioButton("button1", "user", false, new { @class = "radio" })</label>&nbsp;<i class="fa fa-user"></i></div>
+     <div class="col-xs-8 col-md-2 col-sm-4"><label class="checkbox-inline"> @Html.RadioButton("button1", "truck", false, new { @class = "radio" })</label>&nbsp;<i class="fa fa-truck"></i></div>
+          @*</div>*@
+  </div>
+</div></div>
+                         </div>
+
+                     <div class="form-group col-xs-12" style="margin-top:-25px; display:none;">
+                             <label class="col-sm-2 control-label">图标方案2:</label>
+                        <div class="col-sm-10">
+                         @* <i class="fa fa-home" ></i>*@
+                             <select id="e4" style="width:100%;" class="populate">
+                           <optgroup label="网络应用图标">
+                              <option value="home">home</option>
+                               <option value="group">group</option>
+                               <option value="calendar">calendar</option>
+                               <option value="tasks">tasks</option>
+                               <option value="tags">tags</option>
+                               <option>adjust</option>
+                               <option>anchor</option>
+                               <option>archive</option>
+                               <option>asterisk</option>
+                               <option>ban</option>
+                               <option>bar-chart-o</option>
+                               <option>barcode</option>
+                               <option>beer</option>
+                               <option>bell</option>
+                               <option>bell-o</option>
+                               <option>bolt</option>
+                               <option>book</option>
+                               <option>bookmark</option>
+                               <option>bookmark-o</option>
+                               <option>briefcase</option>
+                               <option>bug</option>
+                               <option>bullhorn</option>
+                               <option>bullseye</option>
+                               <option>calendar</option>
+                               <option>calendar-o</option>
+                               <option>camera</option>
+                               <option>camera-retro</option>
+                               <option>caret-square-o-down</option>
+                               <option>caret-square-o-left</option>
+                               <option>caret-square-o-right</option>
+                               <option>caret-square-o-up</option>
+                               <option>certificate</option>
+                               <option>check</option>
+                               <option>check-circle</option>
+                               <option>clock-o</option>
+                               <option>cloud</option>
+                               <option>cloud-download</option>
+                               <option>cloud-upload</option>
+                               <option>code</option>
+                               <option>code-fork</option>
+                               <option>coffee</option>
+                               <option>cog</option>
+                               <option>cogs</option>
+                               <option>comment</option>
+                               <option>comment-o</option>
+                               <option>comments</option>
+                               <option>comments-o</option>
+                               <option>compass</option>
+                               <option>credit-card</option>
+                               <option>crop</option>
+                               <option>crosshairs</option>
+                               <option>cutlery</option>
+                               <option>dashboard</option>
+                               <option>desktop</option>
+                               <option>download</option>
+                               <option>edit </option>
+                               <option>envelope</option>
+                               <option>exchange</option>
+                               <option>eye</option>
+                               <option>eye-slash</option>
+                               <option>female</option>
+                               <option>fighter-jet</option>
+                               <option>film</option>
+                               <option>filter</option>
+                               <option>fire</option>
+                               <option>fire-extinguisher</option>
+                               <option>flag</option>
+                               <option>flag-checkered</option>
+                               <option>flag-o</option>
+                               <option>flash </option>
+                               <option>flask</option>
+                               <option>folder</option>
+                               <option>folder-o</option>
+                               <option>folder-open</option>
+                               <option>folder-open-o</option>
+                               <option>frown-o</option>
+                               <option>gamepad</option>
+                               <option>gavel</option>
+                               <option>gear</option>
+                               <option>gears</option>
+                               <option>gift</option>
+                               <option>glass</option>
+                               <option>globe</option>
+                               <option>headphones</option>
+                               <option>heart</option>
+                               <option>heart-o</option>
+                               <option>inbox</option>
+                               <option>info</option>
+                               <option>key</option>
+                               <option>keyboard-o</option>
+                               <option>laptop</option>
+                               <option>leaf</option>
+                               <option>legal</option>
+                               <option>lightbulb-o</option>
+                               <option>location-arrow</option>
+                               <option>lock</option>
+                               <option>male</option>
+                           </optgroup>
+                            <optgroup label="表单控件图标">
+                                <option>check-square</option>
+                                <option>check-square-o</option>
+                                <option>circle</option>
+                                <option>circle-o</option>
+                                <option >dot-circle-o</option>
+                                <option>minus-square</option>
+                                <option>minus-square-o</option>
+                                <option>square</option>
+                                </optgroup>
+                                 <optgroup label="文本编辑图标">
+                                <option>align-center</option>
+                                     <option>align-justify</option>
+                                     <option>align-left</option>
+                                     <option>align-right</option>
+                                     <option>bold</option>
+                                     <option>chain</option>
+                                     <option>chain-broken</option>
+                                     <option>clipboard</option>
+                                     <option>columns</option>
+                                     <option>copy</option>
+                                     <option>cut</option>
+                                     <option>dedent</option>
+                                     <option>eraser</option>
+                                     <option>file</option>
+                                     <option>file-o</option>
+                                     <option>file-text</option>
+                                     <option>file-text-o</option>
+                                     <option>files-o</option>
+                                     <option>floppy-o</option>
+                                     <option>font</option>
+                                     <option>indent</option>
+                                     <option>italic</option>
+                                     <option>link</option>
+                                     <option>list</option>
+                                     <option>list-alt</option>
+                                     <option>list-ol</option>
+                                     <option>list-ul</option>
+                                     <option>outdent</option>
+                                     <option>paperclip</option>
+                                     <option>paste</option>
+                                     <option>repeat</option>
+                                     <option>rotate-left</option>
+                                     <option>table</option>
+                                     <option>text-height</option>
+                                     <option>text-width</option>
+                                     <option>th</option>
+                                     <option>th-large</option>
+                                     <option>th-list</option>
+                                     <option>underline</option>
+                                     <option>undo</option>
+                                     <option>unlink</option>
+                                     </optgroup>
+
+                       </select>
+
+                           @* <select id="e5">
+
+                                <option>sss</option>
+                                <option>dddd</option>
+                            </select>*@
+                            </div>
+                         </div>
+
+                     <div class="form-group col-xs-12" style="margin-top:-25px;">
+                             <label class="col-sm-2 control-label">父级:</label>
+                        <div class="col-sm-10">
+                            <label class="control-label" id="PARENT_NAME">@Model.PARENT_NAME</label>
+                        </div>
+
+                        </div>
+                    <div class="form-group col-xs-12">
+                        <label class="col-sm-2 control-label">排序:</label>
+                        <div class="col-sm-10">
+                            @Html.TextBox("RIGHT_DSC", Model.RIGHT_DSC, new { @class = "form-control", placeholder = "排序" })
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <div style="clear: both"></div>
+            <div class="modal-footer" style="margin-top:-10px;">
+                <button type="button" id="btnSave" class="btn btn-primary">确 定</button>
+                <button type="button" id="btnClose" class="btn btn-default" data-dismiss="modal">取 消</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section jssection{
+    <script type="text/javascript">
+        var util = {};
+        var options = {
+            queryLeftUrl: "@Url.Action("QueryLeft")",
+            queryRightUrl: "@Url.Action("QueryRight")",
+            editUrl: "@Url.Action("Edit")",
+            deleteUrl: "@Url.Action("Delete")"
+        };
+    </script>
+    
+    @Html.Js("plugins/xjgrid/xjgrid", "plugins/xjdailog/xjdailog",
+    "plugins/validator/validator", "plugins/form-datepicker/js/bootstrap-datepicker",
+    "plugins/form-datepicker/js/locales/bootstrap-datepicker.zh-CN",
+   "app/company/jquery.tree", "app/systemset/systemmenu", "app/systemset/select2")
+           
+}

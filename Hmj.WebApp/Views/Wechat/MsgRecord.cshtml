@@ -1,0 +1,442 @@
+﻿@{
+    ViewBag.Title = "MsgRecord";
+}
+@model List<Hmj.Entity.Entities.CUST_MSG_RECORD_EX>
+<link href="~/assets/css/weixincss.css" rel="stylesheet" />
+
+<div id="headerbar">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-6 col-sm-2">
+                    <a href="#" class="shortcut-tiles tiles-brown">
+                        <div class="tiles-body">
+                            <div class="pull-left"><i class="fa fa-pencil"></i></div>
+                        </div>
+                        <div class="tiles-footer">
+                            Create Post
+                        </div>
+                    </a>
+                </div>
+                <div class="col-xs-6 col-sm-2">
+                    <a href="#" class="shortcut-tiles tiles-grape">
+                        <div class="tiles-body">
+                            <div class="pull-left"><i class="fa fa-group"></i></div>
+                            <div class="pull-right"><span class="badge">2</span></div>
+                        </div>
+                        <div class="tiles-footer">
+                            Contacts
+                        </div>
+                    </a>
+                </div>
+                <div class="col-xs-6 col-sm-2">
+                    <a href="#" class="shortcut-tiles tiles-primary">
+                        <div class="tiles-body">
+                            <div class="pull-left"><i class="fa fa-envelope-o"></i></div>
+                            <div class="pull-right"><span class="badge">10</span></div>
+                        </div>
+                        <div class="tiles-footer">
+                            Messages
+                        </div>
+                    </a>
+                </div>
+                <div class="col-xs-6 col-sm-2">
+                    <a href="#" class="shortcut-tiles tiles-inverse">
+                        <div class="tiles-body">
+                            <div class="pull-left"><i class="fa fa-camera"></i></div>
+                            <div class="pull-right"><span class="badge">3</span></div>
+                        </div>
+                        <div class="tiles-footer">
+                            Gallery
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-xs-6 col-sm-2">
+                    <a href="#" class="shortcut-tiles tiles-midnightblue">
+                        <div class="tiles-body">
+                            <div class="pull-left"><i class="fa fa-cog"></i></div>
+                        </div>
+                        <div class="tiles-footer">
+                            Settings
+                        </div>
+                    </a>
+                </div>
+                <div class="col-xs-6 col-sm-2">
+                    <a href="#" class="shortcut-tiles tiles-orange">
+                        <div class="tiles-body">
+                            <div class="pull-left"><i class="fa fa-wrench"></i></div>
+                        </div>
+                        <div class="tiles-footer">
+                            Plugins
+                        </div>
+                    </a>
+                </div>
+                            
+            </div>
+        </div>
+    </div>
+
+
+<div class="dingyibox">
+     <div class="dingyih1">与 @Model[0].Fname 的聊天</div>
+    <!-- 编辑框-->
+    <form class="form-horizontal" id="frmSave" method="post" action="SendText.do" role="form"  enctype="multipart/form-data">
+     @Html.Hidden("ReturnID",Model[0].ID)
+        @Html.Hidden("FROMUSERNAME", Model[0].FROMUSERNAME)
+        @Html.Hidden("TOUSERNAME",Model[0].TOUSERNAME)
+        @Html.Hidden("FID",Model[0].FID)
+        @Html.Hidden("MSGTYPE")
+        @Html.Hidden("GraphicID")
+        <div class="bianjibox">
+        <div class="bianjinav">
+          <ul>
+             <li><a href="javascript:txtedit();" class="curimg"><em class="img1"></em><i class="img2"></i><bdo>文本</bdo></a></li>
+             <li><a href="javascript:biaoqing();"><em class="img3"></em><i class="img4"></i><bdo>表情</bdo></a></li>
+               @* <li><a href="#"><em class="img5"></em><i class="img5"></i><bdo>语音</bdo></a></li>
+                <li><a href="#"><em class="img7"></em><i class="img8"></i><bdo>视频</bdo></a></li>*@
+                 <li><a href="javascript:edit();"><em class="img9"></em><i class="img10"></i><bdo>图文</bdo></a></li>
+              <li style="float:right;width:300px;right:30px;"><span style="color:blue;">预览区域：</span>(实际发送后的表情为静态表情)</li>
+          </ul>
+        </div>
+         <textarea name="CONTENT" cols="" rows="" onchange="gbcount(0,600);" onkeydown="gbcount(0,600);" onkeyup="gbcount(0,600);" id="area0" style="width:70%;float:left;"></textarea>
+            <div  style="width:30%;height:210px;float:left;word-wrap : break-word;word-break: break-all;" placeholder="预览区域" id="divyl" readonly="readonly"></div>
+            <div style="height:210px;overflow:auto; " id="tuwenid">
+            </div>
+            <div style="height:210px; margin:20px;" id="biaoqing">
+              @Html.Raw(Model[0].Biaoqing)</div>
+        <div class="bianjitext">还可以输入600字</div>
+            
+    </div>
+    </form>
+     <div class="btnbox" style="text-align:left; padding:0 40px 30px;"><a href="#" class="greenbtn" id="greenbtn">发布</a></div>
+   <!-- 编辑框-->
+   
+   <div class="message" id="message">
+      <h2>最近 @(Model[0].CREATE_DATE==null?0:Model.Count) 条聊天记录</h2>
+      <ul>
+         
+         @for (int i = 0; i < @Model.Count; i++)
+         {
+             if (Model[i].CREATE_DATE == null)
+             { continue; }
+             if (Model[i].CONTENT!=null&&Model[i].CONTENT.Contains("/"))
+             {
+                 foreach (Hmj.Entity.WXBiaoqing w in Model[0].BQlist)
+                 {
+                     Model[i].CONTENT=Model[i].CONTENT.Replace(w.Text, " <img  src='/assets/img/biaoqing/" + (w.ID - 1) + ".gif' alt='" + w.Text + "' />");
+                 }
+             }
+         <li>
+          <div class="messagecon">
+              <div class="touxiang"><img src="@Model[i].IMAGE" width="48" height="48"></div>
+              <div class="messcon">
+                <strong><a href="#">@Model[i].Name</a></strong>
+                <p>@Html.Raw(@Model[i].CONTENT)</p>
+              </div>
+              <div class="date"> @DateTime.Parse(Model[i].CREATE_DATE.ToString()).ToString("MM月dd日 HH时mm分ss秒") <span></span></div>
+              <div class="action">
+                 @if(Model[i].State==0){
+                     if (Model[i].IS_STAR==true)
+                     {
+                          <a href="javascript:shoucang(@(Model[i].ID));" title="取消收藏"  data-flag="1" id="shou@(Model[i].ID)"><em class="yishoucang"></em></a>  
+                     }else{
+                          <a href="javascript:shoucang(@(Model[i].ID));" title="收藏" id="shou@(Model[i].ID)"><em class="shoucang"></em></a>  
+                     }
+                    <!--   <a href="javascript:shouqi(@(Model[i].ID));" title="快捷回复"><em class="huifu"></em></a>-->
+                   }
+
+              </div>
+         </div>
+          <div class="messagehui" id="huifu@(Model[i].ID)">
+                <h2>快捷回复</h2>
+                <div class="messagehuibox">
+                 <textarea name="" cols="" rows="" onkeydown="gbcount(2,140);" onkeyup="gbcount(2,140);" id="area2"></textarea>
+                <div class="bianjitext">还可以输入140字</div>
+                </div>
+                <div class="btnbox"><a href="#" class="greenbtn" id="greenbtn">发送</a> &nbsp; <a href="javascript:shouqi(1);" class="quxiaobtn">收起</a></div>
+          </div>
+         </li>
+         }
+           
+      </ul>
+   </div>
+   
+</div>
+
+<div class="tishibox editAllbox" id="tishi">
+   <div class="tishiTitle"><span><a href="javascript:closed();" class="guanbi"></a></span><h2>选择图文</h2></div>
+   @*<div class="editAlltab">
+       <span>1/2 &nbsp; <a href="#">下一页</a> <input name="" type="text" class="pagetxt"> <a href="javascript:closed();" class="quxiaobtn" style="width:40px;">跳转</a></span>
+       <a href="#"><em class="dantuwen2"></em>单图文消息</a> &nbsp;&nbsp; <a href="#"><em class="duotuwen2"></em>多图文消息</a>
+   </div>*@
+     <form class="form-horizontal" id="frmSave2" method="post" action="SendNews.do" role="form"  enctype="multipart/form-data">
+          @Html.Hidden("ReturnID",Model[0].ID)
+        @Html.Hidden("FROMUSERNAME", Model[0].FROMUSERNAME)
+        @Html.Hidden("TOUSERNAME",Model[0].TOUSERNAME)
+        @Html.Hidden("FID",Model[0].FID)
+          
+   <div class="editAllcon">
+    <div id="tanmain">
+    <ul id="tiles">
+        @Html.Raw( @Model[0].Tuwen) 
+    </ul>
+    </div>
+   </div>
+         </form>
+   <div class="tishibtn"><a href="javascript:closed();" class="greenbtn" id="greenbtn2">确定</a> &nbsp; <a href="javascript:closed();" class="quxiaobtn">取消</a></div>
+</div>
+<div class="tishibg"  id="tishibg"></div>
+<div id="div3" style="display:none;background-color:white;color:black;font-size:x-large;font-weight:300;" class="img-rounded">  
+    </div>
+@section jssection{
+    <script type="text/ecmascript">
+function pubuliu(){    
+    var handler = $('#tiles li');
+    handler.wookmark({
+        autoResize: true,
+        container: $('#tanmain'),
+        offset: 20,
+        itemWidth: 302 
+    });
+}
+
+        var suli=document.getElementById('tanmain').getElementsByTagName('li');
+        var subdo=document.getElementById('tanmain').getElementsByTagName('bdo');
+        for(var s=0;s<suli.length;s++){
+            suli[s].index=s;
+            suli[s].onclick=function(){
+		 
+                for(var ss=0;ss<subdo.length;ss++){
+                    subdo[ss].className="";
+                }
+                subdo[this.index].className = "xuanzhong";
+                $("#GraphicID").val(subdo[this.index].innerHTML);
+		 
+            }
+	
+        }
+
+        function gbcount(id, num) {
+
+            var txtlen = document.getElementById('area' + id).value.length;
+            var curlen = num - txtlen;
+            if (curlen >= 0) {
+                $(".bianjitext").html("还可以输入" + curlen + "个字")
+            } else {
+                $(".bianjitext").html("已超出<strong>" + (-curlen) + "</strong>字数");
+            }
+            $("#divyl").html($("#area0").val());
+            
+            $.post("AddBQ.do", {
+                text: $("#area0").val()
+            },
+                 function (ret) {
+                     if (ret && ret.status == 0) {
+
+                         $("#divyl").html(ret.data);
+                     }
+                     else {
+                         $("#divyl").html($("#area0").val());
+                     }
+                 },
+                 "json"
+           );
+        }
+
+
+function shoucang(id){
+	$("#shou"+id).data("flag",($("#shou"+id).data('flag')==1)?0:1);
+	if ($("#shou" + id).data('flag') == 0) {
+	    var is_star = 0;
+	$("#shou"+id).find("em").removeClass("yishoucang").addClass("shoucang");
+	//alert("取消收藏成功");
+	is_star = 0;
+	 }else{
+	   $("#shou"+id).find("em").removeClass("shoucang").addClass("yishoucang");
+	   //alert("收藏消息成功");
+	   is_star = 1;
+	}
+
+	$.post("AddStar.do", {
+	    id: id,
+        star:is_star
+	},
+                 function (ret) {
+                     if (ret && ret.status == 0) {
+                         _showInfoMessage(ret.message, 'success');
+                     }
+                     else {
+                         _showInfoMessage("删除失败！", 'error');
+                     }
+                 },
+                 "json"
+           );
+}
+
+function shouqi(id){$("#huifu"+id).toggle();}
+
+function edit(){
+	document.getElementById('tishi').style.display="block";
+	document.getElementById('tishibg').style.display="block";
+	pubuliu();
+	}
+function closed(){
+	document.getElementById('tishi').style.display="none";
+	document.getElementById('tishibg').style.display="none";
+}
+
+$(function () {
+    $("#greenbtn").click(function () {
+        $("#frmSave").submit();
+    })
+});
+
+function mouseCoords(ev) {
+    if (ev.pageX || ev.pageY) {
+        return { x: ev.pageX, y: ev.pageY };
+    }
+    return {
+        x: ev.clientX + document.body.scrollLeft - document.body.clientLeft,
+        y: ev.clientY + document.body.scrollTop - document.body.clientTop
+    };
+}
+
+
+
+
+function showphoto(url, text, img) {
+    img.src = "/assets/img/biaoqing/"+url + ".gif";
+        ev = window.event;
+        var mousePos = mouseCoords(ev);
+        var div3 = document.getElementById('div3'); //将要弹出的层    
+        div3.style.display = "block"; //div3初始状态是不可见的，设置可为可见       
+        div3.style.left = (mousePos.x + 30) + "px"; //鼠标目前在X轴上的位置，加10是为了向右边移动10个px方便看到内容 
+            div3.style.top = (mousePos.y ) + "px";  //div高度为滚动条的高度
+        div3.style.position = "absolute";
+        $("#div3").html(text);
+    }
+
+
+
+function hidephoto(url,img) {
+    img.src = "/assets/img/biaoqing/" + url + ".png";
+    var div3 = document.getElementById('div3'); //将要弹出的层    
+    div3.style.display = "none";
+}
+
+
+
+  
+
+
+$(document).ready(function () {
+    $('#frmSave').validator({
+        rules: {
+        },
+        fields: {
+
+        },
+        valid: function (form) {
+            FormSubmit(form, function (res) {
+                if (res.status == 0) {
+                        location = "MsgRecord.do?id=" + res.data.FID;
+                }
+                else {
+                    _showInfoMessage(res.message, 'error');
+                }
+            })
+        }
+    });
+});
+
+
+$(function () {
+    $("#greenbtn2").click(function () {
+        if ($("#GraphicID").val() == "") {
+            alert("请选择图文");
+        } else {
+            //$("#frmSave2").submit();
+            showtw($("#GraphicID").val());
+        }
+    })
+});
+$("#tuwenid").hide();
+$("#biaoqing").hide();
+
+function showtw(id) {
+    $.post("GetTW.do", {
+        id: id
+    },
+        function (ret) {
+            if (ret && ret.status == 0) {
+                $("#MSGTYPE").val("news");
+                $("#tuwenid").show();
+                $("#area0").hide();
+                $("#biaoqing").hide();
+                $("#divyl").hide();
+                $("#tuwenid").html(ret.data);
+            }
+            else {
+                _showInfoMessage("加载失败！", 'error');
+            }
+        },
+        "json"
+  );
+}
+
+function txtedit()
+{
+    $("#MSGTYPE").val("text");
+    $("#tuwenid").hide();
+    $("#area0").show();
+    $("#biaoqing").hide();
+    $("#divyl").show();
+}
+
+function biaoqing() {
+    $("#tuwenid").hide();
+    $("#area0").hide();
+    $("#biaoqing").show();
+    $("#divyl").hide();
+}
+
+function addbq(bq,id) {
+    //alert($("#area0").val());
+    $("#area0").val($("#area0").val()+ bq );
+    $("#divyl").append("<img  src='/assets/img/biaoqing/" + id + ".gif'>");
+    //alert(bq);
+    $("#tuwenid").hide();
+    $("#area0").show();
+    $("#biaoqing").hide();
+    $("#divyl").show();
+   
+}
+
+
+$(document).ready(function () {
+    $('#frmSave2').validator({
+        rules: {
+        },
+        fields: {
+
+        },
+        valid: function (form) {
+            FormSubmit(form, function (res) {
+                if (res.status == 0) {
+                    if (confirm("保存成功，是否刷新页面？")) {
+                        location = "MsgRecord.do?id=" + res.data.FID;
+                    }
+                    //_showInfoMessage("保存成功！", 'success');
+                }
+                else {
+                    _showInfoMessage("保存失败：" + res.message, 'error');
+                    //showErrorTip("操作失败！：" + res.message, { left: 100, top: 10 }, true, 5000);
+                }
+            })
+        }
+    });
+});
+
+</script>
+    @Html.Js("plugins/xjgrid/xjgrid", "plugins/xjdailog/xjdailog", "plugins/validator/validator", "js/jquery.wookmark")
+}

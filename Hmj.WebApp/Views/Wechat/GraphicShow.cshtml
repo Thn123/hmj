@@ -1,0 +1,275 @@
+﻿@{
+    ViewBag.Title = "GraphicShow";
+}
+@model Hmj.Entity.Entities.Graphic_Detail_EX
+<link href="~/assets/css/weixincss.css" rel="stylesheet" />
+<div class="dingyibox">
+
+    <div class="sucainav" style="display:none;">
+        <ul>
+            <li class="curnav"><a href="#">图文消息</a></li>
+            <li><a href="#">图片库</a></li>
+            <li><a href="#">语音</a></li>
+            <li><a href="#">视频</a></li>
+        </ul>
+    </div>
+
+    <div class="sucailist">
+        <h5>图文消息列表(共 @Model.Listcount 个)</h5>
+    </div>
+
+    <div id="main">
+        <ul id="tiles">
+            <li>
+                <div class="tuwenbtn">
+                    <span></span><bdo>
+                        <a href="OneTW.do?id=0"><em class="danimg"></em><i>单图文消息</i></a>
+                        <a href="MoreTW.do?id=0"><em class="duoimg"></em><i>多图文消息</i></a> &nbsp;
+                        <a href="javascript:void(0);" id="upTuwen"><em class="duoimg"></em><i>同步</i></a>
+                    </bdo>
+                </div>
+            </li>
+            @Html.Raw(@Model.Tuwen)
+            @* <li><div class="tuwenbtn"><span></span><bdo><a href="#"><em class="danimg"></em><i>单图文消息</i></a> &nbsp; <a href="#"><em class="duoimg"></em><i>多图文消息</i></a></bdo></div></li>
+                <li>
+                 <!--单图文begin-->
+
+                       <div class="tuwen">
+                         <div class="onetuwen">
+                             <div class="tuwenTitle"><a href="#">25学堂设计图文标题文字</a></div>
+                             <div class="tuwenTime">09月26日</div>
+                             <div class="tuwencon">
+                               <img src="https://mmbiz.qlogo.cn/mmbiz/icpapNTlrePLnmvo1tACasApsarxD2t9P28gkq6dl3eHjWBoQibWXt5fiafqtzLs2XbqoJfLIEu9UUUqLJYGAZc5A/0">
+                               <p>融资条件：1、在民生银行认定的中小企业授信客户准入行业范围以内；2、商贸类企业年销售收入不超过15000万元</p>
+                             </div>
+                         </div>
+
+                         <div class="duotuwen">
+                              <p><img src="http://www.25xt.com/wp-content/uploads/2014/09/1411650314943485.png" width="80" height="80"><span><a href="#">腾讯UI设计师是如何进行设计项目流程规划的</a></span></p>
+                               <p><img src="http://www.25xt.com/wp-content/uploads/2014/09/1411650314943485.png" width="80" height="80"><span><a href="#">腾讯UI设计师是如何进行设计项目流程规划的</a></span></p>
+                                <p><img src="http://www.25xt.com/wp-content/uploads/2014/09/1411650314943485.png" width="80" height="80"><span><a href="#">腾讯UI设计师是如何进行设计项目流程规划的</a></span></p>
+                                 <p><img src="http://www.25xt.com/wp-content/uploads/2014/09/1411650314943485.png" width="80" height="80"><span><a href="#">腾讯UI设计师是如何进行设计项目流程规划的</a></span></p>
+
+                         </div>
+                         <div class="tuwenEdit">
+                            <ol><span><a href="#" class="editda"><bdo>编辑</bdo></a></span></ol>
+                            <ol><a href="#" class="delda"><bdo>删除</bdo></a></ol>
+                         </div>
+                       </div>
+                        <!--单图文end-->
+
+                </li>
+
+                <li>
+
+                  <div class="tuwen">
+                         <div class="onetuwen">
+                             <div class="tuwenTitle"><a href="#">25学堂设计图文标题文字</a></div>
+                             <div class="tuwenTime">09月25日</div>
+                             <div class="tuwencon">
+                               <img src="https://mmbiz.qlogo.cn/mmbiz/icpapNTlrePLnmvo1tACasApsarxD2t9P28gkq6dl3eHjWBoQibWXt5fiafqtzLs2XbqoJfLIEu9UUUqLJYGAZc5A/0">
+                               <p>融资条件：1、在民生银行认定的中小企业授信客户准入行业范围以内；2、商贸类企业年销售收入不超过15000万元</p>
+                             </div>
+                         </div>
+                          <div class="tuwenEdit">
+                            <ol><span><a href="#" class="editda"><bdo>编辑</bdo></a></span></ol>
+                            <ol><a href="#" class="delda"><bdo>删除</bdo></a></ol>
+                         </div>
+                   </div>
+                </li>
+
+                 <li>
+
+                  <div class="tuwen">
+                         <div class="onetuwen">
+                             <div class="tuwenTitle"><a href="#">25学堂设计图文标题文字</a></div>
+                             <div class="tuwenTime">09月24日</div>
+                             <div class="tuwencon">
+                               <img src="https://mmbiz.qlogo.cn/mmbiz/icpapNTlrePLnmvo1tACasApsarxD2t9P28gkq6dl3eHjWBoQibWXt5fiafqtzLs2XbqoJfLIEu9UUUqLJYGAZc5A/0">
+                               <p>融资条件：1、在民生银行认定的中小企业授信客户准入行业范围以内；2、商贸类企业年销售收入不超过15000万元</p>
+                             </div>
+                         </div>
+                          <div class="tuwenEdit">
+                            <ol><span><a href="#" class="editda"><bdo>编辑</bdo></a></span></ol>
+                            <ol><a href="#" class="delda"><bdo>删除</bdo></a></ol>
+                         </div>
+                   </div>
+                </li>
+
+
+                 <li>
+
+                  <div class="tuwen">
+                         <div class="onetuwen">
+                             <div class="tuwenTitle"><a href="#">25学堂设计图文标题文字</a></div>
+                             <div class="tuwenTime">09月23日</div>
+                             <div class="tuwencon">
+                               <img src="https://mmbiz.qlogo.cn/mmbiz/icpapNTlrePLnmvo1tACasApsarxD2t9P28gkq6dl3eHjWBoQibWXt5fiafqtzLs2XbqoJfLIEu9UUUqLJYGAZc5A/0">
+                               <p>融资条件：1、在民生银行认定的中小企业授信客户准入行业范围以内；2、商贸类企业年销售收入不超过15000万元</p>
+                             </div>
+                         </div>
+
+                          <div class="duotuwen">
+                              <p><img src="http://www.25xt.com/wp-content/uploads/2014/09/1411650314943485.png" width="80" height="80"><span><a href="#">腾讯UI设计师是如何进行设计项目流程规划的</a></span></p>
+                               <p><img src="http://www.25xt.com/wp-content/uploads/2014/09/1411650314943485.png" width="80" height="80"><span><a href="#">腾讯UI设计师是如何进行设计项目流程规划的</a></span></p>
+                         </div>
+
+                          <div class="tuwenEdit">
+                            <ol><span><a href="#" class="editda"><bdo>编辑</bdo></a></span></ol>
+                            <ol><a href="#" class="delda"><bdo>删除</bdo></a></ol>
+                         </div>
+
+                   </div>
+                </li>
+
+
+                 <li>
+
+                  <div class="tuwen">
+                         <div class="onetuwen">
+                             <div class="tuwenTitle"><a href="#">25学堂设计图文标题文字</a></div>
+                             <div class="tuwenTime">09月22日</div>
+                             <div class="tuwencon">
+                               <img src="https://mmbiz.qlogo.cn/mmbiz/icpapNTlrePLnmvo1tACasApsarxD2t9P28gkq6dl3eHjWBoQibWXt5fiafqtzLs2XbqoJfLIEu9UUUqLJYGAZc5A/0">
+                               <p>融资条件：1、在民生银行认定的中小企业授信客户准入行业范围以内；2、商贸类企业年销售收入不超过15000万元</p>
+                             </div>
+                         </div>
+                          <div class="tuwenEdit">
+                            <ol><span><a href="#" class="editda"><bdo>编辑</bdo></a></span></ol>
+                            <ol><a href="#" class="delda"><bdo>删除</bdo></a></ol>
+                         </div>
+                   </div>
+                </li>
+
+                 <li>
+
+                  <div class="tuwen">
+                         <div class="onetuwen">
+                             <div class="tuwenTitle"><a href="#">25学堂设计图文标题文字</a></div>
+                             <div class="tuwenTime">09月21日</div>
+                             <div class="tuwencon">
+                               <img src="https://mmbiz.qlogo.cn/mmbiz/icpapNTlrePLnmvo1tACasApsarxD2t9P28gkq6dl3eHjWBoQibWXt5fiafqtzLs2XbqoJfLIEu9UUUqLJYGAZc5A/0">
+                               <p>融资条件：1、在民生银行认定的中小企业授信客户准入行业范围以内；2、商贸类企业年销售收入不超过15000万元</p>
+                             </div>
+                         </div>
+                          <div class="tuwenEdit">
+                            <ol><span><a href="#" class="editda"><bdo>编辑</bdo></a></span></ol>
+                            <ol><a href="#" class="delda"><bdo>编辑</bdo></a></ol>
+                         </div>
+                   </div>
+                </li>
+
+                 <li>
+
+                  <div class="tuwen">
+                         <div class="onetuwen">
+                             <div class="tuwenTitle"><a href="#">25学堂设计图文标题文字</a></div>
+                             <div class="tuwenTime">09月21日</div>
+                             <div class="tuwencon">
+                               <img src="https://mmbiz.qlogo.cn/mmbiz/icpapNTlrePLnmvo1tACasApsarxD2t9P28gkq6dl3eHjWBoQibWXt5fiafqtzLs2XbqoJfLIEu9UUUqLJYGAZc5A/0">
+                               <p>融资条件：1、在民生银行认定的中小企业授信客户准入行业范围以内；2、商贸类企业年销售收入不超过15000万元</p>
+                             </div>
+                         </div>
+
+                          <div class="duotuwen">
+                              <p><img src="http://www.25xt.com/wp-content/uploads/2014/09/1411650314943485.png" width="80" height="80"><span><a href="#">腾讯UI设计师是如何进行设计项目流程规划的</a></span></p>
+                               <p><img src="http://www.25xt.com/wp-content/uploads/2014/09/1411650314943485.png" width="80" height="80"><span><a href="#">腾讯UI设计师是如何进行设计项目流程规划的</a></span></p>
+                         </div>
+
+                          <div class="tuwenEdit">
+                            <ol><span><a href="#" class="editda"><bdo>编辑</bdo></a></span></ol>
+                            <ol><a href="#" class="delda"><bdo>编辑</bdo></a></ol>
+                         </div>
+                   </div>
+                </li>
+
+
+                 <li>
+
+                  <div class="tuwen">
+                         <div class="onetuwen">
+                             <div class="tuwenTitle"><a href="#">25学堂设计图文标题文字</a></div>
+                             <div class="tuwenTime">09月21日</div>
+                             <div class="tuwencon">
+                               <img src="https://mmbiz.qlogo.cn/mmbiz/icpapNTlrePLnmvo1tACasApsarxD2t9P28gkq6dl3eHjWBoQibWXt5fiafqtzLs2XbqoJfLIEu9UUUqLJYGAZc5A/0">
+                               <p>融资条件：1、在民生银行认定的中小企业授信客户准入行业范围以内；2、商贸类企业年销售收入不超过15000万元</p>
+                             </div>
+                         </div>
+                          <div class="tuwenEdit">
+                            <ol><span><a href="#" class="editda"><bdo>编辑</bdo></a></span></ol>
+                            <ol><a href="#" class="delda"><bdo>编辑</bdo></a></ol>
+                         </div>
+                   </div>
+                </li>*@
+
+        </ul>
+    </div>
+    @*<div class="page">
+          <span>1/2 &nbsp; <a href="#">下一页</a> <input name="" type="text" class="pagetxt"> <input name="" type="button" value="跳转" class="pagebtn"></span>
+        </div>*@
+
+
+</div>
+</div>
+
+@section jssection{
+    <script type="text/javascript">
+        window.onload = function () {
+            (function ($) {
+                var handler = $('#tiles li');
+                handler.wookmark({
+                    autoResize: true,
+                    container: $('#main'),
+                    offset: 20,
+                    outerOffset: 5,
+                    itemWidth: 300
+                });
+
+                $("#upTuwen").click(function () {
+                    $.post("DownLoad.do", {},
+                      function (ret) {
+                          _showInfoMessage("同步成功", 'info');
+                          location.href = "GraphicShow.do";
+                      },
+                      "json"
+                );
+                })
+
+
+            })(jQuery);
+        }
+        function edit() {
+            document.getElementById('tishi').style.display = "block";
+            document.getElementById('tishibg').style.display = "block";
+        }
+        function closed() {
+            document.getElementById('tishi').style.display = "none";
+            document.getElementById('tishibg').style.display = "none";
+        }
+
+        function deletetw(id) {
+            if (confirm("是否删除图文？")) {
+                //$("#li" + id).remove();
+                $.post("DeleteTW.do?id=" + id, {
+                    id: id
+                },
+                      function (ret) {
+                          if (ret && ret.status == 0) {
+                              //alert(ret.data.ID);
+                              location = "graphicshow.do";
+                              // alert(ret.data.NAME);
+
+                          }
+                          else {
+                              _showInfoMessage("删除失败！", 'error');
+                          }
+                      },
+                      "json"
+                );
+            }
+        }
+
+    </script>
+    @Html.Js("plugins/xjgrid/xjgrid", "plugins/xjdailog/xjdailog", "plugins/validator/validator",
+    "js/jquery.wookmark")
+}

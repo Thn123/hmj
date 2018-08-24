@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width" name="viewport" /> 
+<meta content="yes" name="apple-mobile-web-app-capable" /> 
+<meta content="black" name="apple-mobile-web-app-status-bar-style" /> 
+<meta content="telephone=no" name="format-detection" />
+<link type="text/css" href="css/youhuiquan.css" rel="stylesheet" />
+<title>优惠券</title>
+
+</head>
+
+<body class="bgcolor">
+<div class="quan-content-box quan-content">
+   <div class="quanma">
+      
+   </div>
+   <div class="quanmaInfo">
+     
+   </div>
+</div>   
+
+
+</body>
+</html>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script>
+function getQueryString(name){var reg=new RegExp("(^|&)"+name+"=([^&]*)(&|$)","i");var r=window.location.search.substr(1).match(reg);if(r!=null){return unescape(r[2])}return""};
+var accountId=getQueryString('accountId');
+var quanID=getQueryString('id');
+
+window.onload=function(){
+	getDetail(accountId);
+	
+}
+
+//信息提示
+var tipsflag=true;
+function tips(text){
+	if(tipsflag==true){
+		var tishiDiv=document.createElement('div');
+		tishiDiv.className="motify"; 
+		document.body.appendChild(tishiDiv);
+		tipsflag=false;
+	 }
+	$('.motify').html(text).show();
+	setTimeout(function(){$('.motify').fadeOut();},500);
+}
+var patrn=/^0?(13[0-9]|15[0-9]|17[0-9]|18[0-9]|14[0-9])[0-9]{8}$/;
+
+var hostUrl='https://hmjwechattest.jahwa.com.cn';
+function getDetail(accountId){
+		$.ajax({
+		type: "Get",
+		url: hostUrl+"/MemberCoupon/GetMemberCoupon?account_id="+accountId,
+		dataType:'json',
+		async:false,
+		success: function(res) {
+			if(res.status == 1){
+			 var notUse = res.data.NOT_USE || [];
+				 console.log(notUse);
+				 for(var i=0;i<notUse.length;i++){
+				    if(notUse[i].ZCP_YHQ == quanID){
+					   var index= i;
+					   console.log(index,')))');
+					   $('.quanma').html('<img src="'+notUse[index].QrCode+'"/><p>券码：'+notUse[index].ZCP_NUM+'</p>');
+					   $('.quanmaInfo').html('<h2>'+notUse[index].ZCP_YHQDES+'</h2><p>50元代金券（满1000元可用）<br/>有效期：'+notUse[index].ZCP_BDATE+' - '+notUse[index].ZCP_EDATE+'</p>');
+					}
+				 }
+			}else{
+			   tips('网络异常，请刷新重试');
+			}
+		},
+		error:function(error){
+			console.log(error);
+			}
+        });
+}
+
+</script>
+ 

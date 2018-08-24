@@ -1,0 +1,377 @@
+﻿@{
+    ViewBag.Title = "ShowBook";
+    Layout = "~/Views/Shared/_LayoutE.cshtml";
+}
+
+@model Hmj.Entity.Entities.BCJ_STORES_EX
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width" name="viewport" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+    <meta content="telephone=no" name="format-detection" />
+    <link type="text/css" href="/Bcj/member/css/reg.css" rel="stylesheet" />
+    <title>佰草集门店预约查询</title>
+</head>
+
+<body>
+    <input type="hidden" name="name" id="store_id" value="@Model.ID" />
+    <div class="baicaojiOrder">
+        <div class="baicaojiDian"><h2><span>@Model.CITY_NAME | @Model.NAME</span></h2></div>
+
+        <div class="order-date-item">
+            <div class="swiper-container">
+                <div class="swiper-wrapper" id="order-datelist"></div>
+            </div>
+        </div>
+    </div>
+    <div class="baicaojiOrder-list">
+        <ul id="books"></ul>
+    </div>
+
+</body>
+</html>
+
+<script type="text/javascript" src="/Bcj/member/js/jquery.min.js"></script>
+<script src="~/Bcj/Message2.js"></script>
+<script type="text/javascript" src="/Bcj/member/js/swiper.js"></script>
+<script type="text/javascript">
+
+    $('.baicaojiDian').on('click', function () {
+        $('#subnavid').show();
+        $('#subnavid ul li').on('click', function () {
+            $(this).addClass('curhover').siblings().removeClass('curhover');
+            $('.baicaojiDian span').html($(this).html());
+
+            setTimeout(function () {
+                $('#subnavid').hide();
+            }, 10)
+        })
+    })
+
+
+    function setCookie(name, value) {
+        var Days = 30;
+        var exp = new Date();
+        exp.setTime(exp.getTime() + Days * 24 * 60 * 60 * 1000);
+        document.cookie = name + "=" + escape(value) + ";expires=" + exp.toGMTString();
+    }
+    //cookies
+    function getCookie(name) {
+        var arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
+        if (arr = document.cookie.match(reg))
+            return unescape(arr[2]);
+        else
+            return "";
+    }
+
+    //异步加载日历数据
+    $.ajax({
+        url: "/BcjStore/GetDate.do",
+        method: "post",
+        data: { store_id: $("#store_id").val() },
+        success: function (data) {
+            var rilihtml = rilihtml2 = today = '';
+            var now = new Date();
+            var arrWeek = ['日', '一', '二', '三', '四', '五', '六'];
+            var days = now.getDate();
+            var year = now.getFullYear();
+            var months = now.getMonth() + 1;
+            var weeks = now.getDay();
+
+            var AgoDate = data.Data.AgoDate;
+            var FutureDate = data.Data.FutureDate;
+            var NowDate = data.Data.NowDate;
+
+            var datasfuture = [];
+            var datasago = [];
+
+            for (var i = 0; i < AgoDate.length; i++) {
+                datasago.push(['duanxiu-icon', AgoDate[i].NUMBER + '单', AgoDate[i].BOOK_DATE_STR]);
+            }
+
+            for (var i = 0; i < FutureDate.length; i++) {
+                datasfuture.push(['weizhi-icon', FutureDate[i].NUMBER + '单', FutureDate[i].BOOK_DATE_STR]);
+            }
+
+            var todaydatas = [['quanxiu-icon', '' + NowDate.NUMBER + '单', NowDate.BOOK_DATE_STR]];
+
+            //未来三天
+            for (var i = 1; i < 7; i++) {
+                var date = new Date(now.getTime() + i * 24 * 3600 * 1000);
+                var day = date.getDate();
+                if (day < 10) {
+                    day = '0' + day;
+                }
+                var week = date.getDay();
+
+                rilihtml += ' <div class="swiper-slide" exDate="' + datasfuture[i - 1][2] + '"><bdo>' + arrWeek[week] + '</bdo><div class="' +
+                    datasfuture[i - 1][0] + '"><span><em>' + day + '</em></span>' + datasfuture[i - 1][1] + '</div></div>';
+            }
+            //过去三天
+            for (var i = 6; i > 0; i--) {
+                var dateguo = new Date(now.getTime() - i * 24 * 3600 * 1000);
+                var dayguo = dateguo.getDate();
+                if (dayguo < 10) {
+                    dayguo = '0' + dayguo;
+                }
+                var weekguo = dateguo.getDay();
+
+                rilihtml2 += ' <div class="swiper-slide" exDate="' + datasago[i - 1][2] + '"><bdo>' + arrWeek[weekguo] + '</bdo><div class="' + datasago[i - 1][0] + '"><span><em>'
+                    + dayguo + '</em></span>' + datasago[i - 1][1] + '</div></div>';
+            }
+            var days = now.getDate();
+            if (days < 10) {
+                days = '0' + days;
+            }
+            //今天
+            today = '<div class="swiper-slide" exDate="' + todaydatas[0][2] + '"><bdo>' + arrWeek[weeks] + '</bdo><div class="' +
+                todaydatas[0][0] + '"><span><em>' + days + '</em></span>' + todaydatas[0][1] + '</div></div>';
+
+            $('#order-datelist').html(rilihtml2 + today + rilihtml);
+            LoadBook(todaydatas[0][2]);
+            $('#order-datelist').children("div").on('click', function () {
+                $('#order-datelist div div').removeClass('quanxiu-icon');
+                $(this).find('div').addClass('quanxiu-icon');
+
+                var date = $(this).attr("exDate");
+
+                LoadBook(date);
+            })
+
+            var swiper = new Swiper('.swiper-container', {
+                slidesPerView: 7
+            });
+        }
+    })
+
+
+    var loginflag = true, docHeight;
+    window.onscroll = function () { docHeight = $(window).scrollTop(); }
+
+    function LoadBook(date) {
+        //加载预约列表
+        $.ajax({
+            url: "/BcjStore/LoadBook.do",
+            method: "post",
+            data: { store_id: $("#store_id").val(), date: date },
+            success: function (data) {
+                var books = data.Data;
+
+                var html = "";
+                for (var i = 0; i < books.length; i++) {
+
+                    var lens = "";
+
+                    if (books[i].BOOK_TIME == "0") {
+                        lens = '上午 11:00';
+                    }
+
+                    if (books[i].BOOK_TIME == "1") {
+                        lens = '上午 12:30';
+                    }
+
+                    if (books[i].BOOK_TIME == "2") {
+                        lens = '下午 15:00';
+                    }
+
+                    if (books[i].BOOK_TIME == "3") {
+                        lens = '下午 17:00';
+                    }
+
+                    if (books[i].BOOK_TIME == "4") {
+                        lens = '晚上 19:00';
+                    }
+
+                    if (books[i].STATUS == "1") {
+                        html += '<li> <div class="orderCon"> <p>预约人：' + books[i].MEMBER_NAME
+                        + '</p> <p> 手机号：<a href="javacript:void(0);" onClick="javacript:modifyTel(\'' + books[i].MOBILE
+                        + '\')"><span>' + books[i].MOBILE + '</span></a></p> <p>预约时间：' + books[i].BOOK_DATE_EX
+                        + ' ' + lens + '</p></div><div class="orderBtn"><span class="yiqueren">已完成</span></div> </li>';
+                    }
+
+                    if (books[i].STATUS == "0") {
+                        html += '<li> <div class="orderCon"> <p>预约人：' + books[i].MEMBER_NAME
+                            + '</p> <p> 手机号：<a href="javacript:void(0);" onClick="javacript:modifyTel(\'' + books[i].MOBILE
+                            + '\')"><span>' + books[i].MOBILE + '</span></a></p> <p>预约时间：' + books[i].BOOK_DATE_EX
+                            + ' ' + lens + '</p></div><div class="orderBtn"><span onClick="javascript:modifyTime(\'' + books[i].BOOK_DATE_EX
+                            + '\',\'' + books[i].BOOK_TIME + '\',\'' + books[i].ID + '\');">修改</span><span class="censon" exBookID="' +
+                            books[i].ID + '">取消</span><span class="queren" exBookID="' + books[i].ID + '">服务完成</span></div> </li>';
+                    }
+
+                    if (books[i].STATUS == "2") {
+                        html += '<li> <div class="orderCon"> <p>预约人：' + books[i].MEMBER_NAME
+                        + '</p> <p> 手机号：<a href="javacript:void(0);" onClick="javacript:modifyTel(\'' + books[i].MOBILE
+                        + '\')"><span>' + books[i].MOBILE + '</span></a></p> <p>预约时间：' + books[i].BOOK_DATE_EX
+                        + ' ' + lens + '</p></div><div class="orderBtn"><span class="yiqueren">已取消</span></div> </li>';
+                    }
+                }
+
+                $("#books").html(html);
+
+                $(".censon").click(function () {
+                    var book_id = $(this).attr("exBookID");
+                    $.ajax({
+                        url: "/BcjStore/ChageStatus.do",
+                        method: "post",
+                        data: { book_id: book_id, flg: "2" },
+                        success: function (data) {
+                            if (data.Status == "1") {
+                                $.MsgBox.Alert("提示", "成功！！");
+                                location.href = "/BcjStore/ShowBook.do";
+                            } else {
+
+                            }
+                        }
+                    })
+                });
+
+                $(".queren").click(function () {
+                    var book_id = $(this).attr("exBookID");
+                    $.ajax({
+                        url: "/BcjStore/ChageStatus.do",
+                        method: "post",
+                        data: { book_id: book_id, flg: "1" },
+                        success: function (data) {
+                            if (data.Status == "1") {
+                                $.MsgBox.Alert("提示", "成功！！");
+                                location.href = "/BcjStore/ShowBook.do";
+                            } else {
+
+                            }
+                        }
+                    })
+                });
+            }
+        })
+    }
+
+    function loginGo(layout, id) {
+        console.log(docHeight);
+
+        setCookie('screenid', docHeight);
+        document.documentElement.style.position = document.body.style.position = 'relative';
+        document.documentElement.style.overflow = document.body.style.overflow = 'hidden';
+        document.documentElement.style.height = document.body.style.height = $(window).height() + 'px';
+        if (loginflag == true) {
+            var loginDiv = document.createElement('div');
+            loginDiv.id = "loginBox";
+            document.body.appendChild(loginDiv);
+            loginflag = false;
+        }
+        document.getElementById('loginBox').innerHTML = layout;
+        $('.maskbg').addClass('bgdong');
+        $('.login-lrlz-box').show();
+
+        $(".quxiaobtn").click(function () {
+
+        })
+
+        $(".subbtn_ok").click(function () {
+            var bookId = $(this).attr("exBookID");
+            var xiuggaiDate = $("#xiuggaiDate").val();
+            var xiuggaiTime = $("#xiuggaiTime").val();
+            var store_id = $("#store_id").val();
+
+            if (xiuggaiDate == "") {
+                $.MsgBox.Alert("提示", "日期不能是空！！");
+                return false;
+            }
+
+            $.ajax({
+                url: "/BcjBook/UpdateBook.do",
+                method: "post",
+                data: {
+                    book_id: bookId,
+                    BookDate: xiuggaiDate,
+                    BookTime: xiuggaiTime,
+                    Store_Id: store_id
+                },
+                success: function (data) {
+                    if (data.Status == "1") {
+                        $.MsgBox.Alert("提示", "时间修改成功！！");
+                        location.href = "/BcjStore/ShowBook.do";
+                    } else {
+                        $.MsgBox.Alert("提示", data.Message);
+                    }
+                }
+            })
+        })
+    }
+
+    function closedLogin() {
+        $('.login-lrlz-box').hide();
+        setTimeout(function () {
+            $('#tanceng').remove();
+
+        }, 1)
+        document.documentElement.style.position = document.body.style.position = 'static';
+        document.documentElement.style.overflow = document.body.style.overflow = '';
+        document.documentElement.style.height = document.body.style.height = '';
+        $(window).scrollTop(getCookie('screenid'));
+
+        console.log(getCookie('screenid'));
+    }
+
+    function boda(dates, times, bianhao) {
+        var timeex = "";
+        if (times == "0") {
+            timeex = '<option selected value="0">上午 11:00</option><option value="1">上午 12:30</option><option value="2">下午 15:00</option><option value="3">下午 17:00</option><option value="4">晚上 19:00</option>';
+        }
+
+        if (times == "1") {
+            timeex = '<option value="0">上午 11:00</option><option selected value="1">上午 12:30</option><option value="2">下午 15:00</option><option value="3">下午 17:00</option><option value="4">晚上 19:00</option>';
+        }
+
+        if (times == "2") {
+            timeex = '<option value="0">上午 11:00</option><option value="1">上午 12:30</option><option selected value="2">下午 15:00</option><option value="3">下午 17:00</option><option value="4">晚上 19:00</option>';
+        }
+
+        if (times == "3") {
+            timeex = '<option value="0">上午 11:00</option><option value="1">上午 12:30</option><option value="2">下午 15:00</option><option selected value="3">下午 17:00</option><option value="4">晚上 19:00</option>';
+        }
+
+        if (times == "4") {
+            timeex = '<option value="0">上午 11:00</option><option value="1">上午 12:30</option><option value="2">下午 15:00</option><option value="3">下午 17:00</option><option selected value="4">晚上 19:00</option>';
+        }
+
+        var phone = '<div id="tanceng"><div class="layoutMaskbg" onClick="javascript:closedLogin();" style="z-index:999980;"></div>\
+		<div class="login-lrlz-box">\
+			<h2>预约时间修改</h2>\
+			<div class="login-lrlz-input">\
+			  <div class="acc-login-input">\
+    <ul class="biaoCss">\
+        <li><input name="dateInput" type="date" id="xiuggaiDate" class="dropdown-txt" value="' + dates + '"></li>\
+        <li><select class="dropdown-select" id="xiuggaiTime">' + timeex + '</select></li>\
+    </ul>\
+			</div></div>\
+		<div class="login-lrlz-btn"><ol><span class="quxiaobtn" exBookID="' + bianhao
+        + '" onClick="javascript:closedLogin();">取消</span></ol><ol><span class="subbtn subbtn_ok"  exBookID="' + bianhao
+        + '">确认</span></ol></div>\
+	</div></div>';
+        return phone;
+    }
+
+    function phonCall(tel) {
+        var phone = '<div id="tanceng"><div class="layoutMaskbg" onClick="javascript:closedLogin();" style="z-index:999980;"></div>\
+		<div class="login-lrlz-box">\
+			<div class="login-lrlz-input">\
+			  <p class="callPhone">确定要拨打电话吗？<span>'+ tel + ' &nbsp;&nbsp;</span></p>\
+			 </div>\
+		<div class="login-lrlz-btn"><ol><span class="quxiaobtn" onClick="javascript:closedLogin();">取消</span></ol><ol><a href="tel:'+ tel + '"><span class="subbtn">确定拨打</span></a></ol></div>\
+	</div></div>';
+        return phone;
+    }
+
+    function modifyTime(dates, times, bianhao) {
+        loginGo(boda(dates, times, bianhao));
+    }
+
+    function modifyTel(tel) {
+        loginGo(phonCall(tel));
+    }
+
+</script>

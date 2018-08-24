@@ -1,0 +1,183 @@
+﻿@{
+    ViewBag.Title = "模板消息群发";
+}
+
+@section htmlhead{
+    @Html.Css("plugin/validator", "plugin/xjgrid")
+    @Html.Css2("plugins/jquery-jstree/dist/themes/default/style.min")
+
+    <style>
+        .emp-pic {
+            width: 60px;
+            height: 60px;
+            -moz-border-radius: 30px; /* Gecko browsers */
+            -webkit-border-radius: 30px; /* Webkit browsers */
+            border-radius: 30px; /* W3C syntax */
+        }
+
+        .span {
+            word-break: normal;
+            width: auto;
+            display: block;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            overflow: hidden;
+        }
+        /*自定义宽度*/
+        .myOwnDdl {
+            display: inline-block;
+            width: 80%;
+            margin: 10px 10px;
+        }
+
+            /* 实现宽度自定义 */
+            .myOwnDdl .btn-group {
+                width: 100%;
+            }
+
+            .myOwnDdl .multiselect {
+                width: 100%;
+                text-align: right;
+                margin-top: -5px;
+            }
+
+            .myOwnDdl ul {
+                width: 100%;
+            }
+
+            .myOwnDdl .multiselect-selected-text {
+                position: absolute;
+                left: 0;
+                right: 25px;
+                text-align: left;
+                padding-left: 20px;
+            }
+
+        /*控制隔行换色*/
+        .myOwnDll .multiselect-container li.odd {
+            background: #eeeeee;
+        }
+    </style>
+}
+<div class="s_container">
+    <div id="page-heading">
+        <h2>
+            <i class="fa fa-users"></i>&nbsp;模板消息群发</h2>
+    </div>
+
+    <div id="mainbody_content" class="panel panel-primary col-md-22">
+        <div class="panel-heading">
+            <h4>第一步</h4>
+        </div>
+        <div class="panel-body" style="padding: 10px 2px; height: 800PX">
+            <div id="mainbody" class="panel panel-primary col-md-2">
+                <div class="panel-heading">
+                    <h4>大区</h4>
+                </div>
+                <div class="panel-body" style="padding: 10px 2px; height: 100px">
+                    <div class="myOwnDdl">
+                        @Html.ResourceDropDownList("sel_search_status0", "TemplateArea", 1, new { @class = "form-control", @multiple = "multiple" }, "0", false)
+                    </div>
+                </div>
+            </div>
+            <div id="mainbody1" class="panel panel-primary col-md-2">
+                <div class="panel-heading">
+                    <h4>区域</h4>
+                </div>
+                <div class="panel-body" style="padding: 10px 2px; height: 100px">
+                    <div class="myOwnDdl">
+                        @Html.ResourceDropDownList("sel_search_status1", "TemplateArea1", 0, new { @class = "form-control", @multiple = "multiple" }, "12", false)
+                    </div>
+                </div>
+            </div>
+            <div id="mainbody2" class="panel panel-primary col-md-2">
+                <div class="panel-heading">
+                    <h4>门店</h4>
+                </div>
+                <div class="panel-body" style="padding: 10px 2px; height: 100px">
+                    <div class="myOwnDdl">
+                        @Html.ResourceDropDownList("sel_search_status2", "TemplateArea2", 10000000, new { @class = "form-control", @multiple = "multiple" }, "1", false)
+                    </div>
+                </div>
+            </div>
+            <div id="mainbody3" class="panel panel-primary col-md-2">
+                <div class="panel-heading">
+                    <h4>标签</h4>
+                </div>
+                <div class="panel-body" style="padding: 10px 2px; height: 100px">
+
+                    <div class="myOwnDdl">
+                        <select id="sel_search_status3" multiple="multiple">
+                            <option value="0" selected>标签</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+              <div style="clear: both"></div>
+            <div id="mainbody4" class="panel panel-primary col-md-6">
+                <div class="panel-heading">
+                    <h4 id="h4Dict">模板消息发送列表</h4>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                        </div>
+                        <div class="text-right col-md-6">
+                            <form id="formQuery" class="form-inline" method="post" role="form">
+                                @Html.Hidden("SelectGroupId", "")
+                                @Html.Hidden("EMP_NAME", "")
+
+                            </form>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="table-responsive" id="gridlist" style="min-height: 100px">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="mainbody_content1" class="panel panel-primary col-md-22 hide">
+        <div class="panel-heading">
+            <h4>第二步</h4>
+        </div>
+        <div class="panel-body" style="padding: 10px 2px; height: 400px">
+            <div id="mainbody5" class="panel panel-primary col-md-3">
+                <div class="panel-heading">
+                    <h4>模板消息</h4>
+                </div>
+                <div class="panel-body" style="padding: 10px 2px; height: 300px">
+                    <div class="row">
+                        <div class="myOwnDdl col-md-6">
+                            @Html.ResourceDropDownList("sel_search_status4", "TemplateArea4", 0, new { @class = "form-control" }, "", false)
+                        </div>
+                        <div class="text-left col-md-10" style="margin: 10px 10px" id="template_content">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="clear: both"></div>
+    <div class="modal-footer">
+        <button type="button" id="tem" class="btn btn-primary">下一步</button>
+        <button type="button" id="btnSave" class="btn btn-primary hide">发布</button>
+    </div>
+
+</div>
+
+
+
+@section jssection{
+    <script type="text/javascript">
+        var util = {};
+        var options = {
+            pushtemplate: "@Url.Action("PushTemlpate")",
+            selstatuschange: "@Url.Action("SelStatusChange")",
+            listUrl: "@Url.Action("QueryFansList")",
+            templateUrl: "@Url.Action("QueryTemplateInfo")",
+        };
+    </script>
+    @Html.Js("plugins/validator/validator", "plugins/xjgrid/xjgrid", "plugins/jquery-jstree/dist/jstree.min", "app/template/tempinfo")
+}

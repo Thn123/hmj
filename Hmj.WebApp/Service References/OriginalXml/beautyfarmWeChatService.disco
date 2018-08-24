@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<discovery xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.xmlsoap.org/disco/">
+  <contractRef ref="http://wechat.beautyfarm.com.cn:53030/wechat/beautyfarmWeChatService.asmx?wsdl" docRef="http://wechat.beautyfarm.com.cn:53030/wechat/beautyfarmWeChatService.asmx" xmlns="http://schemas.xmlsoap.org/disco/scl/" />
+  <soap address="http://wechat.beautyfarm.com.cn:53030/wechat/beautyfarmWeChatService.asmx" xmlns:q1="http://wechat.beautyfarm.com.cn/" binding="q1:beautyfarmWeChatServiceSoap" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
+  <soap address="http://wechat.beautyfarm.com.cn:53030/wechat/beautyfarmWeChatService.asmx" xmlns:q2="http://wechat.beautyfarm.com.cn/" binding="q2:beautyfarmWeChatServiceSoap12" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
+</discovery>

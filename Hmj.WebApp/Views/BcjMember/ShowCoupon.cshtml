@@ -1,0 +1,474 @@
+﻿@{
+    ViewBag.Title = "ShowCoupon";
+    Layout = "~/Views/Shared/_LayoutE.cshtml";
+}
+
+@model Hmj.Entity.Entities.MEMBER_COUPON
+@using Hmj.Entity.Entities
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width" name="viewport" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+    <meta content="telephone=no" name="format-detection" />
+    <link type="text/css" href="/Bcj/coupon/css/youhuiquan.css" rel="stylesheet" />
+    <title>我的优惠券</title>
+
+</head>
+
+<body>
+    <div class="order-tag-item">
+        <ol class="curbtn"><span>未使用(@Model.NOT_USE.Count())</span></ol>
+        <ol><span>已使用(@Model.ALREADY_USE.Count())</span></ol>
+        <ol><span>已过期(@Model.OBSOLETE.Count())</span></ol>
+    </div>
+    <!--end header-->
+    <div class="quan-content-box quan-content-Tabbox">
+        <!--未使用-->
+        <ol style="display:block;">
+            <div class="quan-index-items">
+                <ul>
+                    @foreach (COUPONS item in Model.NOT_USE)
+                    {
+                        //代金券
+                        if (item.ZCP_TYPE == "DJQ")
+                        {
+                            <li>
+                                <p class="quanline"></p>
+                                <div class="quan-index-line">
+                                    <div class="quan-left-waper">
+                                        <div class="quan-index-hanzi">
+                                            <strong>代金券</strong>
+                                        </div>
+                                    </div>
+                                    <div class="quan-index-info">
+                                        <h4>@item.ZCP_YHQDES</h4>
+                                        <p>有效期：@item.ZCP_BDATE - @item.ZCP_EDATE</p>
+                                        <div class="lingquBox">
+                                            <div class="lingqubtn hexiao"
+                                                 exZCP_NUM="@item.ZCP_NUM" exZCP_BDATE="@item.ZCP_BDATE" exZCP_YHQ="@item.ZCP_PASSW" exZCP_YHQDES="@item.ZCP_YHQDES"
+                                                 exBPEXT="@item.BPEXT" exZCP_EDATE="@item.ZCP_EDATE">立即使用</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="quanline"></p>
+                            </li>
+                        }
+                        //代物券
+                        if (item.ZCP_TYPE == "DWQ")
+                        {
+                            <li>
+                                <p class="quanline"></p>
+                                <div class="quan-index-line">
+                                    <div class="quan-left-waper">
+                                        <div class="quan-index-hanzi">
+                                            <strong>领用券</strong>
+                                        </div>
+                                    </div>
+                                    <div class="quan-index-info">
+                                        <h4>@item.ZCP_YHQDES</h4>
+                                        <p>有效期：@item.ZCP_BDATE - @item.ZCP_EDATE</p>
+                                        <div class="lingquBox">
+                                            <div class="lingqubtn hexiao"
+                                                 exZCP_NUM="@item.ZCP_NUM" exZCP_BDATE="@item.ZCP_BDATE" exZCP_YHQ="@item.ZCP_PASSW" exZCP_YHQDES="@item.ZCP_YHQDES"
+                                                 exBPEXT="@item.BPEXT" exZCP_EDATE="@item.ZCP_EDATE">立即使用</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="quanline"></p>
+                            </li>
+                        }
+
+                        //券包
+                        if (item.ZCP_TYPE == "QB")
+                        {
+                            <li>
+                                <p class="quanline"></p>
+                                <div class="quan-index-line">
+                                    <div class="quan-left-waper">
+                                        <div class="quan-index-hanzi">
+                                            <strong>券 包</strong>
+                                        </div>
+                                    </div>
+                                    <div class="quan-index-info">
+                                        <h4>@item.ZCP_YHQDES</h4>
+                                        <p>有效期：@item.ZCP_BDATE - @item.ZCP_EDATE</p>
+                                        <div class="lingquBox">
+                                            <div class="lingqubtn hexiao"
+                                                 exZCP_NUM="@item.ZCP_NUM" exZCP_BDATE="@item.ZCP_BDATE" exZCP_YHQ="@item.ZCP_PASSW" exZCP_YHQDES="@item.ZCP_YHQDES"
+                                                 exBPEXT="@item.BPEXT" exZCP_EDATE="@item.ZCP_EDATE">立即使用</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="quanline"></p>
+                            </li>
+                        }
+
+                        //积分抵用券
+                        if (item.ZCP_TYPE == "JFDY")
+                        {
+                            <li>
+                                <p class="quanline"></p>
+                                <div class="quan-index-line">
+                                    <div class="quan-left-waper">
+                                        <div class="quan-index-hanzi">
+                                            <strong>积分抵用券</strong>
+                                        </div>
+                                    </div>
+                                    <div class="quan-index-info">
+                                        <h4>@item.ZCP_YHQDES</h4>
+                                        <p>有效期：@item.ZCP_BDATE - @item.ZCP_EDATE</p>
+                                        <div class="lingquBox">
+                                            <div class="lingqubtn hexiao"
+                                                 exZCP_NUM="@item.ZCP_NUM" exZCP_BDATE="@item.ZCP_BDATE" exZCP_YHQ="@item.ZCP_PASSW" exZCP_YHQDES="@item.ZCP_YHQDES"
+                                                 exBPEXT="@item.BPEXT" exZCP_EDATE="@item.ZCP_EDATE">立即使用</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="quanline"></p>
+                            </li>
+                        }
+
+                        //资格券
+                        if (item.ZCP_TYPE == "ZGQ")
+                        {
+                            <li>
+                                <p class="quanline"></p>
+                                <div class="quan-index-line">
+                                    <div class="quan-left-waper">
+                                        <div class="quan-index-hanzi">
+                                            @if (item.ZCP_YHQDES.Contains("预约"))
+                                            {
+                                                <strong>体验券</strong>
+                                            }
+                                            else
+                                            {
+                                                <strong>资格券</strong>
+                                            }
+                                        </div>
+                                    </div>
+                                    <div class="quan-index-info">
+                                        <h4>@item.ZCP_YHQDES</h4>
+                                        <p>有效期：@item.ZCP_BDATE - @item.ZCP_EDATE</p>
+                                        <div class="lingquBox">
+                                            @if (item.ZCP_YHQDES.Contains("预约"))
+                                            {
+                                                if (item.IS_BOOK == 1)
+                                                {
+                                                    <div class="lingqubtn"><a href="/BcjBook/ShowBookHis.do">已预约</a></div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="lingqubtn lingqubtnlvse" exVipno="@item.ZCP_NUM">立即预约</div>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <div class="lingqubtn hexiao"
+                                                     exZCP_NUM="@item.ZCP_NUM" exZCP_BDATE="@item.ZCP_BDATE" exZCP_YHQ="@item.ZCP_PASSW" exZCP_YHQDES="@item.ZCP_YHQDES"
+                                                     exBPEXT="@item.BPEXT" exZCP_EDATE="@item.ZCP_EDATE">立即使用</div>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="quanline"></p>
+                            </li>
+                        }
+                    }
+                </ul>
+            </div>
+        </ol>
+        <!--已使用-->
+        <ol>
+            <div class="quan-index-items">
+                <ul>
+                    @foreach (COUPONS item in Model.ALREADY_USE)
+                    {
+                        if (item.ZCP_TYPE == "DJQ")
+                        {
+                            <li class="yishiyong">
+                                <p class="quanline"></p>
+                                <div class="quan-index-line">
+                                    <div class="quan-left-waper">
+                                        <div class="quan-index-hanzi">
+                                            <strong>代金券</strong>
+                                        </div>
+                                    </div>
+                                    <div class="quan-index-info">
+                                        <h4>@item.ZCP_YHQDES</h4>
+                                        <p>有效期：@item.ZCP_BDATE - @item.ZCP_EDATE</p>
+                                        <p>券号：@item.ZCP_NUM</p>
+                                    </div>
+
+                                </div>
+                                <p class="quanline "></p>
+                                <div class="yishiyong-icon"></div>
+                            </li>
+                        }
+
+                        if (item.ZCP_TYPE == "DWQ")
+                        {
+                            <li class="yishiyong">
+                                <p class="quanline"></p>
+                                <div class="quan-index-line">
+                                    <div class="quan-left-waper">
+                                        <div class="quan-index-hanzi">
+                                            <strong>领用券</strong>
+                                        </div>
+                                    </div>
+                                    <div class="quan-index-info">
+                                        <h4>@item.ZCP_YHQDES</h4>
+                                        <p>有效期：@item.ZCP_BDATE - @item.ZCP_EDATE</p>
+                                        <p>券号：@item.ZCP_NUM</p>
+                                    </div>
+
+                                </div>
+                                <p class="quanline"></p>
+                                <div class="yishiyong-icon"></div>
+                            </li>
+                        }
+
+                        if (item.ZCP_TYPE == "QB")
+                        {
+                            <li class="yishiyong">
+                                <p class="quanline"></p>
+                                <div class="quan-index-line">
+                                    <div class="quan-left-waper">
+                                        <div class="quan-index-hanzi">
+                                            <strong>券包</strong>
+                                        </div>
+                                    </div>
+                                    <div class="quan-index-info">
+                                        <h4>@item.ZCP_YHQDES</h4>
+                                        <p>有效期：@item.ZCP_BDATE - @item.ZCP_EDATE</p>
+                                        <p>券号：@item.ZCP_NUM</p>
+                                    </div>
+
+                                </div>
+                                <p class="quanline"></p>
+                                <div class="yishiyong-icon"></div>
+                            </li>
+                        }
+
+                        if (item.ZCP_TYPE == "JFDY")
+                        {
+                            <li class="yishiyong">
+                                <p class="quanline"></p>
+                                <div class="quan-index-line">
+                                    <div class="quan-left-waper">
+                                        <div class="quan-index-hanzi">
+                                            <strong>积分抵用券</strong>
+                                        </div>
+                                    </div>
+                                    <div class="quan-index-info">
+                                        <h4>@item.ZCP_YHQDES</h4>
+                                        <p>有效期：@item.ZCP_BDATE - @item.ZCP_EDATE</p>
+                                        <p>券号：@item.ZCP_NUM</p>
+                                    </div>
+
+                                </div>
+                                <p class="quanline"></p>
+                                <div class="yishiyong-icon"></div>
+                            </li>
+                        }
+
+                        if (item.ZCP_TYPE == "ZGQ")
+                        {
+                            <li class="yishiyong">
+                                <p class="quanline"></p>
+                                <div class="quan-index-line">
+                                    <div class="quan-left-waper">
+                                        <div class="quan-index-hanzi">
+                                            <strong>体验券</strong>
+                                        </div>
+                                    </div>
+                                    <div class="quan-index-info">
+                                        <h4>@item.ZCP_YHQDES</h4>
+                                        <p>有效期：@item.ZCP_BDATE - @item.ZCP_EDATE</p>
+                                        <p>券号：@item.ZCP_NUM</p>
+                                    </div>
+                                </div>
+                                <p class="quanline"></p>
+                                <div class="yishiyong-icon"></div>
+                            </li>
+                        }
+                    }
+                </ul>
+            </div>
+        </ol>
+        <!--已过期-->
+        <ol>
+            <div class="quan-index-items">
+                <ul>
+                    @foreach (COUPONS item in Model.OBSOLETE)
+                    {
+                        if (item.ZCP_TYPE == "DJQ")
+                        {
+                            <li class="yishiyong">
+                                <p class="quanline"></p>
+                                <div class="quan-index-line">
+                                    <div class="quan-left-waper">
+                                        <div class="quan-index-hanzi">
+                                            <strong>代金券</strong>
+                                            <p></p>
+                                        </div>
+                                    </div>
+                                    <div class="quan-index-info">
+                                        <h4>@item.ZCP_YHQDES</h4>
+                                        <p>有效期：@item.ZCP_BDATE - @item.ZCP_EDATE</p>
+                                        <p>券号：@item.ZCP_NUM</p>
+                                    </div>
+                                </div>
+
+                                <p class="quanline"></p>
+                                <div class="yiguoqi-icon"></div>
+                            </li>
+                        }
+
+                        if (item.ZCP_TYPE == "DWQ")
+                        {
+                            <li class="yishiyong">
+                                <p class="quanline"></p>
+                                <div class="quan-index-line">
+                                    <div class="quan-left-waper">
+                                        <div class="quan-index-hanzi">
+                                            <strong>领用券</strong>
+                                            <p></p>
+                                        </div>
+                                    </div>
+                                    <div class="quan-index-info">
+                                        <h4>@item.ZCP_YHQDES</h4>
+                                        <p>有效期：@item.ZCP_BDATE - @item.ZCP_EDATE</p>
+                                        <p>券号：@item.ZCP_NUM</p>
+                                    </div>
+                                </div>
+                                <p class="quanline"></p>
+                                <div class="yiguoqi-icon"></div>
+                            </li>
+                        }
+
+                        if (item.ZCP_TYPE == "QB")
+                        {
+                            <li class="yishiyong">
+                                <p class="quanline"></p>
+                                <div class="quan-index-line">
+                                    <div class="quan-left-waper">
+                                        <div class="quan-index-hanzi">
+                                            <strong>券包</strong>
+                                            <p></p>
+                                        </div>
+                                    </div>
+                                    <div class="quan-index-info">
+                                        <h4>@item.ZCP_YHQDES</h4>
+                                        <p>有效期：@item.ZCP_BDATE - @item.ZCP_EDATE</p>
+                                        <p>券号：@item.ZCP_NUM</p>
+                                    </div>
+                                </div>
+
+                                <p class="quanline"></p>
+                                <div class="yiguoqi-icon"></div>
+                            </li>
+                        }
+
+                        if (item.ZCP_TYPE == "JFDY")
+                        {
+                            <li class="yishiyong">
+                                <p class="quanline"></p>
+                                <div class="quan-index-line">
+                                    <div class="quan-left-waper">
+                                        <div class="quan-index-hanzi">
+                                            <strong>积分抵用券</strong>
+                                            <p></p>
+                                        </div>
+                                    </div>
+                                    <div class="quan-index-info">
+                                        <h4>@item.ZCP_YHQDES</h4>
+                                        <p>有效期：@item.ZCP_BDATE - @item.ZCP_EDATE</p>
+                                        <p>券号：@item.ZCP_NUM</p>
+                                    </div>
+                                </div>
+
+                                <p class="quanline"></p>
+                                <div class="yiguoqi-icon"></div>
+                            </li>
+                        }
+
+                        if (item.ZCP_TYPE == "ZGQ")
+                        {
+                            <li class="yishiyong">
+                                <p class="quanline"></p>
+                                <div class="quan-index-line">
+                                    <div class="quan-left-waper">
+                                        <div class="quan-index-hanzi">
+                                            <strong>体验券</strong>
+                                        </div>
+                                    </div>
+                                    <div class="quan-index-info">
+                                        <h4>@item.ZCP_YHQDES</h4>
+                                        <p>有效期：@item.ZCP_BDATE - @item.ZCP_EDATE</p>
+                                        <p>券号：@item.ZCP_NUM</p>
+                                    </div>
+                                </div>
+
+                                <p class="quanline"></p>
+                                <div class="yiguoqi-icon"></div>
+                            </li>
+                        }
+                    }
+
+                </ul>
+            </div>
+
+        </ol>
+    </div>
+</body>
+</html>
+<script type="text/javascript" src="/Bcj/coupon/js/jquery.min.js"></script>
+<script src="~/Bcj/Message2.js"></script>
+<script>
+    $('.order-tag-item ol').on('click', function () {
+        $(this).addClass('curbtn').siblings().removeClass('curbtn');
+        $('.quan-content-Tabbox ol').hide();
+        $('.quan-content-Tabbox ol').eq($(this).index()).show();
+    })
+    $(".lingqubtnlvse").click(function () {
+
+        var ZCP_NUM = $(this).attr("exVipno");
+
+        location.href = "/BcjBook/Index.do?ZCP_NUM=" + ZCP_NUM + "";
+    })
+
+    var tipsflag = true;
+    function tips(text) {
+        if (tipsflag == true) {
+            var tishiDiv = document.createElement('div');
+            tishiDiv.className = "motify";
+            document.body.appendChild(tishiDiv);
+            tipsflag = false;
+        }
+        $('.motify').html(text).show();
+        setTimeout(function () { $('.motify').fadeOut(); }, 2000);
+    }
+
+    $(function () {
+        $(".hexiao").click(function () {
+            var ZCP_EDATE = $(this).attr("exZCP_EDATE");
+
+            var BPEXT = $(this).attr("exBPEXT");
+
+            var ZCP_YHQDES = $(this).attr("exZCP_YHQDES");
+
+            var ZCP_NUM = $(this).attr("exZCP_NUM");
+            var ZCP_YHQ = $(this).attr("exZCP_YHQ");
+
+            var ZCP_BDATE = $(this).attr("exZCP_BDATE");
+
+            location.href = "/BcjMember/ShowQrHx.do?ZCP_EDATE=" + ZCP_EDATE
+                + "&BPEXT=" + BPEXT + "&ZCP_YHQDES=" + ZCP_YHQDES + "&ZCP_NUM=" + ZCP_NUM + "&ZCP_YHQ=" +
+                ZCP_YHQ + "&ZCP_BDATE=" + ZCP_BDATE + "";
+        })
+
+    })
+</script>

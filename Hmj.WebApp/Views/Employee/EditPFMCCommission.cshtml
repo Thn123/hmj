@@ -1,0 +1,290 @@
+﻿@{
+    ViewBag.Title = "佣金方案维护";
+}
+@model Hmj.Entity.Entities.COMMISSION_EX
+@section htmlhead{
+    @Html.Css("plugin/xjgrid", "plugin/xjdailog", "common", "plugin/validator", "plugin/tip")
+
+<link rel='stylesheet' type='text/css' href='../../assets/plugins/form-select2/select2.css' />
+<script type="text/javascript" src="../../assets/js/less.js"></script>     
+}
+<div class="s_container">
+    <div id="page-heading">
+        <h2>
+            <i class="fa fa-user"></i>&nbsp;业绩佣金方案维护</h2>
+    </div>
+    <div id="mainbody" class="panel panel-primary">
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h4>
+                    <ul class="nav nav-tabs">
+                        <li id="LiFaxx" class="active">
+                            <a href="#Faxx" data-toggle="tab">方案详细</a>
+                        </li>
+
+                        <li id="LiYjtc">
+                             @if (Model.ID == 0)
+                             {
+                                <a style="cursor:pointer" onclick="_showInfoMessage('请先保存方案详细', 'error');">业绩提成</a>                              
+                             }
+                             else
+                             {
+                                <a id="aYjtc" href="#Yjtc" data-toggle="tab">业绩提成</a>
+                             }
+                            
+                        </li>
+                    </ul>
+                </h4>
+            </div>
+            <div class="panel-body">
+                <div class="tab-content">
+                    <div class="tab-pane active" id="Faxx">
+                        <form class="form-horizontal" id="frmFaxx" action="@Url.Action("SaveCommissionFaxx")" method="post" role="form">
+                            <div class="form-group">
+                                @Html.Hidden("VIWEPAGE", 2)
+                                @Html.Hidden("ID", Model.ID)
+                                <label for="NAME" class="col-sm-1 control-label">名称</label>
+                                <div class="col-sm-6">
+                                    @Html.TextBox("NAME", Model.NAME, new { @class = "form-control", placeholder = "请输入名称" })
+                                </div>
+                                <div class="col-sm-5">
+                                    <p class="help-block" style="color: red;"></p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="STATUS" class="col-sm-1 control-label">状态</label>
+                                <div class="col-sm-6">
+                                    @Html.ResourceRadioList("STATUS", "OPEN_CLOSE", Model.STATUS, null)
+                                </div>
+                                <div class="col-sm-5">
+                                    <p class="help-block" style="color: red;"></p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="BEGIN_DATE_Str" class="col-sm-1 control-label">开始日期</label>
+                                <div class="col-sm-6">
+                                    <div class="input-group date" id="BEGIN_DATE_picker">
+                                        @Html.TextBox("BEGIN_DATE_Str", Model.BEGIN_DATE_Str, new { @class = "form-control" })
+                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-5">
+                                    <p class="help-block" style="color: red;"></p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="END_DATE_Str" class="col-sm-1 control-label">结束日期</label>
+                                <div class="col-sm-6">
+                                    <div class="input-group date" id="END_DATE_picker">
+                                        @Html.TextBox("END_DATE_Str", Model.END_DATE_Str, new { @class = "form-control" })
+                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-5">
+                                    <p class="help-block" style="color: red;"></p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="REMARK" class="col-sm-1 control-label">说明</label>
+                                <div class="col-sm-6">
+                                    @Html.TextArea("REMARK", Model.REMARK, new { @class = "form-control", @cols = "50", @rows = "2" })
+                                </div>
+                                <div class="col-sm-5">
+                                    <p class="help-block" style="color: red;"></p>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" id="btnCloseFaxx" class="btn btn-default" data-dismiss="modal">取 消</button>
+                                <button type="button" id="btnSaveFaxx" class="btn btn-primary">保 存</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="tab-pane" id="Yjtc">
+                        <form class="form-horizontal" id="frmYjtc" method="post" role="form">                            
+                             @Html.Hidden("typeStr", "")
+                             @Html.Hidden("groupId", "0")
+                           @* <div class="form-group col-sm-10">
+                                <table style="width: 100%">
+                                    <tbody>
+                                        <tr>
+                                            <td style="width: 80px;">提成项</td>
+                                            <td style="text-align: center;">
+                                                <a class="col-sm-2 badge badge-info" style="height: 20px; width: 100px; font-size: 13px; margin-right: 5px; margin-left: 20px"
+                                                    id="serviceitem_type">服务项目</a>
+                                                <a class="col-sm-2 badge badge-info" style="height: 20px; width: 100px; margin-right: 5px; font-size: 13px" id="pro_type">产品</a>
+                                                <a class="col-sm-2 badge badge-info" style="height: 20px; width: 100px; margin-right: 5px; font-size: 13px" id="card_type">买卡</a>
+
+                                            </td>
+                                            <td style="text-align: right;" rowspan="2">
+                                                <button type="button" id="btnBack" class="btn btn-default" data-dismiss="modal">返 回</button>
+                                                <button type="button" id="btnSaveYjtc" class="btn btn-primary">添 加</button></td>
+                                        </tr>
+                                        <tr style="height: 25px">
+                                            <td style="width: 80px;">&nbsp;</td>
+                                            <td style="text-align: center;">
+                                                <div style="margin-left: 20px;" id="tdCType">*@
+                                                    @* <a class="col-sm-2 badge" style="height: 20px; width: 100px; margin-right: 5px;">服务项目</a>
+                                                <a class="col-sm-2 badge badge-info" style="height: 20px; width: 100px; margin-right: 5px;">产品</a>
+                                                <a class="col-sm-2 badge badge-info" style="height: 20px; width: 100px; margin-right: 5px;">会员卡</a>
+                                                <a class="col-sm-2 badge badge-info" style="height: 20px; width: 100px; margin-right: 5px;">疗程卡</a>*@
+                                               @* </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>*@
+
+                            <div class="form-group col-sm-10">
+                                <label class="col-sm-1 control-label">提成项</label>
+                                <div class="col-sm-8">
+                                    <select id="e2" multiple style="width: 100%" class="populate"></select>
+                                </div>
+                                <div class="col-sm-3" style="text-align:right;">
+                                    <button type="button" id="btnBack" class="btn btn-default" data-dismiss="modal">返 回</button>
+                                    <button type="button" id="btnSaveYjtc" class="btn btn-primary">添 加</button>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-sm-10">
+                                <table style="width: 100%" id="tbValue">
+                                    <tbody>
+                                        <tr style="height: 30px" id="trV_1">
+                                            <td style="width: 80px;">提成区段</td>
+                                            <td style="width: 80px; text-align: right; color: lightgray">0</td>
+                                            <td style="width: 50px; text-align: center;">至￥</td>
+                                            <td>
+                                                <input type="text" style="border-left: 0px; border-right: 0px; border-top: 0px; text-align: right; width: 120px"
+                                                    id="inputWx" />&nbsp;元
+                                            </td>
+
+                                            <td style="width: 230px; text-align: right;">&nbsp;此区段提成比例&nbsp;</td>
+                                            <td>
+                                                <input type="text" style="border-left: 0px; border-right: 0px; border-top: 0px; text-align: right; width: 120px"
+                                                    id="inputBl" />&nbsp;%</td>
+                                            <td style="width: 50px; text-align: right; height: 23px">
+                                                <a title="添加" id="addBtn_1" class="abtn badge badge-success" href="javascript:;"
+                                                    style="color: white; font-size: 10px"><i class="fa fa-plus"></i></a></td>
+                                        </tr>
+
+                                        @* <tr style="height:30px" id="trV_2">
+                                            <td style="width: 80px;">提成区段</td>
+                                            <td style="width: 80px; text-align: right; color: lightgray" id="beginV_2">0</td>
+                                           <td style="width: 50px; text-align:center;">至￥</td>
+                                            <td>
+                                                <input type="text" style="border-left: 0px; border-right: 0px; border-top: 0px; text-align: right; width:120px"
+                                                    value="1000000" id="endV_2" />&nbsp;元
+                                            </td>                                                                                      
+                                            <td style="width: 230px; text-align: right;">&nbsp;此区段提成比例&nbsp;</td>
+                                            <td>
+                                                <input type="text" style="border-left: 0px; border-right: 0px; border-top: 0px; text-align: right; width:120px"
+                                                    value="0" id="rateV_2"  />&nbsp;%</td>                                            
+                                             <td style="width: 50px; text-align:right; " id="tdBtn_2">
+                                                 <a title="移除" id="rmoveBtn_1" class="abtn badge badge-danger" href="javascript:;" style="color:white; font-size:10px "><i class="fa fa-minus" ></i></a></td>
+                                        </tr>*@
+
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div id="addedObjs">
+                              @*  <div class="form-group col-sm-10">
+                                    <div class="alert alert-dismissable alert-info" style="font-size: 12px">
+                                        <button type="button" class="close" style="font-size: 12px">删除</button>
+                                        <h4>业绩汇总：服务项目--服务项目--服务项目</h4>
+                                        <table>
+                                            <tbody>
+                                                <tr style="height: 25px">
+                                                    <td style="width: 78px; text-align: right;">提成区段&nbsp;</td>
+                                                    <td style="width: 80px; text-align: right;">0</td>
+                                                    <td style="width: 40px; text-align: center;">至￥</td>
+                                                    <td style="width: 80px; text-align: right;">100000
+                                                    </td>
+                                                    <td style="width: auto;">&nbsp;元&nbsp;</td>
+                                                    <td style="width: 230px; text-align: right;">&nbsp;此区段提成比例&nbsp;</td>
+                                                    <td style="width: 30px; text-align: right;">5</td>
+                                                    <td style="width: auto;">&nbsp;%&nbsp;</td>
+                                                </tr>
+                                                <tr style="height: 25px">
+                                                    <td style="width: 78px; text-align: right;">提成区段&nbsp;</td>
+                                                    <td style="width: 80px; text-align: right;">0</td>
+                                                    <td style="width: 40px; text-align: center;">至￥</td>
+                                                    <td style="width: 80px; text-align: right;">100000
+                                                    </td>
+                                                    <td style="width: auto;">&nbsp;元&nbsp;</td>
+                                                    <td style="width: 230px; text-align: right;">&nbsp;此区段提成比例&nbsp;</td>
+                                                    <td style="width: 30px; text-align: right;">5</td>
+                                                    <td style="width: auto;">&nbsp;%&nbsp;</td>
+                                                </tr>
+                                                <tr style="height: 25px">
+                                                    <td style="width: 78px; text-align: right;">提成区段&nbsp;</td>
+                                                    <td style="width: 80px; text-align: right;">0</td>
+                                                    <td style="width: 40px; text-align: center;">至￥</td>
+                                                    <td style="width: 80px; text-align: right;">100000
+                                                    </td>
+                                                    <td style="width: auto;">&nbsp;元&nbsp;</td>
+                                                    <td style="width: 230px; text-align: right;">&nbsp;此区段提成比例&nbsp;</td>
+                                                    <td style="width: 30px; text-align: right;">5</td>
+                                                    <td style="width: auto;">&nbsp;%&nbsp;</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                               *@  
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+ <div id="confirmModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">确认！</h4>
+            </div>
+            <div>
+            </div>
+            <div class="modal-body">
+                <p>你确认要删除佣金 [ <span id="lbuserName"></span>] 吗？</p>
+                <input id="hdCurrentId" type="hidden" value="" />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取 消</button>
+                <button type="button" id="btnConfirm" class="btn btn-primary">确 定</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+ 
+<!-- /.modal -->
+@section jssection{
+    <script type="text/javascript">
+        var util = {};
+        var options = {
+            indexUrl: "@Url.Action("Commission")",
+            saveUrl: "@Url.Action("SaveCommissionDETAIL")", 
+            savePfmUrl: "@Url.Action("SavePFMCCommission")",
+            getCpd: "@Url.Action("GetCPD")",
+            deleteUrl: "@Url.Action("DeleteEMPCommission")",
+            getCCaUrl: "@Url.Action("GetAddCategorys")",
+        };
+
+    </script>
+     <script type='text/javascript' src='../../assets/demo/demo-mask.js'></script>         
+
+    @Html.Js("plugins/validator/validator", "plugins/xjgrid/xjgrid", "plugins/xjdailog/xjdailog",
+    "plugins/form-datepicker/js/bootstrap-datepicker", "plugins/form-datepicker/js/locales/bootstrap-datepicker.zh-CN",
+    "plugins/form-inputmask/jquery.inputmask.bundle.min",
+    "plugins/form-select2/select2",
+    "js/common", "app/employee/editcommission", "app/employee/editpfmccommission")   
+      
+}
+
+

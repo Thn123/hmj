@@ -1,0 +1,213 @@
+﻿@{
+    ViewBag.Title = "粉丝管理";
+}
+@model Hmj.Entity.Entities.CUST_FANS_EX
+@section htmlhead{
+    @Html.Css("plugin/xjgrid", "plugin/xjdailog", "common", "plugin/validator", "plugin/tip")
+@*<link href="~/assets/css/plugin/xjgrid.css" rel="stylesheet" />
+<link href="~/assets/css/plugin/xjdailog.css" rel="stylesheet" />
+<link href="~/assets/css/plugin/validator.css" rel="stylesheet" />*@
+<link rel='stylesheet' type='text/css' href='../../assets/css/tree.css' />
+<link href="~/assets/css/plugin/tip.css" rel="stylesheet" />
+    <style type="text/css">
+        .searchpanel {
+            background-color: #f7f8fa; /*border: 1px solid #ccc;*/
+            padding: 5px 15px;
+            margin-left: 10px;
+            border-radius: 4px;
+            
+        }
+
+            .searchpanel .form-group, .searchpanel .btnpanel_right {
+                /*
+            display: block;
+            overflow: hidden;
+            zoom: 1;
+            margin-bottom: 0px;
+            */
+            }
+
+                .searchpanel .form-group label {
+                    margin-bottom: 4px;
+                }
+
+        #SearchBox {
+            width: 200px;
+        }
+    </style>
+}
+<div class="s_container">
+    <div id="page-heading">
+        <h2>
+            &nbsp;<i class="fa fa-pagelines"></i>粉丝管理</h2>
+    </div>
+    <div id="mainbody" class="panel panel-primary">
+        <div class="panel-heading">
+            <h4>粉丝列表</h4>
+        </div>
+        <div class="panel-body" style="min-height: 350px">
+            <div class="row">
+                <div class="col-md-2 form-group">
+                    <button type="button" class="btn default" id="btnAdd">
+                        <i class="fa fa-cloud-download"></i>粉丝同步</button>
+                </div>
+                <div class="text-right col-md-10">
+                    <form id="formQuery" class="form-inline" role="form" method="post" >
+                        <div class="form-group">
+                            <select id="ISZC" name="ISZC"  class="form-control"><option>全部</option><option>已注册</option><option>未注册</option></select>
+                            <input id="Name" name="Name" class="form-control" type="text" placeholder="昵称/姓名/手机" />                            
+                            <div class="btn-group">
+                                <button class="btn-primary btn"><i class="fa fa-search"></i>查询</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-12">
+                    <div class="table-responsive" id="gridlist">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="confirmModal" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            &times;</button>
+                        <h4 class="modal-title">确认！</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            你确认要删除此消息吗？
+                        </p>
+                        <input id="hdCurrentId" type="hidden" value="" />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                            取 消</button>
+                        <button type="button" id="btnConfirm" class="btn btn-primary">
+                            确 定</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+
+        <!-- /.modal -->
+
+        
+
+          <div id="EditModal" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">粉丝详情</h4>
+                    </div>
+
+                    <div class="modal-body">
+                        <form class="form-horizontal" id="frmSave" method="post" action="@Url.Action("SaveInformation")" role="form">
+                            @Html.Hidden("ID",Model.ID)
+                            <div class="form-group col-xs-6" style="height:200px;">
+                                @*<label class="col-sm-3 control-label" style="text-align:left">头像:</label>*@
+                                <div class="col-sm-12">
+                                    @*@Html.ResourceDropDownList("replyType", "replyType", Model.replyType, new { @class = "form-control" }, Model.replyType.ToString(), false)*@
+                                <img id="image1" src="~/favicon.ico"  class="img-rounded" width="200px"/>
+                                </div>
+                            </div>
+                            <div class="form-group col-xs-6" id="divkeys">
+                                <label class="col-sm-3 control-label" style="text-align:left">昵称:</label>
+                                <div class="col-sm-9">
+                                  @Html.TextBox("NAME", Model.NAME, new { @class = "form-control", placeholder = "",style="readonly;border:none;" })
+                                </div>
+
+                            </div>
+                            <div class="form-group col-xs-6" id="divtype">
+                                <label class="col-sm-3 control-label" style="text-align:left">性别:</label>
+                                <div class="col-sm-9">
+                                   @Html.TextBox("xb", Model.xb, new { @class = "form-control", placeholder = "",style="readonly;border:none;" })
+                                </div>
+                            </div>
+                            
+                            <div class="form-group col-xs-6">
+                                <label class="col-sm-3 control-label" style="text-align:left">城市:</label>
+                                <div class="col-sm-9">
+                                    @Html.TextBox("CITY", Model.CITY, new { @class = "form-control", placeholder = "",style="readonly;border:none;" })
+                                </div>
+                            </div>
+                             <div class="form-group col-xs-6" id="divnews">
+                                <label class="col-sm-3 control-label" style="text-align:left">微信:</label>
+                                <div class="col-sm-9">
+                                    @Html.TextBox("FROMUSERNAME", Model.FROMUSERNAME, new { @class = "form-control", placeholder = "",style="readonly;border:none;" })
+                                </div>
+                            </div>
+                             <div class="form-group col-xs-6" id="divtext">
+                                <label class="col-sm-3 control-label" style="text-align:left">状态:</label>
+                                <div class="col-sm-9">
+                                     @Html.TextBox("qx", Model.qx, new { @class = "form-control", placeholder = "",style="readonly;border:none;" })
+                                </div>
+                            </div>
+                        </form>                        
+                    </div>
+                    <div style="clear:both"></div>
+                    <div class="modal-footer">
+                           @* <button type="button" id="btnSave" class="btn btn-primary">确 定</button>*@
+                            <button type="button" id="btnClose" class="btn btn-default" data-dismiss="modal">取 消</button>
+                        </div>
+                </div>
+            </div>
+        </div>
+
+        <!--发送微信消息-->
+        <div id="EditModal2" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">发送消息</h4>
+                    </div>
+
+                    <div class="modal-body">
+                        <form class="form-horizontal" id="frmSave2" method="post" action="@Url.Action("SaveMessage")" role="form">
+                            @Html.Hidden("ID",Model.ID)
+                            <div class="form-group col-xs-12" style="height:200px;">
+                                @*<label class="col-sm-3 control-label" style="text-align:left">头像:</label>*@
+                                <div class="col-sm-12">
+                                    @*@Html.ResourceDropDownList("replyType", "replyType", Model.replyType, new { @class = "form-control" }, Model.replyType.ToString(), false)*@
+                                <textarea id="txtmessage" style="width:100%; height:200px;"></textarea>
+                                </div>
+                            </div>
+                        </form>                        
+                    </div>
+                    <div style="clear:both"></div>
+                    <div class="modal-footer">
+                            <button type="button" id="btnSave2" class="btn btn-primary">确 定</button>
+                            <button type="button" id="btnClose2" class="btn btn-default" data-dismiss="modal">取 消</button>
+                        </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+  <div id="div3" style="display:none;color:limegreen; font-size:small;width:450px;background-color:white;" class="img-rounded">  
+    @*<img id="imgphoto" src="" class="img-circle"  style="width:400px;height:400px;float:left;"/>
+     <div style="float:left;width:200px"> 姓名：safsfsdf<br>性别：adfsadf<br>手机：asdfsd<br>会员类型：sdfsadf<br>生日：asdf
+      <br />ASDDSA</div>*@
+    </div>
+@section jssection{
+    <script type="text/javascript">
+
+        var util = {};
+        var options = {
+            GetFansUrl: "@Url.Action("GetFansList")",
+            GetFUrl: "@Url.Action("GetFans")",
+            listUrl: "@Url.Action("GetFansLists")",
+            editUrl: "@Url.Action("FansEdit")",
+            deleteUrl: "@Url.Action("DeleteInformation")",
+        };
+    </script>
+    @Html.Js("/plugins/xjgrid/xjgrid", "/plugins/xjdailog/xjdailog", "/plugins/validator/validator", "/app/wechat/fanslist", "/app/company/jquery.tree")
+}

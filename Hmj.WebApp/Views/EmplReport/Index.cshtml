@@ -1,0 +1,93 @@
+﻿@{
+    ViewBag.Title = "员工管理";
+}
+@model Hmj.Entity.SearchEntity.EmpSearch
+@section htmlhead{
+    @Html.Css("plugin/xjgrid", "plugin/xjdailog")
+    @Html.Css("plugin/validator")
+    <link rel='stylesheet' type='text/css' href='../../assets/css/tree.css' />
+    <style type="text/css">
+        .h_title {
+            padding: 5px 15px;
+            border-bottom: solid 1px #e6e5e5;
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        .searchpanel {
+            background-color: #f7f8fa; /*border: 1px solid #ccc;*/
+            padding: 5px 15px;
+            margin-left: 10px;
+            border-radius: 4px;
+        }
+
+            .searchpanel .form-group label {
+                margin-bottom: 4px;
+            }
+
+        #USER_TYPE {
+            min-width: 100px;
+        }
+    </style>
+}
+<div class="s_container">
+    <div id="page-heading">
+        <h2>
+            <i class="fa fa-user"></i>&nbsp;员工管理</h2>
+    </div>
+    <div id="mainbody" class="panel panel-primary col-md-3">
+        <div class="panel-heading">
+            <h4>组织机构</h4>
+        </div>
+        <div class="panel-body">
+            <div id="ptree"></div>
+        </div>
+    </div>
+    <div id="mainbody1" class="panel panel-primary col-md-9">
+        <div class="panel-heading">
+            <h4 id="h4Dict">员工列表
+            </h4>
+        </div>
+        <div class="panel-body" style="min-height: 350px">
+            <div class="row">
+                <div class="text-right col-md-10"  style="padding:10px;text-align:left;width:100%">
+                    <form id="formQuery" class="form-inline" method="post" role="form">
+                        <input id="DeptId" name="DeptId" class="form-control" type="hidden"/>
+                        选取时间区：<input id="FirstTime" name="FirstTime" class="form-control" type="text" style="width:100px" placeholder="开始时间"/>
+                        ~<input id="EndTime" name="EndTime" class="form-control" type="text" style="width:100px" placeholder="截止时间"/>
+                        门店：<input id="StoreName" name="StoreName" class="form-control" type="text" placeholder="门店" style="width:100px"/>                         
+                        <button class="btn-primary btn"><i class="fa fa-search"></i>查 询</button>
+                        <a id="btnExportFile" href="#" class="btn-primary btn" >导出列表</a>
+                    </form>
+                </div>
+                <div class="col-md-12">
+                    <div id="gridlist">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="confirmModal" class="modal fade">
+        </div>
+    </div>
+</div>
+<!-- /.modal -->
+@section jssection{
+    <script type="text/javascript">
+
+        var util = {};
+        var options = {
+            listUrl: "@Url.Action("List")",
+            editUrl: "@Url.Action("EditInfo")",
+            deleteUrl: "@Url.Action("Delete")",
+            getUserREGION: "@Url.Action("GetUserREGION")",
+            queryLeftUrl: "@Url.Action("QueryLeft")",
+            changeHisUrl: "@Url.Action("ChangeHis")",
+            uploadAllEmployeesUrl: "@Url.Action("UploadAllEmployees")"
+        };
+    </script>
+    @Html.Js("plugins/validator/validator", "plugins/xjgrid/xjgrid", "plugins/xjdailog/xjdailog", 
+    "app/company/jquery.tree", "js/ajaxfileupload","app/emplreport/index","plugins/form-datepicker/js/bootstrap-datepicker", 
+    "plugins/form-datepicker/js/locales/bootstrap-datepicker.zh-CN")
+    
+    
+}

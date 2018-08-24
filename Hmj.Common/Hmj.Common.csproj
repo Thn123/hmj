@@ -1,0 +1,164 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3B727FCD-290B-4571-A96C-978763ECDC77}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Hmj.Common</RootNamespace>
+    <AssemblyName>Hmj.Common</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>
+    </DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutoMapper, Version=6.2.2.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.6.2.2\lib\net45\AutoMapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="BouncyCastle.Crypto, Version=1.8.2.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
+      <HintPath>..\packages\BouncyCastle.1.8.2\lib\BouncyCastle.Crypto.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog">
+      <HintPath>..\REFDLL\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI, Version=2.2.1.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\NPOI.2.2.1\lib\net40\NPOI.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NPOI.OOXML, Version=2.2.1.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\NPOI.2.2.1\lib\net40\NPOI.OOXML.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NPOI.OpenXml4Net, Version=2.2.1.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\NPOI.2.2.1\lib\net40\NPOI.OpenXml4Net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NPOI.OpenXmlFormats, Version=2.2.1.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\NPOI.2.2.1\lib\net40\NPOI.OpenXmlFormats.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="StructureMap">
+      <HintPath>..\REFDLL\StructureMap.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Vulcan, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\REFDLL\Vulcan.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AppConfig.cs" />
+    <Compile Include="AppUserManager.cs" />
+    <Compile Include="AppValidIPManager.cs" />
+    <Compile Include="AutoMapperHelper.cs" />
+    <Compile Include="CacheManager\AspNetCache.cs" />
+    <Compile Include="CacheManager\CacheFactory.cs" />
+    <Compile Include="CacheManager\ICache.cs" />
+    <Compile Include="CacheManager\SessionCache.cs" />
+    <Compile Include="CacheManager\SessionManager.cs" />
+    <Compile Include="CommonHelp.cs" />
+    <Compile Include="Constant.cs" />
+    <Compile Include="Cryptography.cs" />
+    <Compile Include="CryptographyManager.cs" />
+    <Compile Include="CryptographyUtils.cs" />
+    <Compile Include="Exceptions\BOException.cs" />
+    <Compile Include="Exceptions\DataConvertException.cs" />
+    <Compile Include="Exceptions\NoAuthorizeExecption.cs" />
+    <Compile Include="Exceptions\NoPermissionExecption.cs" />
+    <Compile Include="HttpRequestHelper.cs" />
+    <Compile Include="IdentityUser.cs" />
+    <Compile Include="JsConfig.cs" />
+    <Compile Include="NewNPOI.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RequestHelp.cs" />
+    <Compile Include="ServiceFactory.cs" />
+    <Compile Include="Utility.cs" />
+    <Compile Include="Utils\RSAExtensions.cs" />
+    <Compile Include="Utils\RSAUtils.cs" />
+    <Compile Include="Utils\AssertUtils.cs" />
+    <Compile Include="Utils\ConvertHelper.cs" />
+    <Compile Include="Utils\DateUtils.cs" />
+    <Compile Include="Utils\FileDownLoadUtils.cs" />
+    <Compile Include="Utils\IdUtils.cs" />
+    <Compile Include="Utils\JsonHelper.cs" />
+    <Compile Include="Utils\NetHelper.cs" />
+    <Compile Include="Utils\NumberUtils.cs" />
+    <Compile Include="Utils\PinYinUtils.cs" />
+    <Compile Include="Utils\SHA256ManagedUtils.cs" />
+    <Compile Include="Utils\SqlWhereUtils.cs" />
+    <Compile Include="Utils\StreamHelper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Hmj.DTO\Hmj.DTO.csproj">
+      <Project>{27a01859-5ee7-4d5c-a3c0-fff10758713a}</Project>
+      <Name>Hmj.DTO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Hmj.WebService\Hmj.WebService.csproj">
+      <Project>{0D56C92A-2F23-4995-8DAB-62612827FE69}</Project>
+      <Name>Hmj.WebService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Hmj.Entity\Hmj.Entity.csproj">
+      <Project>{84C5A1AB-0FF6-41F4-8BED-7939C0860B3B}</Project>
+      <Name>Hmj.Entity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Hmj.Interface\Hmj.Interface.csproj">
+      <Project>{957a25a3-ad39-4b99-a8ee-b725fdc0da3a}</Project>
+      <Name>Hmj.Interface</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

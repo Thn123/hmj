@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="Keywords" content="" />
+    <meta name="Description" content="" />
+    <link rel="stylesheet" href="../css/public.css" />
+    <title>使用完成</title>
+</head>
+<body>
+    <div class="wrap">
+        <div class="section">
+            <p>
+                <img src="../images/sign-check-icon.png" alt="" />
+            </p>
+            <p>已使用</p>
+            <p id="card_title"></p>
+            <p id="card_code"></p>
+        </div>
+    </div>
+</body>
+</html>
+<script src="../js/jquery.min.js"></script>
+<script src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<script src="../js/validate.js" type="text/javascript" charset="utf-8"></script>
+
+<script src="../js/iosSelect.js"></script>
+<script src="../js/zepto.js"></script>
+
+
+<script>
+
+    $(function () {
+        var card_title = localStorage.getItem('card_title');
+        var card_code = localStorage.getItem('card_code');
+        $("#card_title").html(card_title);
+        $("#card_code").html(card_code);
+
+    });
+
+
+</script>

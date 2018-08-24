@@ -1,0 +1,249 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutE.cshtml";
+}
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width" name="viewport" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+    <meta name="format-detection" content="telphone=no, email=no" />
+    <link type="text/css" href="../css/shop.css" rel="stylesheet" />
+    <meta name="renderer" content="webkit">
+    <title>汤美星</title>
+    <style type="text/css">
+        #loading {
+            width: 200px;
+            height: 180px;
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            margin-top: -90px;
+            margin-left: -100px;
+            display: block;
+        }
+
+        .logo {
+            width: 200px;
+            height: 180px;
+            background: url(../images/06logo.png) no-repeat center 0;
+            background-size: 150px 139px;
+            text-align: center;
+        }
+
+            .logo span {
+                font-family: Arial, Helvetica, sans-serif;
+                font-size: 18px;
+                color: #231815;
+                padding-top: 150px;
+                display: block;
+            }
+
+        .loading.loadOut {
+            animation: loadOut .3s ease-out both;
+            -webkit-animation: loadOut .3s ease-out both;
+        }
+
+        @@-webkit-keyframes loadOut {
+            0% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0;
+            }
+        }
+
+        @@keyframes loadOut {
+            0% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0;
+            }
+        }
+    </style>
+    <script>
+        !(function (c, f) { var s = c.document; var b = s.documentElement; var m = s.querySelector('meta[name="viewport"]'); var n = s.querySelector('meta[name="flexible"]'); var a = 0; var r = 0; var l; var d = f.flexible || (f.flexible = {}); if (m) { console.warn("将根据已有的meta标签来设置缩放比例"); var e = m.getAttribute("content").match(/initial\-scale=([\d\.]+)/); if (e) { r = parseFloat(e[1]); a = parseInt(1 / r) } } else { if (n) { var j = n.getAttribute("content"); if (j) { var q = j.match(/initial\-dpr=([\d\.]+)/); var h = j.match(/maximum\-dpr=([\d\.]+)/); if (q) { a = parseFloat(q[1]); r = parseFloat((1 / a).toFixed(2)) } if (h) { a = parseFloat(h[1]); r = parseFloat((1 / a).toFixed(2)) } } } } if (!a && !r) { var p = c.navigator.appVersion.match(/android/gi); var o = c.navigator.appVersion.match(/iphone/gi); var k = c.devicePixelRatio; if (o) { if (k >= 3 && (!a || a >= 3)) { a = 3 } else { if (k >= 2 && (!a || a >= 2)) { a = 2 } else { a = 1 } } } else { a = 1 } r = 1 / a } b.setAttribute("data-dpr", a); if (!m) { m = s.createElement("meta"); m.setAttribute("name", "viewport"); m.setAttribute("content", "initial-scale=" + r + ", maximum-scale=" + r + ", minimum-scale=" + r + ", user-scalable=no"); if (b.firstElementChild) { b.firstElementChild.appendChild(m) } else { var g = s.createElement("div"); g.appendChild(m); s.write(g.innerHTML) } } function i() { var t = b.getBoundingClientRect().width; if (t / a > 750) { t = 750 * a } var u = t / 10; b.style.fontSize = u + "px"; d.rem = c.rem = u } c.addEventListener("resize", function () { clearTimeout(l); l = setTimeout(i, 300) }, false); c.addEventListener("pageshow", function (t) { if (t.persisted) { clearTimeout(l); l = setTimeout(i, 300) } }, false); if (s.readyState === "complete") { s.body.style.fontSize = 12 * a + "px" } else { s.addEventListener("DOMContentLoaded", function (t) { s.body.style.fontSize = 12 * a + "px" }, false) } i(); d.dpr = c.dpr = a; d.refreshRem = i })(window, window["lib"] || (window["lib"] = {}));
+    </script>
+</head>
+
+<body>
+    <div id="loading"><div class="logo"><span>0%</span></div></div>
+    <div style="height:1px;overflow:hidden; margin-top:-1px;"><img src="../images/01LOGO.png" width="320" height="320"></div>
+    <div class="container" id="conbox" style="display:none">
+        <div class="page page-1-1 page-current">
+            <div class="wrap">
+                <img src="../images/logotxt.png" class="page-img01 fangda01">
+                <img src="../images/01_txt_01.png" class="page-img02 show02">
+                <img src="../images/01_txt_02.png" class="page-img03 show03">
+                <img src="../images/01_txt_03.png" class="page-img04 show04">
+                <div class="page-logo show05"><img src="../images/01LOGO.png"></div>
+                <div class="pageone01 xingxing tiaoxing"></div>
+                <div class="pageone02 xingxing tiaoxing"></div>
+            </div>
+        </div>
+        <div class="page page-2-1 hide">
+            <div class="wrap">
+                <img src="../images/02bg.jpg" class="page-img11 show01">
+                <img src="../images/02_txt_01.png" class="page-img12 show02">
+                <img src="../images/02beizi.png" class="page-img13 show03">
+                <div class="page-img14 show03"><img src="../images/02jiantou.png" class="dong"></div>
+            </div>
+        </div>
+        <div class="page page-3-1 hide">
+            <div class="wrap">
+                <div class="page-logo page3-logo fangda01"><img src="../images/01LOGO.png"></div>
+                <img src="../images/03_txt_01.png" class="page-img31 show02">
+                <img src="../images/03_txt_02.png" class="page-img32 show03">
+                <img src="../images/03_txt_03.png" class="page-img33 show03">
+            </div>
+        </div>
+        <div class="page page-4-1 hide">
+            <div class="wrap">
+                <div class="page-logo page3-logo"><img src="../images/01LOGO.png"></div>
+                <img src="../images/04txt.png" class="page-img41 show01">
+                <img src="../images/04txt01.png" class="page-img42 show02">
+                <img src="../images/04txt02.png" class="page-img43 show03">
+                <img src="../images/huangguang.png" class="page-img44 baidong">
+            </div>
+        </div>
+        <div class="page page-5-1 hide">
+            <div class="wrap">
+                <div class="page-logo page3-logo" style="top:1%"><img src="../images/01LOGO.png"></div>
+                <img src="../images/05title.png" class="page-img50 showLeft">
+                <img src="../images/1956.png" class="page-img51 show01">
+                <img src="../images/1986.png" class="page-img52 show02">
+                <img src="../images/1988.png" class="page-img53 show03">
+                <img src="../images/1997.png" class="page-img54 show04">
+                <img src="../images/2011.png" class="page-img55 show05">
+                <img src="../images/2006.png" class="page-img56 show06">
+            </div>
+        </div>
+        <div class="page page-6-1 hide">
+            <div class="wrap">
+                <div class="page-logo page6-logo fangda02"><img src="../images/01LOGO.png"></div>
+                <img src="../images/2002.png" class="page-img60 show01">
+                <img src="../images/2011txt.png" class="page-img61 show02">
+                <img src="../images/2012.png" class="page-img62 show03">
+                <img src="../images/2013.png" class="page-img63 show04">
+                <img src="../images/2015.png" class="page-img64 show05">
+                <img src="../images/2017.png" class="page-img65 show06">
+                <div class="page-img69"></div>
+            </div>
+        </div>
+        <div class="page page-7-1 hide">
+            <div class="wrap">
+                <img src="../images/07txt.png" class="page-img71 show01">
+                <div class="page-img72 fangda02"><img src="../images/07logo.png"></div>
+                <img src="../images/chaojipinpai.png" class="page-img73 showRight">
+                <img src="../images/07bg.jpg" class="page-img74 show04">
+                <div class="page-img74 show04"><img src="../images/07txt02bg.png"></div>
+            </div>
+        </div>
+        <div class="page page-8-1 hide">
+            <div class="wrap">
+                <img src="../images/08txt01.png" class="page-img81 fangda01">
+                <img src="../images/08chan01.png" class="page-img82 fangda02">
+                <img src="../images/08chan02.png" class="page-img83 fangda03">
+                <img src="../images/08chan03.png" class="page-img84 fangda04">
+                <img src="../images/08chan04.png" class="page-img85 fangda05">
+                <img src="../images/08chan05.png" class="page-img86 fangda06">
+                <img src="../images/08txt.png" class="page-img87 show06">
+            </div>
+        </div>
+        <div class="page page-9-1 hide">
+            <div class="wrap">
+                <img src="../images/09img01.png" class="page9-img1 show01">
+                <img src="../images/09img02.png" class="page9-img2 showLeftKK">
+                <div class="page9-img3 show03"><img src="../images/09txt.png" /></div>
+            </div>
+        </div>
+
+        <div class="page page-10-1 hide">
+            <div class="wrap">
+                <div class="page-logo page3-logo show01"><img src="../images/01LOGO.png"></div>
+                <div class="page10-img1 show02"><img src="../images/10title.png"></div>
+                <img src="../images/10pingzi.png" class="page10-img2 showRight">
+                <img src="../images/10txt01.png" class="page10-img3 fangda03">
+                <img src="../images/10txt02.png" class="page10-img4 fangda04">
+                <img src="../images/10txt03.png" class="page10-img5 fangda05">
+                <img src="../images/10txt04.png" class="page10-img6 fangda06">
+            </div>
+        </div>
+
+        <div class="page page-11-1 hide">
+            <div class="wrap">
+                <div class="page-logo page3-logo show01"><img src="../images/01LOGO.png"></div>
+                <p class="page11-img1 show02"><img src="../images/11title.png"></p>
+                <img src="../images/11img.png" class="page11-img2 fangda03">
+                <img src="../images/11txt3.png" class="page11-img3 show04">
+                <div class="page11-img4 showRight"><img src="../images/11rudi.png" class="rudi"></div>
+                <img src="../images/11bottom.png" class="page11-img5 show06">
+            </div>
+        </div>
+
+        <div class="page page-12-1 hide">
+            <div class="wrap">
+                <div class="page12-img1">
+                    <div class="page12-zhe show01"></div>
+                </div>
+                <img src="../images/guang2.png" class="guang12 tiaoxing">
+                <img src="../images/guang2.png" class="guang122 tiaoxing">
+            </div>
+        </div>
+
+        <div class="page page-13-1 hide">
+            <div class="wrap">
+                <img src="../images/13txt.png" class="page13-img01 fangda01" />
+            </div>
+        </div>
+
+    </div>
+
+    <script type="text/javascript" src="../js/zepto.min.js"></script>
+    <script type="text/javascript" src="../js/touch.js"></script>
+    <script type="text/javascript" src="../js/index.js"></script>
+
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+
+    <script src="../js/GetLocation.js?v=1.0"></script>
+    <script type="text/javascript">
+        document.addEventListener('touchmove', function (event) { event.preventDefault(); }, false);
+        var host = window.location.host;
+        var url = window.location.pathname;
+        if (url) {
+            var index = url.lastIndexOf("\/");
+            url = url.substring(0, index + 1);
+        }
+        $(function () {
+            loading();
+            function loading() {
+                var domain_url = url;
+                var imgList = ['../images/01LOGO.png', '../images/bg01.jpg', '../images/06logo.png', '../images/02bg.jpg', '../images/bg03.jpg', '../images/bg04.jpg', '../images/bg05.jpg', '../images/bg061.jpg', '../images/bg062.png', '../images/07bg.jpg', '../images/bg12.jpg', '../images/bg.jpg', '../images/guang.png', '../images/guang2.png', '../images/2002.png', '../images/04txt01.png', '../images/04txt02.png', '../images/13txt.png', '../images/12txt.png', '../images/11rudi.png', '../images/11txt3.png', '../images/11bottom.png', '../images/11img.png', '../images/11title.png', '../images/10pingzi.png', '../images/10txt04.png', '../images/10txt03.png', '../images/10txt02.png', '../images/10txt01.png', '../images/10title.png', '../images/09img02.png', '../images/09txt.png', '../images/09img01.png', '../images/08chan05.png', '../images/08chan04.png', '../images/08chan03.png', '../images/08chan02.png', '../images/08chan01.png', '../images/08txt01.png', '../images/08txt.png', '../images/chaojipinpai.png', '../images/07logo.png', '../images/2017.png', '../images/2015.png', '../images/2013.png', '../images/02beizi.png', '../images/1956.png', '../images/2011.png', '../images/07txt.png'];
+                var len = imgList.length;
+                var count = 0;
+                for (var i = 0; i < len; i++) {
+                    if (imgList[i] == "") { len = len - 1; return; };//容错处理
+                    var imgT = new Image();
+                    imgT.onload = function () {
+                        count++;
+                        $('#loading>.logo>span').html(parseInt(count / len * 100, 10) + '%');
+                        if (count == len - 1) {
+                            $('#loading').addClass("loadOut");
+                            setTimeout(function () { $('#loading').remove(); }, 300);
+                            $("#conbox").show();
+
+                        }
+                    };
+                    imgT.src = domain_url + imgList[i];
+                };
+            }
+        })
+    </script>
+</body>
+</html>

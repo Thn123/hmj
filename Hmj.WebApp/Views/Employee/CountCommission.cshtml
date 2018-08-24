@@ -1,0 +1,100 @@
+﻿@{
+    ViewBag.Title = "佣金计算";
+    var orgId = ViewData["ORG_ID"] == null ? "0" : ViewData["ORG_ID"].ToString();
+}
+@model Hmj.Entity.Entities.COMMISSION_EX
+@section htmlhead{
+    @Html.Css("plugin/xjgrid", "plugin/xjdailog", "common", "plugin/validator", "plugin/tip")
+
+<link rel='stylesheet' type='text/css' href='../../assets/plugins/form-select2/select2.css' />  
+
+<script type="text/javascript" src="../../assets/js/less.js"></script>
+
+    <style type="text/css">
+        .h_title {
+            padding: 5px 15px;
+            border-bottom: solid 1px #e6e5e5;
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        .searchpanel {
+            background-color: #f7f8fa; /*border: 1px solid #ccc;*/
+            padding: 5px 15px;
+            margin-left: 10px;
+            border-radius: 4px;
+        }
+
+            .searchpanel .form-group label {
+                margin-bottom: 4px;
+            }
+    </style>
+}
+<div class="s_container">
+    <div id="page-heading">
+        <h2>
+            <i class="fa fa-user"></i>&nbsp;佣金计算</h2>
+    </div>
+    <div id="mainbody" class="panel panel-primary">
+        <div class="panel-heading">
+            <h4>佣金计算</h4>
+        </div>
+        <div class="panel-body" style="min-height: 350px">
+            <form class="form-horizontal" id="frmSave" method="post" role="form">
+                <div class="form-group">
+                    <label for="STATUS" class="col-sm-2 control-label">门店</label>
+                    <div class="col-sm-4">
+                       @* @Html.ResourceDropDownList("STORE_ID", "STORE", "", new { @class = "form-control" }, orgId, false)*@
+                        @Html.ResourceDropDownList("STORE_Id", "LoginStore", (string)@ViewBag.StoreId, new { @class = "form-control",style="" },(string)@ViewBag.OrgId,"0",(string)@ViewBag.StoreId,false)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">月份</label>
+                      <div class="col-sm-2">
+                        @Html.ResourceDropDownList("YEAR", "YEAR", DateTime.Now.Year.ToString(), new { @class = "form-control" }, orgId, false)
+                    </div>
+                    <div class="col-sm-2">
+                        @Html.ResourceDropDownList("MONTH", "MONTH",DateTime.Now.ToString("MM"), new { @class = "form-control" }, orgId, false)
+                    </div>
+                   
+                </div>
+                <div class="form-group">
+                    <label for="RESULT" class="col-sm-2 control-label">计算结果</label>
+                    <div class="col-sm-4">
+                        @Html.Label("RESULT", "", new { @class = "form-control", placeholder = "计算结果" })
+                    </div>
+                </div>
+                            
+                <div class="modal-footer">
+                    @*<button type="button" id="btnCloseFrm" class="btn btn-default" data-dismiss="modal">取 消</button>*@
+                    <button type="button" id="btnSaveFrm" class="btn btn-primary">计 算</button>
+                </div>
+                <div id="gridlist">
+
+                </div>
+            </form>
+        </div>
+    </div>
+     
+</div>
+  
+<!-- /.modal -->
+@section jssection{
+    <script type="text/javascript">
+        var util = {};
+        var options = {
+            indexUrl: "@Url.Action("Commission")",
+            listUrl: "@Url.Action("CountCommissionList")",
+            queryCommission: "@Url.Action("queryCommission")"
+        };
+
+    </script> 
+
+    @Html.Js("plugins/validator/validator", "plugins/xjgrid/xjgrid", "plugins/xjdailog/xjdailog",
+    "plugins/form-datepicker/js/bootstrap-datepicker", "plugins/form-datepicker/js/locales/bootstrap-datepicker.zh-CN",
+    "plugins/form-inputmask/jquery.inputmask.bundle.min",
+    "js/common","app/employee/countcommission")   
+      
+}
+
+

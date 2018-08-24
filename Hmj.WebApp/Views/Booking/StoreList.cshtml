@@ -1,0 +1,122 @@
+﻿@{
+    ViewBag.Title = "StoreList";
+}
+@section htmlhead{
+    @Html.Css("plugin/xjgrid", "plugin/xjdailog", "plugin/validator")
+    <link href="~/assets/css/plugin/validator.css" rel="stylesheet" />
+}
+@model Hmj.Entity.WXStore
+
+<div class="s_container">
+    <div id="page-heading">
+        <h2>
+            <i class="fa fa-gears"></i>预约管理</h2>
+    </div>
+    <div id="mainbody" class="panel panel-primary">
+        <div class="panel-heading">
+            <h4>微店铺维护</h4>
+        </div>
+        <div class="panel-body" style="min-height: 350px">
+            <div class="row">
+                <div class="col-md-2 form-group">
+                    <button type="button" class="btn default" id="btnImport">
+                        <i class="fa fa-cloud-download"></i>门店同步</button>
+                </div>
+                <div class="col-md-12">
+                    <div class="table-responsive" id="gridlist">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="EditModal" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">门店详情</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-horizontal" id="frmEdit" method="post" action="@Url.Action("SaveStore")" role="form">
+                            @Html.Hidden("ID", Model.ID)
+                            <div class="form-group col-xs-12" id="divkeys">
+                                <label class="col-sm-3 control-label" style="text-align: left">店名</label>
+                                <div class="col-sm-9">
+                                    @Html.TextBox("Name", Model.Name, new { @class = "form-control", placeholder = "" })
+                                </div>
+                            </div>
+                            <div class="form-group col-xs-12">
+                                <label class="col-sm-3 control-label" style="text-align: left">前端是否显示</label>
+                                <div class="col-sm-9">
+                                    @Html.ResourceRadioList("IsDisplay", "Store_IsDisplay", Model.IsDisplay, null)
+                                </div>
+                            </div>
+                            <div class="form-group col-xs-12">
+                                <label class="col-sm-3 control-label" style="text-align: left">预约短信通知</label>
+                                <div class="col-sm-9">
+                                    @Html.TextBox("NotificationTel", Model.NotificationTel, new { @class = "form-control", placeholder = "" })
+                                </div>
+                            </div>
+                            <div class="form-group col-xs-12">
+                                <label class="col-sm-3 control-label" style="text-align: left">省</label>
+                                <div class="col-sm-9">
+                                    @Html.TextBox("Province", Model.Province, new { @class = "form-control", placeholder = "" })
+                                </div>
+                            </div>
+                            <div class="form-group col-xs-12">
+                                <label class="col-sm-3 control-label" style="text-align: left">城市</label>
+                                <div class="col-sm-9">
+                                    @Html.TextBox("City", Model.City, new { @class = "form-control", placeholder = "" })
+                                </div>
+                            </div>
+                            <div class="form-group col-xs-12">
+                                <label class="col-sm-3 control-label" style="text-align: left">地区</label>
+                                <div class="col-sm-9">
+                                    @Html.TextBox("Region", Model.Region, new { @class = "form-control", placeholder = "" })
+                                </div>
+                            </div>
+                            <div class="form-group col-xs-12">
+                                <label class="col-sm-3 control-label" style="text-align: left">地址</label>
+                                <div class="col-sm-9">
+                                    @Html.TextBox("Address", Model.Address, new { @class = "form-control", placeholder = "" })
+                                </div>
+                            </div>
+                            <div class="form-group col-xs-12">
+                                <label class="col-sm-3 control-label" style="text-align: left">管理者</label>
+                                <div class="col-sm-9">
+                                    @Html.TextBox("Manager", Model.Manager, new { @class = "form-control", placeholder = "" })
+                                </div>
+                            </div>
+                            <div class="form-group col-xs-12">
+                                <label class="col-sm-3 control-label" style="text-align: left">电话</label>
+                                <div class="col-sm-9">
+                                    @Html.TextBox("Telephone", Model.Telephone, new { @class = "form-control", placeholder = "" })
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div style="clear: both"></div>
+                    <div class="modal-footer">
+                        <button type="button" id="btnSave" class="btn btn-primary">确 定</button>
+                        <button type="button" id="btnClose" class="btn btn-default" data-dismiss="modal">取 消</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section jssection{
+    <script type="text/javascript">
+        var util = {};
+        var options = {
+            importStoresUrl: "@Url.Action("ImportStores")",
+            queryStoreListUrl: "@Url.Action("QueryStoreList")",
+            getStoreUrl: "@Url.Action("GetStore")",
+        };
+    </script>
+    <script src="~/assets/plugins/validator/validator.js"></script>
+    <script src="~/assets/app/booking/storelist.js"></script>
+    <script src="~/assets/plugins/xjdailog/xjdailog.js"></script>
+    <script src="~/assets/plugins/xjgrid/xjgrid.js"></script>
+}

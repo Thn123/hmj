@@ -1,0 +1,15 @@
+﻿<#@ template debug="true" hostSpecific="true" #>
+<#@ output extension=".cs" #>
+<#@ include file="Base.ttinclude" #>
+<#@ include file="MSSql.ttinclude"  #>
+
+<#
+	ConnectionString = "server=42.159.196.169;database=HMJ_WX;uid=hmjsupplier;pwd=P@ssw0rd;";
+    Namespace       = "Hmj.Entity";
+    DataContextName = "DataContext";
+	BaseEntityClass = "BaseEntity";
+	RenderForeignKeys = false;
+	RenderBackReferences = false;
+    GenerateModel();
+
+#>

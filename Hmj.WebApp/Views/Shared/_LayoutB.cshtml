@@ -1,0 +1,86 @@
+﻿@{
+    ViewBag.ControllerName = this.ViewContext.RouteData.Values["controller"].ToString().ToLower();
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>PUMAN</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="PUMAN SPACRM">
+    <meta name="author" content="PUMAN TECH">
+    <link rel="stylesheet" href="../../assets/css/styles.css?=120">
+    <link rel="stylesheet" href="../../assets/css/app.css?=120">
+    <link rel='stylesheet' type='text/css' href='../../assets/plugins/form-xeditable/bootstrap3-editable/css/bootstrap-editable.css' /> 
+
+
+        <link rel='stylesheet' type='text/css' href='../../assets/plugins/form-daterangepicker/daterangepicker-bs3.css' />
+    <link rel='stylesheet' type='text/css' href='../../assets/plugins/fullcalendar/fullcalendar.css' />
+    <link rel='stylesheet' type='text/css' href='../../assets/plugins/form-markdown/css/bootstrap-markdown.min.css' />
+    <link rel='stylesheet' type='text/css' href='../../assets/plugins/codeprettifier/prettify.css' />
+    <link rel='stylesheet' type='text/css' href='../../assets/plugins/form-toggle/toggles.css' />
+    <link rel='stylesheet' type='text/css' href='../../assets/plugins/progress-skylo/skylo.css' />
+    <link rel='stylesheet' type='text/css' href='../../assets/js/jqueryui.css' />
+
+
+    <link rel='stylesheet' type='text/css' href='../../assets/plugins/pines-notify/jquery.pnotify.default.css' />
+
+    <link rel='stylesheet' type='text/css' href='../../assets/plugins/form-xeditable/bootstrap3-editable/css/bootstrap-editable.css' />
+    <link rel='stylesheet' type='text/css' href='../../assets/plugins/codeprettifier/prettify.css' />
+    <link rel='stylesheet' type='text/css' href='../../assets/plugins/form-toggle/toggles.css' />
+
+    <style type="text/css">
+        body{
+            padding:0;
+            margin:0;
+            background-color:#fff;
+        }
+    </style>
+    @RenderSection("htmlhead", false)
+</head>
+<body>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div id="loading_status"><i class="fa fa-spinner fa-spin"></i></div>
+    </div>
+    @RenderBody()
+    
+    <!-- 内容体结束 -->
+    <!--
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+
+    <script>!window.jQuery && document.write(unescape('%3Cscript src="assets/js/jquery-1.10.2.min.js"%3E%3C/script%3E'))</script>
+    <script type="text/javascript">!window.jQuery.ui && document.write(unescape('%3Cscript src="assets/js/jqueryui-1.10.3.min.js'))</script>
+    -->
+    <script type='text/javascript' src='../../assets/js/jquery-1.10.2.min.js'></script>
+    <script type='text/javascript' src='../../assets/js/jqueryui-1.10.3.min.js'></script>
+    <script type='text/javascript' src='../../assets/js/bootstrap.min.js'></script>
+    <script type='text/javascript' src='../../assets/js/enquire.js'></script>
+    <script type='text/javascript' src='../../assets/js/jquery.cookie.js'></script>
+    <script type='text/javascript' src='../../assets/js/jquery.nicescroll.min.js'></script>
+    <script type='text/javascript' src='../../assets/plugins/codeprettifier/prettify.js'></script>
+    <script type='text/javascript' src='../../assets/plugins/easypiechart/jquery.easypiechart.min.js'></script>
+    <script type='text/javascript' src='../../assets/plugins/sparklines/jquery.sparklines.min.js'></script>
+    <script type='text/javascript' src='../../assets/plugins/form-toggle/toggle.min.js'></script>
+    <script type='text/javascript' src='../../assets/plugins/fullcalendar/fullcalendar.min.js'></script>
+
+    <script type='text/javascript' src='../../assets/plugins/jqueryui-timepicker/jquery.ui.timepicker.min.js'></script> 
+    <script type='text/javascript' src='../../assets/plugins/form-daterangepicker/daterangepicker.min.js'></script>
+    <script type='text/javascript' src='../../assets/plugins/form-daterangepicker/moment.min.js'></script>
+    <script type='text/javascript' src='../../assets/plugins/pulsate/jQuery.pulsate.min.js'></script>
+    <script type='text/javascript' src='../../assets/js/placeholdr.js'></script>
+    <script type='text/javascript' src='../../assets/js/application.js'></script>
+    <script type='text/javascript' src='../../assets/js/common.js'></script>
+    <script type='text/javascript' src='../../assets/demo/demo.js'></script>
+    <script type='text/javascript' src='../../assets/plugins/knob/jquery.knob.min.js'></script> 
+    <script type='text/javascript' src='../../assets/demo/demo-slider.js'></script> 
+    <script type='text/javascript' src='../../assets/plugins/form-xeditable/bootstrap3-editable/js/bootstrap-editable.js'></script> 
+    <script type='text/javascript' src='../../assets/demo/demo-xeditable.js'></script>
+    <script type='text/javascript' src='../../assets/plugins/pines-notify/jquery.pnotify.js'></script>
+
+
+    @RenderSection("jssection", false)
+</body>
+</html>

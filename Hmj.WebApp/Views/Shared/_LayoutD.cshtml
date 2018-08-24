@@ -1,0 +1,26 @@
+﻿@{
+    ViewBag.ControllerName = this.ViewContext.RouteData.Values["controller"].ToString().ToLower();
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>PUMAN</title>
+    @RenderSection("htmlhead", false)
+</head>
+<body>
+   
+    @RenderBody()
+        <script type='text/javascript' src='../../assets/js/jquery-1.10.2.min.js'></script>
+
+     <script type='text/javascript' src='../../assets/js/jqueryui-1.10.3.min.js'></script>
+    <script type='text/javascript' src='../../assets/js/bootstrap.min.js'></script>
+
+
+
+
+
+
+    @RenderSection("jssection", false)
+</body>
+</html>

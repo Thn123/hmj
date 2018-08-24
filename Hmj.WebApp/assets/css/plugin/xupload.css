@@ -1,0 +1,32 @@
+﻿.xupload-picker {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    background: #f8f8f8 url(images/cloud.png) no-repeat 5px center;
+    padding:4px 5px 4px 40px;
+    width:120px;
+    height:60px;
+    color: #999;
+    border:dotted 1px #cdced1;
+    text-align: center;
+    border-radius: 3px;
+    overflow: hidden;
+    font-size:18px;
+    vertical-align:middle;
+    line-height:60px;
+}
+
+.filePrew {
+    cursor: pointer;
+    width: 165px;
+    height: 68px;
+    font-size: 100px; /* 增大不同浏览器的可点击区域 */
+    opacity: 0; /* 实现的关键点 */
+    filter: alpha(opacity=0); /* 兼容IE */
+    z-index: 1000;
+    cursor: pointer;
+}
+
+.xupload-container {
+    position: relative;
+}

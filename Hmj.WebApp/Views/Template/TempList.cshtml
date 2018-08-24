@@ -1,0 +1,101 @@
+﻿@{
+    ViewBag.Title = "模板消息群发";
+}
+
+@section htmlhead{
+    @Html.Css("plugin/validator", "plugin/xjgrid")
+    @Html.Css2("plugins/jquery-jstree/dist/themes/default/style.min")
+
+    <style>
+        .emp-pic {
+            width: 60px;
+            height: 60px;
+            -moz-border-radius: 30px; /* Gecko browsers */
+            -webkit-border-radius: 30px; /* Webkit browsers */
+            border-radius: 30px; /* W3C syntax */
+        }
+
+        .span {
+            word-break: normal;
+            width: auto;
+            display: block;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            overflow: hidden;
+        }
+        /*自定义宽度*/
+        .myOwnDdl {
+            display: inline-block;
+            width: 80%;
+            margin: 10px 10px;
+        }
+
+            /* 实现宽度自定义 */
+            .myOwnDdl .btn-group {
+                width: 100%;
+            }
+
+            .myOwnDdl .multiselect {
+                width: 100%;
+                text-align: right;
+                margin-top: -5px;
+            }
+
+            .myOwnDdl ul {
+                width: 100%;
+            }
+
+            .myOwnDdl .multiselect-selected-text {
+                position: absolute;
+                left: 0;
+                right: 25px;
+                text-align: left;
+                padding-left: 20px;
+            }
+
+        /*控制隔行换色*/
+        .myOwnDll .multiselect-container li.odd {
+            background: #eeeeee;
+        }
+    </style>
+}
+<div class="s_container">
+    <div id="page-heading">
+        <h2>
+            <i class="fa fa-users"></i>&nbsp;模板消息群发日志</h2>
+    </div>
+
+    <div id="mainbody4" class="panel panel-primary col-md-10">
+        <div class="panel-heading">
+            <h4 id="h4Dict">模板消息发送日志</h4>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-6 form-group">
+                </div>
+                <div class="text-right col-md-6">
+                    <form id="formQuery" class="form-inline" method="post" role="form">
+                        @Html.Hidden("SelectGroupId", "")
+                        @Html.Hidden("EMP_NAME", "")
+                    </form>
+                </div>
+                <div class="col-md-12">
+                    <div class="table-responsive" id="gridlist" style="min-height: 100px">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section jssection{
+    <script type="text/javascript">
+        var util = {};
+        var options = {
+            listUrl: "@Url.Action("QueryTemplateLogList")",
+        };
+    </script>
+    @Html.Js("plugins/validator/validator", "plugins/xjgrid/xjgrid", "plugins/jquery-jstree/dist/jstree.min", "app/template/templatelist")
+}

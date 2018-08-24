@@ -1,0 +1,40 @@
+﻿@charset "utf-8";
+* { margin: 0; padding: 0; }
+html { font-family: "Microsoft YaHei","Helvetica Neue","Helvetica","Roboto","STHeiTi","Arial","sans-serif"; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; font-size: 62.5%; }
+body { margin: 0 auto; padding: 0; width: 100%; height: 100%; background: #fff; overflow-x: hidden; -webkit-user-select: none; -webkit-text-size-adjust: none; max-width: 90rem; }
+ul, li, h1, h2, h3, h4, h5, p, input, dl, dt, dd, table, th, td, ol, form, bdo, em, i { margin: 0; padding: 0; list-style: none; }
+a:link, a:visited { text-decoration: none; color: #333; webkit-touch-callout: none; }
+a:hover { text-decoration: none; webkit-touch-callout: none; }
+
+
+.bgcolor { background: #f0f0f0; }
+.order-tag-item { width: 100%; height: 44px; background: #fff; display: block; margin-bottom: 10px; position: fixed; top: 0; left: 0; right: 0; z-index: 9999; }
+    .order-tag-item ol { float: left; width: 33.33%; height: 44px; text-align: center; font-size: 13px; }
+        .order-tag-item ol span { color: #666666; line-height: 44px; }
+        .order-tag-item ol.curbtn span { color: #d12e21; border-bottom: 2px solid #d12e21; line-height: 42px; display: inline-block; padding: 0 5px; font-family: Arial, Helvetica, sans-serif; }
+.quan-content-box { padding: 10px; display: block; margin-top: 44px; }
+.quan-index-items { display: block; }
+    .quan-index-items ul li { margin-bottom: 10px; width: 100%;  background: url(../images/bg2.png) no-repeat center center; overflow: hidden; background-size: 100% 100%; position: relative; box-shadow: 0 5px 8px #ddd; }
+.quan-waper { padding: 9px 30px; display: block; }
+    .quan-waper h2 { font-size: 16px; color: #81510b; line-height: 34px; }
+    .quan-waper h3 { color: #fff; font-size: 13px; }
+.quan-index-items ul li p { line-height: 30px; font-size: 12px; color: #999999; padding: 0 30px; overflow: hidden; }
+    .quan-index-items ul li p span { float: right; }
+    .quan-index-items ul li p strong { font-weight: normal; font-family: Arial, Helvetica, sans-serif; }
+.lingqubtn { width: 80px; height: 22px; border: 1px solid #cfa972; margin-top: 3px; color: #cfa972; display: inline-block; line-height: 22px; text-align: center; border-radius: 22px; font-size: 12px; }
+.quan-content { margin: 10px; background-color: #fff; box-shadow: 0 5px 8px #ddd; }
+.morentu { width: 300px; height: 200px; background: url(../images/none.png) no-repeat center center; background-size: 130px; margin: 150px auto; display: block; }
+
+.quan-huise { filter: progid:DXImageTransform.Microsoft.BasicImage(grayscale=1); -webkit-filter: grayscale(100%); opacity: 0.4; }
+
+.motify { position: fixed; top: 40%; left: 50%; width: 220px; padding: 0.5em; margin: 0 0 0 -110px; z-index: 999999; background: rgba(0,0,0,.8); color: #fff; line-height: 3em; border-radius: 6px; -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2); box-shadow: 0 1px 2px rgba(0,0,0,.2); text-align: center; display: none; }
+    .motify p { line-height: 3em; text-align: center; font-size: 12px; color: #fff; }
+
+.quanma { background: #fff; overflow: hidden; display: block; border-radius: 5px; }
+    .quanma img { width: 40%; margin: 30px auto; display: block; }
+    .quanma p { line-height: 30px; font-size: 16px; color: #333333; text-align: center; }
+
+.quanmaInfo { display: block; padding: 20px 20px 5px; }
+
+    .quanmaInfo h2 { font-size: 16px; line-height: 40px; text-align: center; }
+    .quanmaInfo p { line-height: 30px; font-size: 12px; color: #999; text-align: center; }

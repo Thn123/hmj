@@ -1,0 +1,149 @@
+﻿@{
+    ViewBag.Title = "我的档案";
+    Layout = "~/Views/Shared/_LayoutE.cshtml";
+}
+@model Hmj.Entity.WxModel.MemberInfo
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width" name="viewport" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+    <meta content="telephone=no" name="format-detection" />
+    <link type="text/css" href="/Bcj/memberinfo/css/admin.css" rel="stylesheet" />
+    <title>我的档案</title>
+</head>
+<body>
+    <div class="admin-index-banner">
+        <div class="admin-banner"><img src="/Bcj/memberinfo/images/bgbanner.jpg" /></div>
+        <div class="admin-info-person">
+            <p>
+                <span id="qrma"><img src="/Bcj/memberinfo/images/qrimg.png"></span><bdo class="imgbox">
+                    <img src="@Model.Headimgurl">
+                </bdo>
+                <strong>
+                    @Model.Nickname
+                    @if (Model.SEX == 0)
+                    {
+                        <em class="nvicon">
+                        </em>
+                    }
+                    else
+                    {
+                        <em class="nanicon">
+                        </em>
+                    }
+                    @*<a href="/BcjMember/ShowMemberLvlDetail.do?lvl=@Model.MEM_LEVEL">
+                            <em class="zhuceBtn">@Model.MEM_LEVEL</em>
+                      </a>*@
+                    <a href="javascript:void(0);">
+                        <em class="zhuceBtn">@Model.MEM_LEVEL</em>
+                    </a>
+                </strong>
+                <bdo>@Model.MOBILE</bdo>
+            </p>
+            <!--  <p><span><img src="/Bcj/memberinfo/images/qrimg.png"></span><bdo class="imgbox"><img src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=523024675,1399288021&fm=117&gp=0.jpg"></bdo> <strong>张晓萌 <em class="nanicon"></em></strong>
+                <bdo>18200000000</bdo>
+              </p>
+            -->
+        </div>
+    </div>
+    <div class="admin-tag">
+        <ol>
+            <a href="/BcjMember/ShowCoupon.do">
+                <strong>@Model.COUPON_COUNT<em>张</em></strong>
+                <p><span>优惠券</span></p>
+            </a>
+        </ol>
+        <ol>
+            <a href="/BcjMember/ShowPointHistory.do">
+                <strong>@Model.AVA_POINTS<em>分</em></strong>
+                <p><span>积分</span></p>
+            </a>
+        </ol>
+    </div>
+    <!--begin content-->
+    <div class="admin-nav-items">
+        <ul>
+            <li>
+                <a href="/BcjMember/ShowMemberDetail.do">
+                    <span class="icon01"></span>
+                    <p><strong>个人信息</strong></p>
+                </a>
+            </li>
+            <li class="qidai">
+
+                <span class="icon02"></span>
+                <p><strong>每日签到</strong></p>
+
+            </li>
+            <li class="qidai">
+                @*<a href="/BcjMember/ShowPointToGift.do">*@
+                <span class="icon03"></span>
+                <p><strong>积分商城</strong></p>
+                @*</a>*@
+            </li>
+            <li>
+                <a href="/BcjWenJuan/Index.do">
+                    <span class="icon04"></span>
+                    <p><strong>问卷调查</strong></p>
+                </a>
+            </li>
+            <li>
+                <a href="/BcjMember/ShowMemberRule.do">
+                    <span class="icon05"></span>
+                    <p><strong>会员制度</strong></p>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <!--end content-->
+    <div class="maskbg">
+        <div class="admin-qrmabox">
+            <div class="admin-qrmabox-title">
+                <div class="admin-qrmabox-tou"><img src="@Model.Headimgurl"></div>
+                <p>
+                    @Model.Nickname
+                    @if (Model.SEX == 0)
+                    {
+                        <em class="nvicon">
+                        </em>
+                    }
+                    else
+                    {
+                        <em class="nanicon">
+                        </em>
+                    } | @Model.MOBILE
+                </p>
+            </div>
+            <div class="admin-layer-ma">
+                <img src="/BcjMember/ShowQrCode.do?code=@Model.MOBILE">
+                <p>会员二维码</p>
+            </div>
+            <div class="admin-layer-tiaoma">
+                <img src="/BcjMember/ShowBarCode.do?code=@Model.MOBILE">
+            </div>
+        </div>
+        <div class="delIcon"></div>
+    </div>
+</body>
+</html>
+<script type="text/javascript" src="/Bcj/memberinfo/js/jquery.min.js"></script>
+<script src="~/Bcj/Message2.js"></script>
+<script>
+
+    $(function () {
+
+        $("#qrma").on('click', function () {
+            $('.maskbg').show();
+        })
+
+        $(".delIcon").on('click', function () {
+            $('.maskbg').hide();
+        })
+        $(".qidai").click(function () {
+            $.MsgBox.Alert("提示", "敬请期待！！");
+        })
+    });
+</script>

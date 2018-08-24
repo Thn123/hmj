@@ -1,0 +1,284 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutE.cshtml";
+}
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width" name="viewport" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+    <meta content="telephone=no" name="format-detection" />
+    <link type="text/css" href="/Bcj/wenjuan/css/wenjuan.css" rel="stylesheet" />
+    <title>调查问卷</title>
+</head>
+
+<body>
+    <input type="hidden" id="memberID" value="@ViewBag.MemberID" />
+    <input type="hidden" id="groupID" value="@ViewBag.GropuID" />
+
+    <div class="yuyueProIndex" id="wenjuanId">
+        <ol class="dis">
+            <div class="yuyueContent">
+                <div class="yuyueChangpage1">
+                    <div class="yueyueTitle">请问你的年龄？(单选)</div>
+                    <div class="yuyueChang yuyueChangOk">
+                        <ul class="myan" subid="1">
+                            <li data-value="1" ischeck="0"><em></em><span>25岁以下</span></li>
+                            <li data-value="2" ischeck="0"><em></em><span>25~35岁</span></li>
+                            <li data-value="3" ischeck="0"><em></em><span>35岁以上 </span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </ol>
+        <ol>
+            <div class="yuyueContent">
+                <div class="yuyueChangpage1">
+                    <div class="yueyueTitle">你的皮肤触感如何？ (单选)</div>
+                    <div class="yuyueChang yuyueChangOk">
+                        <ul class="myan" subid="2">
+                            <li data-value="4" ischeck="0"><em></em><span>全脸触感光滑、细腻、柔软</span></li>
+                            <li data-value="5" ischeck="0"><em></em><span>两颊触感光滑细腻，额头与鼻周较油腻</span></li>
+                            <li data-value="6" ischeck="0"><em></em><span>全脸触感油腻</span></li>
+                            <li data-value="7" ischeck="0"><em></em><span>脸颊触感无弹性</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </ol>
+        <ol>
+            <div class="yuyueContent">
+                <div class="yuyueChangpage1">
+                    <div class="yueyueTitle">您认为自己目前的肌肤问题是什么？（多选）</div>
+                    <div class="DuoyuyueChang yuyueChangOk">
+                        <ul subid="3" isduo="1">
+                            <li data-value="8" ischeck="0"><em></em><span>肌肤缺水干燥、紧绷</span></li>
+                            <li data-value="9" ischeck="0"><em></em><span>眼角纹、法令纹、肌肤松弛</span></li>
+                            <li data-value="10" ischeck="0"><em></em><span>有色斑、肤色黯沉</span></li>
+                            <li data-value="11" ischeck="0"><em></em><span>肌肤敏感、脆弱、面部红血丝</span></li>
+                            <li data-value="12" ischeck="0"><em></em><span>痘痘、黑头、毛孔粗大</span></li>
+                            <li data-value="13" ischeck="0"><em></em><span>日光与辐射伤害</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </ol>
+        <ol>
+            <div class="yuyueContent">
+                <div class="yuyueChangpage1">
+                    <div class="yueyueTitle">每日护肤步骤最接近一下哪个？(单选)</div>
+                    <div class="yuyueChang yuyueChangOk">
+                        <ul subid="4">
+                            <li data-value="14" ischeck="0"><em></em><span>早晨 洗面奶-爽肤水-精华-日霜-眼霜-防晒  晚上 卸妆-洗面奶-爽肤水-精华-晚霜</span></li>
+                            <li data-value="15" ischeck="0"><em></em><span>早晨 洗面奶-爽肤水-面霜  晚上 洗面奶-爽肤水-精华</span></li>
+                            <li data-value="16" ischeck="0"><em></em><span>早晨 洗面奶-面霜  晚上 洗面奶</span></li>
+                            <li data-value="17" ischeck="0"><em></em><span>清水洗洗就好了</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </ol>
+        <ol>
+            <div class="yuyueContent">
+                <div class="yuyueChangpage1">
+                    <div class="yueyueTitle">当你使用泡沫丰富的皂类洁面产品洗脸后，你感觉？(单选)</div>
+                    <div class="yuyueChang yuyueChangOk">
+                        <ul subid="5">
+                            <li data-value="18" ischeck="0"><em></em><span>感觉干燥或有刺痛的感觉</span></li>
+                            <li data-value="19" ischeck="0"><em></em><span>感觉正常</span></li>
+                            <li data-value="20" ischeck="0"><em></em><span>感到清洁力不够</span></li>
+                            <li data-value="21" ischeck="0"><em></em><span>仍有紧绷感、出现皮屑</span></li>
+                            <li data-value="22" ischeck="0"><em></em><span>面部还能看到反光</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </ol>
+        <ol>
+            <div class="yuyueContent">
+                <div class="yuyueChangpage1">
+                    <div class="yueyueTitle">您的肤色属于？(单选)</div>
+                    <div class="yuyueChang yuyueChangOk">
+                        <ul subid="6">
+                            <li data-value="23" ischeck="0"><em></em><span>白皙</span></li>
+                            <li data-value="24" ischeck="0"><em></em><span>中等</span></li>
+                            <li data-value="25" ischeck="0"><em></em><span>略黑</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </ol>
+    </div>
+
+
+    <div class="yuyueBtn">
+        <div class="left"><span class="yuyueSubmit huise">上一题</span></div>
+        <div class="right"><span class="nextSubmit">下一题</span></div>
+    </div>
+
+    <div class="maskbg">
+        <div class="tipsBox">
+            <h2>小草温馨提示</h2>
+            <div class="beginBtnbox">
+                <p>
+                    护肤保养要从了解皮肤状况开始！一起来测测吧！结束有惊喜哦~ <br />
+                </p>
+                <div class="beginBtn">确认</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<script type="text/javascript" src="/Bcj/wenjuan/js/jquery.min.js" /></script>
+<script src="~/Bcj/Message2.js"></script>
+<script type="text/javascript">
+    document.addEventListener('touchmove', function (event) { event.preventDefault(); }, false);
+
+    //信息提示
+    var tipsflag = true;
+    function tips(text) {
+        if (tipsflag == true) {
+            var tishiDiv = document.createElement('div');
+            tishiDiv.className = "motify";
+            document.body.appendChild(tishiDiv);
+            tipsflag = false;
+        }
+        $('.motify').html(text).show();
+        setTimeout(function () { $('.motify').fadeOut(); }, 800);
+    }
+
+    $('.beginBtn').on('click', function () {
+        $('.maskbg').hide();
+    })
+
+    var step = 0; score = 0; flg = 0;
+    var wenLength = $('#wenjuanId ol').length;
+
+    //下一步
+    $('.nextSubmit').on('click', function () {
+        var dangzhj = "";
+        $('#wenjuanId ol').eq(step).find('ul').find('li').each(function () {
+            if ($(this).attr("ischeck") == "1") {
+                dangzhj = "ok";
+                return false;
+            }
+        })
+
+        if (dangzhj == "") {
+            tips('亲,请先选择');
+        } else {
+            step++;
+            score++;
+            flg++;
+            if (step < wenLength) {
+                $('#wenjuanId ol').eq(step).show().siblings().hide();
+            } else {
+                step = wenLength - 1;
+            }
+            if (step == 0) {
+                $('.yuyueSubmit').addClass('huise');
+            } else {
+                $('.yuyueSubmit').removeClass('huise');
+                if (step == wenLength - 1) {
+                    $('.nextSubmit').html('<em class="submitForm">提交</em>');
+                } else {
+                    $('.nextSubmit').html('下一题');
+                }
+            }
+
+            if (flg >= wenLength) {
+                flg--;
+                submitFun();
+                score = wenLength;
+            }
+        }
+    })
+
+    //上一步
+    $('.yuyueSubmit').on('click', function () {
+        step--;
+        flg--;
+        if (step < wenLength && step >= 0) {
+            $('#wenjuanId ol').eq(step).show().siblings().hide();
+        } else {
+            step = 0;
+        }
+        console.log(step);
+        if (step == 0) {
+            $('.yuyueSubmit').addClass('huise');
+        } else {
+            $('.yuyueSubmit').removeClass('huise');
+            if (step != wenLength - 1) {
+                $('.nextSubmit').html('下一题');
+            }
+        }
+    })
+
+    $('.yuyueChangOk ul li').on('click', function () {
+        var isduo = $(this).parent().attr("isduo");
+        //判断是否是多选
+        if (isduo == "1") {
+            var ischeck = $(this).attr('ischeck');
+
+            //如果已经选中则取消选中
+            if (ischeck == "0") {
+                $(this).addClass('curbtn');
+                $(this).attr('ischeck', '1');
+            }
+
+            //如果已经选中则取消选中
+            if (ischeck == "1") {
+                $(this).removeClass('curbtn');
+                $(this).attr('ischeck', '0');
+            }
+        } else {
+            $(this).addClass('curbtn').siblings().removeClass('curbtn');
+            $(this).attr('ischeck', '1').siblings().attr("ischeck", "0");
+        }
+    })
+
+    var myflg = true;
+
+    function submitFun() {
+        var dangzhi = '', result = "";
+        $('#wenjuanId ol').each(function (index, element) {
+            var ans = "";
+            $('#wenjuanId ol').eq(index).find('ul').find('li').each(function () {
+                if ($(this).attr("ischeck") == "1") {
+                    ans += $(this).attr("data-value") + "&";
+                }
+            })
+
+            subid = $('#wenjuanId ol').eq(index).find('ul').attr('subid');
+            result += subid + "=" + ans.trim('&') + ",";
+            return;
+        });
+
+        if (myflg == false) {
+            $.MsgBox.Alert("提示", "还未响应，请不要重复点击！！！");
+            return;
+        }
+
+        if (myflg) {
+            myflg = false;
+            //提交问卷
+            $.ajax({
+                url: "/BcjWenJuan/SaveHis.do",
+                method: "post",
+                data: { LoadData: result, MemberID: $("#memberID").val(), GropuID: $("#groupID").val() },
+                success: function (data) {
+                    myflg = true;
+                    if (data.Status == "1") {
+                        $.MsgBox.Alert("提示", "您的问卷已提交成功，感谢您的参与！");
+                        location.href = "/BcjMember/ShowMemberInfo.do";
+                    } else {
+                        $.MsgBox.Alert("提示", data.Message);
+                    }
+                }
+            })
+        }
+    }
+</script>

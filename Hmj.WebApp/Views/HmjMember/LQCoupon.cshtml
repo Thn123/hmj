@@ -1,0 +1,106 @@
+﻿@{
+    ViewBag.Title = "LQCoupon";
+    Layout = "~/Views/Shared/_LayoutE.cshtml";
+}
+@using Hmj.Entity.WxModel
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="Keywords" content="" />
+    <meta name="Description" content="" />
+    <title>华美家</title>
+</head>
+<body class="border-icon">
+    <div class="wrap index-page">
+    </div>
+    <script src="../assets/hmjweixin/js/jquery.min.js"></script>
+    <script src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+    <script>
+
+            var openid = '@Html.Raw(ViewBag.OpenId)';
+
+            //判断是否符合赠券
+            $.ajax({
+                type: "get",
+                contentType: "application/json",
+                cache: false,
+                dataType: "json",
+                url: $.domainUrl + "Member/CanGetCoupon?openid=" + openid,
+                processData: false,
+                data: null,
+
+                success: function (data) {
+                    if (data.status == 1) {
+                        //调到领取卡券页面
+                        var cardId = data.data.cardId;
+                        var cardExt = data.data.cardExt;
+
+                        $.ajax({
+                            url: '../../HanderAjax.ashx?para=jsapi&apiurl=' + encodeURIComponent(location.href),
+
+                            type: 'POST',
+
+                            data: {},
+
+                            dataType: 'html',
+
+                            timeout: 1000,
+
+                            error: function (e) { },
+
+                            success: function (result) {
+                                result = JSON.parse(result);
+
+                                if (result.state == 0) {
+                                    wx.config({
+                                        debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+                                        appId: result.appId, // 必填，公众号的唯一标识
+                                        timestamp: result.timestamp, // 必填，生成签名的时间戳
+                                        nonceStr: result.nonceStr, // 必填，生成签名的随机串
+                                        signature: result.signature,// 必填，签名，见附录1
+                                        jsApiList: ["addCard", "chooseCard", "openCard"] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+                                    });
+                                    wx.ready(function () {
+                                        wx.addCard({
+                                            cardList: [{
+                                                cardId: cardId,
+                                                cardExt: cardExt
+                                            }], // 需要添加的卡券列表
+                                            success: function (res) {
+                                                var cardList = res.cardList; // 添加的卡券列表信息
+                                                //alert(cardList);
+
+
+                                            }
+                                        });
+                                        // config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。
+                                    });
+
+                                    wx.error(function (res) {
+                                        // alert("error");
+                                        // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
+
+                                    });
+                                }
+                            }
+
+                        });
+
+
+
+                    }
+                    else {
+                        //调到个人中心
+                        //window.location.href = 'user.html?=' + new Date().getTime();
+                        alert("您好，您已经领取过或不满足领券条件！");
+                    }
+                }
+            });
+
+        
+    </script>
+</body>
+</html>

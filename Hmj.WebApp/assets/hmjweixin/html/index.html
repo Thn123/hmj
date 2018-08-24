@@ -1,0 +1,109 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="Keywords" content="" />
+    <meta name="Description" content="" />
+    <link rel="stylesheet" type="text/css" href="../css/style.css" />
+    <link rel="stylesheet" type="text/css" href="../css/common.css" />
+    <link rel="stylesheet" href="../css/flop.css">
+    <title>华美家</title>
+    <style>
+        .login { margin-top: 9.142857142857143rem; }
+    </style>
+</head>
+<body class="border-icon">
+    <div class="wrap index-page">
+        <header>
+            <img src="../images/logo2.png" alt="">
+        </header>
+        <div class="form">
+            <ul>
+                <li><label for="telenum">手机</label><input type="tel" maxlength="11" id="telenum" name="telenum" placeholder="请输入手机号" /></li>
+                <li><label for="telenum">验证码</label><input type="tel" maxlength="6" name="verifycode" placeholder="请输入验证码" /> <em id="timeid">获取验证码</em></li>
+                <li class="login"><img src="../images/cate_btn.jpg" alt=""></li>
+            </ul>
+        </div>
+        <div class="layer modaltips" id="modaltips"></div>
+    </div>
+    <script src="../js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../js/validate.js" type="text/javascript" charset="utf-8"></script>
+    <script>
+        $(function(){
+            var isSubmit = false;
+            $('#timeid').click(function () {
+                var phone = $('input[name=telenum]').val();
+                if (phone == '') {
+                    tips("请输入手机号码", true, 2000, true)
+                } else if (isPhone(phone)) {
+                    if (flag == true) {
+                        dao();
+                        timerrr = setInterval('dao()', 1000);
+                        //调短信验证码接口,返回的数据为验证码数据；
+                        $.ajax({
+                            type: "get",
+                            url: $.domainUrl + 'Member/SendMsg?MOBILE=' + phone,
+                            dataType: "json",
+                            success: function (data) {
+                                sessionStorage.setItem('yzcode', data.data);
+                                tips("验证码已发送", true, 2000, true);
+                                flag = false;
+                                isSubmit = true;
+                            },
+                            error: function () {
+                                tips("验证码发送失败，请稍后重试", true, 2000, true);
+                                flag = true;
+                            }
+                        })
+                    }
+                }else{
+                    tips("请输入正确的手机号码", true, 2000, true);
+                }
+            });
+            $('.login img').click(function () {
+                if (!isSubmit) { tips("验证码发送失败，请稍后重试", true, 2000, true); };
+                var phone = $('input[name=telenum]').val();
+                var verifycode = $('input[name=verifycode]').val();
+                if (phone == '') {
+                    tips("请输入手机号码", true, 2000, true);
+                } else {
+                    if (isPhone(phone)) {
+                        //						sessionStorage.setItem('tel',phone);
+                        if (verifycode == '') {
+                            tips("请输入验证码", true, 2000, true);
+                        } else {
+                            //判断验证码是否正确
+                            var yzcode = sessionStorage.getItem('yzcode');
+                            if (yzcode == null) {
+                                tips("服务器未获取到验证码，请稍后重试", true, 2000, true);
+                            }
+                            if (verifycode == yzcode) {
+                                localStorage.setItem('tel', phone);
+                                window.location.href = "agree.html?t=" + new Date().getTime();
+                            } else {
+                                tips("请输入正确的验证码", true, 2000, true);
+                            }
+                        }
+                    }else{
+                        tips("请输入正确的手机号码", true, 2000, true);
+                    }
+                }
+            });
+            var login = $('.login');
+            var winHeight = $(window).height();   //获取当前页面高度
+            $(window).resize(function () {
+                var thisHeight = $(this).height();
+                if (winHeight - thisHeight > 50) {
+                    //当软键盘弹出，在这里面操作
+                    login.css('opacity', '0')
+                } else {
+                    //当软键盘收起，在此处操作
+                    login.css('opacity', '1')
+                }
+            });
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,136 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutC.cshtml";
+    ViewBag.Title = "Dashboard";
+}
+@model Hmj.Entity.Entities.Index_Report_EX
+@section htmlhead{
+    @Html.Css("plugin/xjgrid", "plugin/xjdailog")
+    <link rel='stylesheet' type='text/css' href='~/assets/plugins/form-select2/select2.css' />
+    <link rel='stylesheet' type='text/css' href="~/assets/js/jquery-ui-1.10.4.custom.min.css"
+        rel="stylesheet" />
+}
+<form action="Index.do" id="form1" method="post" onload="search()" role="form">
+    <div class="container">
+        <div id="page-heading">
+            <h2>
+                <i class="fa fa-bar-chart-o"></i>Dashboard
+                <div class="options">
+                    <div class="btn-toolbar">
+                        <button class="btn btn-default" id="btnDateRangePicker">
+                            <i class="fa fa-calendar-o"></i><span class="hidden-xs hidden-sm">选择时间段</span> <b class="caret"></b>
+                        </button>
+                        <input type="hidden" name="Dashboard_Start_Date" id="Dashboard_Start_Date" />
+                        <input type="hidden" name="Dashboard_End_Date" id="Dashboard_End_Date" />
+                    </div>
+                </div>
+            </h2>
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-3 col-xs-12 col-sm-6">
+                        <a class="info-tiles tiles-primary" href="/wechat/CustMsgHis.do">
+                            <div class="tiles-heading">
+                                未读消息
+                            </div>
+                            <div class="tiles-body-alt">
+                                <i class="fa fa-bullhorn"></i>
+                                <div class="text-center" id="wdxx">
+                                    <span class="text-top">￥</span>
+                                </div>
+                                <small>未读消息</small>
+                            </div>
+                            <div class="tiles-footer">
+                                实时消息管理
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-3 col-xs-12 col-sm-6">
+                        <a class="info-tiles tiles-success" href="/wechat/FansList.do?state=1">
+                            <div class="tiles-heading">
+                                新增粉丝
+                            </div>
+                            <div class="tiles-body-alt">
+                                <i class="fa  fa-sort-amount-asc"></i>
+                                <div class="text-center" id="xzfs">
+                                    <span class="text-top">￥</span>
+                                </div>
+                                <small>新增粉丝</small>
+                            </div>
+                            <div class="tiles-footer">
+                                粉丝概览
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-3 col-xs-12 col-sm-6">
+                        <a class="info-tiles tiles-orange" href="/wechat/FansList.do?state=0">
+                            <div class="tiles-heading">
+                                跑路粉丝
+                            </div>
+                            <div class="tiles-body-alt">
+                                <i class="fa fa-sort-amount-desc"></i>
+                                <div class="text-center" id="plfs">
+                                </div>
+                                <small>跑路粉丝</small>
+                            </div>
+                            <div class="tiles-footer">
+                                粉丝概览
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-3 col-xs-12 col-sm-6">
+                        <a class="info-tiles tiles-green" href="/wechat/FansList.do?state=-1">
+                            <div class="tiles-heading">
+                                现有粉丝
+                            </div>
+                            <div class="tiles-body-alt">
+                                <i class="fa fa-user"></i>
+                                <div class="text-center" id="syfs">
+                                </div>
+                                <small>粉丝</small>
+                            </div>
+                            <div class="tiles-footer">
+                                粉丝概览
+                            </div>
+                        </a>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+                <div class="row">
+                    <div class="col-md-3 col-xs-12 col-sm-6">
+                        <a class="info-tiles tiles-green" id="storeLoad" href="javascript:void()">
+                            <div class="tiles-heading">
+                                佰草集门店同步
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+                <div class="row">
+                    <div class="col-md-3 col-xs-12 col-sm-6">
+                        <a class="info-tiles tiles-green" id="cityLoad" href="javascript:void()">
+                            <div class="tiles-heading">
+                                城市增加经纬度
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+@section jssection{
+
+    @Html.Js("plugins/xjgrid/xjgrid", "plugins/xjdailog/xjdailog", "app/home/index")
+}

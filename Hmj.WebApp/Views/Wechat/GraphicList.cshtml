@@ -1,0 +1,196 @@
+﻿@{
+    ViewBag.Title = "";
+}
+@model Hmj.Entity.Entities.Graphic_Detail_EX
+@section htmlhead{
+    @Html.Css("plugin/xjgrid", "plugin/xjdailog", "common", "plugin/validator", "plugin/tip")
+<script type='text/javascript' src='../../assets/plugins/form-ckeditor/ckeditor.js'></script> 
+
+<link rel='stylesheet' type='text/css' href='../../assets/css/tree.css' />
+    <style type="text/css">
+        .searchpanel {
+            background-color: #f7f8fa; /*border: 1px solid #ccc;*/
+            padding: 5px 15px;
+            margin-left: 10px;
+            border-radius: 4px;
+        }
+
+            .searchpanel .form-group, .searchpanel .btnpanel_right {
+                /*
+            display: block;
+            overflow: hidden;
+            zoom: 1;
+            margin-bottom: 0px;
+            */
+            }
+
+                .searchpanel .form-group label {
+                    margin-bottom: 4px;
+                }
+
+        #SearchBox {
+            width: 200px;
+        }
+    </style>
+}
+<div class="s_container">
+    <div id="page-heading">
+        <h2>
+            <i class="fa fa-group"></i>图文素材管理</h2>
+    </div>
+    <div id="mainbody" class="panel panel-primary">
+        <div class="panel-heading">
+            <h4>图文素材列表</h4>
+        </div>
+        <div class="panel-body" style="min-height: 350px">
+            <div class="row">
+                <div class="col-md-2 form-group">
+                    <button type="button" class="btn default" id="btnAdd">
+                        <i class="fa fa-plus"></i>新 增</button>
+                </div>
+                <div class="text-right col-md-10">
+                    <form id="formQuery" class="form-inline" role="form" method="post">
+                        <div class="form-group">
+                            <input id="ROLE_NAMES" name="ROLE_NAMES" class="form-control" type="text" placeholder="名称" />                            
+                            <div class="btn-group">
+                                <button class="btn-primary btn"><i class="fa fa-search"></i>查询</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-12">
+                    <div class="table-responsive" id="gridlist">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="confirmModal" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            &times;</button>
+                        <h4 class="modal-title">确认！</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            你确认要删除商户[<span id="lbuserName"></span>]吗？
+                        </p>
+                        <input id="hdCurrentId" type="hidden" value="" />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                            取 消</button>
+                        <button type="button" id="btnConfirm" class="btn btn-primary">
+                            确 定</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+
+        <!-- /.modal -->
+          <div id="EditModal" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">图文素材维护</h4>
+                    </div>
+
+                    <div class="modal-body">
+                        <form class="form-horizontal" id="frmSave" method="post" action="SaveGraphic.do" role="form"  enctype="multipart/form-data">
+                            @Html.Hidden("ID",Model.ID)
+                            @Html.Hidden("List_ID",Model.List_ID)
+                            <div class="form-group col-xs-12">
+                                <label class="col-sm-2 control-label" style="text-align:left"><span style="color: red">*</span>名称:</label>
+                                <div class="col-sm-10">
+                                    @Html.TextBox("Name", Model.Name, new { @class = "form-control", placeholder = "请输入图文名称",required="true" })
+                                </div>
+
+                            </div>
+                            <div class="form-group col-xs-12">
+                                <label class="col-sm-2 control-label" style="text-align:left"><span style="color: red">*</span>标题:</label>
+                                <div class="col-sm-10">
+                                    @Html.TextBox("Title", Model.Title, new { @class = "form-control", placeholder = "请输入图文标题",required="true" })
+                                </div>
+
+                            </div>
+                            <div class="form-group col-xs-12">
+                                <label class="col-sm-2 control-label" style="text-align:left">上传封面:</label>
+                                <div class="col-sm-10">
+                                    <input type="file" name="file1 " class="form-control" />
+                                </div>
+                            </div>
+                             <div class="form-group col-xs-12">
+                                <label class="col-sm-2 control-label" style="text-align:left">封面链接:</label>
+                                <div class="col-sm-10">
+                                    @Html.TextBox("Pic", Model.Pic, new { @class = "form-control", placeholder = "上传图片后自动生成" })
+                                </div>
+                            </div>
+                            <div class="form-group col-xs-12">
+                                <label class="col-sm-2 control-label" style="text-align:left">描述:</label>
+                                <div class="col-sm-10">
+                                    @Html.TextBox("Describe", Model.Describe, new { @class = "form-control", placeholder = "请输入图文描述",required="true" })
+                                </div>
+                            </div>
+                            <div class="form-group col-xs-6">
+                                <label class="col-xs-4 control-label" style="text-align:left">排序:</label>
+                                <div class="col-xs-8">
+                                    @Html.TextBox("Sorting", Model.Sorting, new { @class = "form-control", placeholder = "请输入排序数字",required="true" })
+                                </div>
+                            </div>
+                            <div class="form-group col-xs-6">
+                                <label class="col-xs-5 control-label" style="text-align:left">是否外链:</label>
+                                <div class="col-xs-1">
+                                 <label class="checkbox-inline"> <input type="checkbox" id="isurl" name="isurl" /> </label>
+                                </div>
+                            </div>
+                            <div class="form-group col-xs-12" id="divwl">
+                                <label class="col-sm-2 control-label" style="text-align:left">外链地址:</label>
+                                <div class="col-sm-10">
+                                    @Html.TextBox("URL", Model.URL, new { @class = "form-control", placeholder = "请输入图文描述" })
+                                </div>
+                            </div>
+                            <div class="form-group col-xs-12" id="divnr">
+                                <label class="col-sm-12 control-label" style="text-align:left">内容:</label>
+                                <div class="col-sm-12">
+                                   <textarea name="ckeditor" id="ckeditor" cols="80" rows="20" class="ckeditor"></textarea>
+                                </div>
+                            </div>
+                          
+                            <div  class="form-group col-xs-12" style="text-align:right;">
+                            <button type="submit" id="btnSave" class="btn btn-primary">确 定</button>
+                            <button type="button" id="btnClose" class="btn btn-default" data-dismiss="modal">取 消</button>
+                        </div>
+                        </form>                        
+                    </div>
+                  @*<div class="modal-footer"></div>*@
+                    <div style="clear:both"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section jssection{
+    <script type="text/javascript"> 
+
+        var util = {};
+        var options = {
+            listUrl: "@Url.Action("GraphicDataList")",
+            addUrl: "@Url.Action("GraphicAdd")",
+            editUrl: "@Url.Action("GraphicEdit")",
+            deleteUrl: "@Url.Action("Delete")",
+            myeditor:CKEDITOR.replace('ckeditor', { toolbar: 'Basic' })
+        };
+       
+    </script>
+    <script type="text/javascript">
+       
+        //var myeditor = CKEDITOR.replace('ckeditor', { toolbar: 'Basic' });
+        
+</script>
+    @Html.Js("plugins/xjgrid/xjgrid", "plugins/xjdailog/xjdailog", "plugins/validator/validator", "app/wechat/GraphicList", "app/company/jquery.tree")
+}

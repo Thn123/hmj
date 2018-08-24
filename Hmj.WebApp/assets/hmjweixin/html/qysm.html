@@ -1,0 +1,90 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="author" content="jack">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>权益说明</title>
+    <link rel="stylesheet" type="text/css" href="http://www.jq22.com/jquery/bootstrap-3.3.4.css">
+    <style type="text/css">
+        body{font-size:12px;  }
+        .myrights p:first-child,.myrights p:nth-child(3){  color: #333333;  font-size: 16px;  margin-bottom: 10px;  margin-top: 15px;  }
+        .myrights p:nth-child(2){  font-size:12px;
+        margin-bottom:30px;  }
+        .table > tbody > tr > td{vertical-align: inherit;padding:0 10px}
+        .table tr td{vertical-align: inherit}
+        #left_table2{border-right:1px solid #ddd;box-shadow:2px 0 4px rgba(94,93,93,0.2);}
+        #left_div { width: 100px; float: left; }
+        #left_div2 {  width: 100%;  overflow: hidden;}
+        #left_table1 th { background: #E9F8FF; text-align: center; }
+        #left_table2 th { text-align: center; }
+        #left_table2 tr{height:41px;line-height: 24px;}
+        #right_table2 tr{height:41px;line-height: 34px;}
+       #left_table2 tr td{line-height: 34px; text-align: center}
+        #right_div {float: left; }
+        #right_div2{ width: 100%; overflow-x:scroll;}
+        #right_table2{width: 440px; max-width: 880px; white-space: nowrap; }
+        #right_table2 td{width:10%; text-align:center; font-size:10px}
+        #right_table2 tr:nth-child(1),.left_table2  > tr > td{font-size:10px;}
+        table tr:nth-child(odd) { background-color:#EEEEEE; }
+        table tr:nth-child(even) { background-color:#F6F6F6; }
+    </style>
+</head>
+<body>
+    <div class="container-fluid myrights">
+        <p>会员等级说明</p>
+        <p>华美家会员级别分为5个等级，分别为：普通会员、白银会员、黄金会员、铂金会员、钻石会员。</p>
+        <p>会员等级规则</p>
+        <div id="left_div">
+            <div id="left_div2">
+                <table id="left_table2" class="table">
+                    <tr><td>会员特权</td></tr>
+                    <tr><td>购物积分</td></tr>
+                    <tr><td>注册奖励</td></tr>
+                    <tr><td>转换奖励</td></tr>
+                    <tr><td>生日奖励</td></tr>
+                    <tr><td>活动奖励</td></tr>
+                </table>
+            </div>
+        </div>
+        <div id="right_div">
+            <div id="right_div2">
+                <table id="right_table2" class="table ">
+
+                    <tr><td>普通会员</td><td>白银会员</td><td>黄金会员</td><td>铂金会员</td><td>钻石会员</td></tr>
+                    <tr><td>/</td><td>购买积分奖励</td><td>购买积分1.05倍奖励</td><td>购买积分1.1倍奖励</td><td>购买积分1.3倍奖励</td></tr>
+                    <tr><td>入会奖励+30分</td><td>入会奖励+30分</td><td>入会奖励+30分</td><td>入会奖励+30分</td><td>入会奖励+30分</td></tr>
+                    <tr><td style="">首次转换品牌
+                        <br>积分奖励+200分&nbsp;&nbsp;&nbsp;</td><td>首次转换品牌
+                        <br> 积分奖励+200分</td><td>首次转换品牌
+                        <br>积分奖励+200分</td><td>首次转换品牌
+                        <br>积分奖励+200分</td><td>首次转换品牌
+                        <br>积分奖励+200分</td></tr>
+                    <tr><td>/</td><td>/</td><td>生日当月首单双倍积分奖励<br>
+                        (不与等级消费积分同享，上限2500)&nbsp;&nbsp;&nbsp;</td><td>生日当月首单双倍积分奖励<br>
+                        (不与等级消费积分同享，上限2500)&nbsp;&nbsp;&nbsp;</td><td>生日当月首单双倍积分奖励<br>
+                        (不与等级消费积分同享，上限2500)&nbsp;&nbsp;&nbsp;</td></tr>
+                    <tr><td>/</td><td>/</td><td>活动积分赠送或倍增</td><td>活动积分赠送或倍增</td><td>活动积分赠送或倍增</td></tr>
+                </table>
+            </div>
+        </div>
+
+    </div>
+    <p style="text-align: left;color:#BFBFBF;font-size: 10px;margin-left:15px">注：最终解释权归家化所有</p>
+
+    <!--脚本-->
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+
+        //固定和滚动
+        var right_div2 = document.getElementById("right_div2");
+        //设置右边div宽度
+        document.getElementById("right_div").style.width = "" + document.documentElement.clientWidth - 130 + "px";
+        setInterval(function () {
+            document.getElementById("right_div").style.width = "" + document.documentElement.clientWidth - 130 + "px";
+        }, 0);
+    </script>
+</body>
+</html>

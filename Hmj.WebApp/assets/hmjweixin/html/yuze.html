@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="Keywords" content="" />
+    <meta name="Description" content="" />
+    <!-- uc强制竖屏 -->
+    <meta name="screen-orientation" content="portrait">
+    <!-- UC强制全屏 -->
+    <meta name="full-screen" content="yes">
+    <!-- UC应用模式 -->
+    <meta name="browsermode" content="application">
+    <!-- QQ强制竖屏 -->
+    <meta name="x5-orientation" content="portrait">
+    <!-- QQ强制全屏 -->
+    <meta name="x5-fullscreen" content="true">
+    <!-- QQ应用模式 -->
+    <meta name="x5-page-mode" content="app">
+    <link rel="stylesheet" href="../css/new_style.css?t=5940283">
+    <title>家化良品</title>
+    <style>
+        img { pointer-events: none; }
+        html, body { height: auto; width: auto; }
+    </style>
+</head>
+<body>
+    <div>
+        <div class="layer " id="modaltips" style="display: none"></div>
+        <div class="wrap" id="content" style="display:none">
+            <div class="img1">
+                <img src="../images/yuze_01.jpg" alt="" />
+                <img src="../images/yuze_02.jpg" alt="" />
+                <img src="../images/yuze_03.jpg" alt="" />
+                <img src="../images/yuze_04.jpg" alt="" />
+                <img src="../images/yuze_05.jpg" alt="" />
+                <img src="../images/yuze_06.jpg" alt="" />
+                <img src="../images/yuze_07.jpg" alt="" />
+            </div>
+        </div>
+    </div>
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/validate.js"></script>
+    <script>
+        var millisecond = 0;
+        var isFinished = false;
+        var int = setInterval(timer, 50);
+        //超过一秒，页面还未出现的话，就弹出提示
+        function timer() {
+            millisecond += 50;
+            if (millisecond > 1500 && !isFinished) {
+                tips("数据加载中，请稍候！", false, 0, true);
+                window.clearInterval(int);
+            }
+        }
+        function loading() {
+            var domain_url = "../images/";
+            var imgList = ['yuze_01.jpg', 'yuze_02.jpg', 'yuze_03.jpg', 'yuze_04.jpg', 'yuze_05.jpg', 'yuze_06.jpg', 'yuze_07.jpg'];
+            var len = imgList.length;
+            var count = 0;
+            for (var i = 0; i < len; i++) {
+                if (imgList[i] == "") { len = len - 1; return; };//容错处理
+                var imgT = new Image();
+                imgT.onload = function () {
+                    count++;
+                    //加载进度
+                    //$('.loading span').html(parseInt(count / len * 100, 10) + '%');
+                    if (count == len - 1) {
+
+                        $("#content").show();
+                        $("#modaltips").fadeOut();
+                        isFinished = true;
+                    }
+                };
+                imgT.src = domain_url + imgList[i];
+            };
+        }
+        loading();
+    </script>
+</body>
+</html>

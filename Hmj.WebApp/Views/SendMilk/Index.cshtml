@@ -1,0 +1,736 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutE.cshtml";
+}
+@using Hmj.Entity.Entities;
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>
+        24小时送奶员
+    </title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="viewport" id="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1,user-scalable=no" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta content="true" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+    <link rel="stylesheet" href="../csssend/swiper-3.4.0.min.css?v=17">
+    <link rel="stylesheet" href="../csssend/style.css?v=22">
+    <script>
+        var URLDOMAIN = "http://vipclub.lining.com/pengyouquan/";
+        var APIDOMAIN = "http://tt.puman.cn/milk/index.php";
+    </script>
+    <script type="text/javascript" src="../jssend/jquery-3.1.1.js" charset="utf-8"></script>
+    <script type="text/javascript" src="../jssend/jweixin-1.0.0.js" charset="utf-8"></script>
+    <script type="text/javascript" src="../jssend/create.js" charset="utf-8"></script>
+    <script type="text/javascript" src="../jssend/exif.js" charset="utf-8"></script>
+    <script type="text/javascript" src="../jssend/hammer.min.js" charset="utf-8"></script>
+    <script src="../jssend/jquery.arctext.js" type="text/javascript" charset="utf-8"></script>
+    <!--<script type="text/javascript" src="../jssend/share.js?v=17" charset="utf-8"></script>-->
+    <script>
+        function set_meta() {
+            var body_width = document.documentElement.clientWidth;
+            //var body_height = document.documentElement.clientHeight;
+            var get_scale = (body_width) / 720;
+
+            /*if(body_height / body_width < 1136/640){
+                get_scale = (body_height)/1136;
+            }*/
+
+            var get_content = "width=device-width, initial-scale=" + get_scale + ", minimum-scale=" + get_scale + ", maximum-scale=" + get_scale + ", user-scalable=no";
+            document.getElementById("viewport").setAttribute('content', get_content);
+
+        }
+        set_meta();
+    </script>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .swiper-container {
+            opacity: 0;
+            height: 100%;
+            z-index: 2;
+        }
+
+            .swiper-container.active {
+                opacity: 1;
+            }
+
+        .swiper-wrapper {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .swiper-slide {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background-color: #04284c;
+            z-index: 3;
+            overflow: hidden;
+        }
+
+        /*.page-content {
+            height: 1280px;
+            margin-top: -640px;
+            top: 50%;
+        }*/
+    </style>
+    <script></script>
+</head>
+<body>
+    <input type="hidden" id="openid" value="@ViewBag.OpenId" />
+    <input type="hidden" id="filseid" value="" />
+    <audio preload="preload" controls src="../bg.mp3" id="call_audio" style="position:absolute;top:20px;z-index:0;opacity: 0;"></audio>
+    <img class="star-white" style="position:absolute;opacity:0" src="../img/star-white.png" />
+    <img class="star-black" style="position:absolute;opacity:0" src="../img/star-black.png" />
+    <img class="canvas-bottom" style="position:absolute;opacity:0" src="../img/bottom.jpg" />
+    <img class="dot" style="position:absolute;opacity:0" src="../img/number/dot.png" />
+    <img class="num0" style="position:absolute;opacity:0" src="../img/number/0.png" />
+    <img class="num1" style="position:absolute;opacity:0" src="../img/number/1.png" />
+    <img class="num2" style="position:absolute;opacity:0" src="../img/number/2.png" />
+    <img class="num3" style="position:absolute;opacity:0" src="../img/number/3.png" />
+    <img class="num4" style="position:absolute;opacity:0" src="../img/number/4.png" />
+    <img class="num5" style="position:absolute;opacity:0" src="../img/number/5.png" />
+    <img class="num6" style="position:absolute;opacity:0" src="../img/number/6.png" />
+    <img class="num7" style="position:absolute;opacity:0" src="../img/number/7.png" />
+    <img class="num8" style="position:absolute;opacity:0" src="../img/number/8.png" />
+    <img class="num9" style="position:absolute;opacity:0" src="../img/number/9.png" />
+    <img class="time-dot" style="position:absolute;opacity:0" src="../img/time/dot.png" />
+    <img class="time0" style="position:absolute;opacity:0" src="../img/time/0.png" />
+    <img class="time1" style="position:absolute;opacity:0" src="../img/time/1.png" />
+    <img class="time2" style="position:absolute;opacity:0" src="../img/time/2.png" />
+    <img class="time3" style="position:absolute;opacity:0" src="../img/time/3.png" />
+    <img class="time4" style="position:absolute;opacity:0" src="../img/time/4.png" />
+    <img class="time5" style="position:absolute;opacity:0" src="../img/time/5.png" />
+    <img class="time6" style="position:absolute;opacity:0" src="../img/time/6.png" />
+    <img class="time7" style="position:absolute;opacity:0" src="../img/time/7.png" />
+    <img class="time8" style="position:absolute;opacity:0" src="../img/time/8.png" />
+    <img class="time9" style="position:absolute;opacity:0" src="../img/time/9.png" />
+    <img class="dot-black" style="position:absolute;opacity:0" src="../img/number/dot-black.png" />
+    <img class="num0-black" style="position:absolute;opacity:0" src="../img/number/0-black.png" />
+    <img class="num1-black" style="position:absolute;opacity:0" src="../img/number/1-black.png" />
+    <img class="num2-black" style="position:absolute;opacity:0" src="../img/number/2-black.png" />
+    <img class="num3-black" style="position:absolute;opacity:0" src="../img/number/3-black.png" />
+    <img class="num4-black" style="position:absolute;opacity:0" src="../img/number/4-black.png" />
+    <img class="num5-black" style="position:absolute;opacity:0" src="../img/number/5-black.png" />
+    <img class="num6-black" style="position:absolute;opacity:0" src="../img/number/6-black.png" />
+    <img class="num7-black" style="position:absolute;opacity:0" src="../img/number/7-black.png" />
+    <img class="num8-black" style="position:absolute;opacity:0" src="../img/number/8-black.png" />
+    <img class="num9-black" style="position:absolute;opacity:0" src="../img/number/9-black.png" />
+    <img class="time-dot-black" style="position:absolute;opacity:0" src="../img/time/dot-black.png" />
+    <img class="time0-black" style="position:absolute;opacity:0" src="../img/time/0-black.png" />
+    <img class="time1-black" style="position:absolute;opacity:0" src="../img/time/1-black.png" />
+    <img class="time2-black" style="position:absolute;opacity:0" src="../img/time/2-black.png" />
+    <img class="time3-black" style="position:absolute;opacity:0" src="../img/time/3-black.png" />
+    <img class="time4-black" style="position:absolute;opacity:0" src="../img/time/4-black.png" />
+    <img class="time5-black" style="position:absolute;opacity:0" src="../img/time/5-black.png" />
+    <img class="time6-black" style="position:absolute;opacity:0" src="../img/time/6-black.png" />
+    <img class="time7-black" style="position:absolute;opacity:0" src="../img/time/7-black.png" />
+    <img class="time8-black" style="position:absolute;opacity:0" src="../img/time/8-black.png" />
+    <img class="time9-black" style="position:absolute;opacity:0" src="../img/time/9-black.png" />
+    <div class="page-loading">
+        <div class="ball-scale-multiple">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <div class="p2-top page-fixed f-dn">
+        <div class="upload">
+            <input type="file" name="" class="camera-input" id="upFiles" value="" accept="image/*" />
+            <div class="upload-wrap">
+                <img src="../img/camera.png" />
+                <p>开始记录</p>
+            </div>
+        </div>
+    </div>
+    <div class="p2-bottom page-fixed f-dn">
+        <img src="~/img/demo2.jpg" style="margin: 0; display: block;" />
+    </div>
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            <div class="page-1-1 swiper-page swiper-slide">
+                <img src="../img/bg.jpg" class="img01" />
+                <div class="wrap">
+                    <img src="../img/arrow.png" class="moveIconDown img02" />
+                    <!--编辑图片-->
+                    <div class="editimg ">
+                        <img src="../img/star.png" class="star" />
+                        <!--文字输入框-->
+                        <!--<div>
+                            <div>
+                                <input type="text" name="" id="" value="" />
+                                <a href="javascript:;" class="openarrow"></a>
+                            </div>
+                            <ul>
+                                <li>洗澡、穿衣和出门还不到 我真是棒极</li>
+                            </ul>
+                        </div>-->
+                        <!--文字编辑成功-->
+                        <div class="pictxt changepictxt">
+                            <!--0：00--0：59-->
+                            <div class="txt1 ">
+                                <img src="../img/txt/1.png" />
+                            </div>
+                            <!--1：00--1：59-->
+                            <div class="txt2 hide">
+                                <img src="../img/txt/2.png" />
+                            </div>
+                            <!--2：00--2：59-->
+                            <div class="txt3 hide">
+                                <img src="../img/txt/3.png" />
+                            </div>
+                            <!--3：00--3：59-->
+                            <div class="txt4 hide">
+                                <img src="../img/txt/4.png" />
+                            </div>
+                            <!--4：00--4：59-->
+                            <div class="txt5 hide">
+                                <img src="../img/txt/5.png" />
+                            </div>
+                            <!--5：00--5：59-->
+                            <div class="txt6 hide">
+                                <img src="../img/txt/6.png" />
+                            </div>
+                            <!--6：00--6：59-->
+                            <div class="txt7 hide">
+                                <img src="../img/txt/7.png" />
+                            </div>
+                            <!--8：00--8：59-->
+                            <div class="txt9 hide">
+                                <img src="../img/txt/9.png" />
+                            </div>
+                            <!--10：00--10：59-->
+                            <div class="txt10 hide">
+                                <img src="../img/txt/10.png" />
+                            </div>
+                            <!--10：00--10：59-->
+                            <div class="txt11 hide">
+                                <img src="../img/txt/11.png" />
+                            </div>
+                            <!--11：00--11：59-->
+                            <div class="txt12 hide">
+                                <img src="../img/txt/12.png" />
+                            </div>
+                            <!--13：00--13：59-->
+                            <div class="txt14 hide">
+                                <img src="../img/txt/14.png" />
+                            </div>
+                            <!--14：00--14：59-->
+                            <div class="txt15 hide">
+                                <img src="../img/txt/15.png" />
+                            </div>
+                            <!--15：00--15：59-->
+                            <div class="txt16 hide">
+                                <img src="../img/txt/16.png" />
+                            </div>
+                            <!--16：00--16：59-->
+                            <div class="txt17 hide">
+                                <img src="../img/txt/17.png" />
+                            </div>
+                            <!--17：00--17：59-->
+                            <div class="txt18 hide">
+                                <img src="../img/txt/18.png" />
+                            </div>
+                            <!--18：00--18：59-->
+                            <div class="txt19 hide">
+                                <img src="../img/txt/19.png" />
+                            </div>
+                            <!--19：00--19：59-->
+                            <div class="txt20 hide">
+                                <img src="../img/txt/20.png" />
+                            </div>
+                            <!--20：00--20：59-->
+                            <div class="txt21 hide">
+                                <img src="../img/txt/21.png" />
+                            </div>
+                            <!--21：00--21：59-->
+                            <div class="txt22 hide">
+                                <img src="../img/txt/22.png" />
+                            </div>
+                            <!--22：00--22：59-->
+                            <div class="txt23 hide">
+                                <img src="../img/txt/23.png" />
+                            </div>
+                            <!--23：00--23：59-->
+                            <div class="txt24 hide">
+                                <img src="../img/txt/24.png" />
+                            </div>
+                        </div>
+                        <div class="timebox">
+                            <div class="time">
+                                <div class="hour">
+                                    <span class="num0"></span>
+                                    <span class="num1"></span>
+                                </div>
+                                <div><span class="dot"></span></div>
+                                <div class="mins">
+                                    <span class="num3"></span>
+                                    <span class="num4"></span>
+                                </div>
+                            </div>
+                            <div class="date">
+                                <div class="year">
+                                    <span class="num0"></span>
+                                    <span class="num1"></span>
+                                    <span class="num0"></span>
+                                    <span class="num1"></span>
+                                </div>
+                                <div><span class="dot"></span></div>
+                                <div class="month">
+                                    <span class="num3"></span>
+                                    <span class="num4"></span>
+                                </div>
+                                <div><span class="dot"></span></div>
+                                <div class="day">
+                                    <span class="num3"></span>
+                                    <span class="num4"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <!--logo-->
+                        <img src="../img/logo.png" class="b-logo" />
+                    </div>
+                </div>
+            </div>
+            <div class="page-2-1 swiper-page swiper-slide">
+
+                <div class="wrap scroll-elem">
+                    <!--图片列表-->
+                    <ul class="piclist" style="">
+                        @foreach (FILE_EX item in @ViewBag.Files)
+                        {
+                            <li>
+                                <a href="javascript:;" exstr="@item.COUNT_GOOD" fid="@item.ID">
+                                    <img src="@item.FILE_URL" />
+                                </a>
+                            </li>
+                        }
+                    </ul>
+
+                    <!--编辑图片-->
+                    <div class="editimg hide">
+                        <img src="../img/bg.jpg" class="pic" />
+                        <img src="../img/star.png" class="star" />
+                        <!--文字输入框-->
+                        <div class="edittxt">
+                            <div>
+                                <input type="text" name="" id="" value="" />
+                                <a href="javascript:;" class="openarrow"></a>
+                            </div>
+                            <ul>
+                                <li>洗澡、穿衣和出门还不到 我真是棒极</li>
+                            </ul>
+                        </div>
+                        <!--文字编辑成功-->
+                        <div class="pictxt">
+                            <div class="rdtxt">玩具固然十分有趣但是</div>
+                            <p>来玩勺子</p>
+                            <div>对他来说更有意思</div>
+                        </div>
+                        <div class="timebox">
+                            <div class="time">
+                                <div class="hour">
+                                    <span class="num0"></span>
+                                    <span class="num1"></span>
+                                </div>
+                                <div><span class="dot"></span></div>
+                                <div class="mins">
+                                    <span class="num3"></span>
+                                    <span class="num4"></span>
+                                </div>
+                            </div>
+                            <div class="date">
+                                <div class="year">
+                                    <span class="num0"></span>
+                                    <span class="num1"></span>
+                                    <span class="num0"></span>
+                                    <span class="num1"></span>
+                                </div>
+                                <div><span class="dot"></span></div>
+                                <div class="month">
+                                    <span class="num3"></span>
+                                    <span class="num4"></span>
+                                </div>
+                                <div><span class="dot"></span></div>
+                                <div class="day">
+                                    <span class="num3"></span>
+                                    <span class="num4"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <!--logo-->
+                        <img src="../img/logo.png" class="logo" />
+                        <!--<div class="bottom">
+                            <a href="javascript:;" class="back"></a>
+                            <a href="javascript:;" class="eidtBtn"></a>
+                            <a href="javascript:;" class="sendBtn"></a>
+                            <div class="txt">
+                                <p>上传成功，审核中……</p>
+                                <p>
+                                    同时您可长按保存至手机相册</p>
+                            </div>
+                        </div>-->
+                    </div>
+                    <!--图片详情-->
+                    <!--<div class="picinfo">
+                        <a href="javascript:;" class="close"></a>
+                        <img src="../img/bg1.jpg" />
+                        <a href="javascript:;" class="fav"></a>
+                    </div>-->
+                    <!--长按图片保存-->
+                    <!--<div class="savepic hide">
+                        <img src="../img/bg1.jpg" />
+                        <div class="bottom">
+                            <img src="../img/ewm.png" />
+                            <div>
+                                <p>
+                                    长按二维码
+                                </p>
+                                <p>
+                                    关注Tommee Tippee®汤美星™官方微信
+                                </p>
+                            </div>
+                        </div>
+                    </div>-->
+                </div>
+
+            </div>
+            <!--<div class=" page1 swiper-page swiper-slide">
+                <img class="bg-img" src="../img/bg.jpg" />
+                <img class="camera-btn" src="../img/circle.png" />
+                <input id="camera" name="fiel" class="camera-input" type="file" accept="image/jpeg,image/png,image/jpg,image/gif" style="opacity:0" />
+
+            </div>-->
+        </div>
+    </div>
+    <div id="music"></div>
+    <div class="page page0 active">
+        <div class="page-content">
+            <div class="loadEffect">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <span class="loading-progress f-progress">20%</span>
+        </div>
+    </div>
+    <div class="page page2">
+        <canvas id="canvas" class=""></canvas>
+        <canvas id="canvas1" style="opacity:0;position:absolute;z-index:1;" class=""></canvas>
+        <div class="canvas-mask"></div>
+        <img src="../img/star.png" class="star f-dn" />
+        <div class="bottom">
+            <a href="javascript:;" class="back"></a>
+            <span class="f-back f-dn">上一步</span>
+            <span class="f-next">下一步</span>
+        </div>
+        <div class="input-text-wrap">
+            <div class="input-text-item show">
+                <div>
+                    <input class="text1" type="text" name="" id="" maxlength="10" value="" placeholder="请输入文字(10个字以内)" />
+                    <img class="input-bg" src="../img/input-bg.png" />
+                    <div class="circle-bg f-dn"></div>
+                    <div class="circle-wrap input-ok active f-dn"></div>
+                    <div class="input-arrow input-list-btn"></div>
+                </div>
+                <div class="input-text-list">
+                    <div class="list-item">玩具固然有趣</div>
+                    <div class="list-item">玩具固然有趣</div>
+                </div>
+            </div>
+            <div class="input-text-item">
+                <div>
+                    <input class="text2" type="text" name="" id="" maxlength="4" value="" placeholder="请输入文字(4个字以内)" />
+                    <img class="input-bg" src="../img/input-bg.png" />
+                    <div class="circle-bg f-dn"></div>
+                    <div class="circle-wrap input-ok active f-dn"></div>
+                    <div class="input-arrow input-list-btn"></div>
+                </div>
+                <div class="input-text-list">
+                    <div class="list-item">玩具固然</div>
+                    <div class="list-item">玩具有趣</div>
+                </div>
+            </div>
+            <div class="input-text-item">
+                <div>
+                    <input class="text3" type="text" name="" id="" maxlength="8" value="" placeholder="请输入文字(8个字以内)" />
+                    <img class="input-bg" src="../img/input-bg.png" />
+                    <div class="circle-bg f-dn"></div>
+                    <div class="circle-wrap input-ok active f-dn"></div>
+                    <div class="input-arrow input-list-btn"></div>
+                </div>
+                <div class="input-text-list">
+                    <div class="list-item">玩具固然有趣</div>
+                    <div class="list-item">玩具固然有趣</div>
+                </div>
+            </div>
+        </div>
+        <div class="f-change-color f-dn">换个颜色</div>
+        <div class="timebox f-dn">
+            <div class="time">
+                <div class="hour">
+                    <span class="num0"></span>
+                    <span class="num1"></span>
+                </div>
+                <div><span class="dot"></span></div>
+                <div class="mins">
+                    <span class="num3"></span>
+                    <span class="num4"></span>
+                </div>
+            </div>
+            <div class="date">
+                <div class="year">
+                    <span class="num0"></span>
+                    <span class="num1"></span>
+                    <span class="num0"></span>
+                    <span class="num1"></span>
+                </div>
+                <div><span class="dot"></span></div>
+                <div class="month">
+                    <span class="num3"></span>
+                    <span class="num4"></span>
+                </div>
+                <div><span class="dot"></span></div>
+                <div class="day">
+                    <span class="num3"></span>
+                    <span class="num4"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page page3">
+        <a href="javascript:;" class="close"></a>
+        <img class="p3-img" />
+        <div class="bottom">
+            <div class="txt">
+                <p id="showOk">正在上传请稍后关闭，，，，</p>
+                <p>
+                    同时您可长按保存至手机相册
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="page page4">
+        <!--<canvas id="canvas3" width="" height="" style="display: none"></canvas>
+        -->
+        <img class="p4-img" style="height: 100%; width: 100%;" />
+        <a href="javascript:;" class="close"></a>
+        <div class="heart"><span id="number"></span><img src="../img/xin.png" /><i>+1</i></div>
+
+    </div>
+
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+
+    <script src="../js/GetLocationTwo.js?v=1.0"></script>
+    <script>
+        var URLDOMAIN = "http://vipclub.lining.com/pengyouquan/";
+        var APIDOMAIN = "http://tt.puman.cn/milk/index.php";
+
+        document.querySelector('body').addEventListener('touchmove', function (e) {
+            if (!document.querySelector('.scroll-elem').contains(e.target)) {
+                e.preventDefault();
+            }
+        })
+
+        window.onload = function () {
+            var music_key = 0;
+            var openMusic = function () {
+                var self = this;
+                self.t = "";
+                self.n = 0;
+                self.allNumber = 29;
+                self.v = 15;
+
+                self.begin = function () {
+                    clearInterval(self.t);
+                    self.t = setInterval(function () {
+                        var x = Math.floor(self.n / self.v) * -1 * 128 + "px";
+                        var y = self.n % self.v * -1 * 128 + "px";
+                        $("#music").css("background-position", y + " " + x)
+
+                        self.n++;
+                        if (self.n >= self.allNumber - 1) {
+                            self.n = 0;
+                        }
+                    },
+                        80);
+                }
+
+                self.end = function () {
+                    self.n = 0;
+                    $("#music").css("background-position", "0px 0px");
+                    clearInterval(self.t);
+                }
+            }
+
+            audioElement2 = document.getElementById("call_audio");
+            window.musicKey = new openMusic();
+
+            audioElement2.play();
+            musicKey.begin();
+            music_key = 1;
+
+            setTimeout(function () {
+                $(window).scrollTop(1);
+            }, 10);
+
+            document.addEventListener("WeixinJSBridgeReady", function () {
+                WeixinJSBridge.invoke('getNetworkType', {}, function (e) {
+                    document.getElementById("call_audio").play();
+                    musicKey.begin();
+                    music_key = 1;
+                });
+            }, false);
+
+            $("#music").on("touchstart", function () {
+                if (music_key == 1) {
+                    audioElement2.pause();
+                    music_key = 0;
+                    musicKey.end();
+                } else {
+                    audioElement2.play();
+                    music_key = 1;
+                    musicKey.begin();
+                }
+                return false;
+
+            });
+
+        }
+    </script>
+    <script type="text/javascript">
+        /*获取时间*/
+        var mydata = new Date();
+
+        $(function () {
+
+            $('.pictxt .rdtxt').arctext({
+                radius: 300
+            });
+            setdate();
+            var timer = setInterval(function () {
+                setdate();
+            }, 1000);
+            $('.piclist a').click(function () {
+
+                /*截取图片*/
+                var image = new Image();
+                image.src = $("img", $(this)).attr("src");
+                var canvas = document.createElement("canvas");
+                var ctx = canvas.getContext('2d');
+                canvas.width = '720';
+                canvas.height = '1113';
+
+                var conts = $(this).attr("exstr");
+                var fid = $(this).attr("fid");
+                $("#number").html(conts);
+
+                $("#filseid").val(fid);
+
+                image.onload = function () {
+                    ctx.drawImage(this, 0, 0, 720, 1160, 0, 0, this.width, 1113);
+                    $('.p4-img').attr('src', canvas.toDataURL());
+                    $('.page4').show();
+                }
+
+            });
+            $('.page4 a.close').click(function () {
+                $('.page4').hide();
+
+            })
+
+            $('.page4 .heart>img').click(function () {
+                //粉丝点赞在这里异步调用
+                var fansid = $("#openid").val();
+                var fid = $("#filseid").val();
+                $.ajax({
+                    type: "post",
+                    url: "/SendMilk/Good.do",
+                    data: { FansID: fansid, FileID: fid },
+                    success: function (data) {
+                        testAnim();
+                        $('.page4 .heart span').text(parseInt($('.page4 .heart span').text()) + 1);
+                    }
+                })
+            })
+        })
+
+        function testAnim() {
+            $('.page4 .heart>i').removeClass().addClass('fadeInUp').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
+                $(this).removeClass();
+            });
+        };
+        function getPra(n) {
+            n = n + '';
+            var arr = [],
+                len = n.length,
+                i = 0;
+            for (i; i < len; i++) {
+                arr.push(parseInt(n.substr(i, 1)));
+            }
+            return arr;
+        }
+
+        function setdate() {
+            var year = mydata.getFullYear();
+            var year1 = getPra(year);
+            $('.timebox .date .year span:nth-child(1)').attr('class', 'num' + year1[0]);
+            $('.timebox .date .year span:nth-child(2)').attr('class', 'num' + year1[1]);
+            $('.timebox .date .year span:nth-child(3)').attr('class', 'num' + year1[2]);
+            $('.timebox .date .year span:nth-child(4)').attr('class', 'num' + year1[3]);
+            var month = (mydata.getMonth() + 1).toString().length > 1 ? parseInt(mydata.getMonth() + 1) : ('0' + parseInt(mydata.getMonth() + 1));
+            var month1 = getPra(month);
+            $('.timebox .date .month span:nth-child(1)').attr('class', 'num' + month1[0]);
+            $('.timebox .date .month span:nth-child(2)').attr('class', 'num' + month1[1]);
+            var day = mydata.getDate().toString().length > 1 ? parseInt(mydata.getDate()) : ('0' + parseInt(mydata.getDate()));
+            var day1 = getPra(day);
+            $('.timebox .date .day span:nth-child(1)').attr('class', 'num' + day1[0]);
+            $('.timebox .date .day span:nth-child(2)').attr('class', 'num' + day1[1]);
+            var hour = mydata.getHours().toString().length > 1 ? parseInt(mydata.getHours()) : ('0' + parseInt(mydata.getHours()));
+            var hour1 = getPra(hour);
+            $('.timebox .time .hour span:nth-child(1)').attr('class', 'num' + hour1[0]);
+            $('.timebox .time .hour span:nth-child(2)').attr('class', 'num' + hour1[1]);
+            var mins = mydata.getMinutes().toString().length > 1 ? parseInt(mydata.getMinutes()) : ('0' + parseInt(mydata.getMinutes()));
+            var mins1 = getPra(mins);
+            $('.timebox .time .mins span:nth-child(1)').attr('class', 'num' + mins1[0]);
+            $('.timebox .time .mins span:nth-child(2)').attr('class', 'num' + mins1[1]);
+            /*设置首页文字*/
+            var houer2 = parseInt(mydata.getHours()) + 1;
+
+            $('.changepictxt>div.txt' + houer2 + '.hide').removeClass('hide').siblings('div').addClass('hide');
+
+        }
+    </script>
+    <script type="text/javascript" src="../jssend/area.js?v=16" charset="utf-8"></script>
+    <script type="text/javascript" src="../jssend/swiper.js?v=10" charset="utf-8"></script>
+    <script type="text/javascript" src="../jssend/index.js?v=28" charset="utf-8"></script>
+    <script src="https://s19.cnzz.com/z_stat.php?id=1262880563&web_id=1262880563" language="JavaScript"></script>
+
+    <style>
+        a[href='http://www.cnzz.com/stat/website.php?web_id=1262880563'] {
+            opacity: 0;
+            visibility: hidden;
+        }
+    </style>
+</body>
+</html>

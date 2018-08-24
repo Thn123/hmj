@@ -1,0 +1,328 @@
+﻿@{
+    ViewBag.Title = "员工信息维护";
+    var ISADMIN = ViewData["ISADMIN"];
+    var cuUserType = ViewData["USER_TYPE"] != null ? ViewData["USER_TYPE"].ToString() : "";
+}
+@model Hmj.Entity.Entities.ORG_EMPLOYEE_EX
+@section htmlhead{
+    @Html.Css("plugin/xjgrid", "plugin/xjdailog", "common", "plugin/validator", "plugin/tip")
+
+    <style type="text/css">
+        .h_title {
+            padding: 5px 15px;
+            border-bottom: solid 1px #e6e5e5;
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        .searchpanel {
+            background-color: #f7f8fa; /*border: 1px solid #ccc;*/
+            padding: 5px 15px;
+            margin-left: 10px;
+            border-radius: 4px;
+        }
+
+            .searchpanel .form-group label {
+                margin-bottom: 4px;
+            }
+    </style>
+}
+<div class="s_container">
+    <div id="page-heading">
+        <h2>
+            <i class="fa fa-user"></i>&nbsp;员工信息维护</h2>
+    </div>
+    <div id="mainbody" class="panel panel-primary">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h4>
+                    <ul class="nav nav-tabs">
+                        <li id="LiJcxx" class="active">
+                            <a href="#jcxx" data-toggle="tab">基础信息</a>
+                        </li>
+                        <li id="LiYjfa">
+                            @*  @if (Model.ID == 0)
+                            {
+                                <a>薪酬与福利</a>                              
+                            }
+                            else
+                            {
+                                <a id="aYjfa" href="#yjfa" data-toggle="tab">薪酬与福利</a>
+                            }*@
+                        </li>
+                        @*<li id="LiDlzh">*@
+                            @* @if (Model.ID == 0)
+                            {
+                                <a>登录账户</a>                              
+                            }
+                            else
+                            {
+                                <a href="#dlzh" data-toggle="tab">登录账户</a>
+                            }*@
+                        @*</li>*@
+                    </ul>
+                </h4>
+            </div>
+        <div class="panel-body">
+            <div class="tab-content">
+                <div class="tab-pane active" id="jcxx">
+                    <form class="form-horizontal" id="frmJcxx" method="post" action="@Url.Action("SaveJcxx")" role="form">
+                        @Html.Hidden("ID", Model.ID)
+                        @Html.Hidden("ISADMIN", ISADMIN)
+                        @Html.Hidden("POST_ID", Model.POST_ID)
+                        @Html.Hidden("STORE_ID1", Model.STORE_ID)
+                        @Html.Hidden("USER_TYPE1", Model.USER_TYPE)
+                        <div class="form-group">
+                            <label for="NAME" class="col-sm-3 control-label"><span style="color: red">*</span>姓名</label>
+                            <div class="col-sm-6">
+                                @Html.TextBox("NAME", Model.NAME, new { @class = "form-control", placeholder = "请输入员工姓名" })
+                            </div>
+                            <div class="col-sm-3">
+                                <p class="help-block" style="color: red;"></p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="GENDER" class="col-sm-3 control-label"><span style="color: red">*</span>性别</label>
+                            <div class="col-sm-6">
+                                @Html.ResourceRadioList("GENDER", "GENDER", Model.GENDER, null)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="EMPLOYEE_NO" class="col-sm-3 control-label"><span style="color: red">*</span>员工工号</label>
+                            <div class="col-sm-6">
+                                @Html.TextBox("EMPLOYEE_NO", Model.EMPLOYEE_NO, new { @class = "form-control", placeholder = "请输入员工工号" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="POST_ID" class="col-sm-3 control-label"><span style="color: red">*</span>员工级别</label>
+                            <div class="col-sm-6">
+                                <select class="form-control" id="post_ids">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="USER_TYPE" class="col-sm-3 control-label"><span style="color: red">*</span>类别</label>
+                            <div class="col-sm-6">
+                                @Html.ResourceDropDownList("USER_TYPE", "USER_TYPE", Model.USER_TYPE, new { @class = "form-control" }, cuUserType, false)
+                            </div>
+                        </div>
+                          <div class="form-group" id="storeDiv">
+                            <label for="STORE_ID" class="col-sm-3 control-label"><span style="color: red">*</span>所属分店</label>
+                            <div class="col-sm-6">
+                                <select class="form-control"
+                                    id="STORE_ID" name="STORE_ID">
+                                </select>
+                                @*@Html.ResourceDropDownList("STORE_ID", "STORE", Model.STORE_ID, new { @class = "form-control" }, Model.ORG_ID.ToString(), false)*@
+                            </div>
+                        </div>
+                           <div class="form-group">
+                            <label for="IDCARD" class="col-sm-3 control-label">身份证</label>
+                            <div class="col-sm-6">
+                                @Html.TextBox("IDCARD", Model.IDCARD, new { @class = "form-control", placeholder = "请输入员工身份证" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="MOBILE" class="col-sm-3 control-label">电话</label>
+                            <div class="col-sm-6">
+                                @Html.TextBox("MOBILE", Model.MOBILE, new { @class = "form-control", placeholder = "请输入员工电话" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="EMAIL" class="col-sm-3 control-label">邮箱</label>
+                            <div class="col-sm-6">
+                                @Html.TextBox("EMAIL", Model.EMAIL, new { @class = "form-control", placeholder = "请输入电子邮件" })
+                            </div>
+                        </div>
+                      
+                        <div class="form-group">
+                            <label for="EMP_TYPE" class="col-sm-3 control-label"><span style="color: red">*</span>雇员类型</label>
+                            <div class="col-sm-6">
+                                @Html.ResourceDropDownList("EMP_TYPE", "EMP_TYPE", Model.EMP_TYPE, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="STATUS" class="col-sm-3 control-label"><span style="color: red">*</span>员工状态</label>
+                            <div class="col-sm-6">
+                                @Html.ResourceDropDownList("STATUS", "EMP_STATUS", Model.STATUS, new { @class = "form-control" }, Model.ORG_ID.ToString(), false)
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="ENTRY_DATE_Str" class="col-sm-3 control-label"><span style="color: red">*</span>入职时间</label>
+                            <div class="col-sm-6">
+                                <div class="input-group date" id="ENTRY_DATE_picker">
+                                    @Html.TextBox("ENTRY_DATE_Str", Model.ENTRY_DATE_Str, new { @class = "form-control" })
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" id="lzsj">
+                            <label for="DISM_DATE_Str" class="col-sm-3 control-label">离职时间</label>
+                            <div class="col-sm-6">
+                                <div class="input-group date" id="DISM_DATE_picker">
+                                    @Html.TextBox("DISM_DATE_Str", Model.DISM_DATE_Str, new { @class = "form-control" })
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="REMARK" class="col-sm-3 control-label">员工备忘录</label>
+                            <div class="col-sm-6">
+                                @Html.TextArea("REMARK", Model.REMARK, new { @class = "form-control", @cols = "50", @rows = "2" })
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" id="btnCloseJcxx" class="btn btn-default" data-dismiss="modal">取 消</button>
+                            <button type="button" id="btnSaveJcxx" class="btn btn-primary">保 存</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="tab-pane" id="yjfa">
+                    <form class="form-horizontal" id="frmXcyfl" method="post" action="@Url.Action("SaveXcyfl")" role="form">
+                        @Html.Hidden("ID1", Model.ID)
+                        <div class="form-group">
+                            <label for="SICK_LEAVE" class="col-sm-3 control-label">病假</label>
+                            <div class="col-sm-6">
+                                @Html.TextBox("SICK_LEAVE", Model.SICK_LEAVE, new { @class = "form-control", placeholder = "请输入病假小时" })
+                            </div>
+                            <div class="col-sm-3">
+                                <p class="help-block" style="color: red;"></p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="ANNUAL_LEAVE" class="col-sm-3 control-label">年假</label>
+                            <div class="col-sm-6">
+                                @Html.TextBox("ANNUAL_LEAVE", Model.ANNUAL_LEAVE, new { @class = "form-control", placeholder = "请输入年假小时" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="SALARY_TYPE" class="col-sm-3 control-label">薪酬方案</label>
+                            @Html.Hidden("SALARY_TYPEV", Model.SALARY_TYPE)
+                            @Html.Hidden("MIN_SALARY", Model.MIN_SALARY)
+                            @Html.Hidden("COMMISSION_ID", Model.COMMISSION_ID)
+                            <div class="col-sm-9">
+                                <div class="col-sm-12" style="margin-bottom: 5px;">
+                                    <div class="col-sm-2">
+                                        <label class="radio-inline">
+                                            @Html.RadioButton("SALARY_TYPE", 1, (Model.SALARY_TYPE.HasValue && Model.SALARY_TYPE.Value == 1 ? true : false), new { @value = 1, @id = "SALARY_TYPE1" })&nbsp;没有                                       
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12" style="margin-bottom: 5px;">
+                                    <div class="col-md-2">
+                                        <label class="radio-inline">
+                                            @Html.RadioButton("SALARY_TYPE", 2, (Model.SALARY_TYPE.HasValue && Model.SALARY_TYPE.Value == 2 ? true : false), new { @value = 2, @id = "SALARY_TYPE2" })&nbsp;固定小时工                                         
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        @Html.TextBox("MIN_SALARY1", (Model.MIN_SALARY.HasValue && Model.MIN_SALARY.HasValue ? Model.MIN_SALARY.Value.ToString() : ""), new { @class = "form-control" })
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12" style="margin-bottom: 5px;">
+                                    <div class="col-sm-2">
+                                        <label class="radio-inline">
+                                            @Html.RadioButton("SALARY_TYPE", 3, (Model.MIN_SALARY.HasValue && Model.SALARY_TYPE.Value == 3 ? true : false), new { @value = 3, @id = "SALARY_TYPE3" })&nbsp;固定工资           
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        @Html.TextBox("MIN_SALARY2", (Model.MIN_SALARY.HasValue && Model.MIN_SALARY.HasValue ? Model.MIN_SALARY.Value.ToString() : ""), new { @class = "form-control" })
+                                    </div>
+                                    <div class="col-sm-1">
+                                        + 
+                                    </div>
+                                    <div class="col-sm-3">
+                                        @Html.ResourceDropDownList("COMMISSION_ID1", "COMMISSION_ID", (Model.COMMISSION_ID.HasValue && Model.COMMISSION_ID.HasValue ? Model.COMMISSION_ID.Value : 0), new { @class = "form-control" })
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12" style="margin-bottom: 5px;">
+                                    <div class="col-sm-2">
+                                        <label class="radio-inline">
+                                            @Html.RadioButton("SALARY_TYPE", 4, (Model.SALARY_TYPE.HasValue && Model.SALARY_TYPE.Value == 4 ? true : false), new { @value = 4, @id = "SALARY_TYPE4" })&nbsp;保底工资
+                                        </label>
+                                    </div>
+
+                                    <div class="col-sm-3">
+                                        @Html.TextBox("MIN_SALARY3", (Model.MIN_SALARY.HasValue && Model.MIN_SALARY.HasValue ? Model.MIN_SALARY.Value.ToString() : ""), new { @class = "form-control" })
+                                    </div>
+                                    <div class="col-md-1">+</div>
+                                    <div class="col-md-3">
+                                        @Html.ResourceDropDownList("COMMISSION_ID2", "COMMISSION_ID", (Model.COMMISSION_ID.HasValue && Model.COMMISSION_ID.HasValue ? Model.COMMISSION_ID.Value : 0), new { @class = "form-control" })
+                                    </div> 
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" id="btnCloseXcyfl" class="btn btn-default" data-dismiss="modal">取 消</button>
+                            <button type="button" id="btnSaveXcyfl" class="btn btn-primary">保 存</button>
+                        </div>
+                    </form>
+                </div>
+               @* <div class="tab-pane" id="dlzh">
+                    <form class="form-horizontal" id="frmDlzh" method="post" action="@Url.Action("SaveDlzh")" role="form">
+                        <div class="form-group">
+                            @Html.Hidden("CUUSER_INFOID", Model.CUUSER_INFO.ID)
+                            @Html.Hidden("MODELID", Model.ID)
+                            @Html.Hidden("DSTORE_ID_Str", "")
+                            <label for="USER_NO" class="col-sm-3 control-label">登录名</label>
+                            <div class="col-sm-6">
+                                @Html.TextBox("USER_NO", Model.CUUSER_INFO.USER_NO, new { @class = "form-control", placeholder = "请输入登录名" })
+                            </div>
+                            <div class="col-sm-3">
+                                <p class="help-block" style="color: red;"></p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="USER_PASS" class="col-sm-3 control-label">密码</label>
+                            <div class="col-sm-6">
+                                @Html.Password("USER_PASS", Model.CUUSER_INFO.USER_PASS, new { @class = "form-control", placeholder = "请输入密码" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="USER_PASS1" class="col-sm-3 control-label">确认密码</label>
+                            <div class="col-sm-6">
+                                @Html.Password("USER_PASS1", Model.CUUSER_INFO.USER_PASS, new { @class = "form-control", placeholder = "请输入确认密码" })
+                            </div>
+                        </div>
+                        <div class="form-group" id="seeStoreDiv">
+                            <label for="DSTORE_ID" class="col-sm-3 control-label">门店数据权限</label>
+                            <div class="col-sm-6">
+                                @Html.ResourceCheckBoxList("DSTORE_ID", "STORE", Model.USER_STORES_OBJ, null, Model.ORG_ID.ToString(), false)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="ROLE_ID" class="col-sm-3 control-label">角色</label>
+                            <div class="col-sm-6">
+                                @Html.ResourceDropDownList("ROLE_ID", "ROLE_ID", Model.CUUSER_INFO.ROLE_ID, new { @class = "form-control" }, Model.ORG_ID.ToString(), false)
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" id="btnCloseDlzh" class="btn btn-default" data-dismiss="modal">取 消</button>
+                            <button type="button" id="btnSaveDlzh" class="btn btn-primary">保 存</button>
+                        </div>
+                    </form>
+                </div>*@
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+<!-- /.modal -->
+
+@section jssection{
+    <script type="text/javascript">
+        var util = {};
+        var options = {
+            indexUrl: "@Url.Action("Index")",
+            getEditPost: "@Url.Action("GetEditPost")",
+            getUserREGION: "@Url.Action("GetUserREGION")"
+        };
+    </script>
+    @Html.Js("plugins/validator/validator", "plugins/xjgrid/xjgrid", "plugins/xjdailog/xjdailog", "plugins/form-datepicker/js/bootstrap-datepicker", "plugins/form-datepicker/js/locales/bootstrap-datepicker.zh-CN", "js/common", "app/employee/editinfo")
+    @*, "plugins/form-parsley/parsley.min", "demo/demo-formvalidation"*@
+}
+

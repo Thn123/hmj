@@ -1,0 +1,366 @@
+﻿@{
+    ViewBag.Title = "GraphicShow";
+}
+@model List<Hmj.Entity.Entities.Graphic_Detail_EX>
+<link href="~/assets/css/weixincss.css" rel="stylesheet" />
+<meta http-equiv=X-UA-Compatible content=IE=EmulateIE11>
+@*<script type='text/javascript' src='../../assets/plugins/form-ckeditor/ckeditor.js'></script> *@
+    <link href="/assets/app/kindeditor/themes/default/default.css" rel="stylesheet"
+        type="text/css" />
+    <link href="/assets/app/kindeditor/plugins/code/prettify.css" rel="stylesheet"
+        type="text/css" />
+    <script src="/assets/app/kindeditor/kindeditor.js" type="text/javascript"></script>
+    <script src="/assets/app/kindeditor/lang/en.js" type="text/javascript"></script>
+    <script src="/assets/app/kindeditor/kindeditor-min.js" type="text/javascript"></script>
+  <script type="text/javascript">
+      var editor1;
+      KindEditor.ready(function (K) {
+          editor1 = K.create('#ckeditor', {
+              cssPath: '/assets/app/kindeditor/plugins/code/prettify.css',
+              uploadJson: '/assets/app/kindeditor/upload_json.ashx',
+              fileManagerJson: '/assets/app/kindeditor/file_manager_json.ashx',
+              allowFileManager: true,
+              afterCreate: function () {
+                  var self = this;
+                  K.ctrl(document, 13, function () {
+                      self.sync();
+                      K('form[name=example]')[0].submit();
+                  });
+                  K.ctrl(self.edit.doc, 13, function () {
+                      self.sync();
+                      K('form[name=example]')[0].submit();
+                  });
+              },
+              afterBlur: function () { this.sync(); }
+          });
+          editor1.sync();
+          //  prettyPrint();
+      });
+    </script>
+<div class="dingyibox">
+    
+    <div class="sucainav" style="display:none;">
+      <ul>
+         <li class="curnav"><a href="#">图文消息</a></li>
+         <li><a href="#">图片库</a></li>
+         <li><a href="#">语音</a></li>
+         <li><a href="#">视频</a></li>
+      </ul>
+    </div>
+    
+    <div class="sucailist">
+       <h5><a href="GraphicShow.do"><em class="fanhui2"></em>图文消息</a> / 新建多图文消息</h5>
+   </div>
+   
+   <div class="addtuwen">
+      <div class="addtuleft">
+         
+           
+          <div class="tuwen" style="width:318px;">
+                 <div class="onetuwen">
+                     <div class="tuwencon duotucon">
+                          <img id="img1" src="@Model[0].FullPicUrl" />
+                         <div class="duoTitle"><a href="#" style="color:#fff;">@Model[0].Title</a></div>
+                        <div class="imgEditbg"><em style="line-height:156px;"><a href="javascript:yidong2();" class="editda"></a></em></div>
+                     </div>
+                 </div>
+               <div class="duotuwenEdit" id="addduotu">
+                   @for (int i = 1; i < Model.Count; i++)
+                   {
+                       string imgname ="img"+ (i + 1);
+                       string titname = "title" + (i + 1);
+                       int num=i-1;
+                       if(i==1){
+                        <ol>  <img id="@imgname" src="@Model[i].FullPicUrl" class="morenxiaotu" /><span id="@titname">@Model[i].Title</span><div class="imgEditbg"><em><a href="javascript:yidong();" class="editda"></a></em></div></ol>
+                        }
+                        else{
+                           <ol>  <img id="@imgname" src="@Model[i].FullPicUrl" class="morenxiaotu" /><span id="@titname">@Model[i].Title</span><div class="imgEditbg"><em><a href="javascript:yidong3(@num);" class="editda"></a>&nbsp; <i><a href="javascript:void(0);" class="delda" onclick="deltuwen()"></a></i></em></div></ol>
+                       }
+                   }
+                
+                       @if(Model.Count<=1){
+                           <ol>  <img id="img2" src="~/assets/images/default.png" class="morenxiaotu" /><span id="title2">标题</span><div class="imgEditbg"><em><a href="javascript:yidong();" class="editda"></a></em></div></ol>
+                       }
+                       
+                      
+                 </div>
+                 <div class="addduotu"><a href="javascript:addtuwen();"><em></em></a></div>
+         </div> 
+      </div>
+      <form class="form-horizontal" id="frmSave" method="post" action="SaveOneGraphic.do" role="form"  enctype="multipart/form-data">
+       <div class="addturight">
+          @Html.Hidden("ID",Model[0].ID)
+                            @Html.Hidden("List_ID",Model[0].List_ID)
+           @Html.Hidden("FILE_URL",@Model[0].Pic)
+           @Html.Hidden("Body")
+           @Html.Hidden("TWID",1)
+           @Html.Hidden("ISFB", 0)<!--是否发布-->
+          <div class="inputbox">
+             <div class="inputsanjiao"></div>
+             <p>标题</p>
+            <p><input name="Title" type="text" class="txt" onkeydown="titledd(1);" onkeyup="titledd(1);" id="title1" value="@Model[0].Title"></p>
+             
+             <p>作者<span>（选填）</span></p>
+             <p><input name="Author" type="text" id="Author"  class="txt" value="@Model[0].Author"></p>
+             
+             <p>封面<span>（大图片建议尺寸：900像素 * 500像素）</span></p>
+              <div class="imgup"><input type="file" name="file1" id="file1" class="form-control" style="display:none;"  onclick="FileUpload_onclick()" onchange="FileUpload_onselect()" />
+               <input type="text" id="txtFakeText" value="@Model[0].Pic" style="width:460px;" readonly="true">
+    <input type="button" onclick="HandleFileButtonClick();" value="选择文件" >
+                   </div>
+             
+              <p id="pid1"><a href="javascript:showinput(1)" class="blue">添加摘要</a></p>
+              <div id="txtid1" style="display:none;">
+             <p>摘要</p>
+             <textarea name="Describe" id="Describe" cols="" rows="" class="textarea">@Model[0].Describe</textarea>
+             </div>
+             
+             <p>正文</p>
+              <textarea name="ckeditor" id="ckeditor" cols="70" rows="20" class="ckeditor">@Model[0].Body</textarea>
+             
+              <p id="pid2"><a href="javascript:showinput(2)" class="blue">添加原文链接</a></p>
+              <div id="txtid2" style="display:none;">
+              <p>原文链接</p>
+                <p><input name="URL" id="URL" type="text" class="txt" value="@Model[0].URL"></p>
+              </div>
+          </div>
+        
+        
+      </div>
+   </form>
+   </div>
+    <div class="btnbox"><a href="#" class="greenbtn">发布</a> &nbsp; <a href="#" class="quxiaobtn" style="display:none;">预览</a></div>
+</div>
+
+@section jssection{
+<script type="text/javascript">
+    function showinput(id) {
+        $("#pid" + id).hide();
+        $("#txtid" + id).fadeIn();
+    }
+    function titledd(id) {
+        var title = $("#title" + id).val();
+        var tit = "#title" + $("#TWID").val();
+        //alert($("#TWID").val() == 1);
+        if ($("#TWID").val() == 1) {
+            $(".duoTitle").find("a").html(title);
+        }
+        else {
+            //alert(title);
+            $(tit).html(title);
+        }
+    }
+
+    function HandleFileButtonClick() {
+        document.getElementById("file1").click()
+        document.getElementById("txtFakeText").value = document.getElementById("file1").value;
+    }
+
+    var opp = document.getElementById('addduotu').getElementsByTagName("ol");
+    function addtuwen() {
+        if (opp.length > 6) {
+            alert("您最多只能添加8个菜单");
+        } else {
+            document.getElementById('addduotu').innerHTML += '<ol>  <img id="img' + (parseInt(opp.length) + 2) + '" class="morenxiaotu" src="" /><span id="title' + (parseInt(opp.length) + 2) + '">标题</span><div class="imgEditbg"><em><a href="javascript:yidong3(' + opp.length + ');" class="editda"></a>  &nbsp; <i><a href="javascript:void(0);" class="delda" onclick="deltuwen()"></i></em></a></div></ol>'
+            // alert(document.getElementById('addduotu').innerHTML);
+        }
+    }
+
+    function deltuwen() {
+        savetw();
+        var eol = document.getElementById('addduotu').getElementsByTagName("ol");
+        var eii = document.getElementById('addduotu').getElementsByTagName("i");
+        for (var i = 0; i < eii.length; i++) {
+            eii[i].index = i;
+            eii[i].onclick = function () {
+                deltw(parseInt(this.index + 3));
+                document.getElementById('addduotu').removeChild(eol[this.index + 1]);
+                //yidong2();
+            }
+        }
+    }
+
+    function yidong() {
+        savetw();
+        $("#TWID").val(2);
+        $(".inputbox").animate({ marginTop: "175px" }, 500);
+        showtw(2);
+    }
+    function yidong2() {
+        savetw();
+        $("#TWID").val(1);
+        $(".inputbox").animate({ marginTop: "0" }, 500); $(".inputsanjiao").animate({ top: "40px" }, 500);
+        showtw(1);
+    }
+    function yidong3(id) {
+        savetw();
+        $("#TWID").val(id + 2);
+        var changdu = (id - 1) * 101 + 258 - (id - 1) * 30 + "px";
+        var mardu = (id - 1) * 30 + 58 + "px";
+        $(".inputbox").animate({ marginTop: mardu }, 500);
+        $(".inputsanjiao").animate({ top: changdu }, 500);
+
+        showtw((id + 2));
+    }
+
+    //var options = {
+    //    myeditor: CKEDITOR.replace('ckeditor', { toolbar: 'Basic' })
+    //};
+
+    function deltw(id) {
+        $.post("DelGraphicByRowID.do", {
+            rowid: id,
+            listid: $("#List_ID").val()
+        },
+                  function (ret) {
+                      if (ret && ret.status == 0) {
+
+                          location = "MoreTW.do?id=" + $("#List_ID").val();
+                      }
+                      else {
+                          _showInfoMessage("加载失败！", 'error');
+                      }
+                  },
+                  "json"
+            );
+    }
+
+    function showtw(id) {
+        //alert(id);
+        $.post("GetGraphicByRowID.do", {
+            rowid: id,
+            listid: $("#List_ID").val()
+        },
+                  function (ret) {
+                      if (ret && ret.status == 0) {
+                          $("#title1").val(ret.data.Title);
+                          //options.myeditor.setData(ret.data.Body);
+                          //alert(ret.data.Body);
+                          editor1.html(ret.data.Body);
+                          //KindEditor.html( ret.data.Body);
+                          $("#ID").val(ret.data.ID);
+                          $("#FILE_URL").val(ret.data.Pic);
+                          $("#Describe").val(ret.data.Describe);
+                          $("#URL").val(ret.data.URL);
+                          document.getElementById("txtFakeText").value = ret.data.Pic;
+                          //alert(ret.data.Pic);
+                          $("#Author").val(ret.data.Author);
+
+                      }
+                      else {
+                          _showInfoMessage("加载失败！", 'error');
+                      }
+                  },
+                  "json"
+            );
+    }
+
+    function FileUpload_onselect() {
+        ajaxFileUpload();
+    }
+
+
+
+    $(function () {
+        $(".greenbtn").click(function () {
+            //alert($("#FILE_URL").val());
+            if ($("#FILE_URL").val() == "") {
+                alert("请上传图片");
+                return;
+            }
+            //$("#Body").val(options.myeditor.getData());
+            $("#Body").val($("#ckeditor").val());
+            if ($("#Body").val() == "" && $("#URL").val() == "") {
+                alert("请输入正文或添加原文链接");
+                return;
+            }
+            $("#ISFB").val(1);
+            savetw();
+        })
+    })
+
+    function savetw() {
+       // alert($("#TWID").val());
+        $("#Body").val($("#ckeditor").val());
+        //alert($("#ckeditor").val());
+        //alert(options.myeditor.getData());
+        //alert($("#Body").val());
+        $("#frmSave").submit();
+    }
+
+    $(document).ready(function () {
+        $('#frmSave').validator({
+            rules: {
+            },
+            fields: {
+
+            },
+            valid: function (form) {
+                FormSubmit(form, function (res) {
+                    if (res.status == 0) {
+                        $("#List_ID").val(res.data.List_ID);
+
+                        //var tit = "#title" + $("#TWID").val();
+                        ////alert($("#TWID").val() == 1);
+                        //if ($("#TWID").val() == 1) {
+                        //    $(".duoTitle").find("a").html(res.data.Title);
+                        //}
+                        //else {
+                        //    $(tit).html(res.data.Title);
+                        //}
+
+                        _showInfoMessage("保存成功！", 'success');
+                        if ($("#ISFB").val() == 1) {
+                            location = "GraphicShow.do";
+                        }
+                        //$('#EditModal').modal('hide');
+                        //xjgrid.Reload();
+                    }
+                    else {
+                        _showInfoMessage("保存失败：" + res.message, 'error');
+                        //showErrorTip("操作失败！：" + res.message, { left: 100, top: 10 }, true, 5000);
+                    }
+                })
+            }
+        });
+    });
+
+    function ajaxFileUpload() {
+        $.ajaxFileUpload
+        (
+            {
+                url: 'UploadImage.do', //用于文件上传的服务器端请求地址
+                type: 'post',
+                data: { Id: '123', name: 'lunis' }, //此参数非常严谨，写错一个引号都不行
+                secureuri: false, //一般设置为false
+                fileElementId: 'file1', //文件上传空间的id属性  <input type="file" id="file" name="file" />
+                dataType: 'text', //返回值类型 一般设置为json
+                success: function (data, status, Message)  //服务器成功响应处理函数
+                {
+                    data = JSON.parse(data);
+                    var objimg = "#img" + $("#TWID").val();
+                    $(objimg).attr("src", data.data.FILE_NAME);
+                    $("#FILE_URL").val(data.data.FILE_URL);
+                    //alert($("#FILE_URL").val());
+                    $("#txtFakeText").val(data.data.FILE_URL);
+                    if (typeof (data.error) != 'undefined') {
+                        if (data.error != '') {
+                            alert(data.error);
+                        } else {
+                            alert(data.msg);
+                        }
+                    }
+                },
+                error: function (data, status, e)//服务器响应失败处理函数
+                {
+                    alert(e);
+                }
+            }
+        )
+        return false;
+    }
+
+
+</script>
+    @Html.Js("plugins/xjgrid/xjgrid", "plugins/xjdailog/xjdailog", "plugins/validator/validator", "js/jquery.wookmark","js/ajaxfileupload")
+}

@@ -1,0 +1,145 @@
+﻿@{
+    ViewBag.Title = "数据字典";
+} 
+@model Hmj.Entity.Entities.ORG_DICT_EX
+@section htmlhead{
+    @Html.Css("plugin/xjgrid", "plugin/xjdailog", "common", "plugin/validator", "plugin/tip") 
+    <link rel='stylesheet' type='text/css' href='../../assets/css/tree.css' />
+}
+
+<div class="s_container">
+    <div id="page-heading">
+        <h2>
+            <i class="fa fa-group"></i>&nbsp;数据字典</h2>
+    </div>
+
+    <div id="mainbody" class="panel panel-primary col-md-3">
+        <div class="panel-heading">
+            <h4>数据字典管理</h4>
+        </div>
+        <div class="panel-body">
+             <div id="ptree"></div>          
+        </div>
+    </div>
+
+    <div id="mainbody1" class="panel panel-primary col-md-9">
+        <div class="panel-heading">
+            <h4 id="h4Dict">数据字典</h4>
+        </div>
+        <div class="panel-body">
+             <div class="row">
+                <div class="col-md-2 form-group">
+                    <button type="button" class="btn default" id="btnAdd">
+                        <i class="fa fa-plus"></i> 新 增</button>
+                </div>                
+                <div class="col-md-12">
+                     <div class="table-responsive" id="gridlist" style="min-height:50px">
+                     </div>
+                </div>
+            </div>          
+        </div>
+    </div>
+</div>
+<div id="confirmModal" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            &times;</button>
+                        <h4 class="modal-title">确认！</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            你确认要删除字典[<span id="lbuserName"></span>]吗？
+                        </p>
+                        <input id="hdCurrentId" type="hidden" value="" />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                            取 消</button>
+                        <button type="button" id="btnConfirm" class="btn btn-primary">
+                            确 定</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+
+<div id="EditModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">字典信息维护</h4>
+            </div>
+
+            <div class="modal-body">
+                <form class="form-horizontal" id="frmSave" method="post" action="@Url.Action("Save")" role="form">
+                    @Html.Hidden("ID", Model.ID)
+                    @Html.Hidden("PARENT_ID", Model.PARENT_ID)
+                    @Html.Hidden("ORG_ID", Model.ORG_ID)
+                    <div class="form-group col-xs-12">
+                        <label class="col-sm-2 control-label"><span style="color: red">*</span>字典名称:</label>
+                        <div class="col-sm-10">
+                            @Html.TextBox("DICT_VALUE", Model.DICT_VALUE, new { @class = "form-control", placeholder = "字典名称" })
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-12">
+                        <label class="col-sm-2 control-label"><span style="color: red">*</span>字典代码:</label>
+                        <div class="col-sm-10">
+                            @Html.TextBox("DICT_CODE", Model.DICT_CODE, new { @class = "form-control", placeholder = "字典代码" })
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-12">
+                        <label class="col-sm-2 control-label">父级字典:</label>
+                        <div class="col-sm-10">
+                            <label class="control-label" id="PARENT_NAME">@Model.PARENT_NAME</label>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-12">
+                        <label class="col-sm-2 control-label"><span style="color: red">*</span>排序:</label>
+                        <div class="col-sm-10">
+                            @Html.TextBox("DICT_SEQ", Model.DICT_SEQ, new { @class = "form-control", placeholder = "排序" })
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-12" id="sqlDiv">
+                        <label class="col-sm-2 control-label">删除检查:</label>
+                        <div class="col-sm-10">
+                            @Html.TextArea("CHECK_SQL", Model.CHECK_SQL,
+                                    new
+                                    {
+                                        @class = "form-control",
+                                        rows = "5",
+                                        placeholder = "SQL语句：SELECT COUNT(0) FROM [表名] WHERE [关联字典名称]=@DICT_CODE AND [关联公司编号名]=@ORG_ID"
+                                    })
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div style="clear: both"></div>
+            <div class="modal-footer">
+                <button type="button" id="btnSave" class="btn btn-primary">确 定</button>
+                <button type="button" id="btnClose" class="btn btn-default" data-dismiss="modal">取 消</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section jssection{
+    <script type="text/javascript">
+        var util = {};
+        var options = {
+            queryLeftUrl: "@Url.Action("QueryLeft")",
+            queryRightUrl: "@Url.Action("QueryRight")",
+            editUrl: "@Url.Action("Edit")",
+            deleteUrl: "@Url.Action("Delete")"
+        };
+    </script>
+    
+    @Html.Js("plugins/xjgrid/xjgrid", "plugins/xjdailog/xjdailog",
+    "plugins/validator/validator", "plugins/form-datepicker/js/bootstrap-datepicker", 
+    "plugins/form-datepicker/js/locales/bootstrap-datepicker.zh-CN",
+   "app/company/jquery.tree", "app/orgdict/index")
+           
+}

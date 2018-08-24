@@ -1,0 +1,252 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../css/new_style.css">
+    <link rel="stylesheet" href="../css/iosSelect.css" />
+    <title>注册</title>
+</head>
+<body>
+    <div class="wrap">
+        <div class="person_box">
+            <dl class="clearfix wszl">
+                <div class="left">
+                    <span class="must-opt">*为必填项</span>
+                </div>
+            </dl>
+            <dl class="clearfix wszl">
+                <div class="left">
+                    <span><em>*</em>姓 </span>
+                </div>
+                <div class="rt clearfix_rt">
+                    <span>
+                        <input type="text" maxlength="10" name="lastName" id="lastName" placeholder="请输入您的姓 &gt;">
+                    </span>
+                </div>
+            </dl>
+            <dl class="clearfix wszl">
+                <div class="left">
+                    <span><em>*</em>名</span>
+                </div>
+                <div class="rt clearfix_rt">
+                    <span>
+                        <input type="text" maxlength="10" name="firstName" id="firstName" placeholder="请输入您的名字 &gt;">
+                    </span>
+                </div>
+            </dl>
+            <dl class="clearfix wszl">
+                <div class="left">
+                    <span><em>*</em>性别</span>
+                </div>
+                <div class="rt gender clearfix_rt">
+                    <input type="text" readonly name="gender_id" id="genderId" placeholder="请选择您的性别 &gt;" />
+                </div>
+            </dl>
+            <dl class="clearfix wszl" style="border:none">
+                <div class="left">
+                    <span><em>*</em>生日</span>
+                </div>
+                <div class="rt selectDate clearfix_rt">
+                    <span class="showDate" style="color:rgba(153,153,153,0.3);">请设置您的生日 &gt;</span>
+                </div>
+            </dl>
+            <div class="grayregion"></div>
+            <dl class="clearfix  wszl">
+                <div class="left">
+                    <span>推荐人</span>
+                </div>
+                <div class="rt clearfix_rt">
+                    <input type="tel" maxlength="11" name="recommend" placeholder="请输入推荐人手机号(可不填) &gt;">
+                </div>
+            </dl>
+        </div>
+        <div class="rgst-btn btnSub">
+            <button id="btnSubmit">确定</button>
+        </div>
+        <div class="layer modaltips" id="modaltips"></div>
+        <!-- register layer-->
+        <!--提示框-->
+        <div class="layer " id="modaltips" style="display: none">
+
+        </div>
+
+        <div class="layer modal modaltips" id="bind_start">
+            <div class="layer-box">
+                <div class="layer-cont">
+                    <div class="layer-border layer-pd40">
+                        <div class="layer-text layer-border-none layer-no-btn">
+                            <p>努力注册中，请稍等...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<script src="../js/jquery.min.js"></script>
+<script src="../js/jquery.base64.js"></script>
+<script src="../js/validate.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/common.js?v=20180617_v1"></script>
+<script src="../js/iosSelect.js"></script>
+
+<script>
+    /**
+     * 以下四个参数用于“确定”按钮是否高亮
+     */
+    var fill_lastName = false;
+    var fill_firstName = false;
+    var fill_birthday = false;
+    var fill_gender = false;
+
+    $(function () {
+        try {
+            /*提交按钮高亮 START**************************/
+            $("#lastName").blur(function () {
+                if ($(this).val().trim().length > 0) {
+                    fill_lastName = true;
+                } else {
+                    fill_lastName = false;
+                    $("#btnSubmit").removeClass("active");
+                }
+                if (fill_lastName && fill_firstName && fill_birthday && fill_gender) {
+                    $("#btnSubmit").addClass("active");
+                }
+            });
+            $("#firstName").blur(function () {
+                if ($(this).val().trim().length > 0) {
+                    fill_firstName = true;
+                } else {
+                    fill_firstName = false;
+                    $("#btnSubmit").removeClass("active");
+                }
+                if (fill_lastName && fill_firstName && fill_birthday && fill_gender) {
+                    $("#btnSubmit").addClass("active");
+                }
+            });
+
+            /*提交按钮高亮 END**************************/
+            $('.btnSub button').click(function () {
+                var surName = $('input[name=lastName]').val().trim();
+                var txtName = $('input[name=firstName]').val().trim();
+                var gender = $("#genderId").attr("data-id");
+                var showDate = $(".showDate").text().trim();
+                var tuijian = $("input[name=recommend]").val().trim();
+
+                //var openid = 'oNTWExP-zmejVqhIfvwlEnlCadLs';
+                //var nickName = '234';
+                var userinfo = $.parseJSON(localStorage.getItem('fansJson') || getCookie('fansJson'));
+                var openid = userinfo.openid;
+                var nickName = $.base64.atob(userinfo.nickname);
+
+                //验证;
+                if (!IsVal(surName, "姓")) return;
+                if (!IsVal(txtName, "名")) return;
+                if ((gender != 1) && (gender != 0)) {
+                    tips("请填写性别", true, 2000, true);
+                } else if (showDate == "请设置您的生日 >") {
+                    tips("请填写您的生日", true, 2000, true);
+                } else {
+                    //推荐人验证
+                    if (tuijian != "")
+                        if (!isPhone(tuijian)) {
+                            tips("请输入正确的手机号码", true, 2000, true);
+                            return;
+                        }
+
+                    var data = '{ "NAME_LAST": "' + surName + '", "NAME_FIRST": "' + txtName
+                        + '", "GENDER": "' + gender + '", "BIRTHDAY": "' +
+                        showDate + '", "OPENID": "' + openid
+                        + '", "MOBILE": "' + localStorage.getItem("tel")
+                        + '","NICK_NAME": "' + nickName +
+                        '","REFEREE_MOBILE": "' + tuijian + '" }';
+
+                    $.ajax({
+                        type: "post",
+                        contentType: "application/json",
+                        cache: false,
+                        dataType: "json",
+                        url: $.domainUrl + "Member/RegisterMember",
+                        processData: false,
+                        data: data,
+                        beforeSend: function () {
+                            $('#bind_start').show();
+                        },
+                        success: function (res) {
+                            $('#bind_start').hide();
+                            console.log(res);
+                            if (res.status == 1) {
+                                //$('#registerLayer').css("display", 'block');
+                                tips("注册成功！<p>获得30积分奖励，将于24小时内到账。</p>", false, 0, false, true);
+                                $(document).on("click", ".rightbutton", function () {
+                                    $('#modaltips').hide();
+                                    var is_point = res.data.IS_POINT;
+                                    var is_brand = res.data.IS_BRAND;
+
+                                    if (is_brand == "1") {
+                                        //如果是1（已经全部转换）那么就直接跳到主页
+                                        if (is_point == "1") {
+                                            $('.btnSub').hide();
+                                            window.location.href = 'user.html?t=' + new Date().getTime();
+                                        } else if (is_point == "0") {
+                                            //如果存在0（存在未转换品牌）跳到积分预览页面
+                                            window.location.href = 'jfdh.html?t=' + new Date().getTime();
+                                        }
+                                    }
+                                    else {
+                                        $('.btnSub').hide();
+                                        window.location.href = 'user.html?t=' + new Date().getTime();
+                                    }
+                                });
+                            }
+                            else {
+                                tips(res.message.trimEnd("；"), true, 2000, true);
+                            }
+                        },
+                        error: function () {
+                            tips("网络延迟，请您稍后再试", true, 2000, true);
+                        }
+                    });
+                    //}
+                }
+            });
+
+            var bnt = $('.btnSub');
+            var winHeight = $(window).height();   //获取当前页面高度
+            $(window).resize(function () {
+                var thisHeight = $(this).height();
+                if (winHeight - thisHeight > 50) {
+                    //当软键盘弹出，在这里面操作
+                    bnt.css('opacity', '0')
+                } else {
+                    //当软键盘收起，在此处操作
+                    bnt.css('opacity', '1')
+                }
+            });
+
+
+        } catch (ex) {
+            AddLog("register", "Exception", ex.toString());
+        }
+
+
+        function AddLog(title, msgType, msgContent) {
+            var data = '{"title": " ' + title + '", "msgType": "' + msgType
+                + '", "msgContent": "' + msgContent.replace(/"/g, '\'') + '"}';
+            $.ajax({
+                type: "post",
+                contentType: "application/json",
+                cache: false,
+                dataType: "json",
+                url: $.domainUrl + 'User/AddLog',
+                data: data,
+                success: function (data) {
+                },
+                error: function () {
+                }
+            });
+        }
+    })
+</script>

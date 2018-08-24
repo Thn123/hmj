@@ -1,0 +1,104 @@
+﻿@{
+    Layout = null;
+}
+
+@model Hmj.WebApp.ViewModels.PostRedirectModel
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />  
+    <title>PostRedirect</title>
+</head>
+<body>
+    <div>
+        @*预约转销售订单接口：
+            非会员接口 http://172.16.10.146:443/business/businessEnter/BusinessEnter.aspx ，传入tcfdScatter(顾客姓名)，tcfdScatterTe(顾客电话)，tcfdPaperId(身份证号), tcfdMemberId(会员编号), Option默认为Cash，tifdReservationID(预约号)
+            会员接口 http://172.16.10.146:443/business/businessEnter/BusinessEnter.aspx， 传入 tcfdMemberId(会员编号)，Option默认为Card，tifdReservationID(预约号)
+            详细信息修改：http://172.16.10.146:443/member/member_edit.aspx，传入 PK_key (会员编号)，
+            储值充卡：http://172.16.10.146:443/member/member_saving2.aspx ，传入 tcfdMemberId (会员编号)，
+            疗程卡开卡：http://172.16.10.146:443/member/member_account_time2.aspx ，传入 tcfdMemberId (会员编号)，
+            会员卡手动激活与冻结：http://172.16.10.146:443/member/ Member_Activated_Go.aspx ，传入 tcfdMemberId (会员编号)，*@
+        <h2>正在跳转....</h2>
+        <form action="@Model.UserEditUrl"  name="UserEditfrm" id="UserEditfrm"  method="post">
+            <input type="hidden" name="PK_key" value="@Model.tcfdMemberId" />
+        </form>
+        <form action="@Model.CardAddUrl"  name="CardAddfrm" id="CardAddfrm"  method="post">
+            <input type="hidden" name="PK_key" value="@Model.tcfdMemberId" />
+        </form>
+        <form action="@Model.CardRechargeUrl"  name="CardRechargefrm"  id="CardRechargefrm" method="post">
+            <input type="hidden" name="tcfdMemberId" value="@Model.tcfdMemberId" />
+        </form>
+
+        <form action="@Model.CreateCardUrl"  name="CreateCardfrm"  id="CreateCardfrm" method="post">
+            <input type="hidden" name="tcfdMemberId" value="@Model.tcfdMemberId" />
+        </form>
+
+        <form action="@Model.CardCheckInUrl"  name="CardCheckIdfrm"  id="CardCheckIdfrm" method="post">
+            <input type="hidden" name="tcfdMemberId" value="@Model.tcfdMemberId" />
+            <input type="hidden" name="Option" value="Card" />
+            <input type="hidden" name="tcfdCardId" value="@Model.tcfdCardId" />
+            <input type="hidden" name="tifdRoomId" value="@Model.tifdRoomId" />
+            <input type="hidden" name="tifdReservationID" value="@Model.tifdReservationID" />
+        </form>
+        <form action="@Model.CashCheckInUrl"  name=" cashcheckinfrm"  id="CashCheckInfrm" method="post">
+            <input type="hidden" name="tcfdScatter" value="@Model.tcfdScatter" />
+            <input type="hidden" name="tcfdScatterTel" value="@Model.tcfdScatterTel" />
+            <input type="hidden" name="tcfdPaperId" value="@Model.tcfdPaperId" />
+            <input type="hidden" name="tcfdMemberId" value="@Model.tcfdMemberId" />
+            <input type="hidden" name="tcfdCardId" value="@Model.tcfdCardId" />
+            <input type="hidden" name="tifdRoomId" value="@Model.tifdRoomId" />
+            <input type="hidden" name="Option" value="Cash" />
+            <input type="hidden" name="tifdReservationID" value="@Model.tifdReservationID" />
+        </form>
+
+        <form action="@Model.CheckInUrl"  name="CheckInfrm"  id="CheckInfrm" method="post">
+            <input type="hidden" name="tcfdOpeid" value="@Model.tcfdOpeid" />
+        </form>
+        <form action="@Model.ViewBillUrl"  name="ViewBillfrm"  id="ViewBillfrm" method="post">
+            <input type="hidden" name="tcfdOpeid" value="@Model.tcfdOpeid" />
+        </form>
+
+    </div>
+    <div>
+        @{
+            var form = "";
+            switch (Model.RedirectType)
+            {
+                case 1:
+                    form = "CardCheckIdfrm";
+                    break;
+                case 2:
+                    form = "CashCheckInfrm";
+                    break;
+                case 3:
+                    form = "UserEditfrm";
+                    break;
+                case 4:
+                    form = "CardRechargefrm";
+                    break;
+                case 5:
+                    form = "CreateCardfrm";
+                    break;
+                case 6:
+                    form = "CheckInfrm";
+                    break;
+                case 7:
+                    form = "ViewBillfrm";
+                    break;
+                case 8:
+                    form = "CardAddfrm";
+                    break;
+                   
+            }
+        }
+        <script type="text/javascript">
+            //1 会员checkin 2 非会员checkin 3 会员详情， 4 储值卡  5 诊疗卡开卡
+            document.getElementById("@form").submit();           
+        </script>
+    </div>
+</body>
+
+
+
+</html>

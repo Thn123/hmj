@@ -1,0 +1,584 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../css/swiper.min.css">
+    <link rel="stylesheet" href="../css/new_style.css?v=20180621_03">
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <script type="text/javascript" src="../js/swiper.min.js"></script>
+    <script src="../js/validate.js"></script>
+    <title>会员权益</title>
+    <style>.wrap.userPage .header .table{padding:0}</style>
+     <!-- 添加弹框css-->
+    <style>
+        .tqtoast{
+            background: rgba(203,203,203,0.62);
+            position: fixed;
+            top: 0;
+            margin: 0 auto;
+            max-width: 720px;
+            min-height: 100vh;
+            width:100%;
+            height:100%;
+            z-index:99999;
+        }
+        .tq_wrapper{
+            background: #fff;
+            padding: 30px 15px 25px;
+            color: #888888;
+            font-size: 12px;
+            min-height: 300px;
+            position: absolute;
+            top: 45%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            -ms-transform: translate(-50%,50%);
+            -moz-transform: translate(-50%,-50%);
+            -webkit-transform: translate(-50%,-50%);
+            -o-transform: translate(-50%,-50%);
+            display: inline-block;
+            width: 60%;
+        }
+        .tq_wrapper .tq_cont p{
+            margin-bottom:20px;
+        }
+        .tq_wrapper .tq_cont p:last-child{
+            margin-bottom:0;
+        }
+        .tqtoast  .tq_title{
+            text-align: center;
+            padding-bottom: 12px;
+            font-size:14px;
+        }
+        .tqtoast  .tq_title,.tqtoast h2{
+            color: #333333;
+            line-height: 25px;
+        }
+        .tqtoast .tq_img{
+            display: inline-block;
+            position: absolute;
+            right: 15px;
+            bottom: -67px;
+        }
+        .tqtoast .tq_img img{
+            width: 30px;
+        }
+    </style>
+</head>
+<body style="background:#f6f6f6;">
+<div class="wrap userPage">
+    <div class="j_content header">
+        <div class="j_memberShip_top clearfix">
+            <div class="table">
+                <img src="../images/person.jpg" id="headimg" class="person" style="border-radius: 50%;"><!--src="../images/person.jpg"-->
+                <div class="right">
+                    <span class="name j_m_name " id="nickName"></span>
+                    <span id="nameSpan" class=""><label  id="levelName"></label></span>
+                </div>
+            </div>
+            <div class="j_hyqy"></div>
+        </div>
+        <div class="j_memberShip_main">
+            <!--<div class="j_qy_bl"></div>
+            <div class="j_qy_br"></div>-->
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    <!--普通-->
+                    <div class="swiper-slide swip1">
+                        <div class="j_m_tm">
+                            <div class="j_m_t j_m_t01">
+                                <span class="j_lev_name" style="color:#911f21;">普通会员</span><span class="cur01"></span>
+                                <div class="j_m_t_bg"></div>
+                            </div>
+                        </div>
+                        <div class="j_m_m">
+                            <ul class="clearfix">
+                                <li><em class="j_ms_ico01"></em>注册积分</li>
+                                <li><em class="j_ms_ico02"></em>积分转换</li>
+                                <li class="j_m_gray"><em class="j_ms_ico05"></em>购买奖励<i></i></li>
+                                <li class="j_m_gray"><em class="j_ms_ico03"></em>生日礼<i></i></li>
+                                <li class="j_m_gray"><em class="j_ms_ico04"></em>活动积分<i></i></li>
+                                <!--<li class="j_m_gray"><em class="j_ms_ico06"></em>更多权益<i></i></li>-->
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!--白银-->
+                    <div class="swiper-slide swip2">
+                        <div class="j_m_tm">
+                            <div class="j_m_t j_m_t02">
+                                <span class="j_lev_name" style="color:#333;">白银会员</span><span class="cur02"></span>
+                                <div class="j_m_t_bg"></div>
+                            </div>
+                        </div>
+                        <div class="j_m_m">
+                            <ul class="clearfix">
+                                <li><em class="j_ms_ico01"></em>注册积分</li>
+                                <li><em class="j_ms_ico02"></em>积分转换</li>
+                                <li class="j_m_gray"><em class="j_ms_ico05"></em>购买奖励<i></i></li>
+                                <li class="j_m_gray"><em class="j_ms_ico03"></em>生日礼<i></i></li>
+                                <li class="j_m_gray"><em class="j_ms_ico04"></em>活动积分<i></i></li>
+                                <li class="j_m_gray"><!--<em class="j_ms_ico06"></em>更多权益<i></i>--></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!--黄金-->
+                    <div class="swiper-slide swip3">
+                        <div class="j_m_tm">
+                            <div class="j_m_t j_m_t03">
+                                <span class="j_lev_name" style="color:#994807;">黄金会员</span><span class="cur03"></span>
+                                <div class="j_m_t_bg"></div>
+                            </div>
+                        </div>
+                        <div class="j_m_m">
+                            <ul class="clearfix">
+                                <li><em class="j_ms_ico01"></em>注册积分</li>
+                                <li><em class="j_ms_ico02"></em>积分转换</li>
+                                <li><em class="j_ms_ico05"></em>购买奖励</li>
+                                <li><em class="j_ms_ico03"></em>生日礼</li>
+                                <li><em class="j_ms_ico04"></em>活动积分</li>
+                                <!--<li class="j_m_gray"><em class="j_ms_ico06"></em>更多权益<i></i></li>-->
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!--铂金-->
+                    <div class="swiper-slide swip4">
+                        <div class="j_m_tm">
+                            <div class="j_m_t j_m_t04">
+                                <span class="j_lev_name" style="color:#5c4b6d;">铂金会员</span><span class="cur04"></span>
+                                <div class="j_m_t_bg"></div>
+                            </div>
+                        </div>
+                        <div class="j_m_m">
+                            <ul class="clearfix">
+                                <li><em class="j_ms_ico01"></em>注册积分</li>
+                                <li><em class="j_ms_ico02"></em>积分转换</li>
+                                <li><em class="j_ms_ico05"></em>购买奖励</li>
+                                <li><em class="j_ms_ico03"></em>生日礼</li>
+                                <li><em class="j_ms_ico04"></em>活动积分</li>
+                                <!--<li class="j_m_gray"><em class="j_ms_ico06"></em>更多权益<i></i></li>-->
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!--钻石-->
+                    <div class="swiper-slide swip5">
+                        <div class="j_m_tm">
+                            <div class="j_m_t j_m_t05">
+                                <span class="j_lev_name" style="color:#6f3006;">钻石会员</span><span class="cur05"></span>
+                                <div class="j_m_t_bg"></div>
+                            </div>
+                        </div>
+                        <div class="j_m_m">
+                            <ul class="clearfix">
+                                <li><em class="j_ms_ico01"></em>注册积分</li>
+                                <li><em class="j_ms_ico02"></em>积分转换</li>
+                                <li><em class="j_ms_ico05"></em>购买奖励</li>
+                                <li><em class="j_ms_ico03"></em>生日礼</li>
+                                <li><em class="j_ms_ico04"></em>活动积分</li>
+                                <!--<li class="j_m_gray"><em class="j_ms_ico06"></em>更多权益<i></i></li>-->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="layer qydetail" style="display:none;color:#333;text-align:left;" id="wrap">
+            <div style="height:100%">
+                <div class="hyqy-page">
+                    <div class="content">
+                        <div class="scroll-y">
+                            <h1>《华美家会员政策》</h1>
+                            <div class="text hyzd_border">
+                                <p>上海家化在“华美与共”的理念下，整合公司旗下现有品牌，建立全新的华美家会员体系，为您提供更全面，更精确，更细致，更具个性化的商品和服务。</p>
+                                <h2>一、会员级别 </h2>
+                                <h3>1.会员分级</h3>
+                                <p>根据每位会员的消费情况，分为普通会员、白银会员、黄金会员、铂金会员、钻石会员。</p>
+                                <h3>2.会员等级条件</h3>
+                                <p class="red">在家化旗下已加入华美家体系的各品牌注册、绑定、消费达到要求即可成为普通会员、白银会员、黄金会员、铂金会员、钻石会员：</p>
+                                <p>普通会员：在已加入华美家体系的各品牌微信、各品牌天猫旗舰店、华美家微信注册即可。</p>
+                                <p>白银会员：任意消费即可。</p>
+                                <p>黄金会员：一次性消费满200元，或一年内累计消费满800元即可。</p>
+                                <p>铂金会员：一次性消费满800元，或一年内累计消费满2000元即可。</p>
+                                <p>钻石会员：一年内累计消费满4000元即可。<br>“一年内”指会员当前等级效期内。</p>
+                                <h3>3.会员等级转换</h3>
+                                <p class="red">家化旗下佰草集专柜、高夫专柜、双妹专柜的老会员将根据自主绑定时品牌会员等级直接对应成为华美家各等级会员：</p>
+                                <div class="tableCss">
+                                    <table width="100%" border="1" cellpadding="0" cellspacing="0" bordercolor="#ddd" style="border-collapse:collapse">
+                                        <tr>
+                                            <td align="center"><strong>会员等级</strong></td>
+                                            <td align="center"><strong>佰草集专柜</strong></td>
+                                            <td align="center"><strong>高夫专柜</strong></td>
+                                            <td align="center"><strong>双妹专柜</strong></td>
+                                        </tr>
+                                        <tr>
+                                            <td align="center"><strong>普通会员</strong></td>
+                                            <td align="center">注册会员<br />普通会员</td>
+                                            <td align="center">注册会员<br />男爵卡</td>
+                                            <td align="center">注册会员</td>
+                                        </tr>
+                                        <tr>
+                                            <td align="center"><strong>白银会员</strong></td>
+                                            <td align="center">倾心卡</td>
+                                            <td align="center">-</td>
+                                            <td align="center">-</td>
+                                        </tr>
+                                        <tr>
+                                            <td align="center"><strong>黄金会员</strong></td>
+                                            <td align="center">-</td>
+                                            <td align="center">子爵卡</td>
+                                            <td align="center">-</td>
+                                        </tr>
+                                        <tr>
+                                            <td align="center"><strong>铂金会员</strong></td>
+                                            <td align="center">知心卡</td>
+                                            <td align="center">伯爵卡</td>
+                                            <td align="center">明珠卡</td>
+                                        </tr>
+                                        <tr>
+                                            <td align="center"><strong>钻石会员</strong></td>
+                                            <td align="center">臻心卡</td>
+                                            <td align="center">-</td>
+                                            <td align="center">美玉卡<br>钻石卡</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <p class="red">当会员拥有多品牌会员身份合并转换成为华美家会员时，华美家会员等级依据其拥有的品牌会员最高等级认定。在华美家等级生效后，需重新消费或累计消费满足相应的保级或升级条件。</p>
+                                <h3>4.会员等级有效日期</h3>
+                                <p>普通会员：永久有效</p>
+                                <p>白银会员：一年</p>
+                                <p>黄金会员：一年</p>
+                                <p>铂金会员：一年</p>
+                                <p>钻石会员：一年</p>
+                                <h3>5.会员保级条件</h3>
+                                <p>白银会员：当前等级效期内任意消费则保级，如不满足则等级到期日后转为普通会员。</p>
+                                <p>黄金会员：当前等级效期内任意消费则保级，如不满足则等级到期日后转为白银会员。</p>
+                                <p>铂金会员：当前等级效期内任意消费则保级，如不满足则等级到期日后转为黄金会员。</p>
+                                <p>钻石会员：当前等级效期内累计消费满4000元则保级，如不满足则等级到期日后转为铂金会员。</p>
+                                <h2>二、会员权益 </h2>
+                                <div class="tableCss _table">
+                                    <table width="100%" border="1" cellpadding="0" cellspacing="0" bordercolor="#ddd" style="border-collapse:collapse">
+                                        <tr>
+                                            <td align="center"><strong>权益内容</strong></td>
+                                            <td align="center"><strong>普通<br />会员</strong></td>
+                                            <td align="center"><strong>白银<br />会员</strong></td>
+                                            <td align="center"><strong>黄金<br />会员</strong></td>
+                                            <td align="center"><strong>铂金<br />会员</strong></td>
+                                            <td align="center"><strong>钻石<br />会员</strong></td>
+                                        </tr>
+                                        <tr>
+                                            <td align="center"><strong>等级消费积分<br />系数奖励<br />（具体请见本协议第三条）</strong></td>
+                                            <td align="center">&Chi;</td>
+                                            <td align="center">1.0</td>
+                                            <td align="center">1.05</td>
+                                            <td align="center">1.1</td>
+                                            <td align="center">1.3</td>
+                                        </tr>
+                                        <tr>
+                                            <td align="center"><strong>资讯获取</strong></td>
+                                            <td align="center">✓</td><!--&radic;-->
+                                            <td align="center">✓</td>
+                                            <td align="center">✓</td>
+                                            <td align="center">✓</td>
+                                            <td align="center">✓</td>
+                                        </tr>
+                                        <tr>
+                                            <td align="center"><strong>注册入会<br />积分奖励</strong></td>
+                                            <td align="center">✓</td>
+                                            <td align="center">&Chi;</td>
+                                            <td align="center">&Chi;</td>
+                                            <td align="center">&Chi;</td>
+                                            <td align="center">&Chi;</td>
+                                        </tr>
+                                        <tr>
+                                            <td align="center"><strong>首次转换<br />品牌积分奖励</strong></td>
+                                            <td align="center">✓</td>
+                                            <td align="center">✓</td>
+                                            <td align="center">✓</td>
+                                            <td align="center">✓</td>
+                                            <td align="center">✓</td>
+                                        </tr>
+                                        <tr>
+                                            <td align="center"><strong>生日当月首笔<br />双倍积分奖励</strong><br />（上限2500）</td>
+                                            <td align="center">&Chi;</td>
+                                            <td align="center">&Chi;</td>
+                                            <td align="center">✓</td>
+                                            <td align="center">✓</td>
+                                            <td align="center">✓</td>
+                                        </tr>
+                                        <tr>
+                                            <td align="center"><strong>会员专享活动</strong></td>
+                                            <td align="center">&Chi;</td>
+                                            <td align="center">&Chi;</td>
+                                            <td align="center">✓</td>
+                                            <td align="center">✓</td>
+                                            <td align="center">✓</td>
+                                        </tr>
+                                        <tr>
+                                            <td align="center"><strong>免费新品试用</strong></td>
+                                            <td align="center">&Chi;</td>
+                                            <td align="center">✓</td>
+                                            <td align="center">✓</td>
+                                            <td align="center">✓</td>
+                                            <td align="center">✓</td>
+                                        </tr>
+                                    </table>
+                                    <div style="margin:5px 0;">* 所有积分倍增奖励不与等级消费积分系数同享</div>
+                                </div>
+                                <h3>共享权益：</h3>
+                                <p>资讯获取：最新品牌、产品、活动、护肤资讯短信或微信通知，及时掌握第一手资讯。</p>
+                                <p>注册入会积分奖励：首次注册成为华美家会员可获得30积分奖励。</p>
+                                <p>首次会员绑定奖励：家化旗下品牌老会员首次注册成为华美家会员可获得上述30积分奖励。首次绑定老会员身份，可额外获得200积分奖励。</p>
+
+                                <h3>等级权益：</h3>
+                                <p>等级消费积分系数奖励：黄金会员以上（含黄金会员）等级会员享受不同等级的消费积分系数奖励。</p>
+                                <p>生日当月首笔双倍积分奖励：黄金会员以上（含黄金会员）等级会员享受生日月首笔积分奖励，积分上限2500分。（不与等级消费积分系数同享）</p>
+                                <p>会员专享活动：黄金会员以上（含黄金会员）等级会员可参与华美家和各品牌为不同等级会员设定的会员专享活动。</p>
+                                <p>免费新品试用：黄金会员以上（含黄金会员）等级会员可根据等级享受各品牌的新品免费试用。</p>
+                                <h2>三、会员积分</h2>
+                                <h3>1.积分获取</h3>
+                                <h4>消费积分 </h4>
+                                <p>会员至上海家化旗下已加入华美家体系的各品牌消费均可获得积分，积分可互通、可累积。</p>
+                                <p>天猫旗舰店消费积分的获取与累积需在已加入华美家会员体系的天猫旗舰店注册或绑定华美家会员账号。</p>
+                                <p>黄金会员消费1元积1.05分，铂金会员消费1元积1.1分，钻石会员消费1元积1.3分。不足1元不予以累积。</p>
+                                <p>品牌专柜：消费积分隔日生效。天猫旗舰店：确认收货第15天积分生效。</p>
+                                <p>折扣产品以折后价积分。</p>
+                                <p>如发生退货，该次的消费积分将予以扣除。</p>
+                                <h4>转换积分</h4>
+                                <p>品牌老会员自主绑定时品牌积分1:1转入华美家积分。</p>
+                                <h4>活动积分</h4>
+                                <p>会员参与<strong style='color:#be1a12;'>各类指定活动，</strong>可获得额外积分，具体积分奖励视具体营销活动而定，详见届时活动规则。</p>
+                                <h4>互动积分 </h4>
+                                <p>会员参与<strong style='color:#be1a12;'>各类微信互动活动，</strong>可获得额外积分，具体积分奖励视具体营销活动而定，详见届时活动规则。</p>
+                                <h3>2.积分有效期 </h3>
+                                <p>华美家会员的积分有效期自该积分生效日起至12个月后对应月份月底，该月最后一天积分过期清零，清零前积分有效。</p>
+                                <p>例：2017年1月1日积分生效，该积分将于2018年1月31日过期清零，清零前积分有效。若某月最后一天为12个月届满日，则积分当日清零。例：2017年12月31日积分生效，该积分将于2018年12月31日过期清零，清零前积分有效。</p>
+                                <p>佰草集专柜、高夫专柜、双妹专柜的老会员自主绑定时品牌积分有效期在绑定时自动沿用品牌积分有效期。</p>
+                                <h3>3.积分查询</h3>
+                                <p>可至华美家微信公众号（上海家化华美家）进行查询。</p>
+                                <p>可至已纳入华美家会员体系的天猫旗舰店会员页查询。</p>
+                                <p>可至已纳入华美家会员体系的各品牌门店查询。</p>
+                                <h3>4.积分冻结</h3>
+                                <p>已是家化旗下品牌的会员在华美家微信公众号平台或已纳入华美家会员体系的天猫旗舰店注册后，<strong style='color:#be1a12;'>如不绑定会员身份并转换积分，所有的品牌账户内积分将被冻结，冻结时可累积积分，但不可参与所有积分消耗活动，绑定并转换后即可解冻。</strong>所有未消耗积分都将在到期后清零。</p>
+                                <p>如上海家化有理由怀疑您的积分的获得及(或)使用存有欺诈、滥用等违反法律法规或其它本公司认为不当的行为，上海家化无需事先通知，可取消或冻结您的积分。情节严重者，上海家化可冻结您的积分并强制暂停或终止您的会员账户。</p>
+                                <h2>四、会员身份解除</h2>
+                                <p>成为华美家会员后，会员如需解除会员身份，需联系华美家微信后台或者已纳入华美家会员体系的天猫旗舰店的客服进行操作。<strong style='color:#be1a12;'>一旦解除会员身份后，华美家的会员账户将被注销，包括但不仅限于会员信息、等级和积分将被删除。再次重新注册后，等级和积分需重新累积。</strong></p>
+                                <h2>五、其他事项</h2>
+                                <p class="red">1.该会员制度仅适用于已纳入上海家化华美家体系的各品牌，是否纳入华美家以各品牌所涉及的销售平台告知为准。</p>
+                                <p class="red">2.注册成为家化华美家会员后，即表明接受家化旗下所有已纳入家化华美家会员体系的所有品牌（线上线下）的会员身份和品牌积分都会同时合并至该华美家会员账户中。</p>
+                                <p>3.华美家会员可享受华美家和已加入华美家体系的各品牌的会员权益，但在各品牌享受的会员权益以品牌规定为准。</p>
+                                <p>4.华美家会员可参与华美家和已加入华美家体系的各品牌开展的活动，参与品牌活动，以品牌活动规定为准；参与华美家活动，以华美家活动规定为准。</p>
+                                <p>5.一经注册成为华美家会员，即表示会员接受华美家会员制度及日后所作之修订。</p>
+                                <p>6.华美家如更改有关会员优惠及条款等信息将通过门店、微信公众号等渠道发布。</p>
+                                <p>7.上海家化在法律允许的范围内对该会员制度进行解释。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer">
+                    <div class="btn">
+                        <button class="btn-next active">返回</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a class="j_tjyl" href="javascript:void(0)">
+            <img src="../images/j_tj.png" width="150"/>
+        </a>
+        <div class="layer " id="modaltips" style="display: none"></div>
+    </div>
+    <div class="tqtoast" style="display:none">
+        <div class="tq_wrapper">
+            <div class="tq_title">注册奖励</div>
+            <div class="tq_cont">
+                <h2 >特权内容</h2>
+                <p>成为华美家会员，奖励30积分</p>
+                <h2>特权对象</h2>
+                <p>普通会员</p>
+                <h2>详细介绍</h2>
+                <p>
+                    1、注册奖励积分于华美家微信公众号注册当天发放</br>
+                    2、注册奖励只可领取一次</br>
+                    3、积分有效期自该积分生效日起至12个月后对应月份月底，该月最后一天积分过期清零，清零前积分有效</br>
+                </p>
+            </div>
+            <div class="tq_img">
+                <img src="../images/cha.png" alt=""/>
+            </div>
+        </div>
+    </div>
+</div>
+    <script>
+        function swpierIndex(id){
+            var swiper = new Swiper('.swiper-container', {
+                initialSlide: id,
+				slidesPerView: 1,
+				centeredSlides: true,
+				spaceBetween:15,
+				loop:false
+            });
+        }
+        var putong=[{title:'注册奖励',cont:"注册奖励：成为华美家会员，奖励30积分",intr:'1.注册奖励积分于华美家微信公众号注册当天发放</br>2.注册奖励只可领取一次</br>3.积分有效期自该积分生效日起至12个月后对应月份月底，该月最后一天积分过期清零，清零前积分有效'},{title:"积分奖励",cont:"转换奖励：首次转换品牌积分为华美家积分，奖励200积分",intr:'1.转换奖励积分于品牌积分转换当天发放</br>2.转换奖励只可领取一次</br>3.积分有效期自该积分生效日起至12个月后对应月份月底，该月最后一天积分过期清零，清零前积分有效'},{title:"购买奖励",cont:"",intr:''},{title:"生日奖励",cont:"",intr:''},{title:"活动奖励",cont:"",intr:''}];
+        var baiyin=[{title:'注册奖励',cont:"注册奖励：成为华美家会员，奖励30积分",intr:'1.注册奖励积分于华美家微信公众号注册当天发放</br>2.注册奖励只可领取一次</br>3.积分有效期自该积分生效日起至12个月后对应月份月底，该月最后一天积分过期清零，清零前积分有效'},{title:"积分奖励",cont:"转换奖励：首次转换品牌积分为华美家积分，奖励200积分",intr:'1.转换奖励积分于品牌积分转换当天发放</br>2.转换奖励只可领取一次</br>3.积分有效期自该积分生效日起至12个月后对应月份月底，该月最后一天积分过期清零，清零前积分有效'},{title:"购买奖励",cont:"",intr:''},{title:"生日奖励",cont:"",intr:''},{title:"活动奖励",cont:"",intr:''}];
+        var huangjin=[{title:'注册奖励',cont:"注册奖励：成为华美家会员，奖励30积分",intr:'1.注册奖励积分于华美家微信公众号注册当天发放</br>2.注册奖励只可领取一次</br>3.积分有效期自该积分生效日起至12个月后对应月份月底，该月最后一天积分过期清零，清零前积分有效'},{title:"积分奖励",cont:"转换奖励：首次转换品牌积分为华美家积分，奖励200积分",intr:'1.转换奖励积分于品牌积分转换当天发放</br>2.转换奖励只可领取一次</br>3.积分有效期自该积分生效日起至12个月后对应月份月底，该月最后一天积分过期清零，清零前积分有效'},{title:"购买奖励",cont:"购买奖励：至上海家化旗下已加入华美家体系的各品牌消费1元积1.05分",intr:'1.不足1元不予以累积</br>2.折扣产品以折后价积分</br>3.品牌专柜：消费积分隔日生效。天猫旗舰店：确认收货第15天积分生效</br>4.如发生退货，该次的积分将予以扣除</br>5.积分有效期自该积分生效日起至12个月后对应月份月底，该月最后一天积分过期清零，清零前积分有效'},{title:"生日奖励",cont:"生日奖励：生日月至上海家化旗下已加入华美家体系的各品牌首笔消费享双倍积分",intr:'1.生日奖励积分上限2500分，不与购买奖励同享</br>2.品牌专柜：消费积分隔日生效。天猫旗舰店：确认收货第15天积分生效</br>3.如发生退货，该次的积分将予以扣除</br>4.积分有效期自该积分生效日起至12个月后对应月份月底，该月最后一天积分过期清零，清零前积分有效'},{title:"活动奖励",cont:"活动奖励：上海家化旗下已加入华美家体系的各品牌的会员专享活动",intr:'1.参与各类指定活动，可获得额外积分，具体积分奖励视具体营销活动而定，详见届时活动规则'}];
+        var bojin=[{title:'注册奖励',cont:"注册奖励：成为华美家会员，奖励30积分",intr:'1.注册奖励积分于华美家微信公众号注册当天发放</br>2.注册奖励只可领取一次</br>3.积分有效期自该积分生效日起至12个月后对应月份月底，该月最后一天积分过期清零，清零前积分有效'},{title:"积分奖励",cont:"转换奖励：首次转换品牌积分为华美家积分，奖励200积分",intr:'1.转换奖励积分于品牌积分转换当天发放</br>2.转换奖励只可领取一次</br>3.积分有效期自该积分生效日起至12个月后对应月份月底，该月最后一天积分过期清零，清零前积分有效'},{title:"购买奖励",cont:"购买奖励：至上海家化旗下已加入华美家体系的各品牌消费1元积1.1分",intr:'1.不足1元不予以累积</br>2.折扣产品以折后价积分</br>3.品牌专柜：消费积分隔日生效。天猫旗舰店：确认收货第15天积分生效</br>4.如发生退货，该次的积分将予以扣除</br>5.积分有效期自该积分生效日起至12个月后对应月份月底，该月最后一天积分过期清零，清零前积分有效'},{title:"生日奖励",cont:"生日奖励：生日月至上海家化旗下已加入华美家体系的各品牌首笔消费享双倍积分",intr:'1.生日奖励积分上限2500分，不与购买奖励同享</br>2.品牌专柜：消费积分隔日生效。天猫旗舰店：确认收货第15天积分生效</br>3.如发生退货，该次的积分将予以扣除</br>4.积分有效期自该积分生效日起至12个月后对应月份月底，该月最后一天积分过期清零，清零前积分有效'},{title:"活动奖励",cont:"活动奖励：上海家化旗下已加入华美家体系的各品牌的会员专享活动",intr:'1.参与各类指定活动，可获得额外积分，具体积分奖励视具体营销活动而定，详见届时活动规则'}];
+        var zuanshi=[{title:'注册奖励',cont:"注册奖励：成为华美家会员，奖励30积分",intr:'1.注册奖励积分于华美家微信公众号注册当天发放</br>2.注册奖励只可领取一次</br>3.积分有效期自该积分生效日起至12个月后对应月份月底，该月最后一天积分过期清零，清零前积分有效'},{title:"积分奖励",cont:"转换奖励：首次转换品牌积分为华美家积分，奖励200积分",intr:'1.转换奖励积分于品牌积分转换当天发放</br>2.转换奖励只可领取一次</br>3.积分有效期自该积分生效日起至12个月后对应月份月底，该月最后一天积分过期清零，清零前积分有效'},{title:"购买奖励",cont:"购买奖励：至上海家化旗下已加入华美家体系的各品牌消费1元积1.3分",intr:'1.不足1元不予以累积</br>2.折扣产品以折后价积分</br>3.品牌专柜：消费积分隔日生效。天猫旗舰店：确认收货第15天积分生效</br>4.如发生退货，该次的积分将予以扣除</br>5.积分有效期自该积分生效日起至12个月后对应月份月底，该月最后一天积分过期清零，清零前积分有效'},{title:"生日奖励",cont:"生日奖励：生日月至上海家化旗下已加入华美家体系的各品牌首笔消费享双倍积分",intr:'1.生日奖励积分上限2500分，不与购买奖励同享</br>2.品牌专柜：消费积分隔日生效。天猫旗舰店：确认收货第15天积分生效</br>3.如发生退货，该次的积分将予以扣除</br>4.积分有效期自该积分生效日起至12个月后对应月份月底，该月最后一天积分过期清零，清零前积分有效'},{title:"活动奖励",cont:"活动奖励：上海家化旗下已加入华美家体系的各品牌的会员专享活动",intr:'1.参与各类指定活动，可获得额外积分，具体积分奖励视具体营销活动而定，详见届时活动规则'}];
+        //添加弹框方法:
+        var tipsflag=true;
+        function toast(title,tqcont,tqobj,tqinfo,nonerights){
+            if (tipsflag == true){
+                var tishiDiv = document.createElement('div');
+                tishiDiv.className = "toast";
+                document.body.appendChild(tishiDiv);
+                tipsflag = false;
+            }
+            var htmltoast='<div class="tqtoast">\
+                    <div class="tq_wrapper">\
+            <div class="tq_title">'+title+'</div>\
+            <div class="tq_cont">\
+            <h2 >特权内容</h2>\
+            <p>'+tqcont+'</p>\
+            <h2>特权对象</h2>\
+            <p>'+tqobj+'</p>\
+            <h2>详细介绍</h2>\
+            <p>'+tqinfo+'</p>\
+            </div>\
+            <div class="tq_img">\
+            <img src="../images/close.png" alt=""/>\
+            </div>\
+            </div>\
+            </div>';
+            $('.toast').html("").append(htmltoast).fadeIn();
+            if(nonerights){
+                $('.toast').html("").append(htmltoast).fadeIn();
+                $('.tq_cont').html(tqcont);
+            }
+            $(document).on('click','.tq_img',function(){
+                $('.tqtoast').fadeOut();
+            });
+        }
+        $(function(){
+            swpierIndex(0);
+            var a = $.parseJSON(localStorage.getItem('fansJson'));
+            var openid = a.openid;
+//            var openid='oNTWExP-zmejVqhIfvwlEnlCadLs';
+            var data = '{"OPENID": "' + openid + '", "IS_UPDATE": "1" }';
+            $.ajax({
+                type: "post",
+                contentType: "application/json",
+                dataType: "json",
+                url: $.domainUrl + "Member/GetMemberDetail",
+                processData: false,
+                data: data,
+                success:function (res){
+                    //判断会员等级根据不同的级别显示不同的内容;;
+                    console.log(res);
+                    if (res.data == null){
+                        tips("未读取到用户信息，请返回公众号菜单重新点击进入", true, 2000, true);
+                        return
+                    }
+                    if(res.data.MEM_LEVEL){
+                        $('.swip1 .j_m_m ul').on("click",'li',function(){
+                            var i=$(this).index();
+                            toast(putong[i].title,putong[i].cont,'普通会员',putong[i].intr);
+                            if(i==2){
+                                toast(putong[i].title,'当前等级无额外购买积分奖励，升级至黄金会员即可获得!','','',true);
+                            }
+                            if(i==3){
+                                toast(putong[i].title,'当前等级无生日奖励，升级至黄金会员即可获得!','','',true);
+                            }
+                            if(i==4){
+                                toast(putong[i].title,'当前等级无活动奖励，升级至黄金会员即可获得!','','',true);
+                            }
+                        });
+                        $('.swip2 .j_m_m ul').on("click",'li',function(){
+                            var i=$(this).index();
+                            toast(baiyin[i].title,baiyin[i].cont,'白银会员',baiyin[i].intr);
+                            if(i==2){
+                                toast(putong[i].title,'当前等级无额外购买积分奖励，升级至黄金会员即可获得!','','',true);
+                            }
+                            if(i==3){
+                                toast(putong[i].title,'当前等级无生日奖励，升级至黄金会员即可获得!','','',true);
+                            }
+                            if(i==4){
+                                toast(putong[i].title,'当前等级无活动奖励，升级至黄金会员即可获得!','','',true);
+                            }
+                        });
+                        $('.swip3 .j_m_m ul').on("click",'li',function(){
+                            var i=$(this).index();
+                            toast(huangjin[i].title,huangjin[i].cont,'黄金会员',huangjin[i].intr);
+                        });
+                        $('.swip4 .j_m_m ul').on("click",'li',function(){
+                            var i=$(this).index();
+                            toast(bojin[i].title,bojin[i].cont,'铂金会员',bojin[i].intr);
+                        });
+                        $('.swip5 .j_m_m ul').on("click",'li',function(){
+                            var i=$(this).index();
+                            toast(zuanshi[i].title,zuanshi[i].cont,'钻石会员',zuanshi[i].intr);
+                        });
+                    }
+                    var memberIndex=0;
+                    //res.data.MEM_LEVEL = '铂金会员';
+                    if (res.data.MEM_LEVEL=='普通会员'){
+                        memberIndex = 0;
+                        //$(".j_lev_name").html("普通会员");
+                        $(".cur01").html("当前特权");
+                        $("#nameSpan").addClass("vip1_icon");
+                        $("#levelName").html("Lv1 普通会员");
+
+                    }else if (res.data.MEM_LEVEL == '白银会员'){
+                        memberIndex = 1;
+                        //$(".j_lev_name").html("白银会员");
+                        $(".cur02").html("当前特权");
+                        $("#nameSpan").addClass("vip2_icon");
+                        $("#levelName").html("Lv2 白银会员");
+                    }else if(res.data.MEM_LEVEL =='黄金会员'){
+                        memberIndex = 2;
+                        //$(".j_lev_name").html("黄金会员");
+                        $(".cur03").html("当前特权");
+                        $("#nameSpan").addClass("vip3_icon");
+                        $("#levelName").html("Lv3 黄金会员");
+                    }else if(res.data.MEM_LEVEL=='铂金会员'){
+                        memberIndex = 3;
+                        //$(".j_lev_name").html("铂金会员");
+                        $(".cur04").html("当前特权");
+                        $("#nameSpan").addClass("vip4_icon");
+                        $("#levelName").html("Lv4 铂金会员");
+
+                    }else if (res.data.MEM_LEVEL == '钻石会员'){
+                        memberIndex = 4;
+                        //$(".j_lev_name").html("钻石会员");
+                        $(".cur05").html("当前特权");
+                        $("#nameSpan").addClass("vip5_icon");
+                        $("#levelName").html("Lv5 钻石会员");
+                    }
+                    swpierIndex(memberIndex);
+                    if (res.status == 0){
+                        //tips("对不起，无法查询到该会员信息")
+                    } else if (res.status == 1) {
+                        $('.person').attr('src', res.data.IMAGE);
+                        $(".j_m_name").html(res.data.NICK_NAME);
+                    }
+                }
+            });
+            $(".j_hyqy").click(function () {
+                location.href = "qysm.html";
+            });
+            $(".j_tjyl").click(function () {
+                $("#wrap").show();
+            });
+            $(".btn-next").click(function () {
+                $("#wrap").hide();
+            });
+        });
+    </script>
+</body>
+</html>
+
+
+
+

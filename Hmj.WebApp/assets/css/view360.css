@@ -1,0 +1,423 @@
+﻿.content {
+    padding-left: 200px;
+}
+
+#left {
+    width: 196px;
+    margin-left: -196px;
+    overflow: auto;
+    overflow-x:hidden;
+    zoom: 1;
+    position: absolute;
+    padding: 5px 0px 20px 2px;
+    background: #f2f2fe;
+}
+
+/* profile */
+.profile-name {
+	margin: 0;
+	margin-bottom: 10px;
+	color: #333;
+}
+
+.profile-location,
+.profile-position {
+	font-size: 13px;
+	margin-bottom: 3px;
+}
+
+.profile-location .fa,
+.profile-position .fa {
+	width: 16px;
+	margin-right: 8px;
+	text-align: center;
+}
+
+.profile-header {
+	margin-bottom: 30px;
+}
+
+.profile-header .btn .fa {
+	margin-right: 7px;
+}
+
+.profile-social-list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.profile-social-list li {
+	border-bottom: 1px solid #ddd;
+	padding: 5px 0;
+}
+
+.profile-social-list li:first-child {
+	padding-top: 0;
+}
+
+.profile-social-list li .fa {
+	margin-right: 10px;
+	width: 16px;
+}
+
+.activity-list {
+	padding: 20px 10px;
+}
+
+.media {
+   padding-bottom: 15px;
+}
+
+.activity-list .act-media {
+	border-bottom: 1px solid #eee;
+}
+
+.activity-list .act-thumb {
+	width: 28px;
+	vertical-align: middle;
+}
+
+.activity-list .act-media-body {
+	line-height: 16px;
+}
+
+.activity-list .media-body p {
+	line-height: 21px;
+	font-size: 13px;
+}
+
+.activity-list .media-title {
+	font-family: 'LatoBold';
+	font-size: 15px;
+	margin-bottom: 0;
+}
+
+.activity-list .blog-media {
+	padding-bottom: 0;
+}
+
+.activity-list .blog-media .media-object {
+	width: 120px;
+	margin-right: 10px;
+	margin-top: 5px;
+}
+
+.activity-list .blog-media .media-title {
+	margin: 0;
+}
+
+.activity-list .img-single img {
+	width: 50%;
+}
+
+.uploadphoto-list {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	margin-top: 20px;
+}
+
+.uploadphoto-list li {
+	width: 20%;
+	float: left;
+}
+
+.uploadphoto-list li a {
+	display: block;
+	margin-right: 5px;
+}
+
+.follower-list {
+	padding: 10px;
+}
+
+.follower-list .media {
+	border-bottom: 1px solid #eee;
+}
+
+.follower-list .btn .fa {
+	margin-right: 5px;
+}
+
+.follower-list .media-object {
+	margin-right: 10px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+}
+
+.follower-name {
+	color: #333;
+	margin: 0;
+	font-size: 18px;
+	margin-bottom: 5px;
+}
+
+.events {
+	padding: 10px;
+}
+
+.events .subtitle {
+	margin-bottom: 20px;
+}
+
+.events .media-object {
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+}
+
+.events-list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.events-list .event-body {
+	font-size: 13px;
+}
+
+.event-body small {
+	display: block;
+}
+
+.event-body small .fa {
+	margin-right: 5px;
+	width: 14px;
+	text-align: center;
+}
+
+.event-body p {
+	margin-top: 10px;
+}
+
+.event-title {
+	margin: 0;
+	margin-bottom: 5px;
+	font-size: 16px;
+	font-family: 'LatoBold';
+	line-height: normal;
+}
+
+/* 左侧盒子 */
+
+.l-box {
+    padding: 4px 6px;
+}
+
+.l-box-title {
+    padding: 2px;
+    border-bottom: solid 1px #ddd;
+    font-weight: bold;
+}
+
+.bitem {
+    padding: 2px;
+    margin-top: 2px;
+}
+
+.l-box-search div {
+    padding: 4px 3px;
+}
+
+.face {
+    width: 160px;
+    border: solid 1px #A7B2C3;
+    border-radius: 3px;
+    background-color: #fff;
+    /*box-shadow: 1px 1px 5px #ccc;*/
+    padding: 3px;
+    margin: 3px auto;
+}
+
+.l-box-item {
+    text-align: left;
+    overflow: hidden;
+    padding: 3px 2px;
+    color: #555;
+}
+
+.l-box-item i {
+    color: #333;
+}
+
+.l-box-shoping i {
+    float: right;
+    margin-right: 3px;
+}
+
+.l-box-integrity i {
+    margin-left: 20px;
+}
+
+.l-box-do i {
+    display: block;
+    padding: 3px 2px;
+}
+
+.l-box-attr {
+    float: left;
+    width: 85px;
+}
+
+.l-box-attr i {
+    margin-left: 5px;
+}
+
+
+
+.l-box-content {
+    margin-top: 10px;
+    font-size: 13px;
+}
+.l-box-c {
+    width: 30%;
+    display: inline-block;
+    zoom: 1;
+    letter-spacing: normal;
+    word-spacing: normal;
+    vertical-align: top;
+    text-rendering: auto;
+}
+
+.l-box-content .info-box {
+    color: #222;
+}
+
+.info-box label {
+    display: inline-block;
+    margin-right: 20px;
+    padding: 2px 2px;
+    color: #555;
+}
+.l-box-content .l-box-title{
+    padding:4px 2px;
+}
+.l-box-title a.abtn{
+    float:right;
+    margin-right:10px;
+}
+
+/*autocomplete*/
+.ac_results {
+	padding: 0px;
+	border: 1px solid #463265;
+	background-color: white;
+	overflow: hidden;
+	z-index: 99999;
+}
+
+.ac_results ul {
+	width: 100%;
+	list-style-position: outside;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.ac_results li {
+	margin: 0px;
+	padding: 2px 5px;
+	cursor: default;
+	display: block;
+	/* 
+	if width will be 100% horizontal scrollbar will apear 
+	when scroll mode will be used
+	*/
+	/*width: 100%;*/
+	font: menu;
+	font-size: 12px;
+	/* 
+	it is very important, if line-height not setted or setted 
+	in relative units scroll will be broken in firefox
+	*/
+	line-height: 18px;
+	overflow: hidden;
+}
+
+.ac_loading {
+	background: white url('../img/icon/indicator.gif') left center no-repeat;
+}
+
+.ac_odd {
+	background-color: #eee;
+}
+
+.ac_over { 
+	background-color: #563d7c;
+	color: white;
+}
+
+.portfolio .portHover .port-img, .hoverButtons a
+.portfolio .portHover .port-info { 
+	-moz-transition: all 0.2s ease-out 0s;
+	-webkit-transition: all 0.2s ease-out 0s;
+	transition: all 0.2s ease-out 0s; 
+}
+
+/*** PORTFOLIO ***/
+
+.portfolio { margin-top: 20px; }
+.portfolio-wrapper { position: relative; margin-right: -20px; }
+.portfolio-wrapper::after { clear: both; display: block; content: ''; }
+
+.filter { list-stlye: none; margin-bottom: 20px; overflow: hidden; }
+.filter::after { clear: both; display: block; content: ''; }
+.filter li {
+	display: inline-block; float: left; border-left: 1px solid #eee; padding: 0 10px;
+	line-height: normal; text-transform: uppercase; font-size: 11px; }
+.filter li:first-child { border-left: 0; padding-left: 0; }
+.filter li a {
+	display: block; line-height: normal; color: #aaa; border-bottom: 2px solid #fff; }
+.filter li a:hover { color: #333; text-decoration: none; border-bottom: 2px solid #ed7703; }
+.filter li.current a { color: #333; border-color: #ed7703; }
+
+.filter-left { margin-left: 20px; }
+
+.portfolio .row-fluid { margin-bottom: 25px; }
+.portfolio .port-entry {
+	margin-bottom: 40px; margin-right: 20px; position: relative;
+	background: url(../images/toptn.png) no-repeat 0 0; padding-top: 16px; }
+.portfolio .port-info { padding: 10px 0; border: 1px solid #ddd; border-top: 0; }
+.portfolio h4 { font-size: 13px; color: #333; text-align: center; font-weight: normal; }
+.portfolio .port-entry p { text-align: center; color: #999; }
+.portfolio .port-entry .port-img {
+	background: #fcfcfc; padding: 7px; display: block; border: 1px solid #ddd;
+	border-top: 1px solid #ccc; border-bottom: 0; position: relative; }
+.portfolio .portHover .port-img { border-color: #ccc; }
+.portfolio .portHover .port-info { border-color: #ccc; }
+
+.portfolio-four .port-entry { width: 230px; }
+.portfolio-three .port-entry { width: 313px; }
+.portfolio-two .port-entry { width: 480px; }
+
+.portfolio-right .port-entry { width: 343px; }
+.portfolio-left { margin-left: 20px; }
+.portfolio-left .port-entry { width: 343px; }
+
+.portfolio-slides { position: relative; }
+.portfolio-slides::after { content: ''; clear: both; display: block; }
+.portfolio-slides ul { list-style: none; }
+.portfolio-slides .port-img { margin: 0; }
+
+.portfolio-details .table tr td { padding: 5px 0; }
+.portfolio-details .table tr td:first-child { color: #999; }
+.portfolio-details .table tr td:last-child { text-align: right; }
+.portfolio-details .table td.like { text-align: left !important; padding-top: 10px; }
+
+.portfolio-desc p { margin: 25px 0; }
+.portfolio-desc p:first-child { margin-top: 0; }
+.portfolio-details .fb-like { float: left; }
+.portfolio-details .twitter-share-button { margin-left: 10px; float: left; }
+
+
+.hoverButtons {
+	display: none; width: 297px; height: 216px; position: absolute; top: 7px; left: 7px;
+	background: rgba(43,95,189,0.8); }
+.hoverButtons .hbinner { position: absolute; top: 50%; left: 50%; }
+.hoverButtons .hbinner div { position: relative; left: -90px; top: -10px; width: 250px; }
+.hoverButtons a {
+	display: inline-block; float: left; color: #fff; border: 2px solid #fff; padding: 3px 5px;
+	text-transform: uppercase; font-weight: bold; margin-right: 5px; }
+.hoverButtons a:hover { color: #fff; text-decoration: none; background: rgba(255,255,255,0.3); }

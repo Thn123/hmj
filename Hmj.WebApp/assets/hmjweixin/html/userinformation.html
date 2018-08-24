@@ -1,0 +1,203 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/new_style.css">
+    <script src="../js/base.js"></script>
+    <title>个人信息</title>
+    <style>
+        .layer.modaltips .layer-box .layer-cont { width: 70% }
+         #noChangepwd a{ color:#000; text-decoration: underline; }
+        .wrap .modify {padding: 0;
+            text-align: center;
+            display: inline;
+            float: right;
+            width: 90px;
+            height: 60px;
+            line-height: 60px;
+            margin-right: 0.03704rem;}
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <div class="person_box scanMes">
+            <div class="img">
+                <img id="user_header" src="../images/person.jpg" class="person">
+                <div class="modify ">
+                    <a href="modifyinformation.html">
+                        修改
+                    </a>
+                </div>
+            </div>
+            <div class="grayregion"></div>
+            <dl class="clearfix">
+                <div class="left">
+                    <span>昵称</span>
+                </div>
+                <div class="right nickName">
+                    <span></span>
+                </div>
+            </dl>
+            <dl class="clearfix">
+                <div class="left">
+                    <span>姓</span>
+                </div>
+                <div class="right NAME_LAST">
+                    <span><!--lastname--></span>
+                </div>
+            </dl>
+            <dl class="clearfix">
+                <div class="left">
+                    <span>名</span>
+                </div>
+                <div class="right NAME_FIRST">
+                    <span><!--firstname--></span>
+                </div>
+            </dl>
+            <dl class="clearfix">
+                <div class="left">
+                    <span>性别</span>
+                </div>
+                <div class="right GENDER">
+                    <span><!--gender--></span>
+                </div>
+            </dl>
+            <dl class="clearfix">
+                <div class="left">
+                    <span>生日</span>
+                </div>
+                <div class="right BIRTHDAY">
+                    <span><!--birthday--></span>
+                </div>
+            </dl>
+            <dl class="clearfix">
+                <div class="left">
+                    <span>手机号</span>
+                </div>
+                <div class="right MOBILE">
+                    <span class='telEdit'><!--mobile--></span>
+                </div>
+            </dl>
+            <dl class="clearfix">
+                <div class="left">
+                    <span>会员等级</span>
+                </div>
+                <div class="right MEM_LEVEL">
+                    <span><!--mem_level--></span>
+                </div>
+            </dl>
+            <div class="grayregion"></div>
+            <dl class="clearfix">
+                <div class="left">
+                    <span>会员状态</span>
+                </div>
+                <div class="right MEM_STATE">
+                    <span><!--mem_state--></span>
+                </div>
+            </dl>
+            <dl class="clearfix">
+                <div class="left">
+                    <span>兑礼密码</span>
+                </div>
+                <div class="right MEM_CHANGEPWD">
+                    <span><!--mem_changepwd-->点击查看密码 >>></span>
+                </div>
+            </dl>
+        </div>
+
+
+    </div>
+    <div class="layer modaltips" id="modaltips"></div>
+    <div class="layer modal"  id="noChangepwd">
+        <div class="layer-box">
+            <div class="layer-cont">
+                <div class="layer-border">
+                    <div class="layer-text">
+                        <p style="font-size:14px;text-align:left">
+                            您的会员状态暂时无法获取兑换密码。尝试如下步骤激活会员状态：<br />
+                            1：点击【<a href="product.html">品牌积分</a>】→ 立即绑定 → 绑定并转换<br />
+                            2：如仍旧无法获取密码，请联系华美家微信客服
+                        </p>
+                    </div>
+                </div>
+                <div class="layer-btn">
+                    <button class="layer-button rightbutton register_sub">知道了</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<script src="../js/jquery.min.js"></script>
+<script src="../js/jquery.cookie.js"></script>
+<script src="../js/validate.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    $(function(){
+        var phone = $(".telEdit").text();
+        var mphone = phone.substr(3, 4);
+        var lphone = phone.replace(mphone, "****");
+        $(".telEdit").text(lphone);
+        //会员等级
+        var memberLevel = localStorage.getItem("MemberLevel");
+        $('.scanMes .MEM_LEVEL span').html(memberLevel);
+
+        var userinfo = $.parseJSON(localStorage.getItem('fansJson'));
+        var openid = userinfo.openid;
+        //var openid = "oDRuD1A65qVf-QjFFpdnQccRo7HA";
+        //获取个人基本信息接口
+        var data = '{"OPENID": "' + openid + '", "IS_UPDATE": "1" }';
+        $.ajax({
+            type: "post",
+            contentType: "application/json",
+            dataType: "json",
+            url: $.domainUrl + "Member/GetMemberDetail",
+            processData: false,
+            data: data,
+            beforeSend: function () {
+                tips("数据加载中，请稍候...", false, 0, true);
+            },
+            success: function (data) {
+                $("#modaltips").fadeOut();
+                if (data.status == 0) {
+                    tips("对不起，无法查询到该会员信息",true,2000,true,false);
+                } else if (data.status == 1){
+                    data = data.data;
+                    var mobile = data.MOBILE;
+                    var mobile2 = mobile.replace(mobile.substr(3, 4), '****');
+                    //返回的数据渲染页面
+                    $("#user_header").attr("src", data.IMAGE);
+                    $(".scanMes .nickName span").html(data.NICK_NAME);//data.NICK_NAME);
+                    $('.scanMes .NAME_LAST span').html(data.NAME_LAST);
+                    $('.scanMes .NAME_FIRST span').html(data.NAME_FIRST);
+                    $('.scanMes .GENDER span').html(data.GENDER == '1' ? '男' : "女");
+                    $('.scanMes .BIRTHDAY span').html(data.BIRTHDAY.replace('-', '.').replace('-', '.'));
+                    $('.scanMes .MOBILE span').html(mobile2);
+                    $('.scanMes .MEM_STATE span').html(data.ZZAFLD000004);
+                    $('.scanMes .MEM_CHANGEPWD span').click(function () {
+                        //已激活
+                        if (data.ZZAFLD000004 == "已激活") {
+                            var passon = data.LOGINPASSON;
+                            var _text = "点击查看密码 >>>";
+                            if ($(this).html().indexOf("点击") > -1) {
+                                $(this).html(passon);
+                            }
+                            else {
+                                $(this).html(_text);
+                            }
+                        }
+                        else{
+                            $("#noChangepwd").fadeIn();
+                            $('.register_sub').click(function () {
+                                $('.layer').fadeOut();
+                                $("#noChangepwd").fadeOut();
+                            });
+                        }
+                    });
+                }
+            }
+        });
+    })
+</script>

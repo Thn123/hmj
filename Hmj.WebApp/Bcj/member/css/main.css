@@ -1,0 +1,231 @@
+@charset "utf-8";
+*{margin:0; padding:0;}
+html{ font-size:62.5%;}
+body{font-family:"Microsoft YaHei"; margin:0; padding:0;width:100%;height:100%; background:#fff; overflow-x:hidden;-webkit-user-select:none;-webkit-text-size-adjust:none;}
+ul,li,h1,h2,h3,h4,h5,p,input,dl,dt,dd,table,th,td,ol,form,bdo,em,i{margin:0;padding:0;list-style:none;}
+a:link,a:visited{ text-decoration:none; color:#333;webkit-touch-callout: none;} a:hover{ text-decoration:none;webkit-touch-callout: none;}
+
+
+
+a.yelllow:link,a.yelllow:visited{ color:#ff7200; text-decoration:none;}
+a.yelllow:hover{ color:#f60; text-decoration:none;}
+.bodybg{ background:#f2f2f2;}
+.acc-login-box{ width:100%; display:block; padding-top:3rem; border-bottom:1px solid #eee;}
+.acc-login-touxiang{ width:8rem; height:8rem; background:#eee; border-radius:8rem; margin:0 auto; overflow:hidden;}
+.acc-login-touxiang img{ width:100%; border-radius:100%;}
+.acc-login-name{ font-size:18px; color:#ff7200; line-height:5rem;text-align:center; font-family:Arial, Helvetica, sans-serif;}
+.acc-login-info{ font-size:1.4rem; color:#666; text-align:center; padding-bottom:2rem;}
+
+.acc-login-input ul{ padding-bottom:20px; display:block;}
+.acc-login-input ul li p{ border-bottom:1px solid #eee; padding:10px; line-height:30px; display:block; overflow:hidden;}
+.acc-login-input h2{background:#efefef; line-height:30px; height:30px; padding:0 10px; font-size:12px; color:#999; font-weight:normal; font-family:Arial, Helvetica, sans-serif;}
+
+
+.acc-login-input ul li p strong{ float:left; width:25%; line-height:30px; height:30px; font-size:1.6rem; font-weight:normal; color:#666;}
+.acc-login-input ul li p span{float:right; width:75%; height:30px;font-family:Arial, Helvetica, sans-serif;}
+.spanColor{color:#333;font-size:1.6rem; font-family:Arial, Helvetica, sans-serif;}
+.spanColor em{ font-size:18px; color:#ff7200; font-style:normal; padding:0 5px;}
+.acc-login-input .yanzhengma{width:35%; height:30px; background:#ff7200; color:#fff; border-radius:4px; display:inline-block; float:right; line-height:30px; text-align:center; font-size:1.4rem;}
+.acc-login-input .yanzhenghui{width:35%; height:30px; background:#d2d2d2; color:#666; border-radius:4px; display:inline-block; float:right; line-height:30px; text-align:center; font-size:1.4rem;}
+.txt{ border:none;-webkit-appearance:none; height:30px; width:100%; display:block; font-size:1.6rem; color:#333;}
+.inputbg{ background:#fff; margin-top:10px;}
+.faqibg{ background:#fff; padding-top:50px;}
+.inputbg2{ background:#fff; border-bottom:none;}
+.padd10{ padding:10px;}
+.submitBtn{ width:100%; height:44px; background:#ff7200; border-radius:5px; line-height:44px; text-align:center; display:block; font-size:1.6rem; color:#fff;}
+.acc-login-input ul li p.shuoming{ display:block; line-height:30px; text-align:left;word-break:break-all; color:#666;}
+.acc-login-input ul li p i{ float:left; font-style:normal; font-size:12px; color:#666;word-break:break-all; word-wrap:break-word;}
+.checkbox{ width:20px; height:20px; margin:4px; border:1px solid #eee; border-radius:20px; background:#fff;}
+.checked{ background:url(../images/gou.png) no-repeat center center; background-size:20px; border-color:#fff;}
+.jiage{line-height:30px; height:30px; font-size:1.6rem; color:#666;}
+
+.exitBtn{ width:100%; height:44px; background:#fff; border-radius:5px; line-height:44px; text-align:center; display:block; font-size:1.6rem; color:#ff7200;}
+
+
+.weixinlogin{ width:100px; height:100px; margin:1rem auto;}
+.weixinIcon{ width:100px; height:50px; background:url(../images/weixin.png) no-repeat center center; background-size:40%; display:block;} 
+.weixinlogin span{ line-height:30px; color:#666; font-size:1.4rem; text-align:center; display:block;}
+
+.dropdown-area{ width:100%; border:none; -webkit-appearance:none; display:block; height:80px; color:#666; font-size:1.6rem; line-height:22px;}
+.dropdown-select {
+    width: 95%;
+    min-width: 100px !important;
+    margin: 0;
+    padding: 0;
+    height: 30px;
+    line-height: 30px;
+    font-size: 16px;
+    color: #666;
+    border: 0;
+    text-align: left;
+    background: none;
+    border-radius: 0;
+    background: transparent;
+    -webkit-appearance: none;
+	background:url(../images/jiantoudown.png) no-repeat right center;
+	background-size:16px 8px;
+}
+.baibg{ background:#fff;}
+.huakuai{ display:block; height:30px; font-size:1.6rem; color:#666;font-family:Arial, Helvetica, sans-serif;}
+.huakuai bdo{ float:left; width:20%; text-align:center;}
+.huakuai bdo.huakuaicon{ width:60%; height:30px; position:relative;}
+.kuaitiao{ width:100%; height:10px; background:#d2d2d2; border-radius:10px; display:block; margin:10px 0;}
+.kuaitiaoUp{width:0; height:10px; background:#ff7200; border-radius:10px; display:block; }
+.huaBtn{ position:absolute; left:-10px; top:0; width:30px; height:30px; background:url(../images/huabtn.png) no-repeat 0 0; background-size:30px; display:inline-block; z-index:999;}
+
+
+.navbar{ position:fixed; left:0; top:0; height:44px; border-bottom:1px solid #eee; z-index:99999; display:block; width:100%; line-height:44px; background:#fff;}
+.navbar .tabbar{ width:200px; height:30px; background:#fff; display:block;  position:absolute; left:50%; top:6px; line-height:30px; margin-left:-100px; border:1px solid #dd5b39; border-radius:30px; overflow:hidden;}
+.navbar .tabbar span{ float:left; width:100px; height:30px; line-height:30px; color:#666; text-align:center; font-size:14px;}
+.navbar  a{ display:block; color:#666; }
+.navbar  a.on:link,.navbar  a.on:visited{color:#fff; background:#ff7200; display:block; text-decoration:none;} .navbar a.on:hover{color:#fff; background:#ff7200; text-decoration:none;}
+
+
+.acc-login-input ul li p.faqi-info{ font-size:12px; line-height:22px; display:block; color:#999; background:url(../images/tishi.png) no-repeat 5px 12px; background-size:15px; padding-left:20px;word-break:break-all;} 
+.acc-login-input ul li p.faqi-info bdo{ color:#ff0000;}
+.acc-upload-box{ padding:10px; display:block; overflow:hidden;}
+.upload-info{ font-size:12px; line-height:22px; display:block; color:#999;word-break:break-all;} 
+
+.motify{position:fixed;top:35%;left:50%;width:220px;padding:0.5em;margin:0 0 0 -110px;z-index:999999;background:rgba(0,0,0,.8);color:#fff;line-height:2em; font-size:1.4rem;border-radius:6px;-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);box-shadow: 0 1px 2px rgba(0,0,0,.2); text-align:center; display:none;}
+.motify p{ line-height:2em; text-align:center; font-size:1.4rem; color:#fff;}
+
+.upload_btn {background:url(../images/jia.png) center 0 no-repeat; background-size:80px; position:relative;width:80px;height:80px; display:block; float:left;}
+.upload_btn input { opacity:0;position: absolute;left: 0;top: 0;z-index:10;overflow: hidden;height:80px;width:80px; -webkit-appearance:none; }
+.post_imglist{ float:right; width:210px;}
+.post_imglist li img.wh60 {margin: 0 auto;display: block;width:60px;height:60px;}
+.acc-upload-box .post_imglist li {position:relative;float:left;padding:5px; width:60px; height:60px; display:block; border-bottom:none; margin:0;}
+.acc-upload-box .post_imglist li .del {position:absolute;right:-5px;top:-10px;background:url(../images/shanchu2.png) no-repeat 0 0;background-size:20px;width:20px;height:20px;display: inline-block; }
+
+.bank-info{ padding:10px; line-height:22px; font-size:12px; text-align:left; word-break:break-all;}
+.bank-info p{ color:#666;}
+.bank-info p bdo{ color:#ff7200;}
+
+.paylist{overflow:hidden; display:block;max-width:75rem; margin:0 auto;}
+.paylist ol{ line-height:44px; border-bottom:1px solid #eee; display:block; padding:3px 10px; font-size:1.5rem; color:#333; height:44px; overflow:hidden;}
+.paylist ol p{ background:url(../images/jiantouR.png) no-repeat 99% center; background-size:10px 17px; display:block; padding-left:5px; color:#333;}
+.paylist ol p span{float:right; font-size:1.2rem; color:#999; font-family:Arial, Helvetica, sans-serif; padding-right:25px;}
+.paylist ol p span.imgbox{ width:60px; height:40px; overflow:hidden;position:relative;}
+.paylist ol p span.imgbox em{ position:absolute;right:0; top:0; width:40px; height:40px; display:block; z-index:1;}
+.paylist ol p span.imgbox em img{ width:40px; height:40px; border-radius:40px; display:block; overflow:hidden;}
+.paylist ol p span.imgbox bdo{ position:absolute; top:-10px; right:0; width:60px; height:60px; display:block; z-index:99; opacity:0;}
+
+.paylist ol p bdo.juanicon01{ background:url(../images/icon-01.png) no-repeat 0 center; background-size:22px; padding-left:28px; display:inline-block;}
+.paylist ol p bdo.juanicon02{ background:url(../images/icon-02.png) no-repeat 0 center; background-size:22px; padding-left:28px; display:inline-block;}
+
+.paylistbottom{ border-bottom:9px solid #eee; background:#fff;}
+
+.acc-wo-touxing{ width:100%; display:block; padding-top:2rem; border-bottom:10px solid #eee;}
+.acc-wo-touxing .acc-login-touxiang{ width:4rem; height:4rem; background:#eee; border-radius:4rem; margin:0 auto; overflow:hidden;}
+.acc-wo-touxing .acc-login-name{ font-size:16px; color:#ff7200; line-height:3.5rem;text-align:center;}
+.acc-nav-item{ width:100%; height:40px; line-height:40px; font-size:1.4rem; overflow:hidden;}
+.acc-nav-item ol{ float:left; width:33.33%; height:40px; line-height:40px; display:inline-block; text-align:center; color:#666;}
+.acc-nav-item ol span{ color:#ff7200; font-family:Arial, Helvetica, sans-serif; font-size:1.6rem; padding-left:10px;}
+
+.acc-jilu-juanTT{height:40px; border-bottom:1px solid #eee; display:block; padding:0 10px; text-align:left;}
+.acc-jilu-juanTT strong{ font-size:1.6rem; color:#333; line-height:40px; font-weight:normal;}
+.acc-jilu-juanTT span{ float:right; margin:8px 0; height:22px; display:inline-block; width:160px; border:1px solid #eee; border-radius:22px; overflow:hidden;}
+.acc-jilu-juanTT span em{ float:left; width:80px; line-height:22px; font-size:12px; font-style:normal; text-align:center; color:#666;}
+.acc-jilu-juanTT span em.curbtn{color:#fff; background:#ff7200;display:inline-block;}
+
+.acc-jili-items{ display:block; background:#fff;}
+.acc-jili-items ul li{ padding:10px; background:url(../images/jiantouR.png) no-repeat 96% center; background-size:10px 17px; border-bottom:1px solid #eee; overflow:hidden;}
+.acc-jili-items ul li:hover{ background:url(../images/jiantouR.png) no-repeat 96% center #f7f7f7; background-size:10px 17px;}
+.acc-jili-items .imgbox{ float:left; width:40%; display:block; }
+.acc-jili-items .imgbox img{width:100%; border-radius:5px;}
+.acc-jili-items .jiluinfo{ float:right; height:auto; width:60%; display:block; font-family:Arial, Helvetica, sans-serif;}
+.acc-jili-items .jiluinfo strong{ font-size:1.4rem; color:#333;}
+.acc-jili-items .jiluinfo p{ font-size:1.2rem; color:#666; line-height:2.2rem; padding-left:10px; }
+.acc-jili-items .jiluinfo p bdo{ color:#ff7200; font-family:Arial, Helvetica, sans-serif;}
+
+.dis{ display:block;} .undis{ display:none;}
+.acc-suc-touxing{ background:#ff9f38;  border-bottom:none;}
+.acc-suc-touxing .acc-login-name{ color:#fff; line-height:4rem;}
+.acc-suc-touxing .acc-login-info{ color:#fff;}
+
+.acc-suc-padding{ padding:15px 10px; display:block;font-family:Arial, Helvetica, sans-serif;}
+.acc-suc-padding h2{ font-size:1.8rem; color:#ff7200; text-align:center;line-height:40px;}
+.acc-suc-padding h2 em{ display:inline-block; width: 20px; height:18px; background:url(../images/wenhao.png) no-repeat center center; background-size:20px;}
+.acc-suc-padding p{ line-height:30px; text-align:center; color:#666; font-size:1.4rem;}
+
+.acc-suc-result ul li p{ border-bottom:none;}
+.acc-suc-result ul li p strong{ color:#666; font-size:1.4rem;} 
+.acc-suc-result ul li p.liuyanzishu{ line-height:22px; height:22px; display:block; padding:0 10px;}
+.acc-suc-result ul li p.liuyanzishu span{ font-size:12px; color:#999; font-family:Arial, Helvetica, sans-serif; float:right; width:auto; line-height:22px;}
+.dropdown-area2{ border:1px solid #eee;}
+.acc-suc-bp{ padding:10px; line-height:30px; color:#666; text-align:center; font-size:1.4rem;}  
+.acc-suc-bp span{ padding:0 10px; display:inline-block; color:#666;}
+
+.acc-top-header{position:fixed; left:0; top:0; right:0; height:44px; z-index:99999; display:block; width:100%; line-height:44px; background:#fff; max-width:75rem; margin:0 auto;}
+.acc-top-header ol{ float:left; height:44px; display:block; text-align:center;}
+.width20{ width:20%;} .width60{ width:60%;}
+.acc-top-header ol strong{ font-size:1.8rem; line-height:44px; display:block; color:#ff7200; font-weight:normal;}
+.acc-top-header .guanzhu{ background:url(../images/weixin.png) no-repeat 0 center; background-size:25px; font-size:1.4rem; color:#666; padding-left:30px; display:inline-block;}
+.acc-top-header .wodeicon{ background:url(../images/wode.png) no-repeat 0 center; background-size:25px; font-size:1.4rem; color:#666; padding-left:30px; display:inline-block;}
+.acc-top-header .fanhui{ background:url(../images/fanhui.png) no-repeat 0 center; background-size:25px; font-size:1.4rem; color:#666; padding-left:30px; display:inline-block;}
+
+.acc-petchat{ display:block; overflow:hidden; max-width:75rem; margin:0 auto; padding-top:46px;}
+.acc-petliang{ background:#ff7200; overflow:hidden;}
+.acc-petliang ol{ float:left; width:33.33%;}
+.acc-petliang ol p{ padding:0px 5px 0px 10px; margin:10px 0; text-align:left;color:#fff; line-height:25px; font-family:Arial, Helvetica, sans-serif;}
+.acc-petliang ol strong{ display:block; font-size:1.8rem; color:#fff; text-align:center;}
+.acc-petliang ol strong em{ font-size:12px; font-style:normal; font-weight:normal;color:#fff;}
+.acc-petliang ol span{ display:block; font-size:12px; text-align:center; color:#fff;}
+
+.acc-acitve{ width:100%; height:40px; border-bottom:1px solid #eee; display:block; background:url(../images/tongzhi.png) no-repeat 5px center; background-size:20px; overflow:hidden;}
+.acc-acitve ul li{ padding:0 10px; display:block; height:40px;}
+.acc-acitve ul li p{ padding-left:20px; display:block; text-align:left; font-size:12px; color:#666; line-height:40px;}
+.acc-acitve ul li p a{ color:#666;}
+.acc-acitve ul li p a:hover{ color:#ff7200;}
+.acc-menu{display:block; border-bottom:10px solid #eee; overflow:hidden;}
+.acc-menu ul li{ float:left; width:25%; display:block; padding:10px 0;}
+.acc-menu ul li p{ line-height:22px; font-size:1.4rem; color:#333; text-align:center;}
+.acc-menu ul li span{ width:50px; height:50px; margin:0 auto; display:block;}
+.acc-menu ul li span.icon01{background:url(../images/icon-01.png) no-repeat center 0; background-size:3.8rem;}
+.acc-menu ul li span.icon02{background:url(../images/icon-02.png) no-repeat center 0; background-size:3.8rem;}
+.acc-menu ul li span.icon03{background:url(../images/icon-03.png) no-repeat center 0; background-size:3.8rem;}
+.acc-menu ul li span.icon04{background:url(../images/icon-04.png) no-repeat center 0; background-size:3.8rem;}
+
+.acc-news-pro{ overflow:hidden; border-bottom:10px solid #eee; display:block; position:relative;height:180px; }
+.acc-news-pro ul{ width:2000px; height:170px; position:absolute; left:0; top:0; padding:5px;}
+.acc-news-pro ul li{ float:left; width:140px; height:150px; padding:5px;}
+.acc-news-pro .imgbox{ width:140px; margin-bottom:10px;}
+.acc-news-pro .imgbox img{ width:100%; display:block; border-radius:5px;}
+.acc-news-pro p{ color:#999; line-height:30px; font-size:12px; font-family:Arial, Helvetica, sans-serif;}
+.acc-news-pro p strong{ font-size:1.6rem; color:#333; line-height:30px; font-weight:normal; height:30px; overflow:hidden; display:block;} 
+.acc-news-pro p bdo{color:#ff7200;}
+
+.jindutiao{ width:100%; height:6px; margin:5px 0; background:#e5e5e5; display:block;border-radius:6px;}
+.wanchengtiao{ width:100%; height:6px; background:#ff7200; display:block;border-radius:6px;}
+
+.shoplist{ overflow:hidden; display:block;}
+.shoplist ul li{ border-bottom:10px solid #eee;}
+.shoplist .adminInfo{ display:block; overflow:hidden; line-height:40px; padding:5px;}
+.shoplist .adminInfo p{ font-size:1.4rem; color:#333; font-family:Arial, Helvetica, sans-serif;}
+.shoplist .adminInfo p em{ font-style:normal; color:#f00;}
+.shoplist .adminInfo p em.kuai{ background:#eee; border-radius:10px; height:20px; padding:0 8px; font-size:12px; display:inline-block; margin:0 2px; line-height:20px; color:#666;}
+.shoplist .adminInfo p span{ float:right;color:#999; font-size:12px;}
+.shoplist .adminInfo p span em{ font-style:normal; color:#f00; font-size:1.4rem;}
+.shoplist .adminInfo bdo{ float:left; margin-right:5px;}
+.shoplist .adminInfo bdo.touxiang{ width:30px; height:30px; background:url(../images/morentou.png) no-repeat center center; background-size:30px;display:inline-block; padding:5px;}
+.shoplist .adminInfo bdo.touxiang img{ width:30px; height:30px; display:block; border-radius:30px;}
+.shoplist .adminInfo bdo.timecss{ color:#999; padding-left:10px; font-size:12px;}
+.shoplist .adminInfo p span.jinxingzhong{ padding:0px 10px; margin-top:8px; display:inline-block; border:1px solid #ff7200; height:20px; border-radius:20px; text-align:center; line-height:20px; color:#ff7200;}
+.upjiantou{ background:url(../images/upjiantou.png) no-repeat 0 5px; background-size:12px 10px; padding-left:20px; display:inline-block;}
+.shopTT{ border-top:1px solid #eee; display:block; padding:5px;font-family:Arial, Helvetica, sans-serif;}
+.shopTT h2{ font-size:1.8rem; color:#333; line-height:30px; text-align:left;padding:3px 0 5px;font-weight:normal;}
+.shopTT p{ font-size:1.2rem; color:#666; line-height:22px;}
+.shopimgbox{ display:block; overflow:hidden; padding:5px;}
+.shopimgbox ol{ float:left; width:25%; display:block;}
+.shopimgbox ol span{ margin:2px;display:block; position:relative; padding-bottom:100%;background:url(../images/imgloading.gif) no-repeat center center;}
+.shopimgbox ol span img{ width:100%; display:block; position:absolute; left:0; top:0;}
+
+.choutag{ padding:0 10px; height:40px; display:block; overflow:hidden; background:#fff9e7;}
+.choutag ol{ float:left; width:33.33%; height:40px; line-height:40px; font-size:1.2rem; color:#787878; font-family:Arial, Helvetica, sans-serif;}
+.choutag ol span.mubiao{ background:url(../images/mubiao.png) no-repeat 0 center; background-size:20px; padding-left:22px; display:block;}
+.choutag ol span.jine{ background:url(../images/shujuicon02.png) no-repeat 0 center; background-size:20px; padding-left:22px; display:block;}
+.choutag ol span.jindu{ background:url(../images/shujuicon03.png) no-repeat 0 center; background-size:20px; padding-left:22px; display:block;}
+
+.acc-order{ background:#fff; line-height:44px; height:44px; border-bottom:10px solid #eee;border-top:10px solid #eee;}
+.acc-order ol{ line-height:44px; font-size:1.6rem; color:#666;}
+.acc-order ol span{ color:#666;}
+.acc-order ol span.curbtn{ background:#ff7200; padding:2px 5px; border-radius:24px; color:#fff; line-height:24px; margin:8px 0;}

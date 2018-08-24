@@ -1,0 +1,203 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutE.cshtml";
+}
+@model Hmj.Entity.WxModel.MemberInfo
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width" name="viewport" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+    <meta content="telephone=no" name="format-detection" />
+    <link type="text/css" href="/Bcj/coupon/css/youhuiquan.css" rel="stylesheet" />
+
+    <title>养美预约</title>
+
+</head>
+
+<body class="dianbg">
+    <input type="hidden" id="vouno" value="@ViewBag.No" />
+    <input type="hidden" id="member_id" value="@Model.Member_Id" />
+
+    <div class="acc-login-input dian-order-input">
+        <h2>预约佰草集护理服务</h2>
+        <ul>
+            <li>
+                <p>
+                    <strong>姓 &nbsp;&nbsp; 名</strong><span>
+                        <input name="name" type="tel" style="color:#808080" readonly id="book_name" placeholder="输入您的姓名" maxlength="30" class="txt" value="@Model.NAME">
+                    </span>
+                </p>
+            </li>
+            <li>
+                <p>
+                    <strong>手机号</strong><span>
+                        <input name="phone" type="tel" style="color:#808080" readonly id="book_phone" placeholder="输入您的手机号码" maxlength="11" class="txt" value="@Model.MOBILE">
+                    </span>
+                </p>
+            </li>
+        </ul>
+    </div>
+
+    <div class="acc-login-input dian-order-input">
+        <h2>选中预约门店信息</h2>
+        <ul>
+            <li>
+                <p style="margin-bottom:0;">
+                    <select class="dropdown-select" id="s_city" name="s_city"><option>请稍等加载中......</option></select>
+                </p>
+            </li>
+            <li>
+                <p>
+                    <select class="dropdown-select" id="_stores"><option>请稍等加载中......</option></select>
+                </p>
+            </li>
+            <li>
+                <p class="dateShuru">
+                    <em>选择日期</em>
+                    <input name="dates" type="date" id="book_date" placeholder="选择日期" maxlength="30" class="txt dateinput">
+                </p>
+            </li>
+            <li>
+                <p>
+                    <select class="dropdown-select" id="book_time">
+                        <option value="0">上午 11:00</option>
+                        <option value="1">上午 12:30</option>
+                        <option value="2">下午 15:00</option>
+                        <option value="3">下午 17:00</option>
+                        <option value="4">晚上 19:00</option>
+                    </select>
+                </p>
+            </li>
+        </ul>
+    </div>
+
+    <div class="dian-order-input">
+        <div class="submitBtn" id="submitBtn">提交预约</div>
+        <p class="yuyuechaxun"><a href="/BcjBook/ShowBookHis.do" class="yelllow">预约查询</a></p>
+    </div>
+
+</body>
+</html>
+<script type="text/javascript" src="../Js_BCJ/jquery.min.js"></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script src="../Js_BCJ/GetLocation.js?v=2.0"></script>
+<script type="text/javascript" src="/Bcj/coupon/js/jquery.min.js"></script>
+<script src="~/Bcj/Message2.js"></script>
+@*<script src="/Bcj/member/js/city.js" class="resources library" type="text/javascript"></script>*@
+@*<script>
+        _init_area();
+    </script>*@
+<script>
+    $('input[name=dates]').on('click', function () {
+        $(this).parent().find('em').hide();
+    })
+
+    //提交预约
+    $("#submitBtn").click(function () {
+        var number = $("#vouno").val();
+        var member_id = $("#member_id").val();
+        var store_id = $("#_stores").val();
+        var book_date = $("#book_date").val();
+        var book_time = $("#book_time").val();
+
+        var book_name = $("#book_name").val();
+        var book_phone = $("#book_phone").val();
+
+        if (book_date == "" || book_time == "" || store_id == "") {
+            $.MsgBox.Alert("提示", "预约日期或者时间以及门店不能是空");
+            return false;
+        }
+
+        if (book_name == "" || book_phone == "") {
+            $.MsgBox.Alert("提示", "预约人和预约手机号都不能是空！！！");
+
+            return false;
+        }
+
+        //预约开始
+        $.ajax({
+            method: "post",
+            data: {
+                number: number,
+                member_id: member_id,
+                store_id: store_id,
+                book_date: book_date,
+                book_time: book_time,
+                book_name: book_name,
+                book_phone: book_phone
+            },
+            url: "/BcjBook/ToBook.do",
+            success: function (data) {
+                //预约成功
+                if (data.Status == "1") {
+                    $.MsgBox.Alert("提示", "预约成功");
+                    location.href = "/BcjBook/ShowBookHis.do";
+                } else {
+                    $.MsgBox.Alert("提示", data.Message);
+                }
+            }
+        })
+    })
+
+    //城市改变事件
+    $("#s_city").change(function () {
+        Loadcity("", "", $(this).val());
+    })
+
+    //当GetLocation执行ready的时候执行该方法
+    function ExMethod() {
+        wx.getLocation({
+            type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
+            success: function (res) {
+
+                var latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
+                var longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
+                var speed = res.speed; // 速度，以米/每秒计
+                var accuracy = res.accuracy; // 位置精度
+                Loadcity(latitude, longitude, "");
+            }
+        });
+    }
+
+    function Loadcity(latitude, longitude, city_code) {
+        $.ajax({
+            url: "/BcjBook/GetCity.do",
+            method: "post",
+            data: { LO: latitude, LN: longitude, city_code: city_code },
+            success: function (data) {
+                if (data.Status == "1") {
+                    var citys = data.Data.CITYS;
+                    var stores = data.Data.STORES;
+
+                    var cityCode = data.Message;
+
+                    if (city_code == "") {
+                        var cityhtmls = "";
+
+                        for (var i = 0; i < citys.length; i++) {
+                            if (citys[i].CITY_CODE == cityCode) {
+                                cityhtmls += "<option value='" + citys[i].CITY_CODE + "' selected>" + citys[i].CITY_NAME + "</option>";
+                            } else {
+                                cityhtmls += "<option value='" + citys[i].CITY_CODE + "'>" + citys[i].CITY_NAME + "</option>";
+                            }
+                        }
+
+                        $("#s_city").html(cityhtmls);
+                    }
+
+                    var storeshtmls = "";
+
+                    for (var i = 0; i < stores.length; i++) {
+                        storeshtmls += "<option value='" + stores[i].ID + "'>" + stores[i].NAME + "</option>";
+                    }
+
+                    $("#_stores").html(storeshtmls);
+                }
+            }
+        })
+
+    }
+</script>

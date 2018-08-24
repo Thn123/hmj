@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsoap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:tns="urn:sap-com:document:sap:rfc:functions" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" targetNamespace="urn:sap-com:document:sap:rfc:functions" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:documentation>
+    <sidl:sidl xmlns:sidl="http://www.sap.com/2007/03/sidl" />
+  </wsdl:documentation>
+  <wsp:UsingPolicy wsdl:required="true" />
+  <wsp:Policy wsu:Id="BN__ZWS_Z_LOY_BP_GETORDER">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sapattahnd:Enabled xmlns:sapattahnd="http://www.sap.com/710/features/attachment/">false</sapattahnd:Enabled>
+        <saptrnbnd:OptimizedMimeSerialization xmlns:saptrnbnd="http://schemas.xmlsoap.org/ws/2004/09/policy/optimizedmimeserialization" wsp:Optional="true" />
+        <wsaw:UsingAddressing xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" wsp:Optional="true" />
+      </wsp:All>
+      <wsp:All>
+        <sapattahnd:Enabled xmlns:sapattahnd="http://www.sap.com/710/features/attachment/">false</sapattahnd:Enabled>
+        <saptrnbnd:OptimizedXMLTransfer uri="http://xml.sap.com/2006/11/esi/esp/binxml" xmlns:saptrnbnd="http://www.sap.com/webas/710/soap/features/transportbinding/" wsp:Optional="true" />
+        <wsaw:UsingAddressing xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" wsp:Optional="true" />
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="BN__ZWS_Z_LOY_BP_GETORDER_soap12">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sapattahnd:Enabled xmlns:sapattahnd="http://www.sap.com/710/features/attachment/">false</sapattahnd:Enabled>
+        <saptrnbnd:OptimizedMimeSerialization xmlns:saptrnbnd="http://schemas.xmlsoap.org/ws/2004/09/policy/optimizedmimeserialization" wsp:Optional="true" />
+        <wsaw:UsingAddressing xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" wsp:Optional="true" />
+      </wsp:All>
+      <wsp:All>
+        <sapattahnd:Enabled xmlns:sapattahnd="http://www.sap.com/710/features/attachment/">false</sapattahnd:Enabled>
+        <saptrnbnd:OptimizedXMLTransfer uri="http://xml.sap.com/2006/11/esi/esp/binxml" xmlns:saptrnbnd="http://www.sap.com/webas/710/soap/features/transportbinding/" wsp:Optional="true" />
+        <wsaw:UsingAddressing xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" wsp:Optional="true" />
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="IF__ZWS_Z_LOY_BP_GETORDER">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sapsession:Session xmlns:sapsession="http://www.sap.com/webas/630/soap/features/session/">
+          <sapsession:enableSession>false</sapsession:enableSession>
+        </sapsession:Session>
+        <sapcentraladmin:CentralAdministration xmlns:sapcentraladmin="http://www.sap.com/webas/700/soap/features/CentralAdministration/" wsp:Optional="true">
+          <sapcentraladmin:BusinessApplicationID>005056B10D6B1ED5A3B44F4F413E80BF</sapcentraladmin:BusinessApplicationID>
+        </sapcentraladmin:CentralAdministration>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="OP__Z_LOY_BP_GETORDER">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <saptrhnw05:required xmlns:saptrhnw05="http://www.sap.com/NW05/soap/features/transaction/">no</saptrhnw05:required>
+        <sapcomhnd:enableCommit xmlns:sapcomhnd="http://www.sap.com/NW05/soap/features/commit/">false</sapcomhnd:enableCommit>
+        <sapblock:enableBlocking xmlns:sapblock="http://www.sap.com/NW05/soap/features/blocking/">true</sapblock:enableBlocking>
+        <saprmnw05:enableWSRM xmlns:saprmnw05="http://www.sap.com/NW05/soap/features/wsrm/">false</saprmnw05:enableWSRM>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsdl:types>
+    <xsd:schema attributeFormDefault="qualified" targetNamespace="urn:sap-com:document:sap:rfc:functions">
+      <xsd:simpleType name="char1">
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="1" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="char10">
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="10" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="char11">
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="11" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="char13">
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="13" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="char14">
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="14" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="char15">
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="15" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="char16">
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="16" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="char18">
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="18" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="char20">
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="20" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="char220">
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="220" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="char30">
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="30" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="char32">
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="32" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="char4">
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="4" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="char40">
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="40" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="char5">
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="5" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="char50">
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="50" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="char500">
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="500" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="char8">
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="8" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:complexType name="ZZRETURN2">
+        <xsd:sequence>
+          <xsd:element name="TYPE" type="tns:char1" />
+          <xsd:element name="MESSAGE" type="tns:char220" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ZZSCRMD_ORDER">
+        <xsd:sequence>
+          <xsd:element name="ZVBELN" type="tns:char20" />
+          <xsd:element name="ZORHANG" type="tns:char4" />
+          <xsd:element name="ZORV" type="tns:char4" />
+          <xsd:element name="ZAUART" type="tns:char4" />
+          <xsd:element name="ZORE" type="tns:char14" />
+          <xsd:element name="ZORR" type="tns:char4" />
+          <xsd:element name="ZZBRD" type="tns:char30" />
+          <xsd:element name="ZMATNR" type="tns:char18" />
+          <xsd:element name="ZGJ" type="tns:char11" />
+          <xsd:element name="ZORA" type="tns:char13" />
+          <xsd:element name="ZORI" type="tns:char16" />
+          <xsd:element name="ZORO" type="tns:char40" />
+          <xsd:element name="ZORP" type="tns:char10" />
+          <xsd:element name="ZORDTA" type="tns:char14" />
+          <xsd:element name="ZORG" type="tns:char30" />
+          <xsd:element name="ZORQ" type="tns:char18" />
+          <xsd:element name="ZORPL" type="tns:char40" />
+          <xsd:element name="ZORPYL" type="tns:char40" />
+          <xsd:element name="ZORPPL" type="tns:char40" />
+          <xsd:element name="ZORW" type="tns:char20" />
+          <xsd:element name="ZSERNR" type="tns:char18" />
+          <xsd:element name="ZLSJ" type="tns:char11" />
+          <xsd:element name="ZLSK" type="tns:char5" />
+          <xsd:element name="ZORJ" type="tns:char50" />
+          <xsd:element name="ZORK" type="tns:char500" />
+          <xsd:element name="ZORL" type="tns:char11" />
+          <xsd:element name="ZORZ" type="tns:char11" />
+          <xsd:element name="ZORX" type="tns:char13" />
+          <xsd:element name="ZORC" type="tns:char11" />
+          <xsd:element name="ZOEB" type="tns:char13" />
+          <xsd:element name="ZORU" type="tns:char18" />
+          <xsd:element name="ZORY" type="tns:char11" />
+          <xsd:element name="ZORN" type="tns:char18" />
+          <xsd:element name="ZCREATED_BY" type="tns:char18" />
+          <xsd:element name="ZCREATED_AT" type="tns:char15" />
+          <xsd:element name="ZCHANGED_AT" type="tns:char15" />
+          <xsd:element name="ZCHANGED_BY" type="tns:char18" />
+          <xsd:element name="ZPMS" type="tns:char32" />
+          <xsd:element name="ZORFAP" type="tns:char18" />
+          <xsd:element name="ZORBZ" type="tns:char40" />
+          <xsd:element name="ZZPOS" type="tns:char18" />
+          <xsd:element name="ZZBZ" type="tns:char30" />
+          <xsd:element name="ZZYEJI" type="tns:char30" />
+          <xsd:element name="ZZODY" type="tns:char50" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="TABLE_OF_ZZRETURN2">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="item" type="tns:ZZRETURN2" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="TABLE_OF_ZZSCRMD_ORDER">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="item" type="tns:ZZSCRMD_ORDER" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="Z_LOY_BP_GETORDER">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="I_ZCREATED_AT_BEGIN" type="tns:char8" />
+            <xsd:element minOccurs="0" name="I_ZCREATED_AT_END" type="tns:char8" />
+            <xsd:element name="I_ZORP" type="tns:char10" />
+            <xsd:element minOccurs="0" name="T_RETURN" type="tns:TABLE_OF_ZZRETURN2" />
+            <xsd:element minOccurs="0" name="T_ZCRMD_ORDER" type="tns:TABLE_OF_ZZSCRMD_ORDER" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="Z_LOY_BP_GETORDERResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="T_RETURN" type="tns:TABLE_OF_ZZRETURN2" />
+            <xsd:element minOccurs="0" name="T_ZCRMD_ORDER" type="tns:TABLE_OF_ZZSCRMD_ORDER" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="Z_LOY_BP_GETORDER">
+    <wsdl:part name="parameters" element="tns:Z_LOY_BP_GETORDER" />
+  </wsdl:message>
+  <wsdl:message name="Z_LOY_BP_GETORDERResponse">
+    <wsdl:part name="parameter" element="tns:Z_LOY_BP_GETORDERResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ZWS_Z_LOY_BP_GETORDER">
+    <wsdl:documentation>
+      <sapdoc:sapdoc xmlns:sapdoc="urn:sap:esi:documentation">
+        <sapdoc:docitem docURL="http://HDLCRMPRD.hengdeligroup.local:8000/sap/bc/esdt/docu/sd_text?sap-client=800&amp;sd_name=ZWS_Z_LOY_BP_GETORDER" />
+      </sapdoc:sapdoc>
+    </wsdl:documentation>
+    <wsp:Policy>
+      <wsp:PolicyReference URI="#IF__ZWS_Z_LOY_BP_GETORDER" />
+    </wsp:Policy>
+    <wsdl:operation name="Z_LOY_BP_GETORDER">
+      <wsp:Policy>
+        <wsp:PolicyReference URI="#OP__Z_LOY_BP_GETORDER" />
+      </wsp:Policy>
+      <wsdl:input message="tns:Z_LOY_BP_GETORDER" />
+      <wsdl:output message="tns:Z_LOY_BP_GETORDERResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ZWS_Z_LOY_BP_GETORDER" type="tns:ZWS_Z_LOY_BP_GETORDER">
+    <wsp:Policy>
+      <wsp:PolicyReference URI="#BN__ZWS_Z_LOY_BP_GETORDER" />
+    </wsp:Policy>
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Z_LOY_BP_GETORDER">
+      <soap:operation soapAction="urn:sap-com:document:sap:rfc:functions:ZWS_Z_LOY_BP_GETORDER:Z_LOY_BP_GETORDERRequest" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ZWS_Z_LOY_BP_GETORDER_soap12" type="tns:ZWS_Z_LOY_BP_GETORDER">
+    <wsp:Policy>
+      <wsp:PolicyReference URI="#BN__ZWS_Z_LOY_BP_GETORDER_soap12" />
+    </wsp:Policy>
+    <wsoap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Z_LOY_BP_GETORDER">
+      <wsoap12:operation soapAction="urn:sap-com:document:sap:rfc:functions:ZWS_Z_LOY_BP_GETORDER:Z_LOY_BP_GETORDERRequest" style="document" />
+      <wsdl:input>
+        <wsoap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <wsoap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ZWS_Z_LOY_BP_GETORDER">
+    <wsdl:port name="ZWS_Z_LOY_BP_GETORDER" binding="tns:ZWS_Z_LOY_BP_GETORDER">
+      <soap:address location="http://HDLCRMPRD.hengdeligroup.local:8000/sap/bc/srt/rfc/sap/zws_z_loy_bp_getorder/800/zws_z_loy_bp_getorder/zws_z_loy_bp_getorder" />
+    </wsdl:port>
+    <wsdl:port name="ZWS_Z_LOY_BP_GETORDER_soap12" binding="tns:ZWS_Z_LOY_BP_GETORDER_soap12">
+      <wsoap12:address location="http://HDLCRMPRD.hengdeligroup.local:8000/sap/bc/srt/rfc/sap/zws_z_loy_bp_getorder/800/zws_z_loy_bp_getorder/zws_z_loy_bp_getorder" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

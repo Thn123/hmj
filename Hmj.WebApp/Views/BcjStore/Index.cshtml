@@ -1,0 +1,207 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutE.cshtml";
+}
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width" name="viewport" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+    <meta content="telephone=no" name="format-detection" />
+    <link type="text/css" href="/Bcj/member/css/reg.css" rel="stylesheet" />
+    <title>登录</title>
+</head>
+
+<body>
+    <div class="baicaojiMain">
+        <input type="hidden" id="isok" value="" />
+        <input type="hidden" id="msgcode" value="" />
+        <div class="baicaojiLogo"></div>
+        <div class="acc-login-input baicaoji-loginbox">
+            <ul class="inputCss">
+                <li><p class="user"><span><input name="nick" type="text" placeholder="请输入账号" maxlength="20" class="txt"></span><em></em></p></li>
+                <li><p class="user"><span><input name="pwd" type="password" placeholder="请输入密码" maxlength="20" class="txt"></span><em></em></p></li>
+                <li><p class="phone"><span><input name="phone" type="tel" placeholder="请输入你的手机号" maxlength="11" class="txt"></span><em></em></p></li>
+                <li><p class="code"><span><input name="code" type="tel" placeholder="请输入短信验证码" maxlength="6" class="txt" style="width:60%; float:left;"><bdo class="yanzhengma opacityBtn" id="timeid">获取验证码</bdo></span></p></li>
+            </ul>
+            <p class="errorBox"></p>
+            <div class="submitBtn">确认</div>
+        </div>
+    </div>
+</body>
+</html>
+
+<script type="text/javascript" src="/Bcj/member/js/jquery.min.js"></script>
+<script type="text/javascript">
+    var patrn = /^0?(13[0-9]|15[0-9]|17[0-9]|18[0-9]|14[0-9])[0-9]{8}$/;
+    var tipsflag = true;
+    function tips(text) {
+        if (tipsflag == true) {
+            var tishiDiv = document.createElement('div');
+            tishiDiv.className = "motify";
+            document.body.appendChild(tishiDiv);
+            tipsflag = false;
+        }
+        $('.motify').html(text).show();
+        setTimeout(function () { $('.motify').fadeOut(); }, 1500);
+    }
+
+    var num = 60;
+    var timerrr;
+    var flag = true, flaglogin = true;
+    var daojishi = document.getElementById('timeid');
+    function dao() {
+        if (num > 0) {
+            num -= 1;
+            daojishi.innerHTML = num;
+            if (num < 10) {
+                daojishi.innerHTML = "0" + num;
+            }
+        }
+        if (num == 0) {
+            daojishi.innerHTML = "获取验证码";
+            num = 60;
+            daojishi.className = 'yanzhengma';
+            flag = true;
+            clearInterval(timerrr);
+        }
+    }
+    function isPhone(phone) {
+        var myreg = /^0?(13[0-9]|15[0-9]|17[0-9]|18[0-9]|14[0-9])[0-9]{8}$/;;
+        if (!myreg.test(phone)) return false;
+        return true;
+    }
+
+    $("input[name=nick]").bind('input propertychange', function () {
+        $(this).parent().next().hide();
+    })
+    $("input[name=password]").bind('input propertychange', function () {
+        $(this).parent().next().hide();
+    })
+
+
+    $("input[name=phone]").bind('input propertychange', function () {
+        $('#timeid').removeClass('opacityBtn');
+        $(this).parent().next().hide();
+        $("#timeid").click(function () {
+            var phone = $('input[name=phone]').val()
+            if (phone != '') {
+                if (isPhone(phone)) {
+                    if (flag == true) {
+                        //此处异步调用获取验证码的接口
+                        $.ajax({
+                            type: "post",
+                            data: { mobile: phone },
+                            url: "/BcjMember/SendMsg.do",
+                            success: function (data) {
+                                if (data.Status == "1") {
+                                    daojishi.className = 'yanzhenghui';
+                                    dao();
+                                    timerrr = setInterval('dao()', 1000);
+                                    tips("验证码已发送");
+                                    $("#msgcode").val(data.Data);
+                                }
+                            }
+                        })
+                        flag = false;
+                    }
+                } else {
+                    tips("请输入正确的手机号码");
+                    $("input[name=phone]").parent().next().show();
+                }
+            } else {
+                tips("请输入手机号码");
+                $("input[name=phone]").parent().next().show();
+            }
+        })
+    });
+
+    $("input[name=code]").bind('input propertychange', function () {
+        $('.submitBtn').removeClass('opacityBtn');
+        $(".submitBtn").click(function () {
+            var nick = $('input[name=nick]').val();
+            var phone = $('input[name=phone]').val();
+            var pwd = $('input[name=pwd]').val();
+
+            if (!nick) {
+                $("input[name=nick]").parent().next().show();
+                tips("门店不能是空");
+                return false;
+            }
+
+            if (!pwd) {
+                tips("密码不能是空");
+                return false;
+            }
+
+            var meCode = $("input[name=code]").val();
+            var msgcode = $("#msgcode").val();
+
+            if (meCode == "" || msgcode == "") {
+                tips("请先获得或者输入验证码！！！");
+                return false;
+            }
+
+            if (msgcode != meCode) {
+                tips("验证码输入不正确");
+                return false;
+            }
+
+            if (isPhone(phone)) {
+                if (flaglogin == true) {
+                    flaglogin = false;
+                    $.ajax({
+                        url: "/BcjStore/StoreLogin.do",
+                        data: { storecode: nick, mobile: phone, pwd: pwd },
+                        method: "post",
+                        success: function (data) {
+                            if (data.Status == "1") {
+                                //跳转
+                                location.href = "/BcjStore/ShowBook.do";
+                            } else {
+                                tips(data.Message);
+                            }
+                        }
+                    })
+                }
+            } else {
+                tips("请输入正确的手机号码");
+            }
+        })
+    });
+
+    //失去焦点判断门店是否有该code
+    $(function () {
+
+        $("input[name=nick]").blur(function () {
+
+            var storecode = $(this).val();
+
+            if (storecode == "") {
+                tips("对不起，门店不能为空。");
+                return false;
+            }
+
+            $.ajax({
+                url: "/BcjStore/ChckStore.do",
+                data: { StoreCode: storecode },
+                method: "post",
+                success: function (data) {
+                    if (data.Status == "1") {
+                        tips("门店验证通过");
+                        $("#isok").val("ok");
+                    } else {
+                        tips("没有该门店，请重新输入");
+                        $("#isok").val("");
+                    }
+                }
+            })
+        });
+
+
+    })
+
+</script>

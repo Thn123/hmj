@@ -1,0 +1,275 @@
+﻿@{
+    ViewBag.ControllerName = this.ViewContext.RouteData.Values["controller"].ToString().ToLower();
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>PUMAN</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="PUMAN SPACRM">
+    <meta name="author" content="PUMAN TECH">    
+    <link rel="stylesheet" href="../../assets/css/styles.min.css?=120">
+    <link rel="stylesheet" href="../../assets/css/app.css?=120">
+    <link href='../../assets/demo/variations/default.css' rel='stylesheet' type='text/css' media='all' id='styleswitcher'>
+    <link href='../../assets/demo/variations/default.css' rel='stylesheet' type='text/css' media='all' id='headerswitcher'>
+    <link rel='stylesheet' type='text/css' href='../../assets/plugins/form-toggle/toggles.css' />
+    @RenderSection("htmlhead", false)
+</head>
+
+<body class="horizontal-nav ">
+    <!--快捷菜单-->
+    <div id="headerbar">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-6 col-sm-2">
+                    <a href="#" class="shortcut-tiles tiles-brown">
+                        <div class="tiles-body">
+                            <div class="pull-left"><i class="fa fa-pencil"></i></div>
+                        </div>
+                        <div class="tiles-footer">
+                            Create Post
+                        </div>
+                    </a>
+                </div>
+                <div class="col-xs-6 col-sm-2">
+                    <a href="#" class="shortcut-tiles tiles-grape">
+                        <div class="tiles-body">
+                            <div class="pull-left"><i class="fa fa-group"></i></div>
+                            <div class="pull-right"><span class="badge">2</span></div>
+                        </div>
+                        <div class="tiles-footer">
+                            Contacts
+                        </div>
+                    </a>
+                </div>
+                <div class="col-xs-6 col-sm-2">
+                    <a href="#" class="shortcut-tiles tiles-primary">
+                        <div class="tiles-body">
+                            <div class="pull-left"><i class="fa fa-envelope-o"></i></div>
+                            <div class="pull-right"><span class="badge">10</span></div>
+                        </div>
+                        <div class="tiles-footer">
+                            Messages
+                        </div>
+                    </a>
+                </div>
+                <div class="col-xs-6 col-sm-2">
+                    <a href="#" class="shortcut-tiles tiles-inverse">
+                        <div class="tiles-body">
+                            <div class="pull-left"><i class="fa fa-camera"></i></div>
+                            <div class="pull-right"><span class="badge">3</span></div>
+                        </div>
+                        <div class="tiles-footer">
+                            Gallery
+                        </div>
+                    </a>
+                </div>
+                <div class="col-xs-6 col-sm-2">
+                    <a href="#" class="shortcut-tiles tiles-midnightblue">
+                        <div class="tiles-body">
+                            <div class="pull-left"><i class="fa fa-cog"></i></div>
+                        </div>
+                        <div class="tiles-footer">
+                            Settings
+                        </div>
+                    </a>
+                </div>
+                <div class="col-xs-6 col-sm-2">
+                    <a href="#" class="shortcut-tiles tiles-orange">
+                        <div class="tiles-body">
+                            <div class="pull-left"><i class="fa fa-wrench"></i></div>
+                        </div>
+                        <div class="tiles-footer">
+                            Plugins
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--头部，顶部-->
+    <header class="navbar navbar-inverse navbar-fixed-top" role="banner">
+        <div class="navbar-header pull-left">
+            <a class="navbar-brand" href="@Url.Action("ToStorePage", "SystemSet")">PUMAN</a>
+        </div>
+        <ul class="nav navbar-nav pull-right toolbar">
+            <!--登录用户-->
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle username" data-toggle="dropdown">
+                    <span class="hidden-xs">刘扑满<i class="fa fa-caret-down"></i></span>
+                    <img src="../../assets/demo/avatar/dangerfield.png" alt="Dangerfield" />
+                </a>
+                <ul class="dropdown-menu userinfo arrow">
+                    <li class="username">
+                        <a href="#">
+                            <div class="pull-left"><img class="userimg" src="../../assets/demo/avatar/dangerfield.png" alt="Jeff Dangerfield" /></div>
+                            <div class="pull-right"><h5>欢迎您，刘扑满</h5></div>
+                        </a>
+                    </li>
+                    <li class="userlinks">
+                        <ul class="dropdown-menu">
+                            <li><a href="#">修改信息 <i class="pull-right fa fa-pencil"></i></a></li>
+                            <li><a href="#">帮助 <i class="pull-right fa fa-question-circle"></i></a></li>
+                            <li class="divider"></li>
+                            <li><a href="#" class="text-right">注 销</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <!--你有新的消息-->
+            <li class="dropdown">
+                <a href="#" class="hasnotifications dropdown-toggle" data-toggle='dropdown'><i class="fa fa-envelope"></i><span class="badge">1</span></a>
+                <ul class="dropdown-menu messages arrow">
+                    <li class="dd-header">
+                        <span>你有(1)条新的消息</span>
+                        <span><a href="#">设置全部为已读</a></span>
+                    </li>
+                    <div class="scrollthis">
+                        <li>
+                            <a href="#" class="active">
+                                <span class="time">6 分钟前</span>
+                                <img src="../../assets/demo/avatar/doyle.png" alt="avatar" />
+                                <div><span class="name">王小帅</span><span class="msg">刘总什么时候发工资啊，揭不开锅了.</span></div>
+                            </a>
+                        </li>
+                    </div>
+                    <li class="dd-footer"><a href="#">查看全部</a></li>
+                </ul>
+            </li>
+            <!--下拉快捷功能-->
+            <li>
+                <a href="#" id="headerbardropdown"><span><i class="fa fa-level-down"></i></span></a>
+            </li>
+            <!--下拉改变头部主题-->
+            <li class="dropdown demodrop">
+                <a href="#" class="dropdown-toggle tooltips" data-toggle="dropdown"><i class="fa fa-magic"></i></a>
+                <ul class="dropdown-menu arrow dropdown-menu-form" id="demo-dropdown">
+                    <li>
+                        <label for="demo-header-variations" class="control-label">头部颜色主题</label>
+                        <ul class="list-inline demo-color-variation" id="demo-header-variations">
+                            <li><a class="color-black" href="javascript:;" data-headertheme="header-black.css"></a></li>
+                            <li><a class="color-dark" href="javascript:;" data-headertheme="default.css"></a></li>
+                            <li><a class="color-red" href="javascript:;" data-headertheme="header-red.css"></a></li>
+                            <li><a class="color-blue" href="javascript:;" data-headertheme="header-blue.css"></a></li>
+                        </ul>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                        <label for="demo-color-variations" class="control-label">导航栏颜色主题</label>
+                        <ul class="list-inline demo-color-variation" id="demo-color-variations">
+                            <li><a class="color-lite" href="javascript:;" data-theme="default.css"></a></li>
+                            <li><a class="color-steel" href="javascript:;" data-theme="sidebar-steel.css"></a></li>
+                            <li><a class="color-lavender" href="javascript:;" data-theme="sidebar-lavender.css"></a></li>
+                            <li><a class="color-green" href="javascript:;" data-theme="sidebar-green.css"></a></li>
+                        </ul>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                        <label for="fixedheader">固定头部</label>
+                        <div id="fixedheader" style="margin-top:5px;"></div>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </header>
+    <!--导航栏-->
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <i class="fa fa-bars"></i>
+            </button>
+        </div>
+        @{
+            var cssCurrent = Html.Raw("class=\"active\"");
+            var cssNone = Html.Raw("");
+        }
+        <div class="collapse navbar-collapse navbar-ex1-collapse large-icons-nav" id="horizontal-navbar">
+            <ul class="nav navbar-nav">
+                <li @(ViewBag.ControllerName == "customer" ? cssCurrent : cssNone)><a href="@Url.Action("Index", "Customer")"><i class="fa fa-group"></i> <span>客户</span></a></li>
+                <li><a href="#"><i class="fa fa-columns"></i> <span>营销</span></a></li>
+                <li><a href="#"><i class="fa fa-comments"></i> <span>微信</span></a></li>
+                <li @(ViewBag.ControllerName == "booking" ? cssCurrent : cssNone)><a href="@Url.Action("Index", "Booking")"><i class="fa fa-calendar"></i> <span>预约</span></a></li>
+                <li><a href="#"><i class="fa fa-calendar-o"></i> <span>日程</span></a></li>
+                <li><a href="#"><i class="fa fa-bar-chart-o"></i> <span>报表</span></a></li>
+                <li @(ViewBag.ControllerName == "systemset" ? cssCurrent : cssNone)><a href="@Url.Action("ToStorePage", "SystemSet")"><i class="fa fa-cog"></i> <span>设置</span></a></li>
+            </ul>
+        </div>
+    </nav>
+    <!--内容体-->
+    <div id="page-container">
+        <div id="page-content">
+            <div id="wrap">
+                <!--如果有才显示的二级菜单-->
+                <div id="page-heading">
+                    @* <ul class="nav nav-pills">
+                        <li class="active"><a href="#">客户列表</a></li>
+                        <li><a href="#">360视图</a></li>
+                        <li><a href="#">客户美图</a></li>
+                    </ul>      *@
+                </div>
+                <div class="panel-body" style="min-height: 350px">
+                    @RenderBody()
+                </div>
+            </div>
+            <!-- #wrap -->
+        </div>
+        <!-- page-content -->
+        <footer role="contentinfo">
+            <div class="clearfix">
+                <ul class="list-unstyled list-inline pull-left">
+                    <li>PUMAN &copy; 2014</li>
+                </ul>
+                <button class="pull-right btn btn-inverse-alt btn-xs hidden-print" id="back-to-top"><i class="fa fa-arrow-up"></i></button>
+            </div>
+        </footer>
+    </div>
+    <!-- 内容体结束 -->
+    <!--
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+
+    <script>!window.jQuery && document.write(unescape('%3Cscript src="assets/js/jquery-1.10.2.min.js"%3E%3C/script%3E'))</script>
+    <script type="text/javascript">!window.jQuery.ui && document.write(unescape('%3Cscript src="assets/js/jqueryui-1.10.3.min.js'))</script>
+    -->
+  <script type='text/javascript' src='../../assets/js/jquery-1.10.2.min.js'></script>
+    <script type='text/javascript' src='../../assets/js/jqueryui-1.10.3.min.js'></script>
+    <script type='text/javascript' src='../../assets/js/bootstrap.min.js'></script>
+    <script type='text/javascript' src='../../assets/js/enquire.js'></script>
+    <script type='text/javascript' src='../../assets/js/jquery.cookie.js'></script>
+    <script type='text/javascript' src='../../assets/js/jquery.nicescroll.min.js'></script>
+    <script type='text/javascript' src='../../assets/js/highcharts.js'></script>
+    <script type='text/javascript' src='../../assets/js/exporting.js'></script>
+    <script type='text/javascript' src='../../assets/plugins/codeprettifier/prettify.js'></script>
+    <script type='text/javascript' src='../../assets/plugins/easypiechart/jquery.easypiechart.min.js'></script>
+    <script type='text/javascript' src='../../assets/plugins/sparklines/jquery.sparklines.min.js'></script>
+    <script type='text/javascript' src='../../assets/plugins/form-toggle/toggle.min.js'></script>
+    <script type='text/javascript' src='../../assets/plugins/fullcalendar/fullcalendar.min.js'></script>
+    <script type='text/javascript' src='../../assets/plugins/jqueryui-timepicker/jquery.ui.timepicker.min.js'></script> 
+    <script type='text/javascript' src='../../assets/plugins/form-daterangepicker/daterangepicker.min.js'></script>
+    <script type='text/javascript' src='../../assets/plugins/form-daterangepicker/moment.min.js'></script>
+    <script type='text/javascript' src='../../assets/plugins/pulsate/jQuery.pulsate.min.js'></script>
+    <script type='text/javascript' src='../../assets/js/placeholdr.js'></script>
+    <script type='text/javascript' src='../../assets/js/application.js'></script>
+    <script type='text/javascript' src='../../assets/js/common.js'></script>
+    <script type='text/javascript' src='../../assets/demo/demo.js'></script>
+    <script type='text/javascript' src='../../assets/app/home/index.js'></script>
+
+    <script type='text/javascript' src='../../assets/plugins/knob/jquery.knob.min.js'></script>
+    <script type='text/javascript' src='../../assets/demo/demo-slider.js'></script>
+
+    <script type='text/javascript' src='../../assets/plugins/form-xeditable/bootstrap3-editable/js/bootstrap-editable.js'></script>
+    <script type='text/javascript' src='../../assets/demo/demo-xeditable.js'></script>
+     
+    <script type='text/javascript' src='../../assets/plugins/pines-notify/jquery.pnotify.js'></script>
+     
+    <script type='text/javascript' src='../../assets/plugins/knob/jquery.knob.min.js'></script>
+    <script type='text/javascript' src='../../assets/demo/demo-slider.js'></script>
+    <script type='text/javascript' src='../../assets/plugins/form-xeditable/bootstrap3-editable/js/bootstrap-editable.js'></script>
+    <script type='text/javascript' src='../../assets/demo/demo-xeditable.js'></script>
+    <script type='text/javascript' src='../../assets/plugins/pines-notify/jquery.pnotify.js'></script>
+
+    @RenderSection("jssection", false)
+</body>
+</html>

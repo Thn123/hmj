@@ -1,0 +1,760 @@
+﻿@charset "utf-8";
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-family: "Microsoft YaHei","Helvetica Neue","Helvetica","Roboto","STHeiTi","Arial","sans-serif";
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+    font-size: 62.5%;
+}
+
+body {
+    margin: 0 auto;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background: #f5f5f7;
+    overflow-x: hidden;
+    -webkit-user-select: none;
+    -webkit-text-size-adjust: none;
+    max-width: 90rem;
+}
+
+ul, li, h1, h2, h3, h4, h5, p, input, dl, dt, dd, table, th, td, ol, form, bdo, em, i {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+a:link, a:visited {
+    text-decoration: none;
+    color: #333;
+    webkit-touch-callout: none;
+}
+
+a:hover {
+    text-decoration: none;
+    webkit-touch-callout: none;
+}
+
+.motify {
+    position: fixed;
+    top: 35%;
+    left: 50%;
+    width: 220px;
+    padding: 0.5em;
+    margin: 0 0 0 -110px;
+    z-index: 999999;
+    background: rgba(0,0,0,.8);
+    color: #fff;
+    line-height: 2em;
+    font-size: 1.4rem;
+    border-radius: 6px;
+    -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+    box-shadow: 0 1px 2px rgba(0,0,0,.2);
+    text-align: center;
+    display: none;
+}
+
+    .motify p {
+        line-height: 2em;
+        text-align: center;
+        font-size: 1.4rem;
+        color: #fff;
+    }
+
+
+.order-tag-item {
+    width: 100%;
+    height: 40px;
+    background: #fff;
+    display: block;
+    margin-bottom: 10px;
+    position: fixed;
+    top: 0px;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+}
+
+    .order-tag-item ol {
+        float: left;
+        width: 33.33%;
+        height: 40px;
+        text-align: center;
+        font-size: 14px;
+    }
+
+        .order-tag-item ol span {
+            color: #555;
+            line-height: 40px;
+            cursor: pointer;
+        }
+
+        .order-tag-item ol.curbtn span {
+            color: #30954C;
+            border-bottom: 2px solid #30954C;
+            line-height: 38px;
+            display: block;
+            padding: 0 10px;
+            font-weight: bold;
+        }
+
+.quan-index-items {
+    padding-top: 10px;
+    display: block;
+}
+
+.quan-index-items ul li {
+        margin-bottom: 10px;
+        width: 100%;
+        padding-bottom:10px; 
+		display:block;
+        background: url(../images/quanbg.png) no-repeat center center;
+        overflow: hidden;
+        background-size: 100% 100%;
+        position: relative;
+}
+
+.quan-index-line {
+    overflow: hidden;
+    padding-top: 10px;
+}
+
+.quanline {
+    background: #e1e9d0;
+    height: 1px;
+    display: block;
+    margin: 15px 15px 0;
+    clear: both;
+}
+
+.quan-index-moneny, .quan-index-hanzi {
+    display: block;
+}
+
+    .quan-index-moneny strong {
+        line-height: 40px;
+        font-size: 30px;
+        color: #30954C;
+        text-align: center;
+        padding-top: 6px;
+        display: block;
+    }
+
+        .quan-index-moneny strong em {
+            font-size: 18px;
+            font-style: normal;
+        }
+
+    .quan-index-moneny p {
+        color: #555;
+        text-align: center;
+        font-size: 12px;
+    }
+
+    .quan-index-hanzi strong {
+        font-size: 1.8rem;
+        line-height:55px;
+        color: #30954C;
+        text-align: center;
+        display: block;
+        padding-top: 8px;
+    }
+
+    .quan-index-hanzi p {
+        color: #30954C;
+        text-align: center;
+        font-size: 16px;
+    }
+
+.quan-index-info {
+    text-align: left;
+    padding-right: 15px;
+}
+
+    .quan-index-info h4 {
+        font-size: 1.4rem;
+        color: #535353;
+        line-height: 24px;
+        height: 24px;
+        padding-top: 10px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .quan-index-info p {
+        font-size: 12px;
+        color: #bdbdbd;
+        line-height: 22px;
+    }
+
+.lingqubtn {
+    width: 60px;
+    height: 22px;
+    border: 1px solid #C0DEC9;
+    color: #3d9c57;
+    font-weight: bold;
+    display: inline-block;
+    line-height: 22px;
+    text-align: center;
+    border-radius: 2px;
+    font-size: 12px;
+}
+
+.lingqubtnlvse {
+    background: #30954C;
+    color: #fff;
+    border-color: #30954C;
+    margin-top: 10px;
+}
+
+.lingquBox {
+    display: block;
+    overflow: hidden;
+    line-height: 24px;
+    color: #999;
+    font-size: 12px;
+    padding-left: 50px;
+    margin-top: 3px;
+}
+
+
+.quan-index-items ul li.yishiyong p, .quan-index-items ul li.yishiyong strong, .quan-index-items ul li.yishiyong h2 {
+    color: #999;
+}
+
+.quan-index-items ul li.yishiyong .quanline {
+    background: #efefef;
+}
+
+.yishiyong-icon {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    width: 80px;
+    height: 80px;
+    background: url(../images/yishiyong.png) no-repeat center center;
+    background-size: 80px 71px;
+    display: block;
+}
+
+.yiguoqi-icon {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    width: 80px;
+    height: 80px;
+    background: url(../images/yiguoqi.png) no-repeat center center;
+    background-size: 80px 71px;
+    display: block;
+}
+
+.youhuiquan-banner {
+    width: 100%;
+    display: block;
+    margin-bottom: 10px;
+    min-height: 150px;
+    background: #eee;
+}
+
+.quan-all-waper {
+    margin: 10px;
+    height: 100px;
+    display: block;
+    z-index: 1;
+    background: url(../images/Combined.png) no-repeat center center;
+    overflow: hidden;
+    background-size: 100% 100%;
+}
+
+.youhuiquan-banner img {
+    width: 100%;
+    display: block;
+}
+
+.quan-left-waper {
+    float: left;
+    width: 32%;
+    display: block;
+	padding:5px 0 10px
+}
+
+.quan-left-moneny {
+    border-right: 2px dashed #fff;
+    display: block;
+    padding: 10px 0;
+    line-height: 50px;
+    font-size: 4.2rem;
+    color: #fff;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+    .quan-left-moneny em {
+        font-style: normal;
+        font-size: 14px;
+        color: #fff;
+        margin-right: 2px;
+    }
+
+.quan-right-waper {
+    float: left;
+    width: 68%;
+    display: block;
+    padding: 10px 0;
+    color: #fff;
+}
+
+    .quan-right-waper h2 {
+        line-height: 30px;
+        color: #fff;
+        font-size: 18px;
+        padding-left: 15px;
+    }
+
+    .quan-right-waper h3 {
+        line-height: 22px;
+        color: #fff;
+        font-size: 14px;
+        padding-left: 15px;
+        margin-bottom: 1rem;
+        font-weight: normal;
+    }
+
+    .quan-right-waper p {
+        font-size: 12px;
+        padding-left: 15px;
+        color: #fff;
+    }
+
+.quan-content-box {
+    padding: 40px 10px 10px;
+    display: block;
+}
+
+.inputText {
+    width: 80%;
+    border: none;
+    background: #eee;
+    border-radius: 5px;
+    height: 44px;
+    line-height: 44px;
+    font-size: 16px;
+    text-indent: 10px;
+    margin: 0 auto 20px;
+    -webkit-appearance: none;
+    display: block;
+}
+
+.submit-btn {
+    width: 60%;
+    height: 44px;
+    background: #ff6161;
+    display: block;
+    color: #fff;
+    font-size: 18px;
+    margin: 0 auto 40px;
+    text-align: center;
+    line-height: 44px;
+    border-radius: 5px;
+}
+
+.submit-kongbtn {
+    width: 60%;
+    border: 1px solid #30954C;
+    line-height: 42px;
+    color: #30954C;
+    text-align: center;
+    height: 42px;
+    font-size: 18px;
+    margin: 10px auto 40px;
+    border-radius: 5px;
+}
+
+.quan-admin-info {
+    display: none;
+    overflow: hidden;
+}
+
+    .quan-admin-info p {
+        line-height: 22px;
+        font-size: 14px;
+        color: #666;
+        text-align: center;
+    }
+
+        .quan-admin-info p strong {
+            color: #30954C;
+        }
+
+a.alink {
+    color: #30954C;
+    text-decoration: underline;
+    display: inline-block;
+}
+
+.quan-huise {
+    filter: progid:DXImageTransform.Microsoft.BasicImage(grayscale=1);
+    -webkit-filter: grayscale(100%);
+    opacity: 0.4;
+}
+
+    .quan-huise .lingquBox {
+        color: #333;
+    }
+
+.quan-content-Tabbox ol {
+    display: none;
+}
+
+.bgcolor {
+    background: #1d5632;
+}
+
+.quan-content {
+    padding-top: 10px;
+    display: block;
+}
+
+.quanma {
+    background: #fff;
+    overflow: hidden;
+    display: block;
+    border-radius: 2px;
+}
+
+    .quanma img {
+        width: 50%;
+        margin: 30px auto;
+        display: block;
+        border: 1px solid #eee;
+    }
+
+    .quanma h2 {
+        line-height: 30px;
+        font-size: 18px;
+        color: #1d5632;
+        text-align: center;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .quanma h3 {
+        line-height: 50px;
+        font-size: 16px;
+        color: #535353;
+        text-align: center;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: normal;
+        border-bottom: 1px solid #f3f3f3;
+        margin-bottom: 10px;
+    }
+
+.quanmaInfo {
+    border-top: 2px dashed #e0e8ce;
+    padding-top: 20px;
+    display: block;
+    margin: 10px;
+    position: relative;
+}
+
+    .quanmaInfo .quan01 {
+        position: absolute;
+        left: -21px;
+        top: -11px;
+        width: 20px;
+        height: 20px;
+        background: #1d5632;
+        border-radius: 20px;
+    }
+
+    .quanmaInfo .quan02 {
+        position: absolute;
+        right: -21px;
+        top: -11px;
+        width: 20px;
+        height: 20px;
+        background: #1d5632;
+        border-radius: 20px;
+    }
+
+    .quanmaInfo p {
+        line-height: 30px;
+        font-size: 14px;
+        color: #999;
+        text-align: left;
+        padding: 5px 0;
+        border-bottom: 1px solid #f7f7f7;
+    }
+
+.quanTxt {
+    padding: 10px;
+    display: block;
+    text-align: center;
+}
+
+    .quanTxt strong {
+        font-size: 42px;
+        color: #1D5632;
+        display: block;
+        padding-bottom: 10px;
+    }
+
+    .quanTxt p {
+        font-size: 18px;
+        font-family: Arial, Helvetica, sans-serif;
+        color: #555;
+        margin-bottom: 50px;
+    }
+
+.opacityBtn {
+    opacity: 0.4;
+}
+
+.acc-login-input {
+    width: 100%;
+    display: block;
+}
+
+    .acc-login-input ul li p {
+        border-bottom: 1px solid #f3f3f3;
+        padding: 10px;
+        line-height: 30px;
+        display: block;
+        overflow: hidden;
+    }
+
+        .acc-login-input ul li p strong {
+            float: left;
+            width: 20%;
+            line-height: 30px;
+            height: 30px;
+            font-size: 1.6rem;
+            font-weight: normal;
+            color: #999;
+        }
+
+        .acc-login-input ul li p span {
+            float: right;
+            width: 80%;
+            height: 30px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+    .acc-login-input .txt {
+        border: none;
+        -webkit-appearance: none;
+        height: 30px;
+        width: 100%;
+        display: block;
+        font-size: 1.6rem;
+        color: #1b1b1b;
+    }
+
+.submitBtn {
+    width: 100%;
+    height: 44px;
+    background: #005b33;
+    border-radius: 2px;
+    line-height: 44px;
+    text-align: center;
+    display: block;
+    font-size: 1.6rem;
+    color: #fff;
+}
+
+.submitPad {
+    padding: 10px;
+}
+
+.quanCode {
+    border-top: 1px solid #f3f3f3;
+}
+
+    .quanCode span {
+        font-size: 20px;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+.yuyueBanner {
+    width: 100%;
+    overflow: hidden;
+    min-height: 70px;
+}
+
+    .yuyueBanner img {
+        width: 100%;
+    }
+
+.quanyuyueTab {
+    position: static;
+    margin-bottom: 0;
+}
+
+    .quanyuyueTab ol {
+        width: 50%;
+    }
+
+.quanyuyueList {
+    padding: 10px;
+    display: block;
+}
+
+    .quanyuyueList ul li {
+        background: #fff;
+        margin-bottom: 10px;
+        padding: 10px;
+        height: 58px;
+        position: relative;
+    }
+
+        .quanyuyueList ul li strong {
+            font-size: 16px;
+            line-height: 30px;
+        }
+
+.yiwancheng-icon {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    width: 60px;
+    height: 60px;
+    background: url(../images/yiwancheng.png) no-repeat center center;
+    background-size: 55px;
+    display: block;
+}
+
+.yiquxiao-icon {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    width: 60px;
+    height: 60px;
+    background: url(../images/yiquxiao.png) no-repeat center center;
+    background-size: 55px;
+    display: block;
+}
+
+.dianbg {
+    background: #b8d599;
+}
+
+.dian-order-input {
+    display: block;
+    padding: 10px 30px;
+    width: auto;
+}
+
+    .dian-order-input h2 {
+        font-size: 22px;
+        color: #fff;
+        line-height: 44px;
+        text-align: center;
+        margin-bottom: 10px;
+        padding-top: 10px;
+    }
+
+    .dian-order-input ul li p strong {
+        color: #fff;
+        line-height: 40px;
+    }
+
+    .dian-order-input ul li p {
+        border-bottom: none;
+        padding: 5px 0;
+        margin-bottom: 5px;
+    }
+
+        .dian-order-input ul li p span {
+            height: 40px;
+            line-height: 40px;
+        }
+
+        .dian-order-input ul li p bdo {
+            float: left;
+            width: 48%;
+            display: block;
+        }
+
+    .dian-order-input .txt {
+        text-indent: 10px;
+        height: 40px;
+        line-height: 40px;
+        display: block;
+        border-radius: 2px;
+    }
+
+    .dian-order-input ul li input.dateinput {
+        position: absolute;
+        right: 0px;
+        top: 0;
+        width: 100%;
+        height: 40px;
+        z-index: 99;
+        background: transparent;
+    }
+
+a.yelllow:link, a.yelllow:visited {
+    color: #1D5632;
+    text-decoration: underline;
+}
+
+a.yelllow:hover {
+    color: #30954C;
+    text-decoration: none;
+}
+
+.dian-order-input ul li p.dateShuru {
+    width: 100%;
+    height: 40px;
+    background: url(../images/upicon.png) no-repeat 97.8% center #fff;
+    background-size: 8px 14px;
+    padding: 0;
+    color: #999;
+    position: relative;
+}
+
+.dateShuru em {
+    line-height: 40px;
+    font-size: 16px;
+    font-style: normal;
+    padding-left: 10px;
+    color: #999;
+}
+
+.dropdown-select {
+    width: 100%;
+    min-width: 100px !important;
+    margin: 0;
+    padding: 0;
+    text-indent: 10px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 16px;
+    color: #999;
+    border: 0;
+    text-align: left;
+    background: none;
+    border-radius: 2px;
+    background: transparent;
+    -webkit-appearance: none;
+    background: url(../images/upicon.png) no-repeat 97.8% center #fff;
+    background-size: 8px 14px;
+}
+
+.dian-order-input ul li p bdo .dropdown-select {
+    background-position: 96% center;
+}
+
+.yuyuechaxun {
+    line-height: 32px;
+    display: block;
+    text-align: center;
+    padding-top: 10px;
+    font-size: 14px;
+}

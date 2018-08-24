@@ -1,0 +1,41 @@
+@charset "utf-8";
+*{margin:0; padding:0;}
+html{font-family:"Microsoft YaHei","Helvetica Neue","Helvetica","Roboto","STHeiTi","Arial","sans-serif";-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;font-size:62.5%;}
+body{ margin:0 auto; padding:0;width:100%;height:100%; background:#f5f5f7; overflow-x:hidden;-webkit-user-select:none;-webkit-text-size-adjust:none; max-width:90rem;}
+ul,li,h1,h2,h3,h4,h5,p,input,dl,dt,dd,table,th,td,ol,form,bdo,em,i{margin:0;padding:0;list-style:none;}
+a:link,a:visited{ text-decoration:none; color:#333;webkit-touch-callout: none;} a:hover{ text-decoration:none;webkit-touch-callout: none;}
+.motify{position:fixed;top:35%;left:50%;width:220px;padding:0.5em;margin:0 0 0 -110px;z-index:999999;background:rgba(0,0,0,.8);color:#fff;line-height:2em; font-size:1.4rem;border-radius:6px;-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);box-shadow: 0 1px 2px rgba(0,0,0,.2); text-align:center; display:none;}
+.motify p{ line-height:2em; text-align:center; font-size:1.4rem; color:#fff;}
+
+.jifen-index-Top{padding-top:140px;}
+.jifen-index-Top h2{ line-height:40px; font-size:16px; color:#666; text-align:center; font-weight:normal;}
+.jifen-index-banner{ height:140px; width:100%; background:#30954c; display:block; position:fixed; left:0; right:0; top:0; z-index:999;}
+.jifen-index-banner strong{ font-size:30px; font-family:Arial, Helvetica, sans-serif; text-align:center; line-height:40px; display:block; color:#fff; padding-top:35px;}
+.jifen-index-banner p{ font-size:16px; color:#fff; text-align:center;}
+.youjiaojifen{ position:absolute; right:10px; bottom:10px; font-size:12px; color:#fff; z-index:9999;}
+.jifen-index-table{ background:#fff; width:100%;}
+.jifen-index-table ul li{ border-bottom:1px solid #f3f3f3; overflow:hidden; color:#555; line-height:30px;font-size:13px; padding:5px 0;}
+.jifen-index-table ul li span{ display:inline-block; width:25%; float:left; text-align:center; padding:5px 0;} 
+.jifen-index-table ul li span em{ font-style:normal; color:#1d5632; font-weight:bold; font-family:Arial, Helvetica, sans-serif;}
+.jifen-index-table ul li:hover{ background:#f1f2ee; color:#1d5632;}
+.jifen-index-table ul li.jifentableTr{  line-height:30px; background:#e1e9d0; display:block; color:#1d5632; font-weight:bold;}
+.jifenmore{ line-height:50px; text-align:center; color:#bbb; font-size:12px;}
+.tr_even{ background:#f1f2ee;}
+
+.bgclass{ background:#f5f5f7;}
+.jifen-duihuan{ background:#fff; overflow:hidden;}
+.jifen-duihuan h2{ padding:10px; line-height:44px; font-size:20px; color:#005b33; text-align:center;}
+.jifen-duihuan ul li{ border-bottom:1px solid #f3f3f3; display:block; padding:5px 10px; line-height:30px;}
+.jifen-duihuan ul li p{ padding-left:80px; color:#1b1b1b; font-size:13px;}
+.jifen-duihuan ul li strong{ width:80px; margin-left:-80px; font-size:12px; color:#999; display:inline-block;}
+.duihuanInfo{ padding:10px; overflow:hidden;}
+.duihuanInfo p{ line-height:22px; font-size:13px; color:#999;}
+.jifen-zhidu{ padding:10px; overflow:hidden;}
+.jifen-zhidu h2{line-height:40px; font-size:18px; color:#1b1b1b; text-align:center;}
+.jifen-zhidu p{ line-height:24px; font-size:15px; padding:15px 0;color:#333;}
+.jifen-zhidu p strong{ display:block; line-height:30px;color:#1d5632; font-size:16px; margin-bottom:6px;}
+.jifen-zhidu h4{line-height:30px; font-size:15px; color:#1b1b1b; text-align:left; margin:0; padding-top:10px; }
+.jifen-zhidu em{display:block; color:#535353; font-style:normal;font-size:13px; padding-left:12px; line-height:24px;}
+
+.tableCss table{ border-bottom:1px solid #eee; border-left:1px solid #eee;border-right:none; border-top:none; margin-bottom:10px;}
+.tableCss table td{ border-bottom:none; border-left:none; border-right:1px solid #eee; border-top:1px solid #eee; color:#333; line-height:30px; padding:0 5px; font-size:12px;}

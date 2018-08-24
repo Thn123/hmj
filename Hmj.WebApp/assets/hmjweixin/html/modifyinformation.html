@@ -1,0 +1,504 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../css/common.css" />
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/iosSelect.css" />
+    <link rel="stylesheet" href="../css/new_style.css">
+    <title>修改信息</title>
+    <style>
+        #edit_changepwd input { width: 13.88889rem; padding-left: 0.74074rem; line-height: 2rem; height: 2rem; background: #fff; font-size: 0.96296rem; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <input type="hidden" id="oldMobile" />
+        <div class="person_box scanMes">
+            <div class="img">
+                <input type="file" name="upfile" id="upfile" accept="image/*" style="display:none" placeholder="" multiple />
+                <img id="uploadImg" src="../images/person.jpg" class="person">
+                <img src="../images/camera.png" class="camera person" />
+                <span>&nbsp;头像修改</span>
+            </div>
+            <div class="grayregion"></div>
+            <dl class="clearfix wszl">
+                <div class="left">
+                    <span>昵称</span>
+                </div>
+                <div class="right">
+                    <span>
+                        <input type="text" name="nickName" value="" maxlength="10" placeholder="&gt;">
+                        <!--<b>&gt;</b>-->
+                    </span>
+                </div>
+            </dl>
+            <dl class="clearfix wszl">
+                <div class="left">
+                    <span>姓</span>
+                </div>
+                <div class="right">
+                    <span>
+                        <input type="text" name='name_last' value="" maxlength="10" placeholder="&gt;">
+                        <!--<b>&gt;</b>-->
+                    </span>
+                </div>
+            </dl>
+            <dl class="clearfix wszl">
+                <div class="left">
+                    <span>名</span>
+                </div>
+                <div class="right">
+                    <span>
+                        <input type="text" name="name_first" value="" maxlength="10" placeholder="&gt;">
+                        <!--<b>&gt;</b>-->
+                    </span>
+                </div>
+            </dl>
+            <dl class="clearfix wszl">
+                <div class="left">
+                    <span>性别</span>
+                </div>
+                <div class="right">
+                    <input type="text" name="gender_id" readonly id="genderId"  value="" placeholder="&gt;">
+                </div>
+            </dl>
+            <dl class="clearfix">
+                <div class="left">
+                    <span>生日</span>
+                </div>
+                <div class="right selectDate">
+                    <span class="showDate"> &gt;</span>
+                </div>
+            </dl>
+            <dl class="clearfix">
+                <div class="left">
+                    <span>手机号</span>
+                </div>
+                <div class="right">
+                    <span class="telEdit">**** <b>&gt;</b></span>
+                </div>
+            </dl>
+            <div class="grayregion"></div>
+            <dl class="clearfix">
+                <div class="left">
+                    <span>会员等级</span>
+                </div>
+                <div class="right">
+                    <span class="level"></span>
+                </div>
+            </dl>
+            <dl class="clearfix">
+                <div class="left">
+                    <span>会员状态</span>
+                </div>
+                <div class="right MEM_STATE">
+                    <span><!--mem_state--></span>
+                </div>
+            </dl>
+            <dl class="clearfix" id="ChangePwd" style="display:none;">
+                <div class="left">
+                    <span>兑礼密码</span>
+                </div>
+                <div class="right MEM_CHANGEPWD">
+                    <span><!--mem_changepwd--></span>
+                </div>
+            </dl>
+            <div class="make">* 生日仅可修改一次</div>
+        </div>
+        <div class="modify wyxg" style="display:none">
+            <a href="javascript:void(0)">
+                提交
+            </a>
+        </div>
+    </div>
+    <!--teledit-->
+    <div class="layer  layer-two-button" id="edit_tel" style="display: none">
+        <div class="layer-box">
+            <div class="layer-cont">
+                <div class="layer-border  layer-pd40">
+                    <div class="layer-text layer-input">
+                        <div class="mobileform">
+                            <h2>修改手机号码</h2>
+                            <ul>
+                                <li><input type="tel" maxlength="11" name="old_tel" id="old_tel" class="old_tel" value="" placeholder="请输入原手机号码" style="margin-top:2rem;float:left;padding-left: 15px;"></li>
+                                <li><input type="tel" maxlength="11" name="new_tel" class="new_tel" value="" placeholder="请输入新的手机号码" style="margin-top:2rem;float:left;padding-left: 15px;"></li>
+                                <li><input type="tel" maxlength="6" name="new_code" class="new_code" value="" placeholder="请输入验证码" style="width: 40%;margin-top:2rem;float:left;padding-left: 15px;"><button id='timeid'>获取验证码</button></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="layer-btn">
+                    <button class="layer-button register_sub leftbutton  btn-left">取消</button>
+                    <button class="layer-button register_sub rightbutton btn-right">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!--兑换密码edit-->
+    <div class="layer  layer-two-button" id="edit_changepwd" style="display: none">
+        <div class="layer-box">
+            <div class="layer-cont">
+                <div class="layer-border  layer-pd40">
+                    <div class="layer-text layer-input">
+                        <div class="mobileform">
+                            <h2>修改兑礼密码</h2>
+                            <ul>
+                                <li><input type="tel" maxlength="6" name="new_tel" class="new_pwd1" value="" placeholder="请输入新的6位数字密码" ></li>
+                                <li> <input type="tel" maxlength="6" name="new_tel" class="new_pwd2" value="" placeholder="请确认新的兑礼密码"  ></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="layer-btn">
+                    <button class="layer-button register_sub leftbutton btn-left">取消</button>
+                    <button class="layer-button register_sub rightbutton btn-right">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="layer modaltips" id="modaltips"></div>
+</body>
+</html>
+<script src="../js/jquery.min.js"></script>
+<script src="../js/jquery.json.min.js"></script>
+<script src="../js/validate.js"></script>
+<script src="../js/common.js?v=3"></script>
+<script src="../js/iosSelect.js"></script>
+<script>
+    $(function () {
+        //获取个人基本信息接口
+        var userinfo = $.parseJSON(localStorage.getItem('fansJson'));
+        var openid = userinfo.openid;// 'oNTWExElLq2yKdOYm4Bxw22b0PNk';
+        //var openid = "oDRuD1A65qVf-QjFFpdnQccRo7HA";
+        var data = '{"OPENID": "' + openid + '", "IS_UPDATE": "1" }';
+        $.ajax({
+            type: "post",
+            contentType: "application/json",
+            dataType: "json",
+            url: $.domainUrl + "Member/GetMemberDetail",
+            processData: false,
+            data: data,
+            beforeSend: function () {
+            },
+            success: function (response) {
+                if (response.status == 0) {
+                } else if (response.status == 1) {
+                    var data = response.data;
+
+                    if (data.BIRTHDAY != '') {
+                        var birth = data.BIRTHDAY.trim();
+                        localStorage.setItem('birthday', birth);
+                    }
+
+                    //返回的数据渲染页面
+                    sessionStorage.setItem("bir", data.BIRTHDAY);
+                    $("#uploadImg").attr("src", data.IMAGE);//.attr('new_value',  data.IMAGE);
+                    $('input[name=nickName]').attr('placeholder', data.NICK_NAME + ' >').attr('old_value', data.NICK_NAME);
+                    $('input[name=name_last]').attr('placeholder', data.NAME_LAST + ' >').attr('old_value', data.NAME_LAST);
+                    $('input[name=name_first]').attr('placeholder', data.NAME_FIRST + ' >').attr('old_value', data.NAME_FIRST);
+                    $('#genderId').val(data.GENDER == '1' ? '男 >' : "女  >").css("color", '#999').attr('data-id', data.GENDER);
+
+                    
+
+                    data.BIRTHDAY = data.BIRTHDAY.replace(/-/g, '.');
+                    localStorage.setItem('birthday', data.BIRTHDAY)
+                    $('.showDate').text(data.BIRTHDAY + ' >').attr('old_value', data.BIRTHDAY).attr('new_value', data.BIRTHDAY);
+
+                    var mobile = data.MOBILE;
+                    var mobile2 = mobile.replace(mobile.substr(3, 4), '****');
+                    $('.telEdit').text(mobile2 + ' >').attr('old_value', mobile).attr('new_value', mobile);
+                    $('.modify').show();
+                    //$('.level').text(data.MEM_LEVEL);
+                    $('.MEM_STATE span').html(data.ZZAFLD000004);
+                    if (data.ZZAFLD000004 == "已激活") {
+                        $("#ChangePwd").show();
+                        $('.MEM_CHANGEPWD span').html(data.LOGINPASSON + " &gt;");
+                        $('.MEM_CHANGEPWD span').click(function () {
+                            $("#edit_changepwd").show();
+                        });
+                    }
+                }
+            }
+        });
+        /* 修改兑礼密码 start */
+        $('#edit_changepwd').find('.btn-left').click(function () {
+            $(".new_pwd1").val("");
+            $(".new_pwd2").val("")
+            $('#edit_changepwd').hide();
+        });
+        var edit_changepwd = $("#edit_changepwd").find(".btn-right");
+        var flaglogin = true;
+        edit_changepwd.click(function () {
+            var pwd1 = $(".new_pwd1").val();
+            var pwd2 = $(".new_pwd2").val();
+            var oldPwd = $(".MEM_CHANGEPWD span").html().substr(0, 6);
+            var reg = /^\d{6}$/;
+            if (!reg.test(pwd1)) {
+                tips("请输入六位数字密码！", true, 2000, true);
+                return false;
+            }
+
+            if (!reg.test(pwd2)) {
+                tips("请输入六位确认密码！", true, 2000, true);
+                return false;
+            }
+            if (pwd1 == pwd2) {
+                if (flaglogin == true) {
+                    flaglogin = false;
+                    $.ajax({
+                        url: $.domainUrl + "Member/UpdateChangePwd?OldPwd=" + oldPwd + "&NewPwd=" + pwd1 + "&OpendID=" + openid,
+                        method: 'post',
+                        data: {},
+                        success: function (data) {
+                            if (data.status == '1') {
+                                $('.MEM_CHANGEPWD span').html(pwd1 + " &gt;");
+                                $(".new_pwd1").val("");
+                                $(".new_pwd2").val("")
+                                $('#edit_changepwd').hide();
+                                tips("修改成功", true, 2000, true);;
+                                flaglogin = true;
+                            } else {
+                                //tips(data.message);
+                                tips("修改密码失败，请联系微信客服或稍后再试", true, 2000, true);
+                                $(".new_pwd1").val("");
+                                $(".new_pwd2").val("")
+                                $('#edit_changepwd').hide();
+                                flaglogin = true;
+                            }
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                            flaglogin = true;
+                        }
+                    })
+
+                }
+            } else {
+                tips("<p>您两次输入的兑礼密码不一致</p>", true, 2000, true);;
+            }
+        });
+        /* 修改兑礼密码 end */
+
+        var phone = $(".telEdit").text();
+        var mphone = phone.substr(3, 4);
+        var lphone = phone.replace(mphone, "****");
+        $(".telEdit").text(lphone);
+
+        //会员等级
+        var memberLevel = localStorage.getItem("MemberLevel");
+        $('.level').text(memberLevel);
+
+        $('#edit_tel').find('.leftbutton').click(function () {
+            $('#edit_tel').hide();
+        });
+        var editTel_sub = $("#edit_tel").find(".rightbutton");
+
+        $(".telEdit").click(function () {
+            $("#edit_tel").show();
+        });
+        $('#timeid').click(function () {
+
+            var old_tel = $('input[name=old_tel]').val();
+            if (old_tel == '') {
+                tips("请输入原手机号码", true, 2000, true);
+            } else {
+                var tel = $(".telEdit").attr('old_value');
+                if (old_tel != tel) {
+                    tips('您的原手机号码输入错误', true, 2000, true);
+                    return;
+                }
+            }
+
+            var phone = $('input[name=new_tel]').val();
+            if (phone == '') {
+                tips("请输入新的手机号码", true, 2000, true);
+            } else if (isPhone(phone)) {
+                if (flag == true) {
+                    dao();
+                    timerrr = setInterval('dao()', 1000);
+                    tips("验证码已发送", true, 2000, true);
+                    flag = false;
+                    ////调短信验证码接口
+                    $.ajax({
+                        type: "get",
+                        url: $.domainUrl + 'Member/SendMsg?MOBILE=' + phone,
+                        dataType: "json",
+                        success: function (data) {
+                            console.log(data);
+                            sessionStorage.setItem(phone + 'yzcode', data.data);
+                        },
+                        error: function () {
+                        }
+                    })
+                }
+            } else {
+                tips("<p>您的新手机号码输入有误</p>", true, 2000, true);
+            }
+        });
+
+        editTel_sub.click(function () {
+            var old_tel = $('input[name=old_tel]').val();
+            console.log(old_tel);
+            var new_tel = $('input[name=new_tel]').val();
+            var verifycode = $('input[name=new_code]').val();
+            if (old_tel == '') {
+                tips("请输入原手机号码", true, 2000, true);
+            } else {
+                var tel = $(".telEdit").attr('old_value');
+                if (old_tel == tel) {
+                    if (new_tel == '') {
+                        tips('请输入新的手机号码', true, 2000, true);
+                    } else if (old_tel == new_tel) {
+                        tips('不能填写相同的手机号', true, 2000, true);
+                    }
+                    else {
+                        if (isPhone(new_tel)) {
+                            if (verifycode == '') {
+                                tips("请输入验证码", true, 2000, true);
+                            } else {
+                                //判断验证码是否正确
+                                var yzcode = sessionStorage.getItem(new_tel + 'yzcode');
+                                if (verifycode == yzcode) {
+                                    $('#edit_tel').hide();
+                                    console.log(new_tel);
+                                    var mphone = new_tel.substr(3, 4);
+                                    var new_phone = new_tel.replace(mphone, "****");
+                                    $(".telEdit").text(new_phone).attr('new_value', new_tel).css({ 'color': '#666' });
+                                } else {
+                                    tips("新手机号与验证码不匹配", true, 2000, true);
+                                }
+                            }
+                        } else {
+                            tips('您的新的手机号码输入有误', true, 2000, true);
+                        }
+                    }
+                } else {
+                    tips('您的原手机号码输入错误', true, 2000, true);
+                }
+            }
+        });
+
+        //图像上传
+        $(".person").click(function () {
+            $("#upfile").trigger('click');
+        });
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+
+                // var reader = new FileReader();
+                // reader.onload = function (e) {
+                //     $('#uploadImg').attr('src', e.target.result).next().remove();
+                // };
+                // reader.readAsDataURL(input.files[0]);
+
+
+                var formData = new FormData();
+                var name = $(input).val();
+                formData.append("Image_Data", input.files[0]);
+                formData.append("openid", openid);
+
+                $.ajax({
+                    type: "post",
+                    url: $.domainUrl + "Member/UploadImage",
+                    // 告诉jQuery不要去处理发送的数据
+                    processData: false,
+                    // 告诉jQuery不要去设置Content-Type请求头
+                    contentType: false,
+                    data: formData,
+                    success: function (data) {
+                        if (data.status == 1) {
+                            $('#uploadImg').attr('src', data.data);
+                            tips("头像修改成功！", true, 2000, true);
+                        } else {
+                            tips("网络错误！", true, 2000, true);
+                        }
+                    }
+                });
+            }
+        }
+
+        $("#upfile").change(function () {
+            readURL(this);
+        });
+
+
+        //修改会员信息后的接口；
+        $('.modify').click(function () {
+            //var headImg = $('#uploadImg').attr('new_value');// sessionStorage.getItem('updateImg').;
+            var _nickName = $('input[name=nickName]');
+            var nickName = _nickName.val();
+            if (nickName == '') {
+                nickName = _nickName.attr('old_value');
+            }
+            //防止sql注入的最小限制了
+            if (nickName.indexOf("'") > -1) { tips("昵称中不能带有单引号", true, 2000, true); };
+            //if (!IsVal(nickName, "昵称")) return;
+
+            var _nameLast = $('input[name=name_last]');
+            var nameLast = _nameLast.val();
+            if (nameLast == '') {
+                nameLast = _nameLast.attr('old_value');
+            }
+            if (!IsVal(nameLast, "姓")) return;
+
+
+            var _nameFirst = $('input[name=name_first]');
+            var nameFirst = _nameFirst.val();
+            if (nameFirst == '') {
+                nameFirst = _nameFirst.attr('old_value');
+            }
+            if (!IsVal(nameFirst, "名")) return;
+
+            var gender = $("#genderId").attr("data-id");
+            var bir = $('.showDate').attr('new_value');
+            var phone = $(".telEdit").attr('new_value');
+
+            var data2 = {
+                "OPENID": openid,
+                "NICK_NAME": nickName,
+                "NAME_LAST": nameLast.trim(),
+                "NAME_FIRST": nameFirst.trim(),
+                "GENDER": gender,
+                "BIRTHDAY": bir,
+                "MOBILE": phone
+            };
+            $.ajax({
+                type: "post",
+                contentType: "application/json",
+                dataType: "json",
+                url: $.domainUrl + "Member/UpdateMember",
+                processData: false,
+                data: $.toJSON(data2),
+                beforeSend: function () {
+                    //不关闭弹窗，因为success里存在 弹窗关闭 的逻辑
+                    tips("资料更新中，请稍候...", false, 2000, true);
+                },
+                success: function (data) {
+                    // {status: 0, message: "对不起，无法查询到该会员信息", data: null}
+                    if (data.status == 0) {
+                        tips(data.message.trimEnd("；"), true, 2000, true);
+                    } else if (data.status == 1) {
+                        window.location.href = 'user.html?t=' + new Date().getTime();
+                    }                    
+                }
+            });
+        });
+        var bnt = $('.modify');
+        var winHeight = $(window).height();   //获取当前页面高度
+        $(window).resize(function () {
+            var thisHeight = $(this).height();
+            if (winHeight - thisHeight > 50) {
+                //当软键盘弹出，在这里面操作
+                bnt.css('opacity', '0')
+            } else {
+                //当软键盘收起，在此处操作
+                bnt.css('opacity', '1')
+            }
+        });
+    });
+</script>

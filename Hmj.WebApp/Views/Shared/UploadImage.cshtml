@@ -1,0 +1,63 @@
+﻿@{  
+    Layout = "~/Views/Shared/_LayoutB.cshtml";
+}
+@model Hmj.WebApp.ViewModels.UploadModel
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    @Html.Css("plugin/xupload")
+    <title>Upload</title>
+    <style type="text/css">
+        html, body {
+            padding: 0;
+            margin: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #fff;
+            overflow: hidden;
+            font-size: 12px;
+        }    
+    </style>
+</head>
+<body>
+    <form id="tmpform" method="post" action="@Model.PostUrl" enctype="multipart/form-data" target="tmpup">
+        <div id="smallimgpick" class="xupload-container">
+            <div><span class="label label-primary">图片上传</span></div>
+            <div style="position:absolute;top:0px;left:0px;">      
+                @Html.Hidden("UID",@Model.UploadId)        
+                <input tabindex="3" id="fileupload" hidefocus="true" name="upfile" class="filePrew" accept="image/*" size="3" type="file" />               
+            </div>
+        </div>       
+    </form>
+    <iframe name="tmpup" style="display: none"></iframe>
+    <div>      
+        <script type='text/javascript' src='../../assets/js/jquery-1.10.2.min.js'></script>
+        <script type="text/javascript">
+            function UploadCallback(state, url,id) {
+                if(state == "SUCCESS")
+                {                   
+                   parent._utils.UploadCallback("@Model.UploadId", url,id);
+                   //$("#fileupload").replaceWith($("#fileupload").clone(true));
+                }
+                else
+                {
+                    alert(state);
+                }
+            }          
+            $("#fileupload").change(function (e) {
+                if (this.value != "") {
+                    var ext = this.value.split(".").pop().toLowerCase();                   
+                    if(ext !="jpg" &&  ext !="png" && ext !="gif")
+                    {
+                        alert("只支持gip,jpg,png格式");
+                        return;
+                    };                 
+                    $("#tmpform")[0].submit();
+                }
+            })
+        </script>
+    </div>
+</body>
+</html>

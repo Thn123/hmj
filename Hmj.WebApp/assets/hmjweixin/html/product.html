@@ -1,0 +1,191 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="Keywords" content="" />
+    <meta name="Description" content="" />
+    <link rel="stylesheet" type="text/css" href="../css/new_style.css" />
+    <link rel="stylesheet" href="../css/swiper.min.css" />
+    <title>品牌积分</title>
+    <style>
+        .swiper-slide { padding: 0rem; border-radius: 0px; }
+        .disabled { opacity: 0.5; }
+    </style>
+</head>
+<body>
+    <div class="wrap product-page">
+        <header>
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide"><img src="../images/bcj.jpg" alt="" /></div>
+                    <div class="swiper-slide"><img src="../images/gf.jpg" alt="" /></div>
+                    <div class="swiper-slide"><img src="../images/sm.jpg" alt="" /></div>
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </header>
+        <div class="prolist">
+            <div class="brand_title">/ 品牌 /</div>
+            <ul id="logo">
+                <!--<li><a><img src="../images/gaofu.jpg" alt=""></a></li>
+                <li class="gray"><a><img src="../images/baicaoji.png" alt=""></a></li>
+                <li class="gray"><a><img src="../images/shuangmei.png" alt=""></a></li>
+                <li class="gray"><a><img src="../images/tangmeixing.png" alt=""></a></li>-->
+            </ul>
+        </div>
+        <div class="pro-btn">
+            <button class="btn-left">立即绑定</button>
+            <button class="btn-right disabled">点击跳过</button>
+        </div>
+
+        <!-- layer-jifen -->
+        <div class="layer " id="modaltips" style="display: none">
+
+        </div>
+
+        <!-- bind_start-->
+        <div class="layer modal modaltips" id="bind_start">
+            <div class="layer-box">
+                <div class="layer-cont">
+                    <div class="layer-border layer-pd40">
+                        <div class="layer-text layer-border-none layer-no-btn">
+                            <!-- //网络延迟，请您稍后再试...-->
+                            <p>努力绑定中，请稍等...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../js/swiper.min.js"></script>
+    <script src="../js/validate.js"></script>
+    <script>
+        //轮播效果
+        var swiper = new Swiper('.swiper-container', {
+            pagination: '.swiper-pagination',
+            nextButton: '.swiper-button-next',
+            prevButton: '.swiper-button-prev',
+            slidesPerView: 1,
+            paginationClickable: true,
+            spaceBetween:30,
+            loop:true,
+            autoplay: 3000,
+            speed: 500,
+            observer: true,
+            observeParents: true,
+            autoplayDisableOnInteraction: false
+        });
+        $(function(){
+            var userinfo = $.parseJSON(localStorage.getItem('fansJson'));
+            var openid = userinfo.openid;//'oNTWExHAuxoxMxhFW7sbl6xOsOYQ';
+
+            $('.prolist').find('li:nth-child(2)').click(function () {
+                $('#gfjf').show();
+            });
+            $("#gfjf").find('button:last-child').click(function () {
+                $("#gfjf").hide();
+            });
+            $('.pro-btn').find('button:last-child').click(function () {
+                window.location.href = 'user.html?=' + new Date().getTime();
+            });
+            $('.pro-btn').find('button:first-child').click(function () {
+                if ($(this).hasClass("disabled")) {
+                    tips("数据加载中，请稍后重试", true, 2000, true);
+                    return;
+                }
+                //跳到页面
+                if (localStorage.getItem('hasbind') == "1") {
+                    location.href = "jfdh.html";
+                } else {
+                    tips("对不起，没有可转换品牌", true, 2000, true);
+                }
+            });
+
+
+
+            //$('.dh_layer_btn .btn-left').click(function () {
+            //    $("#dh_binding").hide();
+            //});
+            //            var code = { 'C003': "高夫", 'C004': "佰草集" };
+            //会员品牌积分查询接口
+            $.ajax({
+                type: 'get',
+                url: $.domainUrl + 'Member/QueryMemberShipBinding?OPENID=' + openid,
+                success: function (res) {
+                    if (res.status == 0) {
+                        tips(res.message, true, 2000, true);
+                    } else {
+                        localStorage.setItem('allPoint', res.data.POINT_ALL);
+                        if (res.data.IS_BRADN == 1) {
+                            var html = "";
+                            var jsons = "";
+                            localStorage.setItem('hasbind', "0");
+                            for (var i = 0; i < res.data.BRAND_LIST.length; i++) {
+                                var item = res.data.BRAND_LIST[i];
+                                var IF_BINDING = item.IF_BINDING;
+                                var VGROUP2 = item.VGROUP2;
+
+                                //已经绑定
+                                if (IF_BINDING == "1") {
+                                    html += "<li class='gray' expoint=" + item.POINT_DETAIL + " ><a><img src='../images/{logoSrc}' alt=''></a></li>";
+                                    if (VGROUP2 == "C004") {
+                                        html = html.replace("{logoSrc}", "baicaoji.png");
+                                    }
+                                    else if (VGROUP2 == "C003") {
+                                        html = html.replace("{logoSrc}", "gaofu.jpg");
+                                    }
+                                    $(".pro-btn .btn-left").css("opacity", '0.5');
+                                }
+                                else if (IF_BINDING == "0") {
+                                    localStorage.setItem('hasbind', "1");
+                                    jsons += item.VGROUP2 + "-" + item.POINT_DETAIL + "-" + item.MEMBER_ID2 + ",";
+                                    if (VGROUP2 == "C004") {
+                                        html += "<li> <a><img src='../images/baicaoji.png' class='tobind' expoint=" + item.POINT_DETAIL + "   exname='佰草集'  alt=''></a></li>";
+                                    }
+                                    if (VGROUP2 == "C003") {
+                                        html += "<li  ><a><img src='../images/gaofu.jpg' class='tobind' expoint=" + item.POINT_DETAIL + " exname='高夫' alt='' ></a></li>";
+                                    }
+                                }
+                            }
+                            localStorage.setItem('jsons', jsons.trim(","));
+                            $("#logo").html(html);
+
+                            $(".tobind").click(function () {
+                                var point = $(this).attr("expoint");
+                                var brand_name = $(this).attr("exname");
+
+                                //$('#mypoint').html("您当前的" + brand_name + "积分为:<b>" + point.split('.')[0] + "</b>");
+
+                                tips("您当前的" + brand_name + "积分为:<b>" + point.split('.')[0] + "</b>", false, 0, false, true);
+
+                                $('.rightbutton').click(function () {
+                                    $('#modaltips').hide();
+                                });
+
+                            })
+                            $(".btn-left").removeClass("disabled");
+                        } else {
+                            tips("您还没有任何品牌", true, 2000, true);
+                            $(".pro-btn .btn-left").css("background", '#EEEEEE').removeClass("disabled");
+                        }
+                        //获取到品牌积分数据渲染页面
+                        localStorage.setItem('allPoint', res.data.POINT_ALL);
+                    }
+                },
+                error: function () {
+                }
+            });
+
+
+
+            //$(document).on(".rig", click(){}
+
+        })
+    </script>
+</body>
+</html>
+
+

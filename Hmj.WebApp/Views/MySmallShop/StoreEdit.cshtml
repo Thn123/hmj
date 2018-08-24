@@ -1,0 +1,328 @@
+﻿@{
+    ViewBag.Title = "自动回复设置";
+}
+@model Hmj.Entity.WD_STORE
+<link href="~/assets/css/weixincss.css" rel="stylesheet" />
+@section htmlhead{
+    @Html.Css("plugin/xjgrid", "plugin/xjdailog", "common", "plugin/validator", "plugin/tip")
+    <link rel='stylesheet' type='text/css' href='../../assets/css/tree.css' />
+    <style type="text/css">
+        .searchpanel {
+            background-color: #f7f8fa; /*border: 1px solid #ccc;*/
+            padding: 5px 15px;
+            margin-left: 10px;
+            border-radius: 4px;
+        }
+
+            .searchpanel .form-group, .searchpanel .btnpanel_right {
+                /*
+            display: block;
+            overflow: hidden;
+            zoom: 1;
+            margin-bottom: 0px;
+            */
+            }
+
+                .searchpanel .form-group label {
+                    margin-bottom: 4px;
+                }
+
+        #SearchBox {
+            width: 200px;
+        }
+    </style>
+}
+<div>
+    <div class="sucailist">
+        <h5><a href="StoreList.do"><em class="fanhui2"></em>门店管理</a> / 门店维护</h5>
+    </div>
+    <div class="modal-header">
+
+        @* <h4 class="modal-title">自动回复维护</h4>*@
+    </div>
+
+    <div class="modal-body">
+        <form class="form-horizontal" id="frmSave" method="post" action="@Url.Action("SaveStore")" role="form">
+            @Html.Hidden("ID", Model.ID)
+            <div class="form-group col-xs-7">
+                <div class="form-group col-xs-12">
+                    <label class="col-sm-3 control-label" style="text-align: left">门店名称:</label>
+                    <div class="col-sm-9">
+                        @Html.TextBox("STORE_NAME", Model.STORE_NAME, new { @class = "form-control", placeholder = "请输入门店名称" })
+                    </div>
+                </div>
+
+                <div class="form-group col-xs-12" style="display:none;">
+                    <label class="col-sm-3 control-label" style="text-align: left">门店编号:</label>
+                    <div class="col-sm-9">
+                        @Html.TextBox("STORE_NO", Model.STORE_NO, new { @class = "form-control", placeholder = "请输入门店编号" })
+                    </div>
+                </div>
+
+                 <div class="form-group col-xs-12">
+                    <label class="col-sm-3 control-label" style="text-align: left">POS系统中的ID:</label>
+                    <div class="col-sm-9">
+                        @Html.TextBox("POS_ID", Model.POS_ID, new { @class = "form-control", placeholder = "请输入ID" })
+                    </div>
+                </div>
+
+                 <div class="form-group col-xs-12">
+                    <label class="col-sm-3 control-label" style="text-align: left">所属城市:</label>
+                    <div class="col-sm-9">
+                        @Html.TextBox("CITY", Model.CITY, new { @class = "form-control", placeholder = "请输入所属城市" })
+                    </div>
+                </div>
+
+                <div class="form-group col-xs-12">
+                    <label class="col-sm-3 control-label" style="text-align: left">地址:</label>
+                    <div class="col-sm-9">
+                        @Html.TextBox("ADDRESS", Model.ADDRESS, new { @class = "form-control", placeholder = "请输入地址" })
+                    </div>
+                </div>
+
+                <div class="form-group col-xs-12">
+                    <label class="col-sm-3 control-label" style="text-align: left">经度:</label>
+                    <div class="col-sm-9">
+                        @Html.TextBox("Lng", Model.Lng, new { @class = "form-control", placeholder = "请输入经度" })
+                    </div>
+                </div>
+
+                <div class="form-group col-xs-12">
+                    <label class="col-sm-3 control-label" style="text-align: left">纬度:</label>
+                    <div class="col-sm-9">
+                        @Html.TextBox("Lat", Model.Lat, new { @class = "form-control", placeholder = "请输入纬度" })
+                    </div>
+                </div>
+
+                <div class="form-group col-xs-12">
+                    <label class="col-sm-3 control-label" style="text-align: left">门店电话:</label>
+                    <div class="col-sm-9">
+                        @Html.TextBox("TELEPHONE", Model.TELEPHONE, new { @class = "form-control", placeholder = "请输入门店电话",maxLength=12 })
+                    </div>
+                </div>
+
+                 <div class="form-group col-xs-12">
+                    <label class="col-sm-3 control-label" style="text-align: left">logo:</label>
+                    <div class="col-sm-9">
+                        <input type="file" name="file1" id="file4" style="display: none;" class="form-control" onclick="FileUpload_onclick()" onchange="FileUpload_onselect(4)" />
+                        <input type="text" id="Logo" name="Logo" value="@Model.Logo" style="width: 80%;" readonly="true">
+                        <input type="button" onclick="HandleFileButtonClick(4);" style="width:18%;" value="选择文件">
+                    </div>
+                </div>
+
+                <div class="form-group col-xs-12">
+                    <label class="col-sm-3 control-label" style="text-align: left">头部图片1:</label>
+                    <div class="col-sm-9">
+                        <input type="file" name="file1" id="file1" style="display: none;" class="form-control" onclick="FileUpload_onclick()" onchange="FileUpload_onselect(1)" />
+                        <input type="text" id="txtFakeText" name="Img1" value="@Model.Img1" style="width: 80%;" readonly="true">
+                        <input type="button" onclick="HandleFileButtonClick(1);"  style="width:18%;" value="选择文件">
+                    </div>
+                </div>
+
+                <div class="form-group col-xs-12">
+                    <label class="col-sm-3 control-label" style="text-align: left">头部图片2:</label>
+                    <div class="col-sm-9">
+                        <input type="file" name="file2" id="file2" style="display: none;" class="form-control" onclick="FileUpload_onclick()" onchange="FileUpload_onselect(2)" />
+                        <input type="text" id="txtFakeText2" name="Img2" value="@Model.Img2" style="width: 80%;" readonly="true">
+                        <input type="button" onclick="HandleFileButtonClick(2);"  style="width:18%;" value="选择文件">
+                    </div>
+                </div>
+
+                <div class="form-group col-xs-12">
+                    <label class="col-sm-3 control-label" style="text-align: left">头部图片3:</label>
+                    <div class="col-sm-9">
+                        <input type="file" name="file3" id="file3" style="display: none;" class="form-control" onclick="FileUpload_onclick()" onchange="FileUpload_onselect(3)" />
+                        <input type="text" id="txtFakeText3" name="Img3" value="@Model.Img3" style="width: 80%;" readonly="true">
+                        <input type="button" onclick="HandleFileButtonClick(3);" style="width:18%;" value="选择文件">
+                    </div>
+                </div>
+
+                <div class="form-group col-xs-12">
+                     <div class="form-group col-xs-3">
+                        <img id="img4" src="@Model.Logo" onerror="javascript:this.src='/assets/images/default.png';" style="width: 80%;" />
+                    </div>
+                    <div class="form-group col-xs-3">
+                        <img id="img1" src="@Model.Img1" onerror="javascript:this.src='/assets/images/default.png';" style="width: 80%;" />
+                    </div>
+                    <div class="form-group col-xs-3">
+                        <img id="img2" src="@Model.Img2" onerror="javascript:this.src='/assets/images/default.png';" style="width: 80%;" />
+                    </div>
+                    <div class="form-group col-xs-3">
+                        <img id="img3" src="@Model.Img3" onerror="javascript:this.src='/assets/images/default.png';" style="width: 80%;" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group col-xs-5">
+                <div class="form-group col-xs-12" style="color: red;">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 预览效果：<br />
+                    <img src="~/assets/images/phone.png" />
+                </div>
+            </div>
+
+            <div class="form-group col-xs-7">
+            </div>
+
+            @*<div class="form-group col-xs-7">
+                <div class="form-group col-xs-12">
+                    <label class="col-sm-2 control-label" style="text-align: left">省份:</label>
+                    <div class="col-sm-10">
+                        @Html.TextBox("PROVINCE", Model.PROVINCE, new { @class = "form-control", placeholder = "请输入关键字" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group col-xs-7">
+                <div class="form-group col-xs-12">
+                    <label class="col-sm-2 control-label" style="text-align: left">城市:</label>
+                    <div class="col-sm-10">
+                        @Html.TextBox("CITY", Model.CITY, new { @class = "form-control", placeholder = "请输入关键字" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group col-xs-7">
+                <div class="form-group col-xs-12">
+                    <label class="col-sm-2 control-label" style="text-align: left">地区:</label>
+                    <div class="col-sm-10">
+                        @Html.TextBox("REGION", Model.REGION, new { @class = "form-control", placeholder = "请输入关键字" })
+                    </div>
+                </div>
+            </div>*@
+
+            <div class="form-group col-xs-7">
+            </div>
+
+            <div class="form-group col-xs-7">
+            </div>
+
+            @*<div class="form-group col-xs-12" id="divkeys">
+                                <label class="col-sm-2 control-label" style="text-align:left">关键字:</label>
+                                <div class="col-sm-10">
+                                    @Html.TextBox("KeyWords", Model.KeyWords, new { @class = "form-control", placeholder = "请输入关键字" })
+                                </div>
+
+                            </div>
+                            <div class="form-group col-xs-12" id="divtype">
+                                <label class="col-sm-2 control-label" style="text-align:left">匹配类型:</label>
+                                <div class="col-sm-10">
+                                    @Html.ResourceDropDownList("MatchingType", "MatchingType", Model.MatchingType, new { @class = "form-control" }, Model.MatchingType.ToString(), false)
+                                </div>
+                            </div>
+                            
+                            <div class="form-group col-xs-12">
+                                <label class="col-sm-2 control-label" style="text-align:left">回复类型:</label>
+                                <div class="col-sm-10">
+                                    @Html.ResourceDropDownList("MsgType", "MsgType", Model.MsgType, new { @class = "form-control" }, Model.MsgType, false)
+                                </div>
+                            </div>*@
+            @*   <div class="form-group col-xs-12" id="divtext">
+                                <label class="col-sm-12 control-label" style="text-align:left">文本内容:<a href="javascript:edit2();">添加表情</a></label>
+                                <div class="col-sm-12">
+                                     
+                                    <textarea name="Content" cols="" rows="8" onchange="gbcount(0,600);" onkeydown="gbcount(0,600);" onkeyup="gbcount(0,600);" id="Content" style="width:100%;float:left;">@Model.Content</textarea>
+                                 <div style="height:210px; top:-200px;position:absolute;background-color:white;" id="biaoqing">
+                                        @Html.Raw(Model.Biaoqing)</div>
+                                      
+                                </div>
+                            </div>
+
+                            </div>*@
+
+
+        </form>
+    </div>
+    <div style="clear: both"></div>
+    <div class="modal-footer">
+        <button type="button" id="btnSave" class="btn btn-primary">确 定</button>
+        <button type="button" id="btnClose" class="btn btn-default" data-dismiss="modal">取 消</button>
+    </div>
+</div>
+
+@section jssection{
+    <script type="text/javascript">
+
+        var util = {};
+        var options = {
+            listUrl: "@Url.Action("InformationList")",
+            editUrl: "@Url.Action("InformationEdit")",
+            deleteUrl: "@Url.Action("DeleteInformation")",
+        };
+        function HandleFileButtonClick(num) {
+            if (num == 1) {
+                document.getElementById("file1").click()
+                document.getElementById("txtFakeText").value = document.getElementById("file1").value;
+            }
+            else if (num == 2) {
+                document.getElementById("file2").click()
+                document.getElementById("txtFakeText2").value = document.getElementById("file2").value;
+            }
+            else if (num == 3) {
+                document.getElementById("file3").click()
+                document.getElementById("txtFakeText3").value = document.getElementById("file3").value;
+            }
+            else if (num == 4) {
+                document.getElementById("file4").click()
+                document.getElementById("Logo").value = document.getElementById("file4").value;
+            }
+        }
+
+        function FileUpload_onselect(num) {
+            ajaxFileUpload(num);
+        }
+
+        function ajaxFileUpload(num) {
+            $.ajaxFileUpload
+            (
+                {
+                    url: '/wechat/UploadImage.do', //用于文件上传的服务器端请求地址
+                    type: 'post',
+                    data: { Id: '123', name: 'lunis' }, //此参数非常严谨，写错一个引号都不行
+                    secureuri: false, //一般设置为false
+                    fileElementId: num == 1 ? 'file1' : num == 2 ? 'file2' :num==3? 'file3':'file4', //文件上传空间的id属性  <input type="file" id="file" name="file" />
+                    dataType: 'text', //返回值类型 一般设置为json
+                    success: function (data, status, Message)  //服务器成功响应处理函数
+                    {
+                        //alert(data.data.FILE_URL);
+                        data = JSON.parse(data);
+                        if (data.status == 0) {
+                            if (num == 1) {
+                                $("#img1").attr("src", data.data.FILE_NAME);
+                                $("#txtFakeText").val(data.data.FILE_URL);
+                            }
+                            else if (num == 2) {
+                                $("#img2").attr("src", data.data.FILE_NAME);
+                                $("#txtFakeText2").val(data.data.FILE_URL);
+                            }
+                            else if (num == 3) {
+                                $("#img3").attr("src", data.data.FILE_NAME);
+                                $("#txtFakeText3").val(data.data.FILE_URL);
+                            }
+                            else if (num == 4) {
+                                $("#img4").attr("src", data.data.FILE_NAME);
+                                $("#Logo").val(data.data.FILE_URL);
+                            }
+                            //$("#FILE_URL").val(data.data.FILE_URL);
+
+                            if (typeof (data.error) != 'undefined') {
+                                if (data.error != '') {
+                                    alert(data.error);
+                                } else {
+                                    alert(data.msg);
+                                }
+                            }
+                        } else {
+                            alert(data.message);
+                        }
+                    },
+                    error: function (data, status, e)//服务器响应失败处理函数
+                    {
+                        alert(e);
+                    }
+                }
+            )
+            return false;
+        }
+    </script>
+    @Html.Js("plugins/xjgrid/xjgrid", "plugins/xjdailog/xjdailog", "plugins/validator/validator", "app/mysmallshop/storeedit", "app/company/jquery.tree", "js/ajaxfileupload")
+}

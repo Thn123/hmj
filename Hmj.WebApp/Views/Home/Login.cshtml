@@ -1,0 +1,145 @@
+﻿@{
+    Layout = null;
+} 
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>puman</title>
+     @Html.Css("plugin/validator")
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Puman">
+    <meta name="author" content="Puman Team">
+
+    <!-- <link href="assets/less/styles.less" rel="stylesheet/less" media="all"> -->
+    <link rel="stylesheet" href="/assets/css/styles.css?=121">
+    <!--<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600' rel='stylesheet' type='text/css'>-->
+    
+    <!-- <script type="text/javascript" src="assets/js/less.js"></script> -->
+</head><body class="focusedform">
+
+<div class="verticalcenter">
+	<img src="../../assets/img/logo.png" alt="Logo" class="brand" />
+	<div class="panel panel-primary">
+		<div class="panel-body">
+			<h4 class="text-center" style="margin-bottom: 25px;">登 录</h4>
+				<form id="frmLogin" action="@Url.Action("Login")" method="post" class="form-horizontal" style="margin-bottom: 0px !important;">
+                    @*<div class="form-group">
+							<div class="col-sm-12">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-sitemap"></i></span>
+                                      @Html.TextBox("ORG_NO", "", new { @class = "form-control", placeholder = "公司代码",maxlength="12" })
+								</div>
+							</div>
+						</div>*@
+						<div class="form-group">
+							<div class="col-sm-12">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                      @Html.TextBox("USER_NO", "", new { @class = "form-control", placeholder = "登录名",maxlength="16" })
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-sm-12">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                                    @Html.Password("USER_PASS", "", new { @class = "form-control", placeholder = "密码",maxlength="16" })
+								</div>
+							</div>
+						</div>
+						@*<div class="clearfix">
+							<div class="pull-right"><label><input id="ckRePwd" type="checkbox" style="margin-bottom: 20px" checked=""> 记住密码</label></div>
+						</div>*@
+					</form>
+					
+		</div>
+		<div class="panel-footer">
+			@*<a href="#" class="pull-left btn btn-link" style="padding-left:0">忘记密码?</a>*@
+			
+			<div class="pull-right">
+				 <button type="reset" id="btnReset" class="btn btn-default" data-dismiss="modal">重置</button>
+                    <button type="button" id="btnLogin" class="btn btn-primary">登录</button>
+			</div>
+		</div>
+	</div>
+ </div>
+      
+    <script type='text/javascript' src='../../assets/js/jquery-1.10.2.min.js'></script>
+    <script type='text/javascript' src='../../assets/js/jqueryui-1.10.3.min.js'></script>
+    <script type='text/javascript' src='../../assets/js/bootstrap.min.js'></script>
+    <script type='text/javascript' src='../../assets/js/enquire.js'></script>
+    <script type='text/javascript' src='../../assets/js/jquery.cookie.js'></script>
+    <script type='text/javascript' src='../../assets/js/jquery.nicescroll.min.js'></script>
+    <script type='text/javascript' src='../../assets/plugins/codeprettifier/prettify.js'></script>
+    <script type='text/javascript' src='../../assets/plugins/easypiechart/jquery.easypiechart.min.js'></script>
+    <script type='text/javascript' src='../../assets/plugins/sparklines/jquery.sparklines.min.js'></script>
+    <script type='text/javascript' src='../../assets/plugins/form-toggle/toggle.min.js'></script>
+    <script type='text/javascript' src='../../assets/plugins/fullcalendar/fullcalendar.min.js'></script>
+    <script type='text/javascript' src='../../assets/plugins/form-daterangepicker/daterangepicker.min.js'></script>
+    <script type='text/javascript' src='../../assets/plugins/form-daterangepicker/moment.min.js'></script>
+    <script type='text/javascript' src='../../assets/plugins/pulsate/jQuery.pulsate.min.js'></script>
+    <script type='text/javascript' src='../../assets/js/placeholdr.js'></script>
+    <script type='text/javascript' src='../../assets/plugins/pines-notify/jquery.pnotify.js'></script>
+    <script type='text/javascript' src='../../assets/js/application.js'></script>
+    <script type='text/javascript' src='../../assets/js/common.js'></script> 
+     
+    <script type='text/javascript' src='../../assets/plugins/validator/validator.js'></script>
+    @Html.Js("plugins/validator/validator")
+    <script type="text/javascript">
+        //alert("aaaa");
+        if ($.cookie("LoginOrgNo") != null && $.cookie("LoginOrgNo") != "") {
+            $("#ORG_NO").val($.cookie("LoginOrgNo"));
+        }
+        var options = {
+            loginUrl: "@Url.Action("Login")"
+        };
+
+        $("#btnReset").click(function (e) {
+            $("#USER_NO").val("");
+            $("#USER_PASS").val("");
+        });
+
+        $("#btnLogin").click(function (e) {
+            $("#frmLogin").submit();
+        });
+
+        $('#USER_PASS').keydown(function (e) {
+            if (e.keyCode == 13) {
+                $("#frmLogin").submit();
+            }
+        });
+
+        $('#USER_NO').keydown(function (e) {
+            if (e.keyCode == 13) {
+                $("#frmLogin").submit();
+            }
+        });
+
+        $('#frmLogin').validator({
+            rules: {
+            },
+            fields: {
+                '#USER_NO': 'required',
+                '#USER_PASS': 'required',
+            },
+            valid: function (form) {
+
+                FormSubmit(form, function (res) {
+                    if (res && res.Status == -1) {
+                        alert('用户名或密码有误！');
+                    }
+                    else {
+                        if ($.cookie("LoginOrgNo") == null || $.cookie("LoginOrgNo") == "") {
+                            $.cookie("LoginOrgNo", $("#ORG_NO").val(), { expires: 120 });
+                        }
+                        window.location.href = res.Data;
+                    }
+                })
+            }
+        });
+
+    </script>
+</body>
+</html>

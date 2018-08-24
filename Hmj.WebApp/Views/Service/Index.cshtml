@@ -1,0 +1,114 @@
+﻿@{
+    ViewBag.Title = "服务项目管理";
+    var orgId = ViewData["ORG_ID"] == null ? "0" : ViewData["ORG_ID"].ToString();
+}
+@model Hmj.Entity.ORG_EMPLOYEE
+@section htmlhead{
+    @Html.Css("plugin/xjgrid", "plugin/xjdailog")
+    @Html.Css("plugin/validator")
+    <style type="text/css">
+        .h_title {
+            padding: 5px 15px;
+            border-bottom: solid 1px #e6e5e5;
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        .searchpanel {
+            background-color: #f7f8fa; /*border: 1px solid #ccc;*/
+            padding: 5px 15px;
+            margin-left: 10px;
+            border-radius: 4px;
+        }
+
+            .searchpanel .form-group label {
+                margin-bottom: 4px;
+            }
+    </style>
+}
+<div class="s_container">
+    <div id="page-heading">
+        <h2>
+            <i class="fa fa-tasks"></i> 服务项目管理</h2>
+    </div>    
+        <div id="mainbody" class="panel panel-primary">
+            <div class="panel-heading">
+                <h4>
+                服务项目列表
+                </h4>
+            </div>
+            <div class="panel-body" style="min-height: 350px">
+                 <div class="row">
+                <div class="col-md-2 form-group">
+                    <button type="button" class="btn default" id="btnAdd">
+                        <i class="fa fa-plus"></i> 新 增</button>
+                </div>
+
+
+                      <div class="text-right col-md-10">
+                
+                <form id="formQuery"  class="form-inline" role="form">
+                    <div class="form-group">
+                      <input id="SER_NAME" name="NAME" class="form-control" type="text" placeholder="服务项目名称" />
+                    </div>
+                     <div class="form-group">
+                      @Html.ResourceDropDownList("TYPE", "SER_BIGTYPE", "服务项目类别", new { @class = "form-control" },orgId,false) @*服务类别*@                   
+                        <select class="form-control" id="PRO_TYPE" name="SONTYPE">
+                            <option value="">请选择项目所属小类</option>
+                        </select>                       
+                   
+                          <div class="btn-group">
+                           <button class="btn-primary btn"><i class="fa fa-search"></i> 查 询</button>
+                        </div>      
+                    </div>
+             
+                </form>
+                </div>
+                <div class="col-md-12">
+                    <div id="gridlist">
+                    </div>
+                </div>
+            </div>
+
+    
+            </div>
+
+
+<div id="confirmModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">确认！</h4>
+            </div>
+            <div>
+            </div>
+            <div class="modal-body">
+                <p>你确认要删除项目[ <span id="lbuserName"></span>] 吗？</p>
+                <input id="hdCurrentId" type="hidden" value="" />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取 消</button>
+                <button type="button" id="btnConfirm" class="btn btn-primary">确 定</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+        </div>
+    </div>
+@section jssection{
+    <script type="text/javascript">
+        var util = {};
+        var options = {
+            listUrl: "@Url.Action("List")",
+            editUrl: "@Url.Action("Edit")",
+            proTypeUrl: "@Url.Action("GetProdTypes")",
+            deleteUrl: "@Url.Action("Delete")"
+        };
+    </script>
+    @Html.Js("plugins/validator/validator", "plugins/xjgrid/xjgrid", "plugins/xjdailog/xjdailog", "app/service/index")
+    @*, "plugins/form-parsley/parsley.min", "demo/demo-formvalidation"*@
+}

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>热门---闲时兔</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="Cache-Control" content="public" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="apple-mobile-web-app-status-bar-style"  content="black" />
+  <meta name="renderer" content="webkit">
+  <meta name="description" content="闲时兔">
+  <meta name="keywords" content="闲时兔">
+  <link rel="stylesheet" href="css/common.css" type="text/css">
+</head>
+<body>
+<header>
+  <h1 class="fl"><a href="index.html" class="logo"></a><code>闲时兔</code></h1>
+  <a href="javascript:;" class="follow"><i></i>点击关注</a>
+</header>
+<!--header end of-->
+<section class="content pt5 bottom70">
+ <ul id="content">
+    <li>
+     <a href="#">
+      <div class="date-list">
+        <h1 class="fl"><code>周</code><code>一</code></h1>
+        <h2 class="fl">27<sup>4月</sup></h2>
+        <dl class="nowrap">等移动js框架开发经验具有面向对象分析、设计、开发的能力7、有移动互联网产品开发、游戏开发培训经验优先。熟悉浏览器渲染原理</dl>
+      </div>
+      <p><span>老安阳家乡菜</span><img src="img/flash/flash_1.png"  alt="框架开发经验具有面向对象分析"/></p>
+      </a>
+    </li> 
+    <li>
+      <a href="#">
+      <div class="date-list">
+        <h1 class="fl"><code>周</code><code>二</code></h1>
+        <h2 class="fl">26<sup>4月</sup></h2>
+        <dl class="nowrap">等移动js框架开发经验具有面向对象分析、设计、开发的能力7、有移动互联网产品开发、游戏开发培训经验优先。熟悉浏览器渲染原理</dl>
+      </div>
+      <p><img src="img/flash/flash_2.png"  alt="框架开发经验具有面向对象分析"/></p>
+      </a>
+    </li> 
+    <li>
+     <a href="#">
+      <div class="date-list">
+        <h1 class="fl"><code>周</code><code>三</code></h1>
+        <h2 class="fl">25<sup>4月</sup></h2>
+        <dl class="nowrap">等移动js框架开发经验具有面向对象分析、设计、开发的能力7、有移动互联网产品开发、游戏开发培训经验优先。熟悉浏览器渲染原理</dl>
+      </div>
+      <p><span>北京金色罗马婚纱摄影</span><img src="img/flash/flash_3.png"  alt="框架开发经验具有面向对象分析"/></p>
+      </a>
+    </li> 
+    <li>
+      <a href="#">
+      <div class="date-list">
+        <h1 class="fl"><code>周</code><code>四</code></h1>
+        <h2 class="fl">24<sup>4月</sup></h2>
+        <dl class="nowrap">等移动js框架开发经验具有面向对象分析、设计、开发的能力7、有移动互联网产品开发、游戏开发培训经验优先。熟悉浏览器渲染原理</dl>
+      </div>
+      <p><img src="img/flash/flash_2.png"  alt="框架开发经验具有面向对象分析"/></p>
+      </a>
+    </li>
+    <li>
+     <a href="#">
+      <div class="date-list">
+        <h1 class="fl"><code>周</code><code>五</code></h1>
+        <h2 class="fl">25<sup>4月</sup></h2>
+        <dl class="nowrap">等移动js框架开发经验具有面向对象分析、设计、开发的能力7、有移动互联网产品开发、游戏开发培训经验优先。熟悉浏览器渲染原理</dl>
+      </div>
+      <p><span>北京金色罗马婚纱摄影</span><img src="img/flash/flash_3.png"  alt="框架开发经验具有面向对象分析"/></p>
+      </a>
+    </li> 
+    <li>
+      <a href="#">
+      <div class="date-list">
+        <h1 class="fl"><code>周</code><code>六</code></h1>
+        <h2 class="fl">24<sup>4月</sup></h2>
+        <dl class="nowrap">等移动js框架开发经验具有面向对象分析、设计、开发的能力7、有移动互联网产品开发、游戏开发培训经验优先。熟悉浏览器渲染原理</dl>
+      </div>
+      <p><img src="img/flash/flash_2.png"  alt="框架开发经验具有面向对象分析"/></p>
+      </a>
+    </li> 
+  </ul>
+</section>
+<!--shop-list end of-->
+<div class="myLoading color pt50" style="display:none;">数据全部加载完了^_^</div>
+<footer>
+   <a href="home.html"><i class="tyIcon"></i>体验</a>
+   <a href="index.html" class="current"><i class="reconIcon"></i>推荐</a>
+</footer>
+<section class="loading">拼命加载中</section>
+<script src="js/jquery.js"></script>
+<script>
+//滑动加载数据
+//item.act_title,item.act_img等需你处理一下，这个是从数据库里面读出来的,这个开发一看就懂的
+var pageSize = 5;
+var pageIndex = 1;
+var type = 0;
+var hasMore = true;
+$(function(){
+	//loadData(type, pageSize, 1);   初始填充可以考虑这里调用
+   $(window).scroll(function(){
+        var sHeight = document.body.scrollHeight;
+        var cHeight = document.documentElement.clientHeight;
+        var tHeight = document.documentElement.scrollTop + document.body.scrollTop;
+        var totalHeight = tHeight+cHeight+0;
+        if(totalHeight >= sHeight ){
+			loadData(pageSize, pageIndex);
+		}
+  });	
+});
+
+function loadData(type, pageSize, page) 
+{
+  if (!hasMore) {
+	   return false;
+	};
+  var pape = page || pageIndex;
+  $(".loading").show();
+    var reqUrl ="json.php";//处理数据的页面
+    $.ajax({
+      url: reqUrl,
+      type: 'post',
+      dataType: 'json',
+      cache: false,
+      data: {actionType:type, pageSize: pageSize, pageIndex: pape},
+      success: function (data) {
+        if(data.errorCode == 1002) {
+          if (page == 1) {$('.noData').show();} 
+		  else {
+			  $('.myLoading').show();
+			    closeMore();
+			}
+          hasMore = false;
+        } else {
+          var html = '';          
+          //数据组装后再显示出来
+          $.each(data, function(index, item){
+			html += '<li<a href="'+item.act_url+'"><div class="date-list"><h1 class="fl"><code>周</code><code>'+item.act_week+'</code></h1><dl class="nowrap">'+item.act_content+'</dl></div><p><span>'+item.act_title+'</span><img src="'+item.act_img+'" alt="'+item.act_alt+'"/></p></a></li>';
+          });
+          $('#content').append(html);
+        }
+        $(".loading").hide();pageIndex++;
+      }
+    });
+}
+function closeMore(){setTimeout("$('.myLoading').hide()",3000);} 
+</script>
+</body>
+</html>
