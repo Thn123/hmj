@@ -153,11 +153,7 @@ $RECYCLE.BIN/
 .DS_Store
 .vs/Hmj/v15/sqlite3/storage.ide
 .vs/Hmj/v15/sqlite3/storage.ide
-<<<<<<< HEAD
-Hmj.WebApp/assets/hmjweixin/.idea/workspace.xml
-=======
 *.ide
->>>>>>> 32ce6d06f65945877b811c7b7d4184aadab8983c
 .vs/Hmj/v15/sqlite3/storage.ide
 .vs/config/applicationhost.config
 .vs/Hmj/v15/sqlite3/storage.ide
