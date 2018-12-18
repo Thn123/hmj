@@ -174,3 +174,5 @@ Hmj.WebApp/assets/hmjweixin/.idea/workspace.xml
 *.ide-shm
 *.iml
 packages/BouncyCastle.1.8.2/BouncyCastle.1.8.2.nupkg
+.idea
+.gitignore
