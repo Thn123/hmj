@@ -75,10 +75,10 @@
 <script src="../js/common.js?v=1"></script>
 <script src="../js/iosSelect.js"></script>
 <script>
-    $(function () {
+    $(function(){
         try {
             //是crm会员时获取参数填充进去；
-            var tel4= localStorage.getItem('tel');
+            var tel4=localStorage.getItem('tel');
             $.ajax({
                 type: 'get',
                 url: $.domainUrl + "Member/GetCrmMember?mobile=" + tel,
