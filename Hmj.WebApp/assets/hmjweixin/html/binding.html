@@ -78,7 +78,7 @@
     $(function () {
         try {
             //是crm会员时获取参数填充进去；
-            var tel2= localStorage.getItem('tel');
+            var tel3= localStorage.getItem('tel');
             $.ajax({
                 type: 'get',
                 url: $.domainUrl + "Member/GetCrmMember?mobile=" + tel,
@@ -105,8 +105,6 @@
                     }
                 }
             });
-
-
 
             $('.btnSub').click(function () {
                 var surName1 = $('input[name=lastName]').val().trim();//姓
